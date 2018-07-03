@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>如何统计Android App启动时间</title>
+  <meta property="og:title" content="如何统计Android App启动时间" />
+  <meta name="twitter:title" content="如何统计Android App启动时间" />
+  <meta name="description" content="随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所">
+  <meta property="og:description" content="随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所">
+  <meta name="twitter:description" content="随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所">
+  <meta name="author" content="申国骏"/>
+  <link href='https://shenguojun.github.io/lawrencesgj.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://shenguojun.github.io/post/android-startup-time-analyze/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.42.2" />
+  <link rel="canonical" href="https://shenguojun.github.io/post/android-startup-time-analyze/" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://shenguojun.github.io/css/syntax.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/lawrencesgj.jpg" alt="Lawrence&#39;s Blog" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>如何统计Android App启动时间</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on July 3, 2018
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：<a href="http://www.jianshu.com/u/b692bbf77991">Lawrence_Shen</a></p>
+
+<h2 id="使用命令行方式">- 使用命令行方式</h2>
+
+<p>使用命令行方式统计多次启动某个Activity的平均用时可以在shell中执行如下指令：</p>
+
+<pre><code>adb shell am start -S -R 10 -W com.example.app/.MainActivity
+</code></pre>
+
+<p>其中<code>-S</code>表示每次启动前先强行停止，<code>-R</code>表示重复测试次数。每一次的输出如下所示信息。</p>
+
+<pre><code>Stopping: com.example.app
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.app/.MainActivity }
+Status: ok
+Activity: com.example.app/.MainActivity
+ThisTime: 1059
+TotalTime: 1059
+WaitTime: 1073
+Complete
+</code></pre>
+
+<p>其中<code>TotalTime</code>代表当前Activity启动时间，将多次<code>TotalTime</code>加起来求平均即可得到启动这个Activity的时间。</p>
+
+<h3 id="缺点">缺点</h3>
+
+<ol>
+<li>应用的启动过程往往不只一个Activity，有可能是先进入一个启动页，然后再从启动页打开真正的首页。某些情况下还有可能中间经过更多的Activity，这个时候需要将多个Activity的时间加起来。</li>
+<li>将多个Activity启动时间加起来并不完全等于用户感知的启动时间。例如在启动页可能是先等待某些初始化完成或者某些动画播放完毕后再进入首页。使用命令行统计的方式只是计算了Activity的启动以及初始化时间，并不能体现这种等待任务的时间。</li>
+<li>没有在*AndroidManifest.xml*对应的Activity声明中指定<code>&lt;intent-filter&gt;</code>或者属性没有<code>android:exported=&quot;true&quot;</code>的Activity不能使用这种命令行的形式计算启动时间。</li>
+</ol>
+
+<h2 id="思考更准确的方式">-思考更准确的方式</h2>
+
+<p>  以上基于命令行的方式存在诸多问题，迫使我们思考怎样才能得到从用户角度上观察更准确的启动时间。在尝试其他方法之前，我们先定义一下怎样才是从用户角度上观察的启动时间。</p>
+
+<h3 id="冷启动-热启动-注意不是官方的定义-是我们从用户角度考虑的定义">冷启动、热启动（注意不是官方的定义，是我们从用户角度考虑的定义）</h3>
+
+<ul>
+<li>冷启动时间：冷启动表示用户首次打开应用，这时进程还没创建，包含了Application创建的过程。冷启动时间指从第一次用户点击Launcher中的应用图标开始，到首页内容全部展示出来的时间。</li>
+<li>热启动时间：热启动表示用户在首页按了返回，首页Activity已经Destroy，不过Application仍在内存中存在，对应的进程并没有被杀掉，不包含Application创建过程。热启动时间指在Application仍然存在的情况下，从用户点击桌面图标，到首页内容全部展示出来的时间。</li>
+</ul>
+
+<h3 id="app启动流程">App启动流程</h3>
+
+<p>  要优化以及分析启动时间，需要先了解App的启动流程。以冷启动为例子，Application以及Activity的启动流程如下，参考文章<sup>[3][4][5][6]</sup>：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/2057980-9c537daee4ef6932.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="app启动流程" /></p>
+
+<p>更为直观和简单的流程图参考Colt McAnlis在<a href="https://www.youtube.com/playlist?list=PLWz5rJ2EKKc-9gqRx5anfX0Ozp-qEI2CF">Android Performance Patterns Season 6</a>中的表述。有兴趣的同学可以点击链接看看（<a href="https://www.youtube.com/watch?v=Vw1G1s73DsY&amp;index=2&amp;list=PLWz5rJ2EKKc-9gqRx5anfX0Ozp-qEI2CF">Youtube链接</a>）。
+<img src="http://upload-images.jianshu.io/upload_images/2057980-54287e0984138800.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="app启动流程by Colt McAnlis" /></p>
+
+<p>  从流程图以及参考Colt McAnlis的Android Performance Patterns<sup>[6]</sup>得知，在冷启动的过程中，首先会通过AMS在System进程展示一个Starting Window(通常情况下是个白屏，可以通过设置Application的theme修改)，接着AMS会通过Zygote创建应用程序的进程，并通过一系列的步骤后调用Application的<code>attachBaseContext()</code>、<code>onCreate()</code>然后最终调用Activity的<code>onCreate()</code>以及进行View相关的初始化工作。在Activity展示出来后会替换掉之前的Starting Window，这样启动过程结束。</p>
+
+<h3 id="如何加log">如何加log</h3>
+
+<p>  参考<sup>[1]</sup>发现在Activity中<code>onWindowFocusChanged()</code>方法是最好的Activity对用户可见的标志，因此综合上一节的分析，我们可以考虑在Application的<code>attachBaseContext()</code>方法中开始计算冷启动计时，然后在真正首页Activity的<code>onWindowFocusChanged()</code>中停止冷启动计时，这样就可以初步得到应用的冷启动时间。</p>
+
+<blockquote>
+<p>public void <strong>onWindowFocusChanged</strong>(boolean hasFocus)</p>
+
+<p>Called when the current <code>android.view.Window</code> of the activity gains or loses focus. <strong>This is the best indicator of whether this activity is visible to the user.</strong></p>
+</blockquote>
+
+<p>为了方便统计，设置一个Util类专门做计时，添加的代码如下：</p>
+
+<pre><code>/**
+ * 计时统计工具类
+ */
+public class TimeUtils {
+    private static HashMap&lt;String, Long&gt; sCalTimeMap = new HashMap&lt;&gt;();
+    public static final String COLD_START = &quot;cold_start&quot;;
+    public static final String HOT_START = &quot;hot_start&quot;;
+    public static long sColdStartTime = 0;
+
+    /**
+     * 记录某个事件的开始时间
+     * @param key 事件名称
+     */
+    public static void beginTimeCalculate(String key) {
+        long currentTime = System.currentTimeMillis();
+        sCalTimeMap.put(key, currentTime);
+    }
+
+    /**
+     * 获取某个事件的运行时间
+     *
+     * @param key 事件名称
+     * @return 返回某个事件的运行时间，调用这个方法之前没有调用 {@link #beginTimeCalculate(String)} 则返回-1
+     */
+    public static long getTimeCalculate(String key) {
+        long currentTime = System.currentTimeMillis();
+        Long beginTime = sCalTimeMap.get(key);
+        if (beginTime == null) {
+            return -1;
+        } else {
+            sCalTimeMap.remove(key);
+            return currentTime - beginTime;
+        }
+    }
+
+    /**
+     * 清除某个时间运行时间计时
+     *
+     * @param key 事件名称
+     */
+    public static void clearTimeCalculate(String key) {
+        sCalTimeMap.remove(key);
+    }
+
+    /**
+     * 清除启动时间计时
+     */
+    public static void clearStartTimeCalculate() {
+        clearTimeCalculate(HOT_START);
+        clearTimeCalculate(COLD_START);
+        sColdStartTime = 0;
+    }
+}
+</code></pre>
+
+<p>然后在Application的<code>attachBaseContext()</code>方法中添加如下代码：</p>
+
+<pre><code>@Override
+protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
+    if (/**如果是主进程**/) {
+        TimeUtils.beginTimeCalculate(TimeUtils.COLD_START);
+    }
+}
+</code></pre>
+
+<p>在第一个Activity的<code>onCreate()</code>方法中添加如下代码：</p>
+
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    calculateStartTime();
+    ....
+}
+
+private void calculateStartTime() {
+    long coldStartTime = TimeUtils.getTimeCalculate(TimeUtils.COLD_START);
+    // 这里记录的TimeUtils.coldStartTime是指Application启动的时间，最终的冷启动时间等于Application启动时间+热启动时间
+    TimeUtils.sColdStartTime = coldStartTime &gt; 0 ? coldStartTime : 0;
+    TimeUtils.beginTimeCalculate(DictTimeUtil.HOT_START);
+}
+</code></pre>
+
+<p>在真正的首页Activity的 <code>onWindowFocusChanged()</code>方法中添加如下代码：</p>
+
+<pre><code>@Override
+public void onWindowFocusChanged(boolean hasFocus) {
+    if (hasFocus &amp;&amp; /**没有经过广告或者引导页**/) {
+        long hotStartTime = TimeUtils.getTimeCalculate(TimeUtils.HOT_START);
+        if (TimeUtils.sColdStartTime &gt; 0 &amp;&amp; hotStartTime &gt; 0) {
+            // 真正的冷启动时间 = Application启动时间 + 热启动时间
+            long coldStartTime = TimeUtils.sColdStartTime + hotStartTime;
+            // 过滤掉异常启动时间
+            if (coldStartTime &lt; 50000) {
+                // 上传冷启动时间coldStartTime
+            }
+        } else if (hotStartTime &gt; 0) {
+            // 过滤掉异常启动时间
+            if (hotStartTime &lt; 30000) {
+                // 上传热启动时间hotStartTime
+            }
+        }
+    }
+}
+</code></pre>
+
+<h3 id="避免坑的checklist">避免坑的Checklist</h3>
+
+<p>  上面的分析给了我们初步的加log的起始和结束点，然而在实际的统计中会发现得到的数据有20%左右是不准确的，体现在计时数据非常大，有些甚至会显示冷启动时间超过一天。经过分析，在计算启动计时的时候需要注意一些问题。以下列举一下添加log时候需要注意的checklist。</p>
+
+<ol>
+<li><p>应用在启动过程可能会有广告（我们的业务是有道词典），第一次启动会有引导页，需要根据业务情况标记在没有广告、没有引导页的时候才计算。这种情况要注意在非正常启动的时候忽略启动时间统计。</p></li>
+
+<li><p>由于词典首页之前还有几个Activity，在没到首页Activity之前如果过早的返回，会出现冷启动时间过长的问题。这是因为词典返回的时候并没有杀掉进程，而时间统计信息是保存在内存中的，而等下次再进入的时候因为是热启动不会重新开始冷启动计时。这导致了这次热启动实际上打log的时候发现有上次冷启动的开始时间，算成了冷启动，而且因为启动时间是上一次的，所以这次冷启动log的时间比实际时间长。这种情况要注意在首页Activity之前的其他Activity<code>onPause()</code>方法中调用<code>TimeUtils.clearStartTimeCalculate();</code>清除计时。</p></li>
+
+<li><p>除了正常的启动流程，应用还有很多可能会导致Application的创建的入口，例如点击桌面小插件、系统账号同步、Deep Link跳转、直接进入设置了<code>&lt;action android:name=&quot;android.intent.action.PROCESS_TEXT&quot; /&gt;</code>的Activity、push达到等。我们需要检查所有有可能引起Application创建，但是不是正常启动流程的地方，调用<code>TimeUtils.clearStartTimeCalculate();</code>清除计时，避免引起冷启动时间计算过长错误的问题。</p></li>
+</ol>
+
+<h2 id="使用第三方工具">- 使用第三方工具</h2>
+
+<p>  为了测试启动的过程中哪些方法比较耗时，我们可以使用Android Studio中集成的Android Monitor提供的<a href="https://developer.android.com/studio/profile/am-methodtrace.html">Method Tracering</a>或者<a href="https://developer.android.com/studio/profile/systrace-commandline.html?utm_campaign=app_series_systracecommandline_081616&amp;utm_source=anddev&amp;utm_medium=yt-desc">Systrace</a>。不过在实践中发现，有另外一个<a href="https://nimbledroid.com/">nimbledroid</a>工具使用更加简便且能更明确指出耗时的地方。上传了应用之后会自动分析情景如下图所示。其中会自动检测出首页的Activity并且给出冷启动的启动情况。</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/2057980-b8299b5e3097792b.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="情景分析" /></p>
+
+<p>  点击进入Cold Startup的情景可以看到主要耗时的方法如下图。</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/2057980-872a28759fb0cb6a.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="情景详细耗时统计" /></p>
+
+<p>至于为什么<a href="https://nimbledroid.com/">nimbledroid</a>会知道那个是我们首页的Activity，官网上解析如下：</p>
+
+<blockquote>
+<p>We use a heuristic to tell when an app finishes startup by detecting when (1) the main Activity has been displayed and (2) things like animated progress bars in the main Activity have stopped. Based on our experiments, this heuristic works in most cases.</p>
+</blockquote>
+
+<p>点击进入某个方法，可以看到这个方法具体是由于调用了哪个子方法导致了耗时的问题。</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/2057980-4ee7efdc7c917454.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="耗时方法详细" /></p>
+
+<p>  通过<a href="https://nimbledroid.com/">nimbledroid</a>这个工具，我们可以比较轻松地发现一些比较明显的问题，并可以指导我们进行启动优化。同时<a href="https://nimbledroid.com/">nimbledroid</a>还支持Memory Leaks、网络监测以及结果分享等一些功能，更多的功能有待读者继续发现。</p>
+
+<h2 id="后记">- 后记</h2>
+
+<p>  统计和分析启动时间有利于指导我们优化启动时间。以上介绍了有道词典在进行启动优化中的分析过程。通过详细了解Android应用启动的流程，进行准确的log记录，并且结合第三方工具，我们最终得到准确的启动时间统计数据以及启动优化的一些头绪。具体优化的方法参加下一篇文章《<a href="http://www.jianshu.com/p/bef74a4b6d5e">如何优化Androd App启动速度</a>》。</p>
+
+<h2 id="参考">- 参考</h2>
+
+<p>【1】<a href="http://www.jianshu.com/u/c188a9c836b3">单刀土豆</a>，2016.<a href="http://www.jianshu.com/p/c967653a9468">Android 开发之 App 启动时间统计</a></p>
+
+<p>【2】<a href="https://developer.android.com/index.html">Android Developer</a>，<a href="https://developer.android.com/topic/performance/launch-time.html">Launch-Time Performance</a></p>
+
+<p>【3】<a href="http://multi-core-dump.blogspot.hk/">./multi_core_dump</a>，2010.<a href="http://multi-core-dump.blogspot.hk/2010/04/android-application-launch.html">Android Application Launch</a></p>
+
+<p>【4】<a href="http://multi-core-dump.blogspot.hk/">./multi_core_dump</a>，2010.<a href="http://multi-core-dump.blogspot.hk/2010/04/android-application-launch-part-2.html">Android Application Launch Part 2</a></p>
+
+<p>【5】<a href="http://my.csdn.net/Luoshengyang">罗升阳</a>，2012.<a href="http://0xcc0xcd.com/p/books/978-7-121-18108-5/index.php">Android系统源代码情景分析</a></p>
+
+<p>【6】<a href="https://medium.com/@duhroach">Colt McAnlis</a>，2016.<a href="https://www.youtube.com/playlist?list=PLWz5rJ2EKKc-9gqRx5anfX0Ozp-qEI2CF">Android Performance Patterns Season 6</a></p>
+
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/my-first-post/" data-toggle="tooltip" data-placement="top" title="第一篇发布到github的博客">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://shenguojun.github.io/post/android-startup-speedup/" data-toggle="tooltip" data-placement="top" title="如何优化Androd App启动速度">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://shenguojun.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.42.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

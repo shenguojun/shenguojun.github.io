@@ -8,10 +8,28 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Tue, 03 Jul 2018 10:47:20 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 03 Jul 2018 17:42:32 +0800</lastBuildDate>
     
 	<atom:link href="https://shenguojun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>如何优化Androd App启动速度</title>
+      <link>https://shenguojun.github.io/post/android-startup-speedup/</link>
+      <pubDate>Tue, 03 Jul 2018 17:42:32 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/android-startup-speedup/</guid>
+      <description>在上一篇文章《如何统计Android App启动时间》中我们探讨了如何统计Android App的启动时间，以及简要分析了App启动流程。这一篇</description>
+    </item>
+    
+    <item>
+      <title>如何统计Android App启动时间</title>
+      <link>https://shenguojun.github.io/post/android-startup-time-analyze/</link>
+      <pubDate>Tue, 03 Jul 2018 17:36:21 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/android-startup-time-analyze/</guid>
+      <description>随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所</description>
+    </item>
     
     <item>
       <title>第一篇发布到github的博客</title>
