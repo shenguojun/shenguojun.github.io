@@ -6,6 +6,8 @@
     <description>Recent content on Lawrence&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
+    <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
     
 	<atom:link href="https://shenguojun.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +16,7 @@
       <title>About me</title>
       <link>https://shenguojun.github.io/page/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
+      <author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/page/about/</guid>
       <description></description>
     </item>
