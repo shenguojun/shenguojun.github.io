@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on Lawrence&#39;s Blog</title>
+    <link>https://shenguojun.github.io/tags/android/</link>
+    <description>Recent content in Android on Lawrence&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
+    <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
+    <lastBuildDate>Wed, 18 Jul 2018 20:00:40 +0800</lastBuildDate>
+    
+	<atom:link href="https://shenguojun.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>targetSdkVersion升级到28一些修改的地方</title>
+      <link>https://shenguojun.github.io/post/2018-07-18/</link>
+      <pubDate>Wed, 18 Jul 2018 20:00:40 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/2018-07-18/</guid>
+      <description>错误1. java.lang.IllegalStateException: Not allowed to start service Intent {}: app is in background uid UidRecord{} 原因分析 从Android8.0开始，系统会对后台执行进行限制。初步判断由于我们应用在Applicatio</description>
+    </item>
+    
+  </channel>
+</rss>

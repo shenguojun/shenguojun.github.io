@@ -8,10 +8,19 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Tue, 03 Jul 2018 17:42:32 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 18 Jul 2018 20:00:40 +0800</lastBuildDate>
     
 	<atom:link href="https://shenguojun.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>targetSdkVersion升级到28一些修改的地方</title>
+      <link>https://shenguojun.github.io/post/2018-07-18/</link>
+      <pubDate>Wed, 18 Jul 2018 20:00:40 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/2018-07-18/</guid>
+      <description>错误1. java.lang.IllegalStateException: Not allowed to start service Intent {}: app is in background uid UidRecord{} 原因分析 从Android8.0开始，系统会对后台执行进行限制。初步判断由于我们应用在Applicatio</description>
+    </item>
     
     <item>
       <title>如何优化Androd App启动速度</title>

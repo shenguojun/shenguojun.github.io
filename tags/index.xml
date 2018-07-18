@@ -8,9 +8,19 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
+    <lastBuildDate>Wed, 18 Jul 2018 20:00:40 +0800</lastBuildDate>
     
 	<atom:link href="https://shenguojun.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android</title>
+      <link>https://shenguojun.github.io/tags/android/</link>
+      <pubDate>Wed, 18 Jul 2018 20:00:40 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/tags/android/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
