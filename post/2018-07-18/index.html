@@ -8,9 +8,9 @@
   <title>targetSdkVersion升级到28一些修改的地方</title>
   <meta property="og:title" content="targetSdkVersion升级到28一些修改的地方" />
   <meta name="twitter:title" content="targetSdkVersion升级到28一些修改的地方" />
-  <meta name="description" content="错误1. java.lang.IllegalStateException: Not allowed to start service Intent {}: app is in background uid UidRecord{} 原因分析 从Android8.0开始，系统会对后台执行进行限制。初步判断由于我们应用在Applicatio">
-  <meta property="og:description" content="错误1. java.lang.IllegalStateException: Not allowed to start service Intent {}: app is in background uid UidRecord{} 原因分析 从Android8.0开始，系统会对后台执行进行限制。初步判断由于我们应用在Applicatio">
-  <meta name="twitter:description" content="错误1. java.lang.IllegalStateException: Not allowed to start service Intent {}: app is in background uid UidRecord{} 原因分析 从Android8.0开始，系统会对后台执行进行限制。初步判断由于我们应用在Applicatio">
+  <meta name="description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android">
+  <meta property="og:description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android">
+  <meta name="twitter:description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android">
   <meta name="author" content="申国骏"/>
   <link href='https://shenguojun.github.io/lawrencesgj.jpg' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
@@ -186,11 +186,17 @@
       <article role="main" class="blog-post">
         
 
+<h2 id="前言">前言</h2>
+
+<p>Google Play应用市场对于应用的targetSdkVersion有了更为严格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android 8.0 (API 等级 26) 开发； 2018 年 11 月 1 日起，所有 Google Play 的现有应用更新同样必须针对 Android 8.0。</p>
+
+<p>以下记录了我们升级targetSdkVersion的坑以及解决办法，希望对各位开发者有帮助。</p>
+
 <h2 id="错误1-java-lang-illegalstateexception-not-allowed-to-start-service-intent-app-is-in-background-uid-uidrecord">错误1. java.lang.IllegalStateException: Not allowed to start service Intent {}: app is in background uid UidRecord{}</h2>
 
 <h3 id="原因分析">原因分析</h3>
 
-<p>从Android8.0开始，<a href="https://developer.android.com/about/versions/oreo/background">系统会对后台执行进行限制</a>。初步判断由于我们应用在Application的onCreate过程中使用了IntenService来后台初始化一些任务，这个时候被系统认为是应用还处于后台，从而报出了java.lang.IllegalStateException错误。</p>
+<p>从Android8.0开始，<a href="https://developer.android.com/about/versions/oreo/background">系统会对后台执行进行限制</a>。初步判断由于我们应用在Application的onCreate过程中使用了IntentService来后台初始化一些任务，这个时候被系统认为是应用还处于后台，从而报出了java.lang.IllegalStateException错误。</p>
 
 <h3 id="解决办法">解决办法</h3>
 
@@ -208,11 +214,11 @@
 
 <p>由于我们的初衷是在启动程序的过程中后台进行一些初始化，这种前台给用户带来感知的效果并不是我们所希望的，因此我们考虑可以采用另一个后台执行任务的方法。这里官方推荐使用<a href="https://developer.android.com/reference/android/app/job/JobScheduler">JobScheduler</a>。由于我们引入了ktx以及<a href="https://developer.android.com/topic/libraries/architecture/workmanager">WorkManager</a>，这里我们采用了<a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest">OneTimeWorkRequest</a>来实现。具体实现如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">class</span> <span class="nc">InitWorker</span> <span class="p">:</span> <span class="n">Worker</span><span class="p">(){</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">doWork</span><span class="p">():</span> <span class="n">Result</span> <span class="p">{</span>
-        <span class="c1">// 把耗时的启动任务放在这里
+<span class="k">override</span> <span class="k">fun</span> <span class="nf">doWork</span><span class="p">():</span> <span class="n">Result</span> <span class="p">{</span>
+<span class="c1">// 把耗时的启动任务放在这里
 </span><span class="c1"></span>
-        <span class="k">return</span> <span class="n">Result</span><span class="p">.</span><span class="n">SUCCESS</span>
-    <span class="p">}</span>
+<span class="k">return</span> <span class="n">Result</span><span class="p">.</span><span class="n">SUCCESS</span>
+<span class="p">}</span>
 <span class="p">}</span></code></pre></div>
 <p>然后在Applicaiton的onCreate中调用</p>
 <div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">val</span> <span class="py">initWork</span> <span class="p">=</span> <span class="n">OneTimeWorkRequestBuilder</span><span class="p">&lt;</span><span class="n">InitWorker</span><span class="p">&gt;().</span><span class="n">build</span><span class="p">()</span>
