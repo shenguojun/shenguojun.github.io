@@ -227,14 +227,15 @@
 同时我们在chrome上面发现通过deeplink只有第一次会跳转到应用，往后几次都是没有任何相应，确实有点百思不得其解。<br />
 经过查找资料，发现了chrome的一个对Android Intent处理的介绍<br />
 <a href="https://developer.chrome.com/multidevice/android/intents">Android Intents with Chrome</a><br />
-里面提到
-&gt; One scenario is launching an app when the user lands on a page, which you can achieve by embedding an iframe in the page with a custom URI-scheme set as the src, as follows: <iframe src="paulsawesomeapp://page1"> </iframe>. This works in the Chrome for Android browser, version 18 and earlier. It also works in the Android browser, of course.</p>
+里面提到</p>
 
 <blockquote>
+<p>One scenario is launching an app when the user lands on a page, which you can achieve by embedding an iframe in the page with a custom URI-scheme set as the src, as follows: &lt;iframe src=&ldquo;paulsawesomeapp://page1&rdquo;&gt; &lt;/iframe&gt;. This works in the Chrome for Android browser, version 18 and earlier. It also works in the Android browser, of course.</p>
+
 <p>The functionality has changed slightly in Chrome for Android, versions 25 and later. It is no longer possible to launch an Android app by setting an iframe&rsquo;s src attribute. For example, navigating an iframe to a URI with a custom scheme such as paulsawesomeapp:// will not work even if the user has the appropriate app installed. Instead, you should implement a user gesture to launch the app via a custom scheme, or use the “intent:” syntax described in this article.</p>
 </blockquote>
 
-<p>翻译一下，大概的意思就是之前通过<iframe>没有用户主动操作就打开app的行为在chrome25版本及之后会被禁止。开发者必须通过用户操作来触发跳转应用的行为。目前chrome的版本都已经68了，证明这个规则已经由来已久。抱着试试看的姿态，开始查找是否是前端的代码有问题。<br />
+<p>翻译一下，大概的意思就是之前通过&lt;iframe&gt;没有用户主动操作就打开app的行为在chrome25版本及之后会被禁止。开发者必须通过用户操作来触发跳转应用的行为。目前chrome的版本都已经68了，证明这个规则已经由来已久。抱着试试看的姿态，开始查找是否是前端的代码有问题。<br />
 通过<a href="chrome://inspect/#devices">chrome inspect</a>，捕捉到前端代码果然有一处疑似iframe的使用
 <img src="https://upload-images.jianshu.io/upload_images/2057980-6b577639649d4752.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ebc8daf14130474bbd69103bf4e6ff5d_ac466235c97c6e9fb45c8820addbce1d.jpg" /></p>
 
