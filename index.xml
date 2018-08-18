@@ -8,10 +8,19 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Wed, 18 Jul 2018 20:00:40 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 18 Aug 2018 12:57:47 +0800</lastBuildDate>
     
 	<atom:link href="https://shenguojun.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>记录一次Android Deeplink跳转失败问题修复</title>
+      <link>https://shenguojun.github.io/post/2018-08-18/</link>
+      <pubDate>Sat, 18 Aug 2018 12:57:47 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/2018-08-18/</guid>
+      <description>Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕</description>
+    </item>
     
     <item>
       <title>targetSdkVersion升级到28一些修改的地方</title>
