@@ -302,15 +302,24 @@
 
 <p>的方式来触发应用intent的请求访问。</p>
 
-<p>同时，在处理deeplink的规则里面，体会到了一条原则：
-* 最短路径处理原则</p>
+<p>同时，在处理deeplink的规则里面，体会到了一条原则：</p>
 
-<p>意思就是刚开始的时候，deeplink处理的逻辑要从根目录开始进行。比如有一个收藏词单的需求，没有使用最短路径原则可能会设计成这样
-&gt; recite://youdao.com/bookId?&amp;action=collect</p>
+<ul>
+<li>最短路径处理原则<br /></li>
+</ul>
+
+<p>意思就是刚开始的时候，deeplink处理的逻辑要从根目录开始进行。比如有一个收藏词单的需求，没有使用最短路径原则可能会设计成这样</p>
+
+<blockquote>
+<p>recite://youdao.com/bookId?&amp;action=collect</p>
+</blockquote>
 
 <p>对应的处理是如果action为collect就收藏词单。这个时候需求如果改成默认进来不需要收藏就非常尴尬了。因为对于旧版本而已，只认有action=collect才会处理，那就意味这如果想对默认的recite://youdao.com/bookId只是查看不收藏的需求，对于旧版本就没办法实现，会出现兼容性问题。<br />
-而最短路径处理原则，意思就是在开始的时候，尽量对最短的路径行为进行处理，具体到上面的例子，对于收藏某个词单的需求，我们可以设计deeplink为
-&gt; recite://youdao.com/bookId?&amp;action=collect</p>
+而最短路径处理原则，意思就是在开始的时候，尽量对最短的路径行为进行处理，具体到上面的例子，对于收藏某个词单的需求，我们可以设计deeplink为</p>
+
+<blockquote>
+<p>recite://youdao.com/bookId?&amp;action=collect</p>
+</blockquote>
 
 <p>然后我们对 <em>recite://youdao.com/bookId以及recite://youdao.com/bookId?&amp;action=collect</em> 都处理成收藏词单。上线之后，如果想修改默认参数行为，就可以直接改对 <em>recite://youdao.com/bookId</em> 的处理，这样对于旧版本仍然是可以执行的收藏行为，对于新版本就可以对应新的逻辑</p>
 
