@@ -8,9 +8,9 @@
   <title>targetSdkVersion升级到28一些修改的地方</title>
   <meta property="og:title" content="targetSdkVersion升级到28一些修改的地方" />
   <meta name="twitter:title" content="targetSdkVersion升级到28一些修改的地方" />
-  <meta name="description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android">
-  <meta property="og:description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android">
-  <meta name="twitter:description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android">
+  <meta name="description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对">
+  <meta property="og:description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对">
+  <meta name="twitter:description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对">
   <meta name="author" content="申国骏"/>
   <link href='https://shenguojun.github.io/lawrencesgj.jpg' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
@@ -188,7 +188,7 @@
 
 <h2 id="前言">前言</h2>
 
-<p>Google Play应用市场对于应用的targetSdkVersion有了更为严格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android 8.0 (API 等级 26) 开发； 2018 年 11 月 1 日起，所有 Google Play 的现有应用更新同样必须针对 Android 8.0。</p>
+<p>Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android 8.0 (API 等级 26) 开发； 2018 年 11 月 1 日起，所有 Google Play 的现有应用更新同样必须针对 Android 8.0。</p>
 
 <p>以下记录了我们升级targetSdkVersion的坑以及解决办法，希望对各位开发者有帮助。</p>
 
@@ -214,11 +214,11 @@
 
 <p>由于我们的初衷是在启动程序的过程中后台进行一些初始化，这种前台给用户带来感知的效果并不是我们所希望的，因此我们考虑可以采用另一个后台执行任务的方法。这里官方推荐使用<a href="https://developer.android.com/reference/android/app/job/JobScheduler">JobScheduler</a>。由于我们引入了ktx以及<a href="https://developer.android.com/topic/libraries/architecture/workmanager">WorkManager</a>，这里我们采用了<a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest">OneTimeWorkRequest</a>来实现。具体实现如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">class</span> <span class="nc">InitWorker</span> <span class="p">:</span> <span class="n">Worker</span><span class="p">(){</span>
-<span class="k">override</span> <span class="k">fun</span> <span class="nf">doWork</span><span class="p">():</span> <span class="n">Result</span> <span class="p">{</span>
-<span class="c1">// 把耗时的启动任务放在这里
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">doWork</span><span class="p">():</span> <span class="n">Result</span> <span class="p">{</span>
+        <span class="c1">// 把耗时的启动任务放在这里
 </span><span class="c1"></span>
-<span class="k">return</span> <span class="n">Result</span><span class="p">.</span><span class="n">SUCCESS</span>
-<span class="p">}</span>
+        <span class="k">return</span> <span class="n">Result</span><span class="p">.</span><span class="n">SUCCESS</span>
+    <span class="p">}</span>
 <span class="p">}</span></code></pre></div>
 <p>然后在Applicaiton的onCreate中调用</p>
 <div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">val</span> <span class="py">initWork</span> <span class="p">=</span> <span class="n">OneTimeWorkRequestBuilder</span><span class="p">&lt;</span><span class="n">InitWorker</span><span class="p">&gt;().</span><span class="n">build</span><span class="p">()</span>
@@ -249,6 +249,124 @@
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;application</span> <span class="na">android:usesCleartextTraffic=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span></code></pre></div>
 <p>更为根本的解决办法是修改应用程序中Http的请求为Https，当然这也需要服务端的支持。</p>
 
+<h2 id="错误5-android-os-fileuriexposedexception-file-exposed-beyond-app-through-intent-getdata">错误5. android.os.FileUriExposedException file exposed beyond app through Intent.getData()</h2>
+
+<h3 id="原因分析-4">原因分析</h3>
+
+<p>主要原因是7.0系统对file uri的暴露做了限制，加强了安全机制。详见：<a href="https://developer.android.com/about/versions/nougat/android-7.0-changes#permfilesys">官方文档</a>
+代码里出现问题的原因是，在需要安装应用的时候将下载下来的安装包地址传给了application/vnd.android.package-archive的intent</p>
+
+<h3 id="解决办法-4">解决办法</h3>
+
+<p>使用<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider">FileProvider</a>
+具体代码可参考<a href="https://www.jianshu.com/p/577816c3ce93">这篇文章</a>
+简单说明就是要在AndroidManifest里面声明FileProvider，并且在xml中声明需要使用的uri路径</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;provider</span>
+        <span class="na">android:name=</span><span class="s">&#34;android.support.v4.content.FileProvider&#34;</span>
+        <span class="na">android:authorities=</span><span class="s">&#34;${applicationId}.fileProvider&#34;</span>
+        <span class="na">android:exported=</span><span class="s">&#34;false&#34;</span>
+        <span class="na">android:grantUriPermissions=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta-data</span>
+            <span class="na">android:name=</span><span class="s">&#34;android.support.FILE_PROVIDER_PATHS&#34;</span>
+            <span class="na">android:resource=</span><span class="s">&#34;@xml/file_paths&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/provider&gt;</span></code></pre></div>
+<p>对应的xml/file_paths中指定需要使用的目录</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span class="nt">&lt;paths&gt;</span>
+    <span class="nt">&lt;external-path</span>
+        <span class="na">name=</span><span class="s">&#34;download&#34;</span>
+        <span class="na">path=</span><span class="s">&#34;yddownload&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/paths&gt;</span></code></pre></div>
+<h2 id="错误6-java-lang-securityexception-failed-to-find-provider-for-user-0-expected-to-find-a-valid-contentprovider-for-this-authority">错误6. java.lang.SecurityException: Failed to find provider ** for user 0; expected to find a valid ContentProvider for this authority</h2>
+
+<h3 id="原因分析-5">原因分析</h3>
+
+<p>target到android8.0之后对ContentResolver.notifyChange() 以及 registerContentObserver(Uri, boolean, ContentObserver)做了限制，官方解释在<a href="https://developer.android.com/about/versions/oreo/android-8.0-changes#ccn">这里</a></p>
+
+<h3 id="解决办法-5">解决办法</h3>
+
+<p>参考<a href="https://medium.com/@egemenhamutcu/fixing-securityexception-requiring-a-valid-contentprovider-on-android-8-1110d840522">文章</a>
+简单来说解决的办法就是创建一个contentprovider，并在AndroidManifest里面注册的provider的authority声明为registerContentObserver中uri的authority就可以了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;provider</span>
+        <span class="na">android:name=</span><span class="s">&#34;.download.DownloadUriProvider&#34;</span>
+        <span class="na">android:authorities=</span><span class="s">&#34;${applicationId}&#34;</span>
+        <span class="na">android:enabled=</span><span class="s">&#34;true&#34;</span>
+        <span class="na">android:exported=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DownloadUriProvider</span> <span class="kd">extends</span> <span class="n">ContentProvider</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">DownloadUriProvider</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getType</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Uri</span> <span class="nf">insert</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">ContentValues</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Cursor</span> <span class="nf">query</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">projection</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                        <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">,</span> <span class="n">String</span> <span class="n">sortOrder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">ContentValues</span> <span class="n">values</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                      <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<h2 id="错误7-notification没有显示">错误7. notification没有显示</h2>
+
+<h3 id="原因分析-6">原因分析</h3>
+
+<p>如果targetsdkversion设定为26或以上，开始要求notification必须知道channel，具体查阅<a href="https://developer.android.com/training/notify-user/channels">这里</a>。</p>
+
+<h3 id="解决办法-6">解决办法</h3>
+
+<p>在notify之前先创建notificationChannel</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">createNotificationChannel</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">O</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">CharSequence</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;下载提醒&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;显示下载过程及进度&#34;</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">importance</span> <span class="o">=</span> <span class="n">NotificationManager</span><span class="o">.</span><span class="na">IMPORTANCE_DEFAULT</span><span class="o">;</span>
+        <span class="n">NotificationChannel</span> <span class="n">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NotificationChannel</span><span class="o">(</span><span class="n">DOWNLOAD_CHANNEL_ID</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">importance</span><span class="o">);</span>
+        <span class="n">channel</span><span class="o">.</span><span class="na">setDescription</span><span class="o">(</span><span class="n">description</span><span class="o">);</span>
+        <span class="n">mNotificationManager</span><span class="o">.</span><span class="na">createNotificationChannel</span><span class="o">(</span><span class="n">channel</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<h2 id="错误8-在androidmanifest中注册的receiver不能收到广播">错误8. 在AndroidManifest中注册的receiver不能收到广播</h2>
+
+<h3 id="原因分析-7">原因分析</h3>
+
+<p>针对targetsdkversion为26的应用，加强对匿名receiver的控制，以至于在manifest中注册的隐式receiver都失效。具体见<a href="https://developer.android.com/about/versions/oreo/background#broadcasts">官方原文</a></p>
+
+<h3 id="解决办法-7">解决办法</h3>
+
+<p>将广播从在AndroidManifest中注册移到在Activity中使用registerReceiver注册</p>
+
+<h2 id="错误9-无法通过-application-vnd-android-package-archive-action安装应用">错误9. 无法通过“application/vnd.android.package-archive” action安装应用</h2>
+
+<h3 id="原因分析-8">原因分析</h3>
+
+<p>targetsdkversion大于25必须声明REQUEST_INSTALL_PACKAGES权限，见官方说明：
+<a href="https://developer.android.com/reference/android/Manifest.permission.html#REQUEST_INSTALL_PACKAGES">REQUEST_INSTALL_PACKAGES</a></p>
+
+<h3 id="解决办法-8">解决办法</h3>
+
+<p>在AndroidManifest中加入</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&#34;android.permission.REQUEST_INSTALL_PACKAGES&#34;</span> <span class="nt">/&gt;</span></code></pre></div>
 
         
           <div class="blog-tags">
