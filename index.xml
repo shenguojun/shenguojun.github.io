@@ -8,10 +8,19 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Sat, 18 Aug 2018 12:57:47 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 07 Nov 2018 17:42:32 +0800</lastBuildDate>
     
 	<atom:link href="https://shenguojun.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kotlin精髓</title>
+      <link>https://shenguojun.github.io/post/kotlin-good-part/</link>
+      <pubDate>Wed, 07 Nov 2018 17:42:32 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/kotlin-good-part/</guid>
+      <description>前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl</description>
+    </item>
     
     <item>
       <title>记录一次Android Deeplink跳转失败问题修复</title>

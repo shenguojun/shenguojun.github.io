@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Kotlin精髓</title>
+  <meta property="og:title" content="Kotlin精髓" />
+  <meta name="twitter:title" content="Kotlin精髓" />
+  <meta name="description" content="前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl">
+  <meta property="og:description" content="前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl">
+  <meta name="twitter:description" content="前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl">
+  <meta name="author" content="申国骏"/>
+  <link href='https://shenguojun.github.io/lawrencesgj.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://shenguojun.github.io/post/kotlin-good-part/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.42.2" />
+  <link rel="canonical" href="https://shenguojun.github.io/post/kotlin-good-part/" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://shenguojun.github.io/css/syntax.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/lawrencesgj.jpg" alt="Lawrence&#39;s Blog" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Kotlin精髓</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on November 7, 2018
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p><img src="https://upload-images.jianshu.io/upload_images/2057980-a3f52c9bfe0e692d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="引言" /></p>
+
+<h1 id="前言">前言</h1>
+
+<p>从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。</p>
+
+<p>到目前为止，kotlin的引入至少没有给我们带来不必要的麻烦，在慢慢品尝kotlin语法糖的过程中，我们领略到了能给开发者真正带来好处的一些特性。本文就是对这些我们认为是精髓的一些特性的进行总结，希望能给还在犹豫是否要开始学习kotlin或者刚开始编写kotlin但是不知道该如何利用kotlin的人们先一睹kotlin的优雅风采。</p>
+
+<h1 id="kotlin设计哲学">Kotlin设计哲学</h1>
+
+<p>KotlinConf 2018 - Conference Opening Keynote by Andrey Breslav 上讲的Kotlin设计理念：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-e00727992fed0bc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2018KotlinConference" />
+Kotlin拥有强大的IDE厂商Intellij和Google的支持，保证了其务实、简洁、安全和与JAVA互操作的良好设计理念。</p>
+
+<p>其中务实表示了Kotlin并没有独创一些当前没有或大众不太熟悉的设计理念，而是吸收了众多其他语言的精髓，并且提供强大的IDE支持，能真正方便开发者运用到实际项目之中。</p>
+
+<p>简洁主要指的是Kotlin支持隐藏例如getter、setter等Java样板代码，并且有大量的标准库以及灵活的重载和扩展机制，来使代码变得更加直观和简洁。</p>
+
+<p>安全主要是说空值安全的控制以及类型自动检测，帮助减少NullPointerException以及ClassCastException。</p>
+
+<p>与Java互操作以为这可以与Java相互调用、混合调试以及同步重构，同时支持Java到kotlin代码的自动转换。</p>
+
+<h1 id="空值安全">空值安全</h1>
+
+<p>Kotlin类型分为可空和非可空，赋值null到非可空类型会编译出错</p>
+
+<pre><code>fun main() {
+    var a: String = &quot;abc&quot;
+    a = null // compilation error
+    var b: String? = &quot;abc&quot; 
+    b = null // ok
+}
+</code></pre>
+
+<p>对空的操作有以下这些</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/2057980-bf124e44a0b88136.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="空值运算符" /></p>
+
+<p>使用安全调用运算符 <code>?:</code> 可以避免Java中大量的空值判断。以下是一个对比的例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 用Java实现
+</span><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendMessageToClient</span><span class="o">(</span>
+    <span class="nd">@Nullable</span> <span class="n">Client</span> <span class="n">client</span><span class="o">,</span>
+    <span class="nd">@Nullable</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span>
+    <span class="nd">@NotNull</span> <span class="n">Mailer</span> <span class="n">mailer</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">client</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">message</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+    <span class="n">PersonalInfo</span> <span class="n">personalInfo</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getPersonalInfo</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">personalInfo</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">email</span> <span class="o">=</span> <span class="n">personalInfo</span><span class="o">.</span><span class="na">getEmail</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">email</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+    <span class="n">mailer</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">email</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+<pre><code>// 用Kotlin实现
+fun sendMessageToClient(
+    client: Client?, 
+    message: String?, 
+    mailer: Mailer
+){
+    val email = client?.personalInfo?.email
+    if (email != null &amp;&amp; message != null) {
+        mailer.sendMessage(email, message)
+    }
+}
+</code></pre>
+
+<h1 id="扩展">扩展</h1>
+
+<h2 id="扩展函数">扩展函数</h2>
+
+<p>扩展函数是Kotlin精华特点之一，可以给别人的类添加方法或者属性，使得方法调用更加自然和直观。通过扩展函数的特性，Kotlin内置了大量的辅助扩展方法，非常实用。下面我们通过这个例子看一下</p>
+
+<pre><code>fun main() {
+    val list = arrayListOf&lt;Int&gt;(1, 5, 3, 7, 9, 0)
+    println(list.sortedDescending())
+    println(list.joinToString(
+        separator = &quot; | &quot;,
+        prefix = &quot;(&quot;,
+        postfix = &quot;)&quot;
+    ) {
+        val result = it + 1
+        result.toString()
+    })
+}
+</code></pre>
+
+<p>其中<code>sortedDescending</code>以及<code>joinToString</code>都是Kotlin内置的扩展方法。
+上述的函数会输出</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/2057980-38b2abdc4a64752a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="扩展函数实例输出" /></p>
+
+<p>Kotlin内部的实现如下</p>
+
+<pre><code>public fun &lt;T : Comparable&lt;T&gt;&gt; Iterable&lt;T&gt;.sortedDescending(): List&lt;T&gt; {
+    return sortedWith(reverseOrder())
+}
+
+public fun &lt;T&gt; Iterable&lt;T&gt;.joinToString(separator: CharSequence = &quot;, &quot;, prefix: CharSequence = &quot;&quot;, postfix: CharSequence = &quot;&quot;, limit: Int = -1, truncated: CharSequence = &quot;...&quot;, transform: ((T) -&gt; CharSequence)? = null): String {
+    return joinTo(StringBuilder(), separator, prefix, postfix, limit, truncated, transform).toString()
+}
+</code></pre>
+
+<p>可见<code>sortedDescending</code>和<code>joinToString</code>都是对<code>Iterable&lt;T&gt;</code>类对象的一个扩展方法。</p>
+
+<p>我们也可以自己实现一个自定义的扩展函数如下：</p>
+
+<pre><code>fun Int.largerThen(other: Int): Boolean {
+    return this &gt; other
+}
+
+fun main() {
+    println(2.largerThen(1))
+}
+</code></pre>
+
+<p>上述代码输出为<code>true</code><br />
+通过扩展函数我们以非常直观的方式，将某个类对象的工具类直接使用该类通过<code>&quot;.&quot;</code>方式调用。<br />
+当然扩展函数是一种静态的实现方式，不会对原来类对象的方法进行覆盖，也不会有正常函数的子类方法覆盖父类方法现象。</p>
+
+<h2 id="扩展属性">扩展属性</h2>
+
+<p>扩展属性与扩展函数类似，也是可以直接给类对象增加一个属性。例如：</p>
+
+<pre><code>var StringBuilder.lastChar: Char
+        get() = get(length -1)
+        set(value: Char) {
+            this.setCharAt(length -1, value)
+        }
+        
+fun main() {
+    val sb = StringBuilder(&quot;kotlin&quot;)
+    println(sb.lastChar)
+    sb.lastChar = '!'
+    println(sb.lastChar)
+}
+</code></pre>
+
+<p>无论是扩展函数还是扩展属性，都是对Java代码中utils方法很好的改变，可以避免多处相似功能的util定义以及使得调用更为直观。</p>
+
+<h1 id="集合">集合</h1>
+
+<p>通过扩展的方式，Kotlin对集合类提供了非常丰富且实用的诸多工具，只有你想不到，没有你做不到。下面我们通过 <a href="https://play.kotlinlang.org/koans/overview">Kotlin Koans</a> 上的一个例子来说明一下：</p>
+
+<pre><code>data class Shop(val name: String, val customers: List&lt;Customer&gt;)
+
+data class Customer(val name: String, val city: City, val orders: List&lt;Order&gt;) {
+    override fun toString() = &quot;$name from ${city.name}&quot;
+}
+
+data class Order(val products: List&lt;Product&gt;, val isDelivered: Boolean)
+
+data class Product(val name: String, val price: Double) {
+    override fun toString() = &quot;'$name' for $price&quot;
+}
+
+data class City(val name: String) {
+    override fun toString() = name
+}
+</code></pre>
+
+<p>以上是数据结构的定义，我们有一个超市，超市有很多顾客，每个顾客有很多笔订单，订单对应着一定数量的产品。下面我们来通过集合的操作来完成以下任务。</p>
+
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>filter</td>
+<td>将集合里的元素过滤，并返回过滤后的元素</td>
+</tr>
+
+<tr>
+<td>map</td>
+<td>将集合里的元素一一对应转换为另一个元素</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>// 返回商店中顾客来自的城市列表
+fun Shop.getCitiesCustomersAreFrom(): Set&lt;City&gt; = customers.map { it.city }.toSet()
+
+// 返回住在给定城市的所有顾客
+fun Shop.getCustomersFrom(city: City): List&lt;Customer&gt; = customers.filter { it.city == city }
+
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>all</td>
+<td>判断集合中的所有元素是否满足某个条件，都满足返回true</td>
+</tr>
+
+<tr>
+<td>any</td>
+<td>判断集合中是否有元素满足某个条件，有则返回true</td>
+</tr>
+
+<tr>
+<td>count</td>
+<td>返回集合中满足某个条件的元素数量</td>
+</tr>
+
+<tr>
+<td>find</td>
+<td>查找集合中满足某个条件的一个元素，不存在则返回null</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>// 如果超市中所有顾客都来自于给定城市，则返回true
+fun Shop.checkAllCustomersAreFrom(city: City): Boolean = customers.all { it.city == city }
+
+// 如果超市中有某个顾客来自于给定城市，则返回true
+fun Shop.hasCustomerFrom(city: City): Boolean = customers.any{ it.city == city}
+
+// 返回来自于某个城市的所有顾客数量
+fun Shop.countCustomersFrom(city: City): Int = customers.count { it.city == city }
+
+// 返回一个住在给定城市的顾客，若无返回null
+fun Shop.findAnyCustomerFrom(city: City): Customer? = customers.find { it.city == city }
+
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>flatMap</td>
+<td>将集合的元素转换为另外的元素（非一一对应）</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>// 返回所有该顾客购买过的商品集合
+fun Customer.getOrderedProducts(): Set&lt;Product&gt; = orders.flatMap { it.products }.toSet()
+
+// 返回超市中至少有一名顾客购买过的商品列表
+fun Shop.getAllOrderedProducts(): Set&lt;Product&gt; = customers.flatMap { it.getOrderedProducts() }.toSet()
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>max</td>
+<td>返回集合中以某个条件排序的最大的元素</td>
+</tr>
+
+<tr>
+<td>min</td>
+<td>返回集合中以某个条件排序的最小的元素</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>// 返回商店中购买订单次数最多的用户
+fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? = customers.maxBy { it.orders.size }
+
+// 返回顾所购买过的最贵的商品
+fun Customer.getMostExpensiveOrderedProduct(): Product? = orders.flatMap { it.products }.maxBy { it.price }
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>sort</td>
+<td>根据某个条件对集合元素进行排序</td>
+</tr>
+
+<tr>
+<td>sum</td>
+<td>对集合中的元素按照某种规则进行相加</td>
+</tr>
+
+<tr>
+<td>groupBy</td>
+<td>对集合中的元素按照某种规则进行组合</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>// 按照购买订单数量升序返回商店的顾客
+fun Shop.getCustomersSortedByNumberOfOrders(): List&lt;Customer&gt; = customers.sortedBy { it.orders.size }
+
+// 返回顾客在商店中购买的所有订单价格总和
+fun Customer.getTotalOrderPrice(): Double = orders.flatMap { it.products }.sumByDouble { it.price }
+
+// 返回商店中居住城市与顾客的映射
+fun Shop.groupCustomersByCity(): Map&lt;City, List&lt;Customer&gt;&gt; = customers.groupBy { it.city }
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>partition</td>
+<td>根据某种规则将集合中的元素分为两组</td>
+</tr>
+
+<tr>
+<td>fold</td>
+<td>对集合的元素按照某个逻辑进行一一累计</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>// 返回商店中未送到订单比送达订单要多的顾客列表
+fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set&lt;Customer&gt; = customers.filter {
+    val (delivered, undelivered) = it.orders.partition { it.isDelivered }
+    undelivered.size &gt; delivered.size
+}.toSet()
+
+// 对所有顾客购买过的商品取交集，返回所有顾客都购买过的商品列表
+fun Shop.getSetOfProductsOrderedByEveryCustomer(): Set&lt;Product&gt; {
+    val allProduct = customers.flatMap { it.orders }.flatMap { it.products }.toSet()
+
+    return customers.fold(allProduct) { orderedByAll, customer -&gt;
+        orderedByAll.intersect(customer.orders.flatMap { it.products })
+    }
+}
+</code></pre>
+
+<p>综合使用：</p>
+
+<pre><code>// 返回顾客所有送达商品中最贵的商品
+fun Customer.getMostExpensiveDeliveredProduct(): Product? {
+    return orders.filter { it.isDelivered }.flatMap { it.products }.maxBy { it.price }
+}
+
+// 返回商店中某件商品的购买次数
+fun Shop.getNumberOfTimesProductWasOrdered(product: Product): Int {
+    return customers.flatMap { it.orders }.flatMap { it.products }.count{it == product}
+}
+</code></pre>
+
+<p>Kotlin对集合提供了几乎你能想到的所有操作，通过对这些操作的组合减少集合操作的复杂度，提高可读性。以下是Java和Kotln对集合操作的对比</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 用Java实现
+</span><span class="c1"></span><span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">doSomethingStrangeWithCollection</span><span class="o">(</span>
+        <span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">collection</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">groupsByLength</span> <span class="o">=</span> <span class="n">Maps</span><span class="o">.</span><span class="na">newHashMap</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span> <span class="o">:</span> <span class="n">collection</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="o">=</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">strings</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">strings</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
+            <span class="n">groupsByLength</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">strings</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">maximumSizeOfGroup</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">group</span> <span class="o">:</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">maximumSizeOfGroup</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">maximumSizeOfGroup</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">group</span> <span class="o">:</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">maximumSizeOfGroup</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">group</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<pre><code>// 用Kotlin实现
+fun doSomethingStrangeWithCollection(collection: Collection&lt;String&gt;): Collection&lt;String&gt;? {
+
+    val groupsByLength = collection.groupBy { s -&gt; s.length }
+
+    val maximumSizeOfGroup = groupsByLength.values.map { group -&gt; group.size }.max()
+
+    return groupsByLength.values.firstOrNull { group -&gt; group.size == maximumSizeOfGroup }
+}
+</code></pre>
+
+<h1 id="运算符">运算符</h1>
+
+<h2 id="运算符重载">运算符重载</h2>
+
+<p>还是举 <a href="https://play.kotlinlang.org/koans/overview">Kotlin Koans</a> 上的运算符重载例子。假设我们需要实现以下功能：</p>
+
+<pre><code>enum class TimeInterval { DAY, WEEK, YEAR }
+
+data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) : Comparable&lt;MyDate&gt; {
+    override fun compareTo(other: MyDate): Int {
+        if (year != other.year) return year - other.year
+        if (month != other.month) return month - other.month
+        return dayOfMonth - other.dayOfMonth
+    }
+
+    override fun toString(): String {
+        return &quot;$year/$month/$dayOfMonth&quot;
+    }
+}
+
+fun main() {
+    val first = MyDate(2018, 10, 30)
+    val last = MyDate(2018, 11, 1)
+    for (date in first..last) {
+        println(date)
+    }
+    println()
+    println(first + DAY)
+    println()
+    println(first + DAY * 2 + YEAR * 2)
+}
+</code></pre>
+
+<p>输出为以下：</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/2057980-0a39304797f3b80e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="运算符重载例子输出" /></p>
+
+<p>只要实现以下运算符重载既可：</p>
+
+<pre><code>operator fun MyDate.rangeTo(other: MyDate): DateRange = DateRange(this, other)
+
+operator fun MyDate.plus(timeInterval: TimeInterval): MyDate = this.addTimeIntervals(timeInterval, 1)
+
+operator fun TimeInterval.times(num: Int): RepeatTimeInterval = RepeatTimeInterval(this, num)
+
+operator fun MyDate.plus(repeatTimeInterval: RepeatTimeInterval): MyDate =
+    this.addTimeIntervals(repeatTimeInterval.timeInterval, repeatTimeInterval.num)
+
+class RepeatTimeInterval(val timeInterval: TimeInterval, val num: Int)
+
+class DateRange(override val start: MyDate, override val endInclusive: MyDate) : ClosedRange&lt;MyDate&gt;, Iterable&lt;MyDate&gt; {
+    override fun iterator(): Iterator&lt;MyDate&gt; = DateIterator(start, endInclusive)
+}
+
+class DateIterator(first: MyDate, private val last: MyDate) : Iterator&lt;MyDate&gt; {
+    private var current = first
+    override fun hasNext(): Boolean {
+        return current &lt;= last
+    }
+
+    override fun next(): MyDate {
+        val result = current
+        current = current.nextDay()
+        return result
+    }
+}
+
+fun MyDate.nextDay(): MyDate = this.addTimeIntervals(DAY, 1)
+
+fun MyDate.addTimeIntervals(timeInterval: TimeInterval, number: Int): MyDate {
+    val c = Calendar.getInstance()
+    c.set(year + if (timeInterval == TimeInterval.YEAR) number else 0, month - 1, dayOfMonth)
+    var timeInMillis = c.timeInMillis
+    val millisecondsInADay = 24 * 60 * 60 * 1000L
+    timeInMillis += number * when (timeInterval) {
+        TimeInterval.DAY -&gt; millisecondsInADay
+        TimeInterval.WEEK -&gt; 7 * millisecondsInADay
+        TimeInterval.YEAR -&gt; 0L
+    }
+    val result = Calendar.getInstance()
+    result.timeInMillis = timeInMillis
+    return MyDate(result.get(Calendar.YEAR), result.get(Calendar.MONTH) + 1, result.get(Calendar.DATE))
+}
+</code></pre>
+
+<p>Kotlin支持使用指定的扩展函数来实现运算符的重载，运算符对应的方法名具体参见官方文档 <a href="http://kotlinlang.org/docs/reference/operator-overloading.html">Operator overloading</a></p>
+
+<h2 id="infix">infix</h2>
+
+<p>标记为infix的方法，可以类似于二元运算符使用，举个例子</p>
+
+<pre><code>infix fun Int.plus(other: Int): Int {
+    return this + other
+}
+
+fun main() {
+    // 结果会输出7
+    println(3 plus 4)
+}
+</code></pre>
+
+<p>infix方法执行的优先级低于算数运算符、类型转换type case以及rangTo运算符，但是高于布尔、is、in check等其他运算符。<br />
+使用infix的扩展函数可以实现自定义的二元运算标记。</p>
+
+<h1 id="整洁kotlin风格">整洁Kotlin风格</h1>
+
+<p>在《Kotlin in Action》一书中有归纳了一些Kotlin对比Java的整洁语法如下：
+常规语法|   整洁语法|   用到的功能
+&mdash;|&mdash;|&mdash;
+StringUtil.capitalize(s)|   s.capitalize()  |扩展函数
+1.to(&ldquo;one&rdquo;) |1 to &ldquo;one&rdquo; |中缀函数 infix
+set.add(2)| set += 1|   运算符重载
+map.get(&ldquo;key&rdquo;)| map[&ldquo;key&rdquo;]  |get方法约定
+file.use({f -&gt; f.read}) |file.use { it.read() } |括号内lambda外移
+sb.append(&ldquo;a&rdquo;) sb.append(&ldquo;b&rdquo;)|  with(sb) { append(“a&rdquo;) append(“b&rdquo;)}|    带接收者的lambda
+整洁语法换句话来说也是Kotlin的一种编程风格，其他约定俗成的整洁Kotlin编程风格可见官方文档 <a href="http://kotlinlang.org/docs/reference/idioms.html">Idioms</a>。非常建议大家看看Idioms这个文档，里面涵盖了非常Kotlin的使用方式，包括：
+* 使用默认参数代替方法重载
+* String模板（在Android中是否推荐仍值得商榷）
+* lambda使用it代替传入值
+* 使用下标方式访问map
+* 懒初始化属性
+* 使用rangs范围遍历
+* if when表达式返回值
+* 等等</p>
+
+<h2 id="方法参数">方法参数</h2>
+
+<p>Kotlin中的function是一等公民，拥有和变量一样的定义以及传参方式，如以下例子：</p>
+
+<pre><code>fun SQLiteDatabase.inTransaction(func: (SQLiteDatabase) -&gt; Unit) {
+  beginTransaction()
+  try {
+    func(this)
+    setTransactionSuccessful()
+  } finally {
+    endTransaction()
+  }
+}
+// 调用的时候就可以如下方法进行调用
+db.inTransaction {
+  it.db.delete(&quot;users&quot;, &quot;first_name = ?&quot;, arrayOf(&quot;Jake&quot;))
+}
+</code></pre>
+
+<h2 id="带接收者的lambda表达式">带接收者的lambda表达式</h2>
+
+<p>lambda表达式可以声明拥有接收者，例如：</p>
+
+<pre><code>val isEven: Int.() -&gt; Boolean = {
+    this % 2 == 0
+}
+
+fun main() {
+    print(2.isEven())
+}
+</code></pre>
+
+<p>这种带接收者的lambda实际上也是一种方法定义，不过其优先级比扩展方法要低，如果同时有扩展函数（如下）拥有相同名字，则会优先调用扩展方法。</p>
+
+<pre><code>fun Int.isEven(): Boolean {
+    return this % 2 != 0
+}
+</code></pre>
+
+<h2 id="let-run-with-apply-also">let run with apply also</h2>
+
+<p>这几个关键字其实都是Kotlin的特殊方法，他们可以让lambda里面的代码在相同的接收者中运行，避免冗余代码，他们的声明如下：</p>
+
+<pre><code>public inline fun &lt;T, R&gt; T.let(block: (T) -&gt; R): R {
+    return block(this)
+}
+public inline fun &lt;R&gt; run(block: () -&gt; R): R {
+    return block()
+}
+public inline fun &lt;T, R&gt; with(receiver: T, block: T.() -&gt; R): R {
+    return receiver.block()
+}
+public inline fun &lt;T&gt; T.apply(block: T.() -&gt; Unit): T {
+    block()
+    return this
+}
+public inline fun &lt;T&gt; T.also(block: (T) -&gt; Unit): T {
+    block(this)
+    return this
+}
+</code></pre>
+
+<p>从声明中可以看出他们有以下区别，假设在以下代码中运行</p>
+
+<pre><code>class MyClass {
+    fun test() {
+        val str: String = &quot;...&quot;
+        val result = str.xxx {
+            print(this) // 接收者this
+            print(it) // lambda参数it
+            42 // 返回结果
+        }
+    }
+}
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>接收者this</th>
+<th>lambda参数it</th>
+<th>返回结果</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>let</td>
+<td>this@MyClass</td>
+<td>String(&ldquo;&hellip;&rdquo;)</td>
+<td>Int(42)</td>
+</tr>
+
+<tr>
+<td>run</td>
+<td>String(&ldquo;&hellip;&rdquo;)</td>
+<td>N\A</td>
+<td>Int(42)</td>
+</tr>
+
+<tr>
+<td>with(*)</td>
+<td>String(&ldquo;&hellip;&rdquo;)</td>
+<td>N\A</td>
+<td>Int(42)</td>
+</tr>
+
+<tr>
+<td>apply</td>
+<td>String(&ldquo;&hellip;&rdquo;)</td>
+<td>N\A</td>
+<td>String(&ldquo;&hellip;&rdquo;)</td>
+</tr>
+
+<tr>
+<td>also</td>
+<td>this@MyClass</td>
+<td>String(&ldquo;&hellip;&rdquo;)</td>
+<td>String(&ldquo;&hellip;&rdquo;)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="dsl构建">DSL构建</h2>
+
+<p>以下是DSL和API调用方式的区别</p>
+
+<pre><code>// DSL
+dependencies {
+    compile(&quot;junit&quot;)
+    compile(&quot;guice&quot;)
+}
+</code></pre>
+
+<pre><code>// API
+project.dependencies.add(&quot;compile&quot;, &quot;junit&quot;)
+project.dependencies.add(&quot;compile&quot;, &quot;guice&quot;)
+</code></pre>
+
+<p>对比下DSL方式更为简洁且易读。通过上述对lambda的介绍可以发现Kotlin可以完美地支持DSL方式编程，只要少量的扩展方法以及lambda定义既可实现以下方式来构建一段html表格</p>
+
+<pre><code>html {
+    table {
+        tr (color = getTitleColor()){
+            this.td {
+                text(&quot;Product&quot;)
+            }
+            td {
+                text(&quot;Price&quot;)
+            }
+            td {
+                text(&quot;Popularity&quot;)
+            }
+        }
+        val products = getProducts()
+        for ((index, product) in products.withIndex()) {
+            tr {
+                td(color = getCellColor(index, 0)) {
+                    text(product.description)
+                }
+                td(color = getCellColor(index, 1)) {
+                    text(product.price)
+                }
+                td(color = getCellColor(index, 2)) {
+                        text(product.popularity)
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+
+<p>具体定义如下：</p>
+
+<pre><code>import java.util.ArrayList
+
+open class Tag(val name: String) {
+    val children: MutableList&lt;Tag&gt; = ArrayList()
+    val attributes: MutableList&lt;Attribute&gt; = ArrayList()
+
+    override fun toString(): String {
+        return &quot;&lt;$name&quot; +
+            (if (attributes.isEmpty()) &quot;&quot; else attributes.joinToString(separator = &quot;&quot;, prefix = &quot; &quot;)) + &quot;&gt;&quot; +
+            (if (children.isEmpty()) &quot;&quot; else children.joinToString(separator = &quot;&quot;)) +
+            &quot;&lt;/$name&gt;&quot;
+    }
+}
+
+class Attribute(val name : String, val value : String) {
+    override fun toString() = &quot;&quot;&quot;$name=&quot;$value&quot; &quot;&quot;&quot;
+}
+
+fun &lt;T: Tag&gt; T.set(name: String, value: String?): T {
+    if (value != null) {
+        attributes.add(Attribute(name, value))
+    }
+    return this
+}
+
+fun &lt;T: Tag&gt; Tag.doInit(tag: T, init: T.() -&gt; Unit): T {
+    tag.init()
+    children.add(tag)
+    return tag
+}
+
+class Html: Tag(&quot;html&quot;)
+class Table: Tag(&quot;table&quot;)
+class Center: Tag(&quot;center&quot;)
+class TR: Tag(&quot;tr&quot;)
+class TD: Tag(&quot;td&quot;)
+class Text(val text: String): Tag(&quot;b&quot;) {
+    override fun toString() = text
+}
+
+fun html(init: Html.() -&gt; Unit): Html = Html().apply(init)
+
+fun Html.table(init : Table.() -&gt; Unit) = doInit(Table(), init)
+fun Html.center(init : Center.() -&gt; Unit) = doInit(Center(), init)
+
+fun Table.tr(color: String? = null, init : TR.() -&gt; Unit) = doInit(TR(), init).set(&quot;bgcolor&quot;, color)
+
+fun TR.td(color: String? = null, align : String = &quot;left&quot;, init : TD.() -&gt; Unit) = doInit(TD(), init).set(&quot;align&quot;, align).set(&quot;bgcolor&quot;, color)
+
+fun Tag.text(s : Any?) = doInit(Text(s.toString()), {})
+</code></pre>
+
+<h1 id="属性代理">属性代理</h1>
+
+<p>Kotlin提供对属性代理的支持，可以将属性的get set操作代理到外部执行。代理的好处有三个：
+* 懒初始化，只在第一次调用进行初始化操作
+* 实现对属性的观察者模式
+* 方便对属性进行保存等管理</p>
+
+<p>下面来看比较常用的懒初始化例子：</p>
+
+<pre><code>val lazyValue: String by lazy {
+    println(&quot;computed!&quot;)
+    &quot;Hello&quot;
+}
+
+fun main() {
+    println(lazyValue)
+    println(lazyValue)
+}
+</code></pre>
+
+<p>以上代码会输出</p>
+
+<pre><code>computed!
+Hello
+Hello
+</code></pre>
+
+<p>证明懒加载模块只在第一次调用被执行，然后会将得到的值保存起来，后面访问属性将不会继续计算。这也是在Kotlin中实现单例模式的方式。这种懒初始化的过程也是线程同步的，线程同步方式有以下几种：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="kd">class</span> <span class="nc">LazyThreadSafetyMode</span> <span class="o">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 加锁单一线程初始化Lazy实例
+</span><span class="cm">     */</span>
+    <span class="n">SYNCHRONIZED</span><span class="o">,</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 初始化代码块会被多次调用，但只有首次初始化的值会赋值给Lazy实例
+</span><span class="cm">     */</span>
+    <span class="n">PUBLICATION</span><span class="o">,</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 没有线程安全，不保证同步，只能在确保单线程环境中使用
+</span><span class="cm">     */</span>
+    <span class="n">NONE</span><span class="o">,</span>
+<span class="o">}</span></code></pre></div>
+<h1 id="解构">解构</h1>
+
+<p>解构是非常实用的Kotlin提供的将一个对象属性分离出来的特性。
+内部实现原理是通过声明为<code>componentN()</code>的操作符重载实现。对Kotlin中的<code>data</code>类会自动生成<code>component</code>函数，默认支持解构操作。以下是解构比较实用的一个例子：</p>
+
+<pre><code>for ((key, value) in map) {
+   // 使用该 key、value 做些事情
+}
+</code></pre>
+
+<h1 id="协程coroutine">协程Coroutine</h1>
+
+<p>先占个位，等我看懂了再来补充 :)
+先po一个协程和Rxjava的对比吸引下大家</p>
+
+<pre><code>// RxJava
+interface RemoteService {
+    @GET(&quot;/trendingshows&quot;)
+    fun trendingShows(): Single&lt;List&lt;Show&gt;&gt;
+}
+service.trendingShows()
+    .scheduleOn(schedulers.io)
+    .subscribe(::onTrendingLoaded, ::onError)
+</code></pre>
+
+<pre><code>// Coroutine
+interface RemoteService {
+    @GET(&quot;/trendingshows&quot;)
+    suspend fun trendingShows(): List&lt;Show&gt;
+}
+val show = withContext(dispatchers.io) {
+    service.trendingShows()
+}
+</code></pre>
+
+<h1 id="在android中使用">在Android中使用</h1>
+
+<h2 id="findviewbyid">findViewById</h2>
+
+<p>通过引入<code>import kotlinx.android.synthetic.main.</code>实现直接获取xml中ui组件。</p>
+
+<h2 id="anko">anko</h2>
+
+<p><a href="https://github.com/Kotlin/anko">anko</a>提供了很多工具类，帮助开发者在Android中更好地使用Kotlin。anko提供了以下实用工具：
+* 快捷Intent：<code>startActivity(intentFor&lt;SomeOtherActivity&gt;(&quot;id&quot; to 5).singleTop())</code>
+* 快捷toast、dialog：<code>toast(&quot;Hi there!&quot;)</code>
+* 快捷log：<code>info(&quot;London is the capital of Great Britain&quot;)</code>
+* 快捷协程：<code>bg()</code>
+* layout DSL构建
+* 等等</p>
+
+<h2 id="ktx">ktx</h2>
+
+<p><a href="https://github.com/android/android-ktx">android-ktx</a> 提供了一系列Andrdoid方法的简洁实现。</p>
+
+<h1 id="与java不太一样的地方">与Java不太一样的地方</h1>
+
+<ul>
+<li><p>static 与 伴生对象<br />
+在Kotlin中并没有<code>static</code>这个关键字，如果想要实现类似于Java中<code>static</code>的用法，需要声明伴生对象<a href="https://kotlinlang.org/docs/reference/object-declarations.html#companion-objects">companion object</a>。使用<code>object</code>声明的类实际上是一个单例，可以支持直接调用其中的属性与方法。使用了<code>companion</code>修饰的object实际上是可以放在其他类内部的单例，因此可以实现类似于Java中<code>static</code>的效果。至于为什么Kotlin要这样设计，原因是Kotlin希望所有属性都是一个类对象，不做差异化处理，这也是为什么Java中的int、long等基本数据类型在Kotlin中也用Int、Long处理的原因。</p></li>
+
+<li><p>默认都是final，除非声明为open<br />
+在Kotlin中所有方法默认都是禁止覆盖的，这样的好处是规范了接口设计的安全性，仅开放那些确实在设计中希望子类覆盖的方法。</p></li>
+
+<li><p>默认是public，多了internal<br />
+在Java中，如果不加可见性修饰的话默认是包内可见，Kotlin中默认都是public。同时Kotlin加入了internal关键字，代表着是模块内可见。这个可见性弥补了使用Java进行模块设计的过程中，可见性设计的缺陷。如果要想在Java中实现仅开放某些方法给外部模块使用，但是这些方法又能在内部模块自由调用，那只能是把这些方法都放到一个包内，显然是一个很不好的包结构设计。Kotlin<code>internal</code>关键字可以完美解决这个问题。要想在Java调用的时候完全隐蔽Kotlin的方法，可以加上<code>@JvmSynthetic</code>。</p></li>
+
+<li><p>泛型<br />
+Java中使用<code>extends</code>和<code>super</code>来区分泛型中生产者和消费者，俗称<a href="https://stackoverflow.com/questions/2723397/what-is-pecs-producer-extends-consumer-super">PEST</a>，在Kotlin中对应的是<code>out</code>和<code>in</code>。同时Java与Kotlin都会对泛型进行运行时擦除，Kotlin不一样的是可以对<code>inline</code>方法使用<code>reified</code>关键字来提供运行时类型。</p></li>
+
+<li><p>本地方法<br />
+由于在Kotlin语言中方法是一等公民，因此可以声明局部生命周期的本地方法，如下例子：</p>
+
+<pre><code>fun dfs(graph: Graph) {
+val visited = HashSet&lt;Vertex&gt;()
+fun dfs(current: Vertex) {
+    if (!visited.add(current)) return
+    for (v in current.neighbors)
+        dfs(v)
+}
+
+dfs(graph.vertices[0])
+}
+</code></pre></li>
+</ul>
+
+<h1 id="学习资源">学习资源</h1>
+
+<p><a href="https://play.kotlinlang.org/koans/Introduction/Hello,%20world!/Task.kt"> Kotlin online try </a><br />
+<a href="https://kotlinlang.org/docs/reference/"> Kotlin官方文档 </a><br />
+<a href="https://note.youdao.com/share/?id=b9a1a935fa1cd93a4bb75e2a52067f6e&amp;type=note#/"> kotlin in action </a><br />
+<a href="http://note.youdao.com/noteshare?id=20bf8baae8e69b269870e9140e6ad1bd"> Android Development with kotlin </a><br />
+<a href="http://note.youdao.com/noteshare?id=bef3033ab6d5f1dd189a831d18e33034"> Kotlin for Android Developers </a></p>
+
+<h1 id="问题">问题</h1>
+
+<p>在Java项目中引入kotlin在大多数情况下都是无痛的，且可以马上带给我们不一样的快捷高效体验。如果硬是要说出一点Kotlin的问题，我觉得会有几个：
+* Kotlin加入会增加方法数以及不多的代码体积，这在大多数情况下不会产生太大的问题
+* 写法太灵活，较难统一。由于Kotlin允许程序员选择传统的Java风味或者Kotlin风味来编写代码，这种灵活性可能导致混合风味的代码出现，且较难统一。
+* 过多的大括号层级嵌套。这是因为lambda以及方法参数带来的，其初衷是希望大家可以用DSL的代码风格，如果没掌握DSL方式的话可能会写出比较丑陋的多层级嵌套Java风味代码，影响代码可读性。</p>
+
+<h1 id="最后">最后</h1>
+
+<p>Kotlin是一门优秀的语言，值得大家尝试。</p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/2018-08-18/" data-toggle="tooltip" data-placement="top" title="记录一次Android Deeplink跳转失败问题修复">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://shenguojun.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.42.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
