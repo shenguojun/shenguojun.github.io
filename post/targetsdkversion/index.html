@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>targetSdkVersion升级到28一些修改的地方</title>
+  <meta property="og:title" content="targetSdkVersion升级到28一些修改的地方" />
+  <meta name="twitter:title" content="targetSdkVersion升级到28一些修改的地方" />
+  <meta name="description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对">
+  <meta property="og:description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对">
+  <meta name="twitter:description" content="前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对">
+  <meta name="author" content="申国骏"/>
+  <link href='https://shenguojun.github.io/lawrencesgj.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://shenguojun.github.io/post/targetsdkversion/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.42.2" />
+  <link rel="canonical" href="https://shenguojun.github.io/post/targetsdkversion/" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://shenguojun.github.io/css/syntax.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/lawrencesgj.jpg" alt="Lawrence&#39;s Blog" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>targetSdkVersion升级到28一些修改的地方</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on July 18, 2018
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h2 id="前言">前言</h2>
+
+<p>Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android 8.0 (API 等级 26) 开发； 2018 年 11 月 1 日起，所有 Google Play 的现有应用更新同样必须针对 Android 8.0。</p>
+
+<p>以下记录了我们升级targetSdkVersion的坑以及解决办法，希望对各位开发者有帮助。</p>
+
+<h2 id="错误1-java-lang-illegalstateexception-not-allowed-to-start-service-intent-app-is-in-background-uid-uidrecord">错误1. java.lang.IllegalStateException: Not allowed to start service Intent {}: app is in background uid UidRecord{}</h2>
+
+<h3 id="原因分析">原因分析</h3>
+
+<p>从Android8.0开始，<a href="https://developer.android.com/about/versions/oreo/background">系统会对后台执行进行限制</a>。初步判断由于我们应用在Application的onCreate过程中使用了IntentService来后台初始化一些任务，这个时候被系统认为是应用还处于后台，从而报出了java.lang.IllegalStateException错误。</p>
+
+<h3 id="解决办法">解决办法</h3>
+
+<p>解决后台服务的限制，首先想到的办法是将服务变成前台服，随即我们又遇到了另一个问题，见错误2</p>
+
+<h2 id="错误2-android-app-remoteserviceexception-context-startforegroundservice-did-not-then-call-service-startforeground-servicerecord">错误2. android.app.RemoteServiceException: Context.startForegroundService() did not then call Service.startForeground(): ServiceRecord{}</h2>
+
+<h3 id="原因分析-1">原因分析</h3>
+
+<p>见Android8.0<a href="https://developer.android.com/about/versions/oreo/android-8.0-changes#back-all">行为变更</a>。新的 Context.startForegroundService() 函数将启动一个前台服务。现在，即使应用在后台运行，系统也允许其调用 Context.startForegroundService()。不过，应用必须在创建服务后的五秒内调用该服务的 startForeground() 函数。</p>
+
+<h3 id="解决办法-1">解决办法</h3>
+
+<p>在后台服务启动执行执行之后，通过<a href="https://developer.android.com/reference/android/app/Service.html#startForeground(int,%20android.app.Notification)">Service.startForeground()</a>方法传入notification变成前台服务。需要注意的是从Android8.0开始，Notification必须制定Channel才可以正常弹出通知，如果创建Notification Channels详见<a href="https://developer.android.com/training/notify-user/channels">这里</a>。</p>
+
+<p>由于我们的初衷是在启动程序的过程中后台进行一些初始化，这种前台给用户带来感知的效果并不是我们所希望的，因此我们考虑可以采用另一个后台执行任务的方法。这里官方推荐使用<a href="https://developer.android.com/reference/android/app/job/JobScheduler">JobScheduler</a>。由于我们引入了ktx以及<a href="https://developer.android.com/topic/libraries/architecture/workmanager">WorkManager</a>，这里我们采用了<a href="https://developer.android.com/reference/androidx/work/OneTimeWorkRequest">OneTimeWorkRequest</a>来实现。具体实现如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">class</span> <span class="nc">InitWorker</span> <span class="p">:</span> <span class="n">Worker</span><span class="p">(){</span>
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">doWork</span><span class="p">():</span> <span class="n">Result</span> <span class="p">{</span>
+        <span class="c1">// 把耗时的启动任务放在这里
+</span><span class="c1"></span>
+        <span class="k">return</span> <span class="n">Result</span><span class="p">.</span><span class="n">SUCCESS</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>然后在Applicaiton的onCreate中调用</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">val</span> <span class="py">initWork</span> <span class="p">=</span> <span class="n">OneTimeWorkRequestBuilder</span><span class="p">&lt;</span><span class="n">InitWorker</span><span class="p">&gt;().</span><span class="n">build</span><span class="p">()</span>
+<span class="n">WorkManager</span><span class="p">.</span><span class="n">getInstance</span><span class="p">().</span><span class="n">enqueue</span><span class="p">(</span><span class="n">initWork</span><span class="p">)</span></code></pre></div>
+<p>来执行后台初始化工作</p>
+
+<h2 id="错误3-java-lang-noclassdeffounderror-failed-resolution-of-lorg-apache-http-protocolversion-caused-by-java-lang-classnotfoundexception-didn-t-find-class-org-apache-http-protocolversion">错误3.  java.lang.NoClassDefFoundError: Failed resolution of: Lorg/apache/http/ProtocolVersion; Caused by: java.lang.ClassNotFoundException: Didn&rsquo;t find class &ldquo;org.apache.http.ProtocolVersion&rdquo;</h2>
+
+<h3 id="原因分析-2">原因分析</h3>
+
+<p>Android P Developer Preview的<a href="https://issuetracker.google.com/issues/79478779">bug</a></p>
+
+<h3 id="解决办法-2">解决办法</h3>
+
+<p>在AndroidManifest.xml文件中<Application>标签里面加入</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;uses-library</span> <span class="na">android:name=</span><span class="s">&#34;org.apache.http.legacy&#34;</span> <span class="na">android:required=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span></code></pre></div>
+<h2 id="错误4-java-io-ioexception-cleartext-http-traffic-to-dict-youdao-com-not-permitted">错误4. java.io.IOException: Cleartext HTTP traffic to dict.youdao.com not permitted</h2>
+
+<h3 id="原因分析-3">原因分析</h3>
+
+<p>从Android 6.0开始引入了对Https的推荐支持，与以往不同，Android P的系统上面默认所有Http的请求都被阻止了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;application</span> <span class="na">android:usesCleartextTraffic=</span><span class="s">[&#34;true&#34;</span> <span class="err">|</span> <span class="err">&#34;false&#34;]</span><span class="nt">&gt;</span></code></pre></div>
+<p>原本这个属性的默认值从true改变为false</p>
+
+<h3 id="解决办法-3">解决办法</h3>
+
+<p>解决的办法简单来说可以通过在AnroidManifest.xml中的application显示设置</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;application</span> <span class="na">android:usesCleartextTraffic=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span></code></pre></div>
+<p>更为根本的解决办法是修改应用程序中Http的请求为Https，当然这也需要服务端的支持。</p>
+
+<h2 id="错误5-android-os-fileuriexposedexception-file-exposed-beyond-app-through-intent-getdata">错误5. android.os.FileUriExposedException file exposed beyond app through Intent.getData()</h2>
+
+<h3 id="原因分析-4">原因分析</h3>
+
+<p>主要原因是7.0系统对file uri的暴露做了限制，加强了安全机制。详见：<a href="https://developer.android.com/about/versions/nougat/android-7.0-changes#permfilesys">官方文档</a>
+代码里出现问题的原因是，在需要安装应用的时候将下载下来的安装包地址传给了application/vnd.android.package-archive的intent</p>
+
+<h3 id="解决办法-4">解决办法</h3>
+
+<p>使用<a href="https://developer.android.com/reference/android/support/v4/content/FileProvider">FileProvider</a>
+具体代码可参考<a href="https://www.jianshu.com/p/577816c3ce93">这篇文章</a>
+简单说明就是要在AndroidManifest里面声明FileProvider，并且在xml中声明需要使用的uri路径</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;provider</span>
+        <span class="na">android:name=</span><span class="s">&#34;android.support.v4.content.FileProvider&#34;</span>
+        <span class="na">android:authorities=</span><span class="s">&#34;${applicationId}.fileProvider&#34;</span>
+        <span class="na">android:exported=</span><span class="s">&#34;false&#34;</span>
+        <span class="na">android:grantUriPermissions=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta-data</span>
+            <span class="na">android:name=</span><span class="s">&#34;android.support.FILE_PROVIDER_PATHS&#34;</span>
+            <span class="na">android:resource=</span><span class="s">&#34;@xml/file_paths&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/provider&gt;</span></code></pre></div>
+<p>对应的xml/file_paths中指定需要使用的目录</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+<span class="nt">&lt;paths&gt;</span>
+    <span class="nt">&lt;external-path</span>
+        <span class="na">name=</span><span class="s">&#34;download&#34;</span>
+        <span class="na">path=</span><span class="s">&#34;yddownload&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/paths&gt;</span></code></pre></div>
+<h2 id="错误6-java-lang-securityexception-failed-to-find-provider-for-user-0-expected-to-find-a-valid-contentprovider-for-this-authority">错误6. java.lang.SecurityException: Failed to find provider ** for user 0; expected to find a valid ContentProvider for this authority</h2>
+
+<h3 id="原因分析-5">原因分析</h3>
+
+<p>target到android8.0之后对ContentResolver.notifyChange() 以及 registerContentObserver(Uri, boolean, ContentObserver)做了限制，官方解释在<a href="https://developer.android.com/about/versions/oreo/android-8.0-changes#ccn">这里</a></p>
+
+<h3 id="解决办法-5">解决办法</h3>
+
+<p>参考<a href="https://medium.com/@egemenhamutcu/fixing-securityexception-requiring-a-valid-contentprovider-on-android-8-1110d840522">文章</a>
+简单来说解决的办法就是创建一个contentprovider，并在AndroidManifest里面注册的provider的authority声明为registerContentObserver中uri的authority就可以了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;provider</span>
+        <span class="na">android:name=</span><span class="s">&#34;.download.DownloadUriProvider&#34;</span>
+        <span class="na">android:authorities=</span><span class="s">&#34;${applicationId}&#34;</span>
+        <span class="na">android:enabled=</span><span class="s">&#34;true&#34;</span>
+        <span class="na">android:exported=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DownloadUriProvider</span> <span class="kd">extends</span> <span class="n">ContentProvider</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">DownloadUriProvider</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getType</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Uri</span> <span class="nf">insert</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">ContentValues</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Cursor</span> <span class="nf">query</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">projection</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                        <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">,</span> <span class="n">String</span> <span class="n">sortOrder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="n">ContentValues</span> <span class="n">values</span><span class="o">,</span> <span class="n">String</span> <span class="n">selection</span><span class="o">,</span>
+                      <span class="n">String</span><span class="o">[]</span> <span class="n">selectionArgs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<h2 id="错误7-notification没有显示">错误7. notification没有显示</h2>
+
+<h3 id="原因分析-6">原因分析</h3>
+
+<p>如果targetsdkversion设定为26或以上，开始要求notification必须知道channel，具体查阅<a href="https://developer.android.com/training/notify-user/channels">这里</a>。</p>
+
+<h3 id="解决办法-6">解决办法</h3>
+
+<p>在notify之前先创建notificationChannel</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">createNotificationChannel</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">O</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">CharSequence</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;下载提醒&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;显示下载过程及进度&#34;</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">importance</span> <span class="o">=</span> <span class="n">NotificationManager</span><span class="o">.</span><span class="na">IMPORTANCE_DEFAULT</span><span class="o">;</span>
+        <span class="n">NotificationChannel</span> <span class="n">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NotificationChannel</span><span class="o">(</span><span class="n">DOWNLOAD_CHANNEL_ID</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">importance</span><span class="o">);</span>
+        <span class="n">channel</span><span class="o">.</span><span class="na">setDescription</span><span class="o">(</span><span class="n">description</span><span class="o">);</span>
+        <span class="n">mNotificationManager</span><span class="o">.</span><span class="na">createNotificationChannel</span><span class="o">(</span><span class="n">channel</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<h2 id="错误8-在androidmanifest中注册的receiver不能收到广播">错误8. 在AndroidManifest中注册的receiver不能收到广播</h2>
+
+<h3 id="原因分析-7">原因分析</h3>
+
+<p>针对targetsdkversion为26的应用，加强对匿名receiver的控制，以至于在manifest中注册的隐式receiver都失效。具体见<a href="https://developer.android.com/about/versions/oreo/background#broadcasts">官方原文</a></p>
+
+<h3 id="解决办法-7">解决办法</h3>
+
+<p>将广播从在AndroidManifest中注册移到在Activity中使用registerReceiver注册</p>
+
+<h2 id="错误9-无法通过-application-vnd-android-package-archive-action安装应用">错误9. 无法通过“application/vnd.android.package-archive” action安装应用</h2>
+
+<h3 id="原因分析-8">原因分析</h3>
+
+<p>targetsdkversion大于25必须声明REQUEST_INSTALL_PACKAGES权限，见官方说明：
+<a href="https://developer.android.com/reference/android/Manifest.permission.html#REQUEST_INSTALL_PACKAGES">REQUEST_INSTALL_PACKAGES</a></p>
+
+<h3 id="解决办法-8">解决办法</h3>
+
+<p>在AndroidManifest中加入</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&#34;android.permission.REQUEST_INSTALL_PACKAGES&#34;</span> <span class="nt">/&gt;</span></code></pre></div>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/android-startup-speedup/" data-toggle="tooltip" data-placement="top" title="如何优化Androd App启动速度">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://shenguojun.github.io/post/android-deeplink/" data-toggle="tooltip" data-placement="top" title="记录一次Android Deeplink跳转失败问题修复">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://shenguojun.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2019
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.42.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

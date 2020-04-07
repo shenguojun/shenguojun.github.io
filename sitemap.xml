@@ -3,6 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://shenguojun.github.io/post/android-profile/</loc>
+    <lastmod>2019-11-19T12:57:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shenguojun.github.io/post/unittest/</loc>
+    <lastmod>2019-05-09T12:57:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shenguojun.github.io/post/databinding-submodule/</loc>
+    <lastmod>2019-04-12T12:57:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shenguojun.github.io/post/dagger2-annotation/</loc>
+    <lastmod>2019-01-14T20:00:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shenguojun.github.io/post/android-pinned-shortcut/</loc>
+    <lastmod>2018-11-23T20:00:40+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://shenguojun.github.io/post/android-vesrion-adaptive/</loc>
     <lastmod>2018-11-16T20:00:40+08:00</lastmod>
   </url>
@@ -13,12 +38,12 @@
   </url>
   
   <url>
-    <loc>https://shenguojun.github.io/post/2018-08-18/</loc>
+    <loc>https://shenguojun.github.io/post/android-deeplink/</loc>
     <lastmod>2018-08-18T12:57:47+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://shenguojun.github.io/post/2018-07-18/</loc>
+    <loc>https://shenguojun.github.io/post/targetsdkversion/</loc>
     <lastmod>2018-07-18T20:00:40+08:00</lastmod>
   </url>
   
@@ -39,7 +64,7 @@
   
   <url>
     <loc>https://shenguojun.github.io/</loc>
-    <lastmod>2018-11-16T20:00:40+08:00</lastmod>
+    <lastmod>2019-11-19T12:57:47+08:00</lastmod>
   </url>
   
   <url>
@@ -48,7 +73,7 @@
   
   <url>
     <loc>https://shenguojun.github.io/tags/android/</loc>
-    <lastmod>2018-11-16T20:00:40+08:00</lastmod>
+    <lastmod>2019-11-19T12:57:47+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -64,13 +89,13 @@
   
   <url>
     <loc>https://shenguojun.github.io/post/</loc>
-    <lastmod>2018-11-16T20:00:40+08:00</lastmod>
+    <lastmod>2019-11-19T12:57:47+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://shenguojun.github.io/tags/</loc>
-    <lastmod>2018-11-16T20:00:40+08:00</lastmod>
+    <lastmod>2019-11-19T12:57:47+08:00</lastmod>
     <priority>0</priority>
   </url>
   

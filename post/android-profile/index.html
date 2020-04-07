@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Android性能分析&amp;启动优化</title>
+  <meta property="og:title" content="Android性能分析&amp;启动优化" />
+  <meta name="twitter:title" content="Android性能分析&amp;启动优化" />
+  <meta name="description" content="两年前我做过了类似的启动优化分析《如何统计Android App启动时间》和《如何优化Androd App启动速度》。两年过后，今天看来，之前说">
+  <meta property="og:description" content="两年前我做过了类似的启动优化分析《如何统计Android App启动时间》和《如何优化Androd App启动速度》。两年过后，今天看来，之前说">
+  <meta name="twitter:description" content="两年前我做过了类似的启动优化分析《如何统计Android App启动时间》和《如何优化Androd App启动速度》。两年过后，今天看来，之前说">
+  <meta name="author" content="申国骏"/>
+  <link href='https://shenguojun.github.io/lawrencesgj.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://shenguojun.github.io/post/android-profile/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.42.2" />
+  <link rel="canonical" href="https://shenguojun.github.io/post/android-profile/" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://shenguojun.github.io/css/syntax.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/lawrencesgj.jpg" alt="Lawrence&#39;s Blog" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Android性能分析&amp;启动优化</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on November 19, 2019
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>两年前我做过了类似的启动优化分析<a href="https://www.jianshu.com/p/59a2ca7df681">《如何统计Android App启动时间》</a>和<a href="https://www.jianshu.com/p/bef74a4b6d5e">《如何优化Androd App启动速度》</a>。两年过后，今天看来，之前说的<a href="https://link.jianshu.com/?t=https://nimbledroid.com/">nimbledroid</a>工具已经需要收费，而且Android Studio自带的<a href="https://developer.android.com/studio/profile">Android Profiler</a>已经足够强大，并且<a href="[https://developer.android.com/studio/profile/systrace/command-line?utm_campaign=app_series_systracecommandline_081616](https://developer.android.com/studio/profile/systrace/command-line?utm_campaign=app_series_systracecommandline_081616)">Systrace</a>也有了更为强大的<a href="https://ui.perfetto.dev/">Perfetto UI</a>分析工具。我们是时候来重新学习一下目前性能分析的方法以及如何在分析的基础上做启动优化这个事情。转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「Bug总柴」</a></p>
+
+<h1 id="性能分析工具">性能分析工具</h1>
+
+<p>首先我们来学习一下如何使用性能分析的工具。我们从一个具体的例子出发，就是如何分析应用启动的性能。</p>
+
+<h2 id="android-profiler">Android Profiler</h2>
+
+<h3 id="配置">配置</h3>
+
+<p>我们来先看看Android Profiler。为了能在应用一启动就能马上捕捉到分析数据，我们需要按照下面的步骤配置一下：
+* 选择 Run -&gt; Edit Configurations
+<img src="https://upload-images.jianshu.io/upload_images/2057980-f0f1a082e7635bc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="步骤一" />
+* 在设置里面选择Profiling的tab，然后选中Start recording CPU activity on startup。注意这里选择的Sample Java Methods，表示可以定位到Java代码。其他选项的含义查看<a href="https://developer.android.com/studio/profile/cpu-profiler#configurations">cpu-profiler#configurations</a>。
+如果想有更详细的信息的话，可以选中Enable advanced profiling。
+<img src="https://upload-images.jianshu.io/upload_images/2057980-0a4f9549986527d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="步骤二" />
+* 在配置完之后选择Run -&gt; Profiler
+<img src="https://upload-images.jianshu.io/upload_images/2057980-369db08224d529c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="步骤三" />
+在页面启动完成之后停止监测，可以得到启动过程的CPU、内存网络和电量消耗信息，如下图：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-91c428be3d6178b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android Profiler" /></p>
+
+<h3 id="cpu监控">CPU监控</h3>
+
+<h4 id="分析过程">分析过程</h4>
+
+<p>点击进入CPU模块
+<img src="https://upload-images.jianshu.io/upload_images/2057980-a0ebf79dfbf8b751.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CPU分析" />
+可以选择线程，并看到线程的具体代码耗时。
+如以下例子
+<img src="https://upload-images.jianshu.io/upload_images/2057980-7b7dbaedcda32e72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CPU分析例子" />
+绿色表示我们写的代码耗时，我们可以选择主线程进行观察。这里显示在Applicaiton onCreate过程中需要耗费620ms。其中比较耗时的方法是registerByCourseKey和initYouzanSDK。并且通过Call Chart视图不断的往下看可以看出导致这个方法耗时的具体原因
+<img src="https://upload-images.jianshu.io/upload_images/2057980-52cf7713e539ed8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="registerByCourseKey.png" />
+<img src="https://upload-images.jianshu.io/upload_images/2057980-0da5477498dd3cee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="initYouzanSDK.png" />
+通过这样不断的往下分析，就能大致定位到启动CPU耗时的原因。下面我们举一个具体的优化例子。</p>
+
+<h4 id="优化例子">优化例子</h4>
+
+<p>优化前：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-8acf3ae8f0d1720e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优化前" />
+如果上图所示，在启动过程中RxBroadcast的时候带来了较大的耗时
+<img src="https://upload-images.jianshu.io/upload_images/2057980-de48ba16eb12a337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RxBroadcast" />
+查看代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">private</span> <span class="k">fun</span> <span class="nf">initBroadcast</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">filter</span> <span class="p">=</span> <span class="n">IntentFilter</span><span class="p">()</span>
+    <span class="err">……</span>
+    <span class="n">disposables</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">RxBroadcast</span><span class="p">.</span><span class="n">fromLocalBroadcast</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">filter</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">subscribe</span><span class="p">({</span> <span class="n">intent</span> <span class="p">-&gt;</span>
+            <span class="err">……</span>
+        <span class="p">},</span>
+        <span class="p">{</span> <span class="n">throwable</span><span class="p">:</span> <span class="n">Throwable</span> <span class="p">-&gt;</span>
+            <span class="err">……</span>
+        <span class="p">}</span>
+   <span class="p">))</span>
+<span class="p">}</span></code></pre></div>
+<p>确实在initBroadcast使用了<code>RxBroadcast.fromLocalBroadcast()</code>方法，我们尝试使用<code>LocalBroadcastManager.registerReceiver</code>代替。修改为如下代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">private</span> <span class="k">fun</span> <span class="nf">initBroadcast</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">filter</span> <span class="p">=</span> <span class="n">IntentFilter</span><span class="p">()</span>
+    <span class="err">……</span>
+    <span class="n">LocalBroadcastManager</span><span class="p">.</span><span class="n">getInstance</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">registerReceiver</span><span class="p">(</span><span class="n">broadcastReceiver</span><span class="p">,</span> <span class="n">filter</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>优化后重新进行启动CPU分析：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-893b5fbe03e6ca7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="优化后" />
+可以看出初始化的时间比优化前减少了90ms。由此我们也可以得到结论，使用RxBroadcast虽然比较炫酷，但是这是一个比较耗时的行为，因此应该尽量减少RxBroadcast的使用。</p>
+
+<h4 id="注意事项">注意事项</h4>
+
+<ul>
+<li>需要注意的是这里的耗时有些是在CPU处于Sleep状态下的。
+在Sleep状态表示CPU被其他线程占用，这个时候需要分析主线程Sleep状态下其他线程的情况。例如：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-c30f8d276113faed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="sleep" />
+这里显示主线程在00:06左右的时间处于Sleeping状态，这个时候查看其他线程的CPU占用
+<img src="https://upload-images.jianshu.io/upload_images/2057980-7400f1294be77c13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="memoryag" />
+发现在MemoryAg的线程在占用CPU资源，这种情况下不应该认为对应的主线程方法耗时，而是要考虑例如内存回收或者其他线程占用了CPU资源的情况。</li>
+<li>还需要注意不是每次点击&rdquo;Profiler&rdquo;都会正常把信息记录下来，偶尔会出现应用闪退的情况，这可能是Android Studio的Bug或者是日志太大了的问题。这种情况不要灰心，多试几次就会好。</li>
+</ul>
+
+<h2 id="perfetto-ui">Perfetto UI</h2>
+
+<h3 id="使用过程">使用过程</h3>
+
+<p>在Android 10的手机上，开发者模式新增加了一个“系统跟踪”的功能，我们首先将开发者模式下的“系统跟踪”打开：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-0cff9d89d37264b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="系统跟踪" />
+<img src="https://upload-images.jianshu.io/upload_images/2057980-78df51155d227e26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="开启跟踪图块" />
+我们也可以从“类别”选项中选择我们关注的信息类别：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-c3d9b2614a572f2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="信息类别" />
+设置完之后我们会发现下拉快捷选项多了个棒棒糖形状的图标
+<img src="https://upload-images.jianshu.io/upload_images/2057980-3f636fec85d3e486.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="系统跟踪棒棒糖" />
+这个时候杀掉我们需要调试的应用，然后点击开启棒棒糖，接着打开应用，等待应用完全打开之后，再点击一次棒棒糖，结束录制。
+<img src="https://upload-images.jianshu.io/upload_images/2057980-dc4edc32922cac6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="开始录制" />
+<img src="https://upload-images.jianshu.io/upload_images/2057980-8bf30747babe72e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结束录制" />
+然后我们保存录制后的文件，后缀为“.perfetto-trace”
+然后我们在<a href="https://ui.perfetto.dev/">perfetto ui</a>网站上选择Open trace file上传刚刚得到的文件
+<img src="https://upload-images.jianshu.io/upload_images/2057980-a16ed8bd88228777.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="perfetto上传" />
+渲染之后我们可以得到类似于之前systrace的分析，通过Perfetto UI我们可以更加容易操控
+<img src="https://upload-images.jianshu.io/upload_images/2057980-ac5eb5014b953083.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Perfetto分析" /></p>
+
+<h4 id="分析过程-1">分析过程</h4>
+
+<p>首先我们需要知道，通过“系统跟踪”得到的结果是类似于在Android Studio里面Profiler选择“Trace System Calls”的结果，我们可以看到系统中所有CPU在时间轴的所有运行任务。并且我们也可以看到系统所有的进程以及进程中所有的线程任务。
+<img src="https://upload-images.jianshu.io/upload_images/2057980-3b19907607377da1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Trace System Calls" />
+我们展开Perfetto UI的调试应用里面的主线程：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-b6ece0209c1c8841.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="词典主线程" />
+可以看到线程中每个步骤的耗时。我们可以通过不断的放大来查看每个时间段的系统调用。</p>
+
+<h3 id="优化例子-1">优化例子</h3>
+
+<p>优化前：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-a98b3e274252361e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="perfetto优化前 inflate" /></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/2057980-d98c1bfc4210db04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="perfetto优化前" />
+可以看出在首页inflate的过程中，有个一个“bg_simple_dict_blueriver.jpg”的图标耗时了29ms加载。分析其所在的代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;ImageView</span>
+    <span class="na">android:id=</span><span class="s">&#34;@+id/iv_simple_dict_bg&#34;</span>
+    <span class="na">android:layout_width=</span><span class="s">&#34;match_parent&#34;</span>
+    <span class="na">android:layout_height=</span><span class="s">&#34;match_parent&#34;</span>
+    <span class="na">android:src=</span><span class="s">&#34;@drawable/bg_simple_dict_blueriver&#34;</span>
+    <span class="na">android:scaleType=</span><span class="s">&#34;centerCrop&#34;</span>
+    <span class="na">android:visibility=</span><span class="s">&#34;gone&#34;</span>
+<span class="nt">/&gt;</span></code></pre></div>
+<p>由于这个图片只会在网络不畅的时候作为placeholder存在，因此这里简单的做法可以将</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">android:src=&#34;@drawable/bg_simple_dict_blueriver&#34;</code></pre></div>
+<p>修改为</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">tools:src=&#34;@drawable/bg_simple_dict_blueriver&#34;</code></pre></div>
+<p>更好的办法也可以将ImageView改为ViewStub引入，在有需要的时候再渲染出来，节省布局渲染时间。
+优化后：
+<img src="https://upload-images.jianshu.io/upload_images/2057980-097934e9b441e617.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="perfetto 优化后" />
+可以看出，在优化后inflate的时间由原来的118ms降低到了103ms，并且在inflate过程中也没有了bg_simple_dict_blueriver.jpg图片加载的过程。</p>
+
+<h1 id="启动优化">启动优化</h1>
+
+<p>有了以上的Sample Java Methods以及Trace System Calls分析，我们可以得到从宏观代码层面以及微观CPU执行层面的启动任务耗时。</p>
+
+<h2 id="proguard-r8">Proguard &amp; R8</h2>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/2057980-9bdaf2ba5781b98f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Proguard" />
+<img src="https://upload-images.jianshu.io/upload_images/2057980-5eaab032fae0da01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="R8" /></p>
+
+<p>除了业务的懒加载处理之外，我们可以看到dex文件的加载时间占据了大部分的启动时间。dex的加载时间跟代码量级有关。由于长期的历史引入了大量了第三方库以及本身业务增长带来的代码量增加，我们dex加载的速度也越来越慢。为了解决dex加载慢的问题，我们可以通过两个方面：首先是处理对dex加载有较大影响的加固过程，这个可以跟杭研进行沟通处理。第二就是在代码中加入代码压缩和混淆。</p>
+
+<p>代码压缩和混淆可以使得dex文件变小，从而减少dex文件加载的时间。但是从零开始加入代码压缩和混淆是一个非常艰巨的过程，因为代码压缩和混淆后会导致很容易发生ClassNotFoundException以及NoSuchMethodError，并且会对诸如push、序列化等依赖类名以及属性名的代码失效。加入代码压缩和混淆需要额外的细心和较大的工作量。</p>
+
+<p>在加入代码压缩和混淆的过程中，我们总结了以下的方法步骤：</p>
+
+<h3 id="本地代码">本地代码</h3>
+
+<ul>
+<li>检查所有使用注解的代码，加入proguard 规则</li>
+<li>检查所有JNI相关代码，加入proguard 规则</li>
+<li>检查所有使用反射的代码，加入proguard 规则</li>
+<li>检查所有序列化以及会使用Json转换为Modle的代码，加入proguard 规则</li>
+<li>检查所有根据类名来使用的代码，例如Push等，加入proguard 规则</li>
+<li>要求以后代码重构需要对Proguard进行相应改变</li>
+
+<li><p>要求新增的代码需要添加Proguard规则</p>
+
+<h3 id="三方代码">三方代码</h3></li>
+
+<li><p>判断External Libraries中的三方库引用是否是release依赖或者debug依赖，如果是的话继续</p></li>
+
+<li><p>判断lib库是否为目前代码所需要的，如果引用了没有使用或者引用了目前代码上所有使用的地方都已经不再使用，则清理这个lib并清理相关没有用到的代码</p></li>
+
+<li><p>若果lib库为目前代码所需要的，到该lib库的官网查找相应的proguard规则，并粘贴到proguard-rules.pro文件中</p></li>
+
+<li><p>如果该lib官网库没有相应proguard规则，则观察lib库是否有用到native代码、annotation或者反射这种需要proguard处理的地方，有的话添加相应规则</p></li>
+
+<li><p>添加完proguard规则之后，找到目前项目中使用到这个库的地方，尝试一下是否会有崩溃出现</p></li>
+
+<li><p>如果有崩溃出现，根据崩溃提示增加相应proguard规则</p></li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://developer.android.com/studio/profile/android-profiler?hl=en">Measure app performance with Android Profiler</a></li>
+<li><a href="https://developer.android.com/games/optimize/cpu-profiler?hl=en">Identify CPU hot spots</a></li>
+<li><a href="https://developer.android.com/studio/profile/cpu-profiler?hl=en">Inspect CPU activity with CPU Profiler</a></li>
+<li><a href="https://developer.android.com/studio/profile/memory-profiler?hl=en">View the Java heap and memory allocations with Memory Profiler</a></li>
+<li><a href="https://developer.android.com/studio/build/shrink-code">Shrink, obfuscate, and optimize your app</a></li>
+<li><a href="https://www.guardsquare.com/en/blog/comparison-proguard-vs-r8-october-2019-edition">Comparison of ProGuard vs. R8: October 2019 edition</a></li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/unittest/" data-toggle="tooltip" data-placement="top" title="单元测试之JUnit4">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://shenguojun.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2019
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.42.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

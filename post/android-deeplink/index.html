@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>记录一次Android Deeplink跳转失败问题修复</title>
+  <meta property="og:title" content="记录一次Android Deeplink跳转失败问题修复" />
+  <meta name="twitter:title" content="记录一次Android Deeplink跳转失败问题修复" />
+  <meta name="description" content="Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕">
+  <meta property="og:description" content="Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕">
+  <meta name="twitter:description" content="Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕">
+  <meta name="author" content="申国骏"/>
+  <link href='https://shenguojun.github.io/lawrencesgj.jpg' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:image" content="https://shenguojun.github.io/lawrencesgj.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://shenguojun.github.io/post/android-deeplink/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.42.2" />
+  <link rel="canonical" href="https://shenguojun.github.io/post/android-deeplink/" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://shenguojun.github.io/css/syntax.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/lawrencesgj.jpg" alt="Lawrence&#39;s Blog" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>记录一次Android Deeplink跳转失败问题修复</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on August 18, 2018
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h2 id="android-deeplink实现">Android Deeplink实现</h2>
+
+<p>在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕捉。在有道背单词的项目中，我们需要通过前端分享词单的方式，将词单分享给别人，并通过点击前端页面收藏按钮，实现调起客户端收藏词单的功能。<br />
+从前端通过自定义url的方式调起客户端这个功能原来一直都没有什么问题，直到最近有部分用户反馈在某些浏览器下无法调起。下面我们来看一下分析查找问题的方法以及如何解决。</p>
+
+<h2 id="检查客户端deeplink配置">检查客户端deeplink配置</h2>
+
+<p>在AndroidManifest.xml文件中，对路由Activity配置如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span>
+            <span class="na">android:name=</span><span class="s">&#34;.deeplink.RouterActivity&#34;</span>
+            <span class="na">android:configChanges=</span><span class="s">&#34;keyboardHidden|orientation|screenSize&#34;</span>
+            <span class="na">android:launchMode=</span><span class="s">&#34;singleTask&#34;</span>
+            <span class="na">android:theme=</span><span class="s">&#34;@style/Theme.Translucent&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;intent-filter&gt;</span>
+                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.VIEW&#34;</span> <span class="nt">/&gt;</span>
+
+                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.BROWSABLE&#34;</span> <span class="nt">/&gt;</span>
+
+                <span class="nt">&lt;data</span>
+                    <span class="na">android:host=</span><span class="s">&#34;youdao.com&#34;</span>
+                    <span class="na">android:scheme=</span><span class="s">&#34;recite&#34;</span>
+                    <span class="na">android:pathPattern=</span><span class="s">&#34;.*&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/intent-filter&gt;</span>
+
+            <span class="nt">&lt;meta-data</span>
+                <span class="na">android:name=</span><span class="s">&#34;android.support.PARENT_ACTIVITY&#34;</span>
+                <span class="na">android:value=</span><span class="s">&#34;.home.ui.MainActivity&#34;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/activity&gt;</span></code></pre></div>
+<p>里面比较重要的部分是intent-filter中的data配置，检查后发现配置正常，可以正常拦截到 recite://youdao.com/.*的所有请求。<br />
+转到RouterActivity通过断点调试，发现并没有到达。从而可以确认是浏览器调起的时候发生了异常。</p>
+
+<p>tips: adb 命令同样可以启动deeplink进行测试
+<img src="https://upload-images.jianshu.io/upload_images/2057980-73c35e7454f39985.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="adb_test.png" /></p>
+
+<h2 id="分析浏览器对deeplink处理">分析浏览器对deeplink处理</h2>
+
+<p>通过用户反馈，主要集中是在UC和华为自带的浏览器点击前端页面的【收藏词单】无法调起有道背单词<br />
+同时我们在chrome上面发现通过deeplink只有第一次会跳转到应用，往后几次都是没有任何相应，确实有点百思不得其解。<br />
+经过查找资料，发现了chrome的一个对Android Intent处理的介绍<br />
+<a href="https://developer.chrome.com/multidevice/android/intents">Android Intents with Chrome</a><br />
+里面提到</p>
+
+<blockquote>
+<p>One scenario is launching an app when the user lands on a page, which you can achieve by embedding an iframe in the page with a custom URI-scheme set as the src, as follows: &lt;iframe src=&ldquo;paulsawesomeapp://page1&rdquo;&gt; &lt;/iframe&gt;. This works in the Chrome for Android browser, version 18 and earlier. It also works in the Android browser, of course.</p>
+
+<p>The functionality has changed slightly in Chrome for Android, versions 25 and later. It is no longer possible to launch an Android app by setting an iframe&rsquo;s src attribute. For example, navigating an iframe to a URI with a custom scheme such as paulsawesomeapp:// will not work even if the user has the appropriate app installed. Instead, you should implement a user gesture to launch the app via a custom scheme, or use the “intent:” syntax described in this article.</p>
+</blockquote>
+
+<p>翻译一下，大概的意思就是之前通过&lt;iframe&gt;没有用户主动操作就打开app的行为在chrome25版本及之后会被禁止。开发者必须通过用户操作来触发跳转应用的行为。目前chrome的版本都已经68了，证明这个规则已经由来已久。抱着试试看的姿态，开始查找是否是前端的代码有问题。<br />
+通过<a href="chrome://inspect/#devices">chrome inspect</a>，捕捉到前端代码果然有一处疑似iframe的使用
+<img src="https://upload-images.jianshu.io/upload_images/2057980-6b577639649d4752.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ebc8daf14130474bbd69103bf4e6ff5d_ac466235c97c6e9fb45c8820addbce1d.jpg" /></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/2057980-c97f1fbc1d1e2125.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="018ff33c02e047c59196534a3a28ef8b_e15f0d6e314113b2260119e917400191.jpg" /></p>
+
+<p>随后经过对前端代码debug，果然有走了这段逻辑
+<img src="https://upload-images.jianshu.io/upload_images/2057980-281a63c225a4f593.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ca286076d8594b55b7db5847e6d031b6_c0169d9d3acbb13b8835c5a0a8aa028f.jpg" /></p>
+
+<p>证据确凿，可以找前端大神反馈了。经过了解，确实是之前有改动过这部分的代码，使用了iframe来处理deeplink的打开。处理的办法也相对简单，将iframe换成href来做跳转处理就可以了。</p>
+
+<h2 id="测试">测试</h2>
+
+<p>最后我们对国内的浏览器试了一下deeplink是否生效</p>
+
+<h3 id="uc浏览器">UC浏览器</h3>
+
+<p>会弹出一个应用打开提醒，如果用户本次没有【允许】操作，则浏览器下次会拦截打开应用行为，没有任何提醒，不知道这是一个bug还是故意为之。点击【允许】后可以跳转应用
+<img src="https://upload-images.jianshu.io/upload_images/2057980-a5e83c90747d064a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20180818-112921.jpg" /></p>
+
+<h3 id="qq浏览器">QQ浏览器</h3>
+
+<p>同样会弹出应用打开题型，如果用户本次没有【打开】，下次用户操作还是会继续提醒。点击【打开】后可以跳转应用
+<img src="https://upload-images.jianshu.io/upload_images/2057980-0783dfe185065554.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20180818-113231.jpg" /></p>
+
+<h3 id="360浏览器">360浏览器</h3>
+
+<p>行为与QQ浏览器类似，每次都会提醒
+<img src="https://upload-images.jianshu.io/upload_images/2057980-191f1f99af00a992.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20180818-113459.jpg" /></p>
+
+<h3 id="猎豹浏览器">猎豹浏览器</h3>
+
+<p>行为与QQ浏览器类似，每次都会提醒
+<img src="https://upload-images.jianshu.io/upload_images/2057980-f956c1cdbd9b4e48.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20180818-113718.jpg" /></p>
+
+<h3 id="一加系统默认浏览器">一加系统默认浏览器</h3>
+
+<p>行为与QQ浏览器类似，每次都会提醒
+<img src="https://upload-images.jianshu.io/upload_images/2057980-331e8219180a3cfa.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Screenshot_20180818-113921.jpg" /></p>
+
+<h3 id="搜狗浏览器">搜狗浏览器</h3>
+
+<p>没有提醒，直接跳转到app</p>
+
+<h3 id="chrome">chrome</h3>
+
+<p>行为与搜狗浏览器类似，没有提醒，直接跳转app</p>
+
+<p>测试结果除了UC浏览器第一次不点击跳转之后会跳转不了之外，
+其他浏览器跳转app问题得到解决。</p>
+
+<h2 id="结语">结语</h2>
+
+<p>通过这次查deeplink跳转的问题，收获了两点知识。<br />
+* 一个是前端使用iframe来处理deeplink跳转会有问题<br />
+* 二个是除了采用</p>
+
+<pre><code>&quot;scheme://host/path&quot;
+</code></pre>
+
+<p>这种deeplink方式之外，还可以采用</p>
+
+<pre><code>&quot;intent://about/#Intent;action=[string];scheme=[string];package=[string];S.browser_fallback_url=[encoded_full_url];end&quot;
+</code></pre>
+
+<p>的方式来触发应用intent的请求访问。</p>
+
+<p>同时，在处理deeplink的规则里面，体会到了一条原则：</p>
+
+<ul>
+<li>最短路径处理原则<br /></li>
+</ul>
+
+<p>意思就是刚开始的时候，deeplink处理的逻辑要从根目录开始进行。比如有一个收藏词单的需求，没有使用最短路径原则可能会设计成这样</p>
+
+<blockquote>
+<p>recite://youdao.com/bookId?&amp;action=collect</p>
+</blockquote>
+
+<p>对应的处理是如果action为collect就收藏词单。这个时候需求如果改成默认进来不需要收藏就非常尴尬了。因为对于旧版本而已，只认有action=collect才会处理，那就意味这如果想对默认的recite://youdao.com/bookId只是查看不收藏的需求，对于旧版本就没办法实现，会出现兼容性问题。<br />
+而最短路径处理原则，意思就是在开始的时候，尽量对最短的路径行为进行处理，具体到上面的例子，对于收藏某个词单的需求，我们可以设计deeplink为</p>
+
+<blockquote>
+<p>recite://youdao.com/bookId?&amp;action=collect</p>
+</blockquote>
+
+<p>然后我们对 <em>recite://youdao.com/bookId以及recite://youdao.com/bookId?&amp;action=collect</em> 都处理成收藏词单。上线之后，如果想修改默认参数行为，就可以直接改对 <em>recite://youdao.com/bookId</em> 的处理，这样对于旧版本仍然是可以执行的收藏行为，对于新版本就可以对应新的逻辑</p>
+
+<h2 id="最后">最后</h2>
+
+<p>卖个广告，欢迎大家在各大应用市场下载【有道背单词】体验。<br />
+也可以扫一扫下载：<br />
+<img src="https://upload-images.jianshu.io/upload_images/2057980-beb4d17106c8c5ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QRCODE.png" /></p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/targetsdkversion/" data-toggle="tooltip" data-placement="top" title="targetSdkVersion升级到28一些修改的地方">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://shenguojun.github.io/post/kotlin-good-part/" data-toggle="tooltip" data-placement="top" title="Kotlin精髓">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://shenguojun.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2019
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.42.2</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

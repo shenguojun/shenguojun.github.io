@@ -8,10 +8,55 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Fri, 16 Nov 2018 20:00:40 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Nov 2019 12:57:47 +0800</lastBuildDate>
     
 	<atom:link href="https://shenguojun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android性能分析&amp;启动优化</title>
+      <link>https://shenguojun.github.io/post/android-profile/</link>
+      <pubDate>Tue, 19 Nov 2019 12:57:47 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/android-profile/</guid>
+      <description>两年前我做过了类似的启动优化分析《如何统计Android App启动时间》和《如何优化Androd App启动速度》。两年过后，今天看来，之前说</description>
+    </item>
+    
+    <item>
+      <title>单元测试之JUnit4</title>
+      <link>https://shenguojun.github.io/post/unittest/</link>
+      <pubDate>Thu, 09 May 2019 12:57:47 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/unittest/</guid>
+      <description>JUnit4 JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为</description>
+    </item>
+    
+    <item>
+      <title>Databinding subModule library 爬坑</title>
+      <link>https://shenguojun.github.io/post/databinding-submodule/</link>
+      <pubDate>Fri, 12 Apr 2019 12:57:47 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/databinding-submodule/</guid>
+      <description>问题描述 最近把gradle的‘com.android.tools.build:gradle’升级到3.2.1，升级之后dataBinding</description>
+    </item>
+    
+    <item>
+      <title>Dagger2注解大全</title>
+      <link>https://shenguojun.github.io/post/dagger2-annotation/</link>
+      <pubDate>Mon, 14 Jan 2019 20:00:40 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/dagger2-annotation/</guid>
+      <description>前言 &amp;emsp;&amp;emsp;Dagger是帮助实现依赖注入的库，虽然很多人都知道依赖注入对于架构设计的重要性，但是Dagger学习曲线十分陡</description>
+    </item>
+    
+    <item>
+      <title>Android create pinned shortcut创建桌面快捷方式</title>
+      <link>https://shenguojun.github.io/post/android-pinned-shortcut/</link>
+      <pubDate>Fri, 23 Nov 2018 20:00:40 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/android-pinned-shortcut/</guid>
+      <description>前言 本文主要针对文章Create shortcuts中动态创建桌面快捷方式的解释和例子。在8.0系统中，创建桌面快捷方式的广播com.andr</description>
+    </item>
     
     <item>
       <title>targetSdkVersion升级到28一些修改的地方</title>
@@ -33,19 +78,19 @@
     
     <item>
       <title>记录一次Android Deeplink跳转失败问题修复</title>
-      <link>https://shenguojun.github.io/post/2018-08-18/</link>
+      <link>https://shenguojun.github.io/post/android-deeplink/</link>
       <pubDate>Sat, 18 Aug 2018 12:57:47 +0800</pubDate>
       <author>junguoshen@yeah.net (申国骏)</author>
-      <guid>https://shenguojun.github.io/post/2018-08-18/</guid>
+      <guid>https://shenguojun.github.io/post/android-deeplink/</guid>
       <description>Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕</description>
     </item>
     
     <item>
       <title>targetSdkVersion升级到28一些修改的地方</title>
-      <link>https://shenguojun.github.io/post/2018-07-18/</link>
+      <link>https://shenguojun.github.io/post/targetsdkversion/</link>
       <pubDate>Wed, 18 Jul 2018 20:00:40 +0800</pubDate>
       <author>junguoshen@yeah.net (申国骏)</author>
-      <guid>https://shenguojun.github.io/post/2018-07-18/</guid>
+      <guid>https://shenguojun.github.io/post/targetsdkversion/</guid>
       <description>前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对</description>
     </item>
     
