@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Lawrence&#39;s Blog</title>
@@ -14,7 +14,7 @@
     
     
     <item>
-      <title>Android</title>
+      <title>android</title>
       <link>https://shenguojun.github.io/tags/android/</link>
       <pubDate>Tue, 19 Nov 2019 12:57:47 +0800</pubDate>
       <author>junguoshen@yeah.net (申国骏)</author>

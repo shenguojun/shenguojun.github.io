@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lawrence&#39;s Blog</title>
@@ -46,7 +46,7 @@
       <pubDate>Mon, 14 Jan 2019 20:00:40 +0800</pubDate>
       <author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/dagger2-annotation/</guid>
-      <description>前言 &amp;emsp;&amp;emsp;Dagger是帮助实现依赖注入的库，虽然很多人都知道依赖注入对于架构设计的重要性，但是Dagger学习曲线十分陡</description>
+      <description>前言 Dagger是帮助实现依赖注入的库，虽然很多人都知道依赖注入对于架构设计的重要性，但是Dagger学习曲线十分陡峭，官方文档更是看了几遍</description>
     </item>
     
     <item>
