@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Flutter学习笔记——用户界面 - Lawrence&#39;s Blog</title>
+  <meta name="description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut">
+  <meta name="author" content="申国骏"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Lawrence\x27s Blog",
+    
+    "url": "https:\/\/shenguojun.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/shenguojun.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/post\/flutter-learning-note\/",
+          "name": "Flutter学习笔记——用户界面"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "申国骏"
+  },
+  "headline": "Flutter学习笔记——用户界面",
+  "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut",
+  "inLanguage" : "en",
+  "wordCount":  5939 ,
+  "datePublished" : "2020-04-07T15:19:10",
+  "dateModified" : "2020-04-07T15:19:10",
+  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+  "keywords" : [ "flutter" ],
+  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/flutter-learning-note\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/shenguojun.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Flutter学习笔记——用户界面" />
+<meta property="og:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut">
+<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
+<meta property="og:url" content="https://shenguojun.github.io/post/flutter-learning-note/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="twitter:title" content="Flutter学习笔记——用户界面" />
+  <meta name="twitter:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut">
+  <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-162790364-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Flutter学习笔记——用户界面</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;12&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;5939&nbsp;words
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
+    
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p><img src="https://shenguojun.github.io/image/flutter-logo.png" alt="flutter-logo"></p>
+<blockquote>
+<p>以下为对<a href="https://flutter.dev/docs">Flutter官网</a>的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。</p>
+</blockquote>
+<h1 id="用户界面">用户界面</h1>
+<h2 id="widgets介绍">widgets介绍</h2>
+<ul>
+<li>Flutter一切都是widget，包括设置padding的container。</li>
+<li>几乎所有widget都通过build方法声明其UI</li>
+<li>StatelessWidget用于固定样式的widget，StatefulWidget用于根据数据变化的widget。</li>
+<li>StatefulWidget通过createState关联私有的State对象，并通过setState()方法更新数据并通知UI变化。</li>
+<li>更新UI时Flutter会通过比较前后widget树来计算差异，widget只是保存了样式信息，它的重建可以考虑是轻量级的。widget树会对应到element树，并通过element树创建Render树。相同类型widget会重用element和render对象。</li>
+<li>State对象的生命周期跨越其对应的widget对象build方法，比widget本身生命周期要长</li>
+<li>State调用流程大致为initState -&gt; build -&gt; dispose，可以在initState做初始化操作，在dispose中做清理操作</li>
+<li>didChangeDependencies会在initState和build之间调用，当父widget有InheritedWidget变化时也会被调用</li>
+<li>InheritedWidget可用于在widget树中给子widget共享数据，通常通过of方法调用context.inheritFromWidgetOfExactType返回拥有共享数据的InheritedWidget对象</li>
+<li>key控制widget重建时与哪些其他widget进行匹配，从而保持正确的state状态，一般用在widget的添加删除或者重排序中控制widget重用</li>
+<li>key分为Local key（value key表示根据某个值判断、Object key表示根据某个对象判断、Unique key表示每个widget都不一样） 和Global key(表示不同页面的widget共享)，</li>
+</ul>
+<h2 id="构建layouts">构建layouts</h2>
+<h3 id="flutter中的layouts">Flutter中的layouts</h3>
+<ul>
+<li>可以通过Row和Column构建复制页面</li>
+<li>mainAxisAlignment控制主轴对齐方式，crossAxisAlignment控制次轴对齐方式</li>
+<li>使用Expanded widget来fit window，flex来指定比例</li>
+<li>将布局widget赋值给变量，通过变量组合布局减少层级嵌套</li>
+<li>使用Container设置margin、border、pandding和背景</li>
+<li>GridView.extend中maxCrossAxisExtent设置每个item的最大宽度，mainAxisSpacing设置主轴item之间的间隔，crossAxisSpacing设置次轴item之间的间隔，childAspectRatio设置item宽高比例</li>
+<li>GridView.builder用于数量较多的item展示，仅加载当前可见的部分，GridView.count用于加载少量固定数目的item并指定每行item格式，GridView.extend用于加载少量固定item并指定每行item最大宽度</li>
+<li>GridView中通过SliverGridDelegate控制子widget如何布局，通过SliverChildDelegate来获取子widget，可以通过自定义来实现自由或者叠加布局。</li>
+<li>GridView和ListView都继承自BoxScrollView</li>
+<li>大量数据需使用ListView.builder并在itemBuilder回调中创建并提供widget；如果列表的item样式可以提前构建则可以直接使用new ListView；ListView.separated除了itemBuilder之外还有个separatorBuilder用来定义分隔线样式；ListView.custom通过提供自定义的SliverChildDelegate来</li>
+<li>Stack用于widget的堆叠，可以做渐变的图片阴影</li>
+<li>Card内部内容不能够滚动，可以自定义圆角和阴影大小</li>
+<li>ListTitle是方便构建至多三行文字加上前后图标的列表item widget</li>
+</ul>
+<h3 id="layout使用例子">layout使用例子</h3>
+<ul>
+<li>使用Expanded widget占满剩余空间，子widget设置CrossAxisAlignment.start表示从前开始</li>
+<li>Text softwrap控制是否需要自动换行</li>
+<li>修改pubspec.yaml设置assets目录，例如：flutter: assets: [images/]</li>
+<li>Image.asset中设置fit:BoxFit.cover 表示图片应该以最小的大小占满box空间</li>
+<li>使用ListView代替Column保证小屏幕手机中空间可以滚动</li>
+</ul>
+<h3 id="创建自适应ui应用">创建自适应UI应用</h3>
+<ul>
+<li>使用LayoutBuilder的BoxConstraints获取当前widget的宽高比例从而调整子widget布局</li>
+<li>使用MediaQuery.of()获取屏幕宽高和旋转方向等设备信息从而控制整体布局样式</li>
+<li>AspectRatio控制子widget的宽高比例</li>
+<li>CustomSingleChildLayout、CustomMultiChildLayout将子widget的布局委托给ChildLayoutDelegate进行控制</li>
+<li>FittedBox：当子widget比父widget大时，通过FittedBox可以设置子widget的缩放方式</li>
+<li>FractionallySizedBox可以设置子widget占据其空间的宽高百分比</li>
+<li>MediaQueryData中padding指代周边有多少不能绘制的区域不计算被键盘等遮挡的区域，viewPadding指的是周边有多少不能被绘制的区域不受键盘等遮挡影响，viewInsert表示周边有多少区域被键盘等遮挡了</li>
+<li>OrientationBuilder获取屏幕是否旋转</li>
+</ul>
+<h3 id="box-constraints">Box constraints</h3>
+<ul>
+<li>有三种box，分别是无限扩展例如Center或者ListView、子widget决定例如Trnasform和Opacity、固定大小例如Image和Text</li>
+<li>类似于当一个竖向的ListView嵌套进了一个横向的Lis他View，会造成无界约束状态（Unbounded constraints），这种状态会使得子widget可以在两个方向无限扩展导致错误</li>
+<li>Flex boxs指代Row和Column，表示当其处于一个有节的区域会不断扩展至给定大小，当其处于一个无界区域会适应他的子widget大小。</li>
+<li>如果将Flex box置于类似于ListView的widget中，那么flex box中不能有类似于Expanded的widget，这会导致类似于Expanded的widget无限扩大造成错误</li>
+<li>Column的宽度和Row的高度不能设置为无界的，否则他们的子widget将无法布局</li>
+</ul>
+<h2 id="android闪屏">Android闪屏</h2>
+<ul>
+<li>设置应用打开闪屏的设置与原生方式一样，都是给第一个打开的activity设置主题</li>
+<li>设置name为io.flutter.embedding.android.NormalTheme的meta-data来定义正常主题，这样就会使得页面从启动的主题转变为正常的主题。</li>
+<li>在Android Activity启动后，还需要初始化Dart isolate，这段时间可以再设置闪屏</li>
+<li>设置Flutter的闪屏有两种方法，一种是设置展示一个drawable，可以在Activity的Manifest中设置name为io.flutter.embedding.android.SplashScreenDrawable的meta-data并指定drawable资源，或在Fragment中重写provideSplashScreen方法返回一个DrawableSplashScreen对象。第二种方法是实现SplashScreen接口，通过createSplashView提供自定义闪屏view，并通过transitionToFlutter方法标记闪屏view动画是否完成。</li>
+</ul>
+<h2 id="加入互动逻辑">加入互动逻辑</h2>
+<ul>
+<li>可交互的widget有三点，一是有两个类，分别继承StatefulWidget和State，二是State类中拥有可变的状态和build方法，三是当状态变化，调用setState()方法对widget进行重绘。</li>
+<li>将Text放在SizedBox中可以防止当文字变化时由于宽度变化带来的位置抖动</li>
+<li>当调用setState({})方法时，会先执行lambda逻辑，然后调用_element.markNeedsBuild()标记当前element为dirty状态并在下一帧根据修改后的状态进行重绘</li>
+<li>有三种常见的管理状态方法，分别是：widget自己管理自己的状态、父widget管理状态、混合前两种方式</li>
+<li>如果状态是用户数据，那么最好在父widget管理。如果状态是与界面效果有关的例如动画，那么最好在widget自身内管理状态。如果不确定最好先在父widget中管理，因为大多数情况外层需要对状态数据进行处理并更新子widget，外层处理状态也有利于子widget保持整洁。当widget既包含用户状态又包含外部不关注的自身界面效果状态则使用混合状态管理模式。</li>
+<li>对于必须传入的参数使用@require注解</li>
+</ul>
+<h2 id="添加assets和图片">添加assets和图片</h2>
+<ul>
+<li>在pubspec.yaml中声明assets文件夹的路径声明，如果需要添加子文件夹的话需要单独列出</li>
+<li>声明assets时会同时查找其定义的子文件夹是否有同名的文件，如果有的话会把同名的文件同时引入，这是为了方便引入不同分辨率的图片资源</li>
+<li>使用DefaultAssetBundle.of(context).load()或loadString()方法加载asset文本资源，其中context最好使用当前widget的BuildContext，这有利于父widget在测试或者本地化时在运行时替换不同的AssetBundle。</li>
+<li>当不能获取widget context的地方，可以使用rootBundle来加载文本资源</li>
+<li>对于图片资源，可以使用相同的图片命名并放在2.0x和3.0x文件夹中，不同dp/px比例的手机会自动选用合适大小的资源</li>
+<li>使用AssetImage加载图片会自动选择对应分辨率的图片，如果需要加载不同package的图片，需要在AssetImange中指定package</li>
+<li>对于不在同一个package的图片资源，也需要在pubspec.yaml文件中定义，例如需要引用package为fancy_backgrounds的图资源，需要在当前的pubspec.yaml中定义assets路径为packages/fancy_backgrounds/xxx(图片在fancy_backgrounds中libs目录下的相对位置)</li>
+<li>在Android中使用flutter的asset资源，使用PluginRegistry.Registrar.lookupKeyForAsset()方法获取key，并使用AssetManager.openFd(key)方法获取AssetFileDescriptor</li>
+<li>在iOS中使用flutter的asset资源，可以使用registrar lookupKeyForAsset或者key，然后通过mainBundle pathForResource:key ofType或者asset路径。如果使用了ios_platform_images插件，那么可以直接使用OC中的UIImage flutterImageWithName或者Swift中的UIImage.flutterImageNamed获取。</li>
+<li>flutter中使用iOS的图片可以使用ios_platform_images插件中的IosPlatformImages.load方法</li>
+<li>启动页会在Flutter绘制第一帧的时候被替换，如果在main方法中不调用runApp方法，那么启动页将一直展示。</li>
+<li>加入启动页的方式需要使用Android和iOS的本身的方式加入。</li>
+</ul>
+<h2 id="页面导航">页面导航</h2>
+<h3 id="导航至新页面并返回">导航至新页面并返回</h3>
+<ul>
+<li>route在安卓中相当于Activity，在iOS中相当于ViewController，在Flutter中，route表示的只是一个widget</li>
+<li>页面导航的步骤：创建两个route，使用Navigator.push()导航到第二个route，使用Navigator.pop()返回到上一个route</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+    <span class="n">context</span><span class="p">,</span>
+    <span class="n">MaterialPageRoute</span><span class="p">(</span><span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">SecondRoute</span><span class="p">()),</span>
+  <span class="p">)</span>
+</code></pre></div><ul>
+<li>通过创建MaterialPageRoute适配安卓和iOS页面跳转的动效，通过设置maintainState释放上一个页面的内存，通过fullscreenDialog设置是否全屏dialog样式</li>
+</ul>
+<h3 id="使用具名路由跳转">使用具名路由跳转</h3>
+<ul>
+<li>当页面之间跳转较多时，在MaterialApp中声明路由关系，然后使用具名路由导航Navigator.pushNamed()可以减少代码重复</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="n">MaterialApp</span><span class="p">(</span>
+  <span class="c1">// Start the app with the &#34;/&#34; named route. In this case, the app starts
+</span><span class="c1"></span>  <span class="c1">// on the FirstScreen widget.
+</span><span class="c1"></span>  <span class="nl">initialRoute:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+  <span class="nl">routes:</span> <span class="p">{</span>
+    <span class="c1">// When navigating to the &#34;/&#34; route, build the FirstScreen widget.
+</span><span class="c1"></span>    <span class="s1">&#39;/&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">FirstScreen</span><span class="p">(),</span>
+    <span class="c1">// When navigating to the &#34;/second&#34; route, build the SecondScreen widget.
+</span><span class="c1"></span>    <span class="s1">&#39;/second&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">SecondScreen</span><span class="p">(),</span>
+  <span class="p">},</span>
+<span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/second&#39;</span><span class="p">);</span>
+</code></pre></div><h3 id="非具名路由之间传递数据">非具名路由之间传递数据</h3>
+<ul>
+<li>使用非具名路由跳转有两种页面间传递数据的做法，一种是跳转新页面时在Widget的构造函数中传入数据；第二种是通过设置MaterialPageRoute的RouteSettings中的arguments，并在跳转页面中使用ModalRoute.of(context).settings.arguments获取</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第一种方法
+</span><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+        <span class="n">context</span><span class="p">,</span>
+        <span class="n">MaterialPageRoute</span><span class="p">(</span>
+            <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">DetailScreen</span><span class="p">(</span><span class="nl">todo:</span> <span class="n">todos</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第二种方法—设置参数
+</span><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+        <span class="n">context</span><span class="p">,</span>
+        <span class="n">MaterialPageRoute</span><span class="p">(</span>
+            <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">DetailScreen</span><span class="p">(),</span>
+            <span class="c1">// Pass the arguments as part of the RouteSettings. The
+</span><span class="c1"></span>            <span class="c1">// DetailScreen reads the arguments from these settings.
+</span><span class="c1"></span>            <span class="nl">settings:</span> <span class="n">RouteSettings</span><span class="p">(</span>
+                <span class="nl">arguments:</span> <span class="n">todos</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第二种方法—获取参数
+</span><span class="c1"></span>  <span class="kd">final</span> <span class="n">Todo</span> <span class="n">todo</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+</code></pre></div><h3 id="具名路由之间传递数据">具名路由之间传递数据</h3>
+<ul>
+<li>使用具名路由跳转有两种页面间传输的做法，一种是使用Navigator.pushNamed并设置arguments，然后在跳转页面使用ModalRoute.of(context).settings.arguments获取；第二种是是使用Navigator.pushNamed并设置arguments，然后在MaterialApp的onGenerateRoute方法中获取settings.arguments并在返回的MaterialPageRoute中通过构造函数设置给跳转页面</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第一种方法—设置
+</span><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span>
+      <span class="n">context</span><span class="p">,</span>
+      <span class="n">ExtractArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">,</span>
+      <span class="nl">arguments:</span> <span class="n">ScreenArguments</span><span class="p">(</span>
+        <span class="s1">&#39;Extract Arguments Screen&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;This message is extracted in the build method.&#39;</span><span class="p">,</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第一种方法—获取
+</span><span class="c1"></span>  <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第二种方法—通过onGenerateRoute方法构造目标页面并传递参数
+</span><span class="c1"></span>  <span class="n">MaterialApp</span><span class="p">(</span>
+  <span class="c1">// Provide a function to handle named routes. Use this function to
+</span><span class="c1"></span>  <span class="c1">// identify the named route being pushed, and create the correct
+</span><span class="c1"></span>  <span class="c1">// screen.
+</span><span class="c1"></span>  <span class="nl">onGenerateRoute:</span> <span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// If you push the PassArguments route
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">settings</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">PassArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Cast the arguments to the correct type: ScreenArguments.
+</span><span class="c1"></span>      <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+
+      <span class="c1">// Then, extract the required data from the arguments and
+</span><span class="c1"></span>      <span class="c1">// pass the data to the correct screen.
+</span><span class="c1"></span>      <span class="k">return</span> <span class="n">MaterialPageRoute</span><span class="p">(</span>
+        <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="n">PassArgumentsScreen</span><span class="p">(</span>
+            <span class="nl">title:</span> <span class="n">args</span><span class="p">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="nl">message:</span> <span class="n">args</span><span class="p">.</span><span class="n">message</span><span class="p">,</span>
+          <span class="p">);</span>
+        <span class="p">},</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+<span class="p">);</span>
+</code></pre></div><h3 id="从目标页面返回数据">从目标页面返回数据</h3>
+<h3 id="页面间共享元素动画">页面间共享元素动画</h3>
+<h2 id="动画">动画</h2>
+<h1 id="学习资源">学习资源</h1>
+<ul>
+<li><a href="https://github.com/flutter/samples/blob/master/INDEX.md">Flutter samples</a></li>
+<li><a href="https://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw/playlists">Flutter YouTube playlist</a></li>
+<li><a href="https://www.youtube.com/watch?v=dkyY9WCGMi0">The Mahogany Staircase - Flutter&rsquo;s Layered Design</a></li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://shenguojun.github.io//tags/flutter/">flutter</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note%2f&amp;text=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e7%94%a8%e6%88%b7%e7%95%8c%e9%9d%a2&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e7%94%a8%e6%88%b7%e7%95%8c%e9%9d%a2" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e7%94%a8%e6%88%b7%e7%95%8c%e9%9d%a2" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e7%94%a8%e6%88%b7%e7%95%8c%e9%9d%a2" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note%2f&amp;description=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e7%94%a8%e6%88%b7%e7%95%8c%e9%9d%a2" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/android-profile/" data-toggle="tooltip" data-placement="top" title="Android性能分析&amp;启动优化">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.68.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://shenguojun.github.io/js/main.js"></script>
+<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
