@@ -59,7 +59,7 @@
   "headline": "Flutter学习笔记——用户界面",
   "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut",
   "inLanguage" : "en",
-  "wordCount":  6046 ,
+  "wordCount":  6906 ,
   "datePublished" : "2020-04-07T15:19:10",
   "dateModified" : "2020-04-07T15:19:10",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -247,10 +247,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;13&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;14&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;6046&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;6906&nbsp;words
   
   
     
@@ -330,12 +330,42 @@ if (!doNotTrack) {
 <li>MediaQueryData中padding指代周边有多少不能绘制的区域不计算被键盘等遮挡的区域，viewPadding指的是周边有多少不能被绘制的区域不受键盘等遮挡影响，viewInsert表示周边有多少区域被键盘等遮挡了</li>
 <li>OrientationBuilder获取屏幕是否旋转</li>
 </ul>
-<h3 id="box-constraints">Box constraints</h3>
+<h3 id="constraints布局约束理解">constraints布局约束理解</h3>
+<ul>
+<li>布局流程：
+<ol>
+<li>widget从parent中获取四个约束，分别是最小和最大宽度、最小和最大高度；</li>
+<li>widget将约束一个一个地传递给子widget，并让子widget根据约束条件设定其自身的大小；</li>
+<li>widget根据子widget的大小一个一个进行布局；</li>
+<li>widget将自身的大小上报给parent。</li>
+</ol>
+</li>
+<li>布局流程会导致以下三个限制：
+<ol>
+<li>一个widget最终布局大小需要受到parent的约束限制，不是想要什么大小都可以；</li>
+<li>一个widget不能知道也不能决定其在屏幕中的位置，widget的布局由其parent决定；</li>
+<li>只有考虑整棵widget树才能确定widget的大小和位置，不能准确地定义某个widget的位置和大小。</li>
+</ol>
+</li>
+<li>Container布局行为：
+<ol>
+<li>若没有子widget，没有设置宽高，没有约束，parent是无界约束，Container会填充parent，并希望让自身尽量的小</li>
+<li>若没有子widget，没有设置alignment，设置了宽高或者有约束，Container会在满足自身约束和parent约束的情况下尽量的小</li>
+<li>若没有子widget，没有设置宽高，没有约束，没有设置alignment，parent是有界约束，那么Container会尽量的扩大以满足parent的约束</li>
+<li>若设置了alignment，parent无界约束，那么Container尽量缩小为子widget大小</li>
+<li>若设置了alignment，parent有界约束，那么Container扩大为parent约束大小，并将子widget根据alignment设置来布局</li>
+<li>若只有子widget，没有设置宽高，没有约束，没有alignment，Container会将parent的约束传递给子widget，并尽量缩小为子widget大小</li>
+</ol>
+</li>
+<li>布局中FittedBox可以控制子widget在约束空间中的布局，例如设置自动缩小文字或者缩放图片</li>
+<li>tight约束表示固定宽高约束，loose约束表示在设置最大宽高基础上尽量的缩小</li>
+</ul>
+<h3 id="box-constraints边界约束">Box constraints边界约束</h3>
 <ul>
 <li>有三种box，分别是无限扩展例如Center或者ListView、子widget决定例如Trnasform和Opacity、固定大小例如Image和Text</li>
-<li>类似于当一个竖向的ListView嵌套进了一个横向的Lis他View，会造成无界约束状态（Unbounded constraints），这种状态会使得子widget可以在两个方向无限扩展导致错误</li>
-<li>Flex boxs指代Row和Column，表示当其处于一个有节的区域会不断扩展至给定大小，当其处于一个无界区域会适应他的子widget大小。</li>
-<li>如果将Flex box置于类似于ListView的widget中，那么flex box中不能有类似于Expanded的widget，这会导致类似于Expanded的widget无限扩大造成错误</li>
+<li>类似于当一个竖向的ListView嵌套进了一个横向的ListView，会造成无界约束状态（Unbounded constraints），这种状态会使得子widget可以在两个方向无限扩展导致错误</li>
+<li>Flex boxs指的是Row和Column，表示当其处于一个有界的区域会不断扩展至给定大小，当其处于一个无界区域会适应他的子widget大小。</li>
+<li>如果将Flex box放置于类似于ListView的widget中，那么flex box中不能有类似于Expanded的widget，这会导致类似于Expanded的widget无限扩大造成错误</li>
 <li>Column的宽度和Row的高度不能设置为无界的，否则他们的子widget将无法布局</li>
 </ul>
 <h2 id="android闪屏">Android闪屏</h2>
@@ -487,6 +517,7 @@ if (!doNotTrack) {
 <li><a href="https://github.com/flutter/samples/blob/master/INDEX.md">Flutter samples</a></li>
 <li><a href="https://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw/playlists">Flutter YouTube playlist</a></li>
 <li><a href="https://www.youtube.com/watch?v=dkyY9WCGMi0">The Mahogany Staircase - Flutter&rsquo;s Layered Design</a></li>
+<li><a href="https://medium.com/flutter-community/flutter-the-advanced-layout-rule-even-beginners-must-know-edc9516d1a2">Flutter: The Advanced Layout Rule Even Beginners Must Know</a></li>
 </ul>
 
 
