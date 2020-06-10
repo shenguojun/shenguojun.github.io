@@ -59,7 +59,7 @@
   "headline": "Flutter学习笔记——用户界面",
   "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut",
   "inLanguage" : "en",
-  "wordCount":  6906 ,
+  "wordCount":  7312 ,
   "datePublished" : "2020-04-07T15:19:10",
   "dateModified" : "2020-04-07T15:19:10",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -247,10 +247,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;14&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;15&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;6906&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7312&nbsp;words
   
   
     
@@ -330,7 +330,7 @@ if (!doNotTrack) {
 <li>MediaQueryData中padding指代周边有多少不能绘制的区域不计算被键盘等遮挡的区域，viewPadding指的是周边有多少不能被绘制的区域不受键盘等遮挡影响，viewInsert表示周边有多少区域被键盘等遮挡了</li>
 <li>OrientationBuilder获取屏幕是否旋转</li>
 </ul>
-<h3 id="constraints布局约束理解">constraints布局约束理解</h3>
+<h3 id="constraints布局约束理解">Constraints布局约束理解</h3>
 <ul>
 <li>布局流程：
 <ol>
@@ -508,9 +508,41 @@ if (!doNotTrack) {
 <li>使用Hero包裹页面间的共享widget，并设置一个相同的tag</li>
 </ul>
 <h2 id="动画">动画</h2>
-<h3 id="动画介绍">动画介绍</h3>
 <ul>
-<li></li>
+<li>对于普通的修改大小和形状等的属性动画可以使用Implicit动画，设置动画时间duration、动画效果curve。常用的Implicit动画有以下这些：
+<ul>
+<li>Align -&gt; AnimatedAlign</li>
+<li>Container -&gt; AnimatedContainer</li>
+<li>DefaulTextStyle -&gt; AnimatedDefaulTextStyle</li>
+<li>Opacity -&gt; AnimatedOpacity</li>
+<li>Padding -&gt; AnimatedPadding</li>
+<li>PhysicalModel -&gt; AnimatedPhysicalModel</li>
+<li>Positioned -&gt; AnimatedPositioned</li>
+<li>PositionedDirectional -&gt; AnimatedPositionedDirectional</li>
+<li>Theme -&gt; AnimatedThemeSize -&gt; AnimatedSize</li>
+</ul>
+</li>
+<li>若没有能满足需求的Implicit动画widget，那么可以尝试使用TweenAnimationBuilder来实现自定义属性动画</li>
+<li>如果想要对动画进行播放控制，那么需要使用Explicit动画，并在turns中指定AnimationController。常用的Explicit动画有以下这些：
+<ul>
+<li>SizeTransition</li>
+<li>FadeTransition</li>
+<li>AlignTransition</li>
+<li>ScaleTransition</li>
+<li>SlideTransition</li>
+<li>RotationTransition</li>
+<li>PositionedTransition</li>
+<li>DecoratedBoxTransition</li>
+<li>DefaultTextStyleTransition</li>
+<li>RelativePositionedTransition</li>
+<li>StatusTransitionWidget</li>
+</ul>
+</li>
+<li>如果想对动画进行播放控制，但是没有现成的Explicit动画，那么可以使用AnimatedBuilder或者AnimatedWidget</li>
+<li>SingleTickerProviderStateMixin</li>
+<li>mixin是线性叠加的代码继承，最后的类会覆盖前面类方法</li>
+<li>mixin是类的一层一层叠加，类型判断可以为每一层的类</li>
+<li>mixin更多强调的是代码的复用而不是类继承关系</li>
 </ul>
 <h1 id="学习资源">学习资源</h1>
 <ul>
