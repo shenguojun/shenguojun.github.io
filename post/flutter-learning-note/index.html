@@ -59,7 +59,7 @@
   "headline": "Flutter学习笔记——用户界面",
   "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut",
   "inLanguage" : "en",
-  "wordCount":  7312 ,
+  "wordCount":  7620 ,
   "datePublished" : "2020-04-07T15:19:10",
   "dateModified" : "2020-04-07T15:19:10",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -247,10 +247,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;15&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;16&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7312&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7620&nbsp;words
   
   
     
@@ -503,11 +503,7 @@ if (!doNotTrack) {
     <span class="n">context</span><span class="p">,</span>
     <span class="n">MaterialPageRoute</span><span class="p">(</span><span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">nextScreen</span><span class="p">()),</span>
   <span class="p">);</span>
-</code></pre></div><h3 id="页面间共享元素动画">页面间共享元素动画</h3>
-<ul>
-<li>使用Hero包裹页面间的共享widget，并设置一个相同的tag</li>
-</ul>
-<h2 id="动画">动画</h2>
+</code></pre></div><h2 id="动画">动画</h2>
 <ul>
 <li>对于普通的修改大小和形状等的属性动画可以使用Implicit动画，设置动画时间duration、动画效果curve。常用的Implicit动画有以下这些：
 <ul>
@@ -538,11 +534,18 @@ if (!doNotTrack) {
 <li>StatusTransitionWidget</li>
 </ul>
 </li>
-<li>如果想对动画进行播放控制，但是没有现成的Explicit动画，那么可以使用AnimatedBuilder或者AnimatedWidget</li>
+<li>Explicit动画的几个概念：
+<ul>
+<li><code>Animaion&lt;double&gt;</code>：CurvedAnimation和AnimationController都继承自<code>Animaion&lt;double&gt;</code>，通过Animaion可以获取动画的状态目前的插值，但是Animaion不会控制动画的绘制</li>
+<li>CurvedAnimation用于定义动画的非线性过程；AnimationController用于控制动画播放进度，需要传入TickerProvider来减少处于屏幕外的动画资源消耗；Tween用于对Animation的范围进行转化；Animation可以通过设置Listners和StatusListeners来监听动画状态。</li>
+</ul>
+</li>
 <li>SingleTickerProviderStateMixin</li>
 <li>mixin是线性叠加的代码继承，最后的类会覆盖前面类方法</li>
 <li>mixin是类的一层一层叠加，类型判断可以为每一层的类</li>
 <li>mixin更多强调的是代码的复用而不是类继承关系</li>
+<li>如果想对动画进行播放控制，但是没有现成的Explicit动画，那么可以使用AnimatedBuilder或者AnimatedWidget</li>
+<li>页面间共享元素：使用Hero包裹页面间的共享widget，并设置一个相同的tag</li>
 </ul>
 <h1 id="学习资源">学习资源</h1>
 <ul>
