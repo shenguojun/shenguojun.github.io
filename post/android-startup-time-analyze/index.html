@@ -234,7 +234,7 @@ if (!doNotTrack) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
+            <div class="post-heading text-center">
               
                 <h1>如何统计Android App启动时间</h1>
               
@@ -275,6 +275,28 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#--使用命令行方式">- 使用命令行方式</a>
+      <ul>
+        <li><a href="#缺点">缺点</a></li>
+      </ul>
+    </li>
+    <li><a href="#-思考更准确的方式">-思考更准确的方式</a>
+      <ul>
+        <li><a href="#冷启动热启动注意不是官方的定义是我们从用户角度考虑的定义">冷启动、热启动（注意不是官方的定义，是我们从用户角度考虑的定义）</a></li>
+        <li><a href="#app启动流程">App启动流程</a></li>
+        <li><a href="#如何加log">如何加log</a></li>
+        <li><a href="#避免坑的checklist">避免坑的Checklist</a></li>
+      </ul>
+    </li>
+    <li><a href="#--使用第三方工具">- 使用第三方工具</a></li>
+    <li><a href="#--后记">- 后记</a></li>
+    <li><a href="#--参考">- 参考</a></li>
+  </ul>
+</nav>
+
         <p>随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：<a href="http://www.jianshu.com/u/b692bbf77991">Lawrence_Shen</a></p>
 <h2 id="--使用命令行方式">- 使用命令行方式</h2>
 <p>使用命令行方式统计多次启动某个Activity的平均用时可以在shell中执行如下指令：</p>

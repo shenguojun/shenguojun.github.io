@@ -234,7 +234,7 @@ if (!doNotTrack) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
+            <div class="post-heading text-center">
               
                 <h1>如何优化Androd App启动速度</h1>
               
@@ -275,6 +275,26 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#app-启动流程分析">App 启动流程分析</a></li>
+    <li><a href="#解决问题">解决问题</a>
+      <ul>
+        <li><a href="#控制static初始化范围">控制Static初始化范围</a></li>
+        <li><a href="#viewstub-初始化延迟">ViewStub 初始化延迟</a></li>
+        <li><a href="#fragment懒加载">Fragment懒加载</a></li>
+        <li><a href="#使用后台线程">使用后台线程</a></li>
+        <li><a href="#使用eventbus">使用EventBus</a></li>
+        <li><a href="#启动闪屏主题设置">启动闪屏主题设置</a></li>
+        <li><a href="#其他可以优化的细节">其他可以优化的细节</a></li>
+      </ul>
+    </li>
+    <li><a href="#后记">后记</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+
         <p>在上一篇文章<a href="http://www.jianshu.com/p/59a2ca7df681">《如何统计Android App启动时间》</a>中我们探讨了如何统计Android App的启动时间，以及简要分析了App启动流程。这一篇文章主要讲如何在实战中提升Android App的启动速度。下面我们先回顾一下App的启动流程。转载请注明出处：<a href="http://www.jianshu.com/u/b692bbf77991">Lawrence_Shen</a></p>
 <h2 id="app-启动流程分析">App 启动流程分析</h2>
 <p>  上一篇文章<a href="http://www.jianshu.com/p/59a2ca7df681">《如何统计Android App启动时间》</a>我们定义了从用户角度上观察的启动时间。我们把这段时间再细分成两段，一段是从用户点击Launcher图标到进入第一个Acitivity的时间，另一段是从第一个Activity到最后首页Activity完全展示出来用户可进行操作的时间。在第一段时间中耗时的任务主要体现在Application的创建，第二段时间耗时主要是因为Activity的创建以及在最后首页Activity展示之前的业务流程。主要解决的思路有两个：一个是<strong>尽可能将初始化延后到真正调用的时候</strong>，另一个是<strong>尽可能将不是用户第一时间能体验的业务功能延后</strong>。经过对我们App的详细分析以及对业务的了解，可以通过以下一些方法来解决应用启动慢的问题。</p>

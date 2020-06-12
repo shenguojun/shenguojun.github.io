@@ -234,7 +234,7 @@ if (!doNotTrack) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
+            <div class="post-heading text-center">
               
                 <h1>Databinding subModule library 爬坑</h1>
               
@@ -275,6 +275,22 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#表象原因">表象原因</a></li>
+    <li><a href="#根本原因">根本原因</a></li>
+    <li><a href="#进一步分析">进一步分析</a>
+      <ul>
+        <li><a href="#databinding-v2主工程引用v2-library">databinding V2主工程引用V2 library</a></li>
+        <li><a href="#databinding-v2主工程引用v1-library">databinding V2主工程引用V1 library</a></li>
+        <li><a href="#databinding-v1主工程引用v2-library">databinding V1主工程引用V2 library</a></li>
+      </ul>
+    </li>
+    <li><a href="#如果v2可以兼容v1为什么还会报错classcastexception">如果V2可以兼容V1，为什么还会报错ClassCastException？</a></li>
+  </ul>
+</nav>
+
         <h1 id="问题描述">问题描述</h1>
 <p>最近把gradle的‘com.android.tools.build:gradle’升级到3.2.1，升级之后dataBinding出错了，编译通过，但是运行时报了一个错误<code>java.lang.ClassCastException: com.youdao.dict.databinding.FragmentYdliveBindingImpl cannot be cast to com.youdao.ydliveplayer.databinding.FragmentYdliveBinding</code>。转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「Bug总柴」</a></p>
 <h1 id="问题分析">问题分析</h1>

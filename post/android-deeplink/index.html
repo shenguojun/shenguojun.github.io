@@ -234,7 +234,7 @@ if (!doNotTrack) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
+            <div class="post-heading text-center">
               
                 <h1>记录一次Android Deeplink跳转失败问题修复</h1>
               
@@ -275,6 +275,28 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#android-deeplink实现">Android Deeplink实现</a></li>
+    <li><a href="#检查客户端deeplink配置">检查客户端deeplink配置</a></li>
+    <li><a href="#分析浏览器对deeplink处理">分析浏览器对deeplink处理</a></li>
+    <li><a href="#测试">测试</a>
+      <ul>
+        <li><a href="#uc浏览器">UC浏览器</a></li>
+        <li><a href="#qq浏览器">QQ浏览器</a></li>
+        <li><a href="#360浏览器">360浏览器</a></li>
+        <li><a href="#猎豹浏览器">猎豹浏览器</a></li>
+        <li><a href="#一加系统默认浏览器">一加系统默认浏览器</a></li>
+        <li><a href="#搜狗浏览器">搜狗浏览器</a></li>
+        <li><a href="#chrome">chrome</a></li>
+      </ul>
+    </li>
+    <li><a href="#结语">结语</a></li>
+    <li><a href="#最后">最后</a></li>
+  </ul>
+</nav>
+
         <h2 id="android-deeplink实现">Android Deeplink实现</h2>
 <p>在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕捉。在有道背单词的项目中，我们需要通过前端分享词单的方式，将词单分享给别人，并通过点击前端页面收藏按钮，实现调起客户端收藏词单的功能。<br>
 从前端通过自定义url的方式调起客户端这个功能原来一直都没有什么问题，直到最近有部分用户反馈在某些浏览器下无法调起。下面我们来看一下分析查找问题的方法以及如何解决。</p>
