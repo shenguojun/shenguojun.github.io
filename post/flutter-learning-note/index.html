@@ -59,7 +59,7 @@
   "headline": "Flutter学习笔记——用户界面",
   "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut",
   "inLanguage" : "en",
-  "wordCount":  7741 ,
+  "wordCount":  8133 ,
   "datePublished" : "2020-04-07T15:19:10",
   "dateModified" : "2020-04-07T15:19:10",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -247,10 +247,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;16&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;17&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7741&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;8133&nbsp;words
   
   
     
@@ -300,7 +300,12 @@ if (!doNotTrack) {
         <li><a href="#从目标页面返回数据">从目标页面返回数据</a></li>
       </ul>
     </li>
-    <li><a href="#动画">动画</a></li>
+    <li><a href="#动画">动画</a>
+      <ul>
+        <li><a href="#implicit动画">Implicit动画</a></li>
+        <li><a href="#explicit动画">Explicit动画</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -401,7 +406,7 @@ if (!doNotTrack) {
 <li>设置应用打开闪屏的设置与原生方式一样，都是给第一个打开的activity设置主题</li>
 <li>设置name为io.flutter.embedding.android.NormalTheme的meta-data来定义正常主题，这样就会使得页面从启动的主题转变为正常的主题。</li>
 <li>在Android Activity启动后，还需要初始化Dart isolate，这段时间可以再设置闪屏</li>
-<li>设置Flutter的闪屏有两种方法，一种是设置展示一个drawable，可以在Activity的Manifest中设置name为io.flutter.embedding.android.SplashScreenDrawable的meta-data并指定drawable资源，或在Fragment中重写provideSplashScreen方法返回一个DrawableSplashScreen对象。第二种方法是实现SplashScreen接口，通过createSplashView提供自定义闪屏view，并通过transitionToFlutter方法标记闪屏view动画是否完成。</li>
+<li>设置Flutter的闪屏有两种方法，一种是设置展示一个drawable，可以在Activity的Manifest中设置name为<code>io.flutter.embedding.android.SplashScreenDrawable</code>的meta-data并指定drawable资源，或在Fragment中重写provideSplashScreen方法返回一个DrawableSplashScreen对象。第二种方法是实现SplashScreen接口，通过createSplashView提供自定义闪屏view，并通过transitionToFlutter方法标记闪屏view动画是否完成。</li>
 </ul>
 <h2 id="加入互动逻辑">加入互动逻辑</h2>
 <ul>
@@ -532,6 +537,7 @@ if (!doNotTrack) {
     <span class="n">MaterialPageRoute</span><span class="p">(</span><span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">nextScreen</span><span class="p">()),</span>
   <span class="p">);</span>
 </code></pre></div><h2 id="动画">动画</h2>
+<h3 id="implicit动画">Implicit动画</h3>
 <ul>
 <li>对于普通的修改大小和形状等的属性动画可以使用Implicit动画，设置动画时间duration、动画效果curve。常用的Implicit动画有以下这些：
 <ul>
@@ -547,6 +553,9 @@ if (!doNotTrack) {
 </ul>
 </li>
 <li>若没有能满足需求的Implicit动画widget，那么可以尝试使用TweenAnimationBuilder来实现自定义属性动画</li>
+</ul>
+<h3 id="explicit动画">Explicit动画</h3>
+<ul>
 <li>如果想要对动画进行播放控制，那么需要使用Explicit动画，并在turns中指定AnimationController。常用的Explicit动画有以下这些：
 <ul>
 <li>SizeTransition</li>
@@ -575,7 +584,9 @@ if (!doNotTrack) {
 </blockquote>
 </li>
 <li>如果想对动画进行播放控制，但是没有现成的Explicit动画，那么可以使用AnimatedBuilder或者AnimatedWidget</li>
-<li></li>
+<li>AnimatedWidget需要传入一个listenable，一般是Animation，也可以是 ChangeNotifier and ValueNotifier，AnimatedWidget会在listenable变化的时候调用setState重新build</li>
+<li>继承自AnimatedWidget一般命名为FooTransition,而继承自ImplicitlyAnimatedWidget一般命名为AnimatedFoo，这里Foo指的是没有加入动画的widget名字.AnimatedWidget与ImplicitlyAnimatedWidget的最大区别在于前者需要使用者自己维护一个Animation，可以对动画进行控制；后者自身会带一个Animation并维护自身的动画状态，不需要使用者参与管理。</li>
+<li>如果复杂一些需要知道动画的状态，那么需要使用AnimatedBuilder</li>
 <li>页面间共享元素：使用Hero包裹页面间的共享widget，并设置一个相同的tag</li>
 </ul>
 <h1 id="学习资源">学习资源</h1>
