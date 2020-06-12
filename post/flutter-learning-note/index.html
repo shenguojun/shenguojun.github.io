@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>Flutter学习笔记——用户界面 - Lawrence&#39;s Blog</title>
-  <meta name="description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut">
+  <meta name="description" content="[toc] 以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flu">
   <meta name="author" content="申国骏"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -57,9 +57,9 @@
     "name" : "申国骏"
   },
   "headline": "Flutter学习笔记——用户界面",
-  "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut",
+  "description" : "[toc] 以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flu",
   "inLanguage" : "en",
-  "wordCount":  7620 ,
+  "wordCount":  7742 ,
   "datePublished" : "2020-04-07T15:19:10",
   "dateModified" : "2020-04-07T15:19:10",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -79,14 +79,14 @@
 </script>
 
 <meta property="og:title" content="Flutter学习笔记——用户界面" />
-<meta property="og:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut">
+<meta property="og:description" content="[toc] 以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flu">
 <meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
 <meta property="og:url" content="https://shenguojun.github.io/post/flutter-learning-note/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lawrence&#39;s Blog" />
 
   <meta name="twitter:title" content="Flutter学习笔记——用户界面" />
-  <meta name="twitter:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut">
+  <meta name="twitter:description" content="[toc] 以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flu">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
@@ -250,7 +250,7 @@ if (!doNotTrack) {
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;16&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7620&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7742&nbsp;words
   
   
     
@@ -275,7 +275,8 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p><img src="https://shenguojun.github.io/image/flutter-logo.png" alt="flutter-logo"></p>
+        <p>[toc]</p>
+<p><img src="https://shenguojun.github.io/image/flutter-logo.png" alt="flutter-logo"></p>
 <blockquote>
 <p>以下为对<a href="https://flutter.dev/docs">Flutter官网</a>的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。</p>
 </blockquote>
@@ -536,15 +537,18 @@ if (!doNotTrack) {
 </li>
 <li>Explicit动画的几个概念：
 <ul>
-<li><code>Animaion&lt;double&gt;</code>：CurvedAnimation和AnimationController都继承自<code>Animaion&lt;double&gt;</code>，通过Animaion可以获取动画的状态目前的插值，但是Animaion不会控制动画的绘制</li>
+<li><code>Animaion&lt;double&gt;</code>：CurvedAnimation和AnimationController都继承自<code>Animaion&lt;double&gt;</code>，通过Animaion可以获取动画的状态目前的插值，但是Animaion不会参与动画的绘制</li>
 <li>CurvedAnimation用于定义动画的非线性过程；AnimationController用于控制动画播放进度，需要传入TickerProvider来减少处于屏幕外的动画资源消耗；Tween用于对Animation的范围进行转化；Animation可以通过设置Listners和StatusListeners来监听动画状态。</li>
 </ul>
 </li>
-<li>SingleTickerProviderStateMixin</li>
-<li>mixin是线性叠加的代码继承，最后的类会覆盖前面类方法</li>
-<li>mixin是类的一层一层叠加，类型判断可以为每一层的类</li>
-<li>mixin更多强调的是代码的复用而不是类继承关系</li>
+<li>SingleTickerProviderStateMixin是TickerProvider的实现；mixin是线性叠加的代码继承，最后的类会覆盖前面类方法，mixin是类的一层一层叠加，类型判断可以为每一层的类，mixin更多强调的是代码的复用而不是类继承关系，mixin是一种类型不能实例化。参考：<a href="https://stackoverflow.com/questions/45901297/when-to-use-mixins-and-when-to-use-interfaces-in-dart#:~:text=Mixins%20is%20all%20about%20how,that%20the%20class%20must%20satisfy.">When to use mixins and when to use interfaces in Dart?
+</a>
+<blockquote>
+<p>Mixins is all about how a class does what it does, it&rsquo;s inheriting and sharing concrete implementation. Interfaces is all about what a class is, it is the abstract signature and promises that the class must satisfy.</p>
+</blockquote>
+</li>
 <li>如果想对动画进行播放控制，但是没有现成的Explicit动画，那么可以使用AnimatedBuilder或者AnimatedWidget</li>
+<li></li>
 <li>页面间共享元素：使用Hero包裹页面间的共享widget，并设置一个相同的tag</li>
 </ul>
 <h1 id="学习资源">学习资源</h1>
