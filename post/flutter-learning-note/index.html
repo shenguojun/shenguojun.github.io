@@ -59,7 +59,7 @@
   "headline": "Flutter学习笔记——用户界面",
   "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut",
   "inLanguage" : "en",
-  "wordCount":  8133 ,
+  "wordCount":  8430 ,
   "datePublished" : "2020-04-07T15:19:10",
   "dateModified" : "2020-04-07T15:19:10",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -250,7 +250,7 @@ if (!doNotTrack) {
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;17&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;8133&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;8430&nbsp;words
   
   
     
@@ -584,9 +584,66 @@ if (!doNotTrack) {
 </blockquote>
 </li>
 <li>如果想对动画进行播放控制，但是没有现成的Explicit动画，那么可以使用AnimatedBuilder或者AnimatedWidget</li>
-<li>AnimatedWidget需要传入一个listenable，一般是Animation，也可以是 ChangeNotifier and ValueNotifier，AnimatedWidget会在listenable变化的时候调用setState重新build</li>
+<li>AnimatedWidget需要传入一个listenable，一般是Animation，也可以是 ChangeNotifier and ValueNotifier，AnimatedWidget会在listenable变化的时候调用setState重新build从而产生动画效果。
+<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="c1">// 不使用AnimatedWidget
+</span><span class="c1"></span><span class="n">animation</span> <span class="o">=</span> <span class="n">Tween</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">().</span><span class="n">animate</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
+  <span class="p">..</span><span class="n">addListener</span><span class="p">(()</span> <span class="p">{</span>
+    <span class="n">setState</span><span class="p">((){});</span>
+  <span class="p">};</span>
+<span class="p">...</span>
+<span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">GeneralWidget</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
+
+<span class="c1">// 使用AnimatedWidget
+</span><span class="c1"></span><span class="n">animation</span> <span class="o">=</span> <span class="n">Tween</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">().</span><span class="n">animate</span><span class="p">(</span><span class="n">controller</span><span class="p">);</span>
+<span class="p">...</span>
+<span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">AnimatedWidget</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
+</code></pre></div></li>
 <li>继承自AnimatedWidget一般命名为FooTransition,而继承自ImplicitlyAnimatedWidget一般命名为AnimatedFoo，这里Foo指的是没有加入动画的widget名字.AnimatedWidget与ImplicitlyAnimatedWidget的最大区别在于前者需要使用者自己维护一个Animation，可以对动画进行控制；后者自身会带一个Animation并维护自身的动画状态，不需要使用者参与管理。</li>
-<li>如果复杂一些需要知道动画的状态，那么需要使用AnimatedBuilder</li>
+<li>如果构造复杂的动画，可以使用AnimatedBuilder。为了性能考虑，可以在AnimatedBuilder中指定动画元素child，并在builder中将child传入动画中，避免每次动画tick回调都会重新build child。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">_SpinnerState</span> <span class="kd">extends</span> <span class="n">State</span>  <span class="kd">with</span> <span class="n">SingleTickerProviderStateMixin</span> <span class="p">{</span>
+  <span class="n">AnimationController</span> <span class="n">_controller</span><span class="p">;</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">void</span> <span class="n">initState</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">.</span><span class="n">initState</span><span class="p">();</span>
+    <span class="n">_controller</span> <span class="o">=</span> <span class="n">AnimationController</span><span class="p">(</span>
+      <span class="nl">duration:</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">10</span><span class="p">),</span>
+      <span class="nl">vsync:</span> <span class="k">this</span><span class="p">,</span>
+    <span class="p">)..</span><span class="n">repeat</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">void</span> <span class="n">dispose</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">_controller</span><span class="p">.</span><span class="n">dispose</span><span class="p">();</span>
+    <span class="k">super</span><span class="p">.</span><span class="n">dispose</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">AnimatedBuilder</span><span class="p">(</span>
+      <span class="nl">animation:</span> <span class="n">_controller</span><span class="p">,</span>
+      <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+        <span class="nl">width:</span> <span class="m">200.0</span><span class="p">,</span>
+        <span class="nl">height:</span> <span class="m">200.0</span><span class="p">,</span>
+        <span class="nl">color:</span> <span class="n">Colors</span><span class="p">.</span><span class="n">green</span><span class="p">,</span>
+        <span class="nl">child:</span> <span class="kd">const</span> <span class="n">Center</span><span class="p">(</span>
+          <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;Wee&#39;</span><span class="p">),</span>
+        <span class="p">),</span>
+      <span class="p">),</span>
+      <span class="nl">builder:</span> <span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">Widget</span> <span class="n">child</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Transform</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span>
+          <span class="nl">angle:</span> <span class="n">_controller</span><span class="p">.</span><span class="n">value</span> <span class="o">*</span> <span class="m">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span><span class="p">,</span>
+          <span class="nl">child:</span> <span class="n">child</span><span class="p">,</span>
+        <span class="p">);</span>
+      <span class="p">},</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p><a href="https://flutter.github.io/assets-for-api-docs/assets/widgets/animated_builder.mp4">动画效果</a></p>
+<ul>
+<li>可以对Animation使用addStatusListener添加动画状态监听。</li>
+<li>使用SpringSimulation可以产生物理的弹性效果。</li>
 <li>页面间共享元素：使用Hero包裹页面间的共享widget，并设置一个相同的tag</li>
 </ul>
 <h1 id="学习资源">学习资源</h1>
