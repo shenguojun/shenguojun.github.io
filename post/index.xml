@@ -8,10 +8,28 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Tue, 07 Apr 2020 15:19:10 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2020 14:01:07 +0800</lastBuildDate>
     
 	<atom:link href="https://shenguojun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flutter架构综述</title>
+      <link>https://shenguojun.github.io/post/flutter_arch/</link>
+      <pubDate>Wed, 17 Jun 2020 14:01:07 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/flutter_arch/</guid>
+      <description>本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。</description>
+    </item>
+    
+    <item>
+      <title>Flutter学习笔记（中）</title>
+      <link>https://shenguojun.github.io/post/flutter-learning-note2/</link>
+      <pubDate>Tue, 07 Apr 2020 17:56:55 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/flutter-learning-note2/</guid>
+      <description>以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS</description>
+    </item>
     
     <item>
       <title>Flutter学习笔记——用户界面</title>

@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Lawrence&#39;s Blog - Lawrence&#39;s Blog</title>
+  <title>Flutter学习笔记（中） - Lawrence&#39;s Blog</title>
+  <meta name="description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS">
   <meta name="author" content="申国骏"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -28,14 +29,64 @@
   
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/post\/flutter-learning-note2\/",
+          "name": "Flutter学习笔记（中）"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "申国骏"
+  },
+  "headline": "Flutter学习笔记（中）",
+  "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS",
+  "inLanguage" : "en",
+  "wordCount":  742 ,
+  "datePublished" : "2020-04-07T17:56:55",
+  "dateModified" : "2020-04-07T17:56:55",
+  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+  "keywords" : [ "flutter" ],
+  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/flutter-learning-note2\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/shenguojun.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
 
-<meta property="og:title" content="Lawrence&#39;s Blog" />
+<meta property="og:title" content="Flutter学习笔记（中）" />
+<meta property="og:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS">
 <meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/" />
+<meta property="og:url" content="https://shenguojun.github.io/post/flutter-learning-note2/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lawrence&#39;s Blog" />
 
-  <meta name="twitter:title" content="Lawrence&#39;s Blog" />
+  <meta name="twitter:title" content="Flutter学习笔记（中）" />
+  <meta name="twitter:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
@@ -183,18 +234,33 @@ if (!doNotTrack) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading text-center">
+            <div class="post-heading text-center">
               
-                <h1>Lawrence&#39;s Blog</h1>
-              
-              
-                <hr class="small">
+                <h1>Flutter学习笔记（中）</h1>
               
               
-                
-                  <span class="page-subheading">臨淵羡魚，不如退而結網</span>
-                
               
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;742&nbsp;words
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
+    
+  
+  
+</span>
+
+
               
             </div>
           </div>
@@ -205,269 +271,154 @@ if (!doNotTrack) {
 
 
     
-  <div role="main" class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#状态管理">状态管理</a></li>
+  </ul>
 
-        <div class="posts-list">
-          
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-deeplink/">
-        <h2 class="post-title">记录一次Android Deeplink跳转失败问题修复</h2>
-        
-        
-        
-    </a>
+  <ul>
+    <li><a href="#动画">动画</a></li>
+    <li><a href="#设计">设计</a></li>
+    <li><a href="#表格">表格</a></li>
+    <li><a href="#手势">手势</a></li>
+    <li><a href="#图片">图片</a></li>
+    <li><a href="#列表">列表</a></li>
+    <li><a href="#维护">维护</a></li>
+    <li><a href="#导航">导航</a></li>
+    <li><a href="#网络">网络</a></li>
+    <li><a href="#持久化">持久化</a></li>
+    <li><a href="#插件">插件</a></li>
+    <li><a href="#测试">测试</a></li>
+  </ul>
+</nav>
 
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 18, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2028&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕
-        <a href="https://shenguojun.github.io/post/android-deeplink/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/targetsdkversion/">
-        <h2 class="post-title">targetSdkVersion升级到28一些修改的地方</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 18, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2252&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
+        <blockquote>
+<p>以下为对<a href="https://flutter.dev/docs">Flutter官网</a>的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。</p>
+</blockquote>
+<h1 id="数据与网络服务">数据与网络服务</h1>
+<h2 id="状态管理">状态管理</h2>
+<ul>
+<li>与传统iOS或者Android开发中创建Widget并直接修改其属性不同，在Flutter声明式的世界里，频繁地调用build方法来重绘是可接受的，如果想改变一个Widget的属性，声明式的做法是通过改变数据，并告诉Flutter根据当前的数据对界面进行重绘。</li>
+<li>状态可以分为两种，一种是widget内短暂的数据状态，可以使用StatefulWidget来管理并根据状态刷新界面。另一种是类似于单例的跨多个widget的全局状态</li>
+<li>为了维护全局状态，可以将状态保存在最上层widget，并通过传递操作函数给底层widget从而实现底层widget修改全局状态并更新ui，也可以使用Inherited相关的widget让底层widget通过dependOnInheritedWidgetOfExactType获取并更新状态。或者使用Provider。</li>
+<li>Provider有三个概念，分别是ChangeNotifier（触发事件并支持订阅）、ChangeNotifierProvider（将事件与消费者绑定）和Consumer（事件消费者）。当ChangeNotifier发出事件时，Consumer的build方法都会重新执行，为避免不必要的界面重绘，可以尽可能地将Consumer置于底层，并且使用child参数预先定义好不需要变化的子widget。</li>
+<li>如果仅需要调用数据操作方法而不需要获取当前数据，可以使用Provider.of(context, listen: false)</li>
+<li>其他对全局数据操作的方法还有Redux、BLoC、Rx、和MobX</li>
+</ul>
+<h1 id="cookbook">Cookbook</h1>
+<h2 id="动画">动画</h2>
+<h2 id="设计">设计</h2>
+<h2 id="表格">表格</h2>
+<h2 id="手势">手势</h2>
+<h2 id="图片">图片</h2>
+<h2 id="列表">列表</h2>
+<h2 id="维护">维护</h2>
+<h2 id="导航">导航</h2>
+<h2 id="网络">网络</h2>
+<h2 id="持久化">持久化</h2>
+<h2 id="插件">插件</h2>
+<h2 id="测试">测试</h2>
 
 
-    </p>
-    <div class="post-entry">
         
-        前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对
-        <a href="https://shenguojun.github.io/post/targetsdkversion/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-startup-speedup/">
-        <h2 class="post-title">如何优化Androd App启动速度</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;11&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;5152&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        在上一篇文章《如何统计Android App启动时间》中我们探讨了如何统计Android App的启动时间，以及简要分析了App启动流程。这一篇
-        <a href="https://shenguojun.github.io/post/android-startup-speedup/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-startup-time-analyze/">
-        <h2 class="post-title">如何统计Android App启动时间</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3938&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所
-        <a href="https://shenguojun.github.io/post/android-startup-time-analyze/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/my-first-post/">
-        <h2 class="post-title">第一篇发布到github的博客</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;18&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <h2 id="发一个小柴的照片记录我的第一篇博客">发一个小柴的照片，记录我的第一篇博客</h2>
-<p><img src="https://shenguojun.github.io/image/chiquan.jpg" alt="chaiquan"></p>
-
-        
-    </div>
-
-    
-
-</article>
-          
-        </div>
-
-        
-          <ul class="pager main-pager">
+          <div class="blog-tags">
             
-              <li class="previous">
-                <a href="https://shenguojun.github.io/page/1/">&larr; Newer Posts</a>
-              </li>
+              <a href="https://shenguojun.github.io//tags/flutter/">flutter</a>&nbsp;
             
-            
-          </ul>
+          </div>
         
-      </div>
-    </div>
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;text=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;description=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
   </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+      </article>
 
       
-    <div class="page-meta">
-  
-  
-  
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/flutter-learning-note/" data-toggle="tooltip" data-placement="top" title="Flutter学习笔记——用户界面">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://shenguojun.github.io/post/flutter_arch/" data-toggle="tooltip" data-placement="top" title="Flutter架构综述">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
 </div>
 
-
-  
+      
 <footer>
   <div class="container">
     <div class="row">
@@ -500,7 +451,7 @@ if (!doNotTrack) {
               </li>
           
           <li>
-            <a href="/index.xml" title="RSS">
+            <a href="" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>

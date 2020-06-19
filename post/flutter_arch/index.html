@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Lawrence&#39;s Blog - Lawrence&#39;s Blog</title>
+  <title>Flutter架构综述 - Lawrence&#39;s Blog</title>
+  <meta name="description" content="本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。">
   <meta name="author" content="申国骏"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -28,14 +29,64 @@
   
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/post\/flutter_arch\/",
+          "name": "Flutter架构综述"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "申国骏"
+  },
+  "headline": "Flutter架构综述",
+  "description" : "本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。",
+  "inLanguage" : "en",
+  "wordCount":  727 ,
+  "datePublished" : "2020-06-17T14:01:07",
+  "dateModified" : "2020-06-17T14:01:07",
+  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+  "keywords" : [ "flutter" ],
+  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/flutter_arch\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/shenguojun.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
 
-<meta property="og:title" content="Lawrence&#39;s Blog" />
+<meta property="og:title" content="Flutter架构综述" />
+<meta property="og:description" content="本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。">
 <meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/" />
+<meta property="og:url" content="https://shenguojun.github.io/post/flutter_arch/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lawrence&#39;s Blog" />
 
-  <meta name="twitter:title" content="Lawrence&#39;s Blog" />
+  <meta name="twitter:title" content="Flutter架构综述" />
+  <meta name="twitter:description" content="本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
@@ -183,18 +234,33 @@ if (!doNotTrack) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading text-center">
+            <div class="post-heading text-center">
               
-                <h1>Lawrence&#39;s Blog</h1>
-              
-              
-                <hr class="small">
+                <h1>Flutter架构综述</h1>
               
               
-                
-                  <span class="page-subheading">臨淵羡魚，不如退而結網</span>
-                
               
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on June 17, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;727&nbsp;words
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
+    
+  
+  
+</span>
+
+
               
             </div>
           </div>
@@ -205,269 +271,132 @@ if (!doNotTrack) {
 
 
     
-  <div role="main" class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents"></nav>
 
-        <div class="posts-list">
-          
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-deeplink/">
-        <h2 class="post-title">记录一次Android Deeplink跳转失败问题修复</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 18, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2028&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕
-        <a href="https://shenguojun.github.io/post/android-deeplink/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/targetsdkversion/">
-        <h2 class="post-title">targetSdkVersion升级到28一些修改的地方</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 18, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2252&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
+        <blockquote>
+<p>本文是对<a href="https://github.com/brianegan/flutter_architecture_samples">TodoMVC for Flutter</a>中提到架构的总结</p>
+</blockquote>
+<p>在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。在传统的iOS或者Android开发的命令式（imperative）世界中，我们可以很容易地构建一个Widget，并通过这个构建出来的Widget直接修改它的属性，例如<code>var textView = TextView(); textView.text = &quot;xxx&quot;</code>。然而在Flutter声明式的世界里，这个看似理所当然的做法并不是常用的方法，甚至你会发现Flutter不支持这样做。我们需要用一种全新的思维来思考。在Flutter声明式的世界里，频繁地调用build方法来重绘是可接受的，如果想改变一个Widget的属性，声明式的做法是通过改变数据，并告诉Flutter根据当前的数据对界面进行重绘。</p>
+<p><img src="https://shenguojun.github.io/image/ui-equals-function-of-state.png" alt="ui-equals-function-of-state"></p>
+<p>因此对Flutter架构的研究，很大层度上可以归结为探究如何对状态进行存储，以及如何触发界面重绘的问题。</p>
+<h1 id="状态上浮">状态上浮</h1>
+<p>原理：将数据保存在最外层widget中，并将操作方法一层层传递给子widget，最终由子widget调用操作方法触发最外层widget的setState完成界面刷新。<a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/vanilla">代码例子</a></p>
+<ul>
+<li>缺点：每层传递代码不简洁、每次修改触发整体build</li>
+</ul>
+<h1 id="inheritedwidget">InheritedWidget</h1>
+<p>原理：将数据保存在最外层的widget，在子widget通过dependOnInheritedWidgetOfExactType的方法获取数据和调用数据操作方法，触发最外层widgetsetState完成界面刷新。<a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/inherited_widget">代码例子</a></p>
+<ul>
+<li>缺点：每次修改触发整体build</li>
+<li>优点：不需要每层传递代码、代码较为简洁易懂</li>
+</ul>
+<h1 id="changenotifier--provider">ChangeNotifier + Provider</h1>
+<ul>
+<li>ChangeNotifier添加和删除listener复杂度是O(n)，消息发送复杂度是O(N^2)</li>
+<li>Provider</li>
+</ul>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://flutter.dev/docs/development/data-and-backend/state-mgmt/intro">Flutter guide - State management</a></li>
+<li><a href="https://github.com/brianegan/flutter_architecture_samples">Flutter architecture samples</a></li>
+</ul>
 
 
-    </p>
-    <div class="post-entry">
         
-        前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对
-        <a href="https://shenguojun.github.io/post/targetsdkversion/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-startup-speedup/">
-        <h2 class="post-title">如何优化Androd App启动速度</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;11&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;5152&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        在上一篇文章《如何统计Android App启动时间》中我们探讨了如何统计Android App的启动时间，以及简要分析了App启动流程。这一篇
-        <a href="https://shenguojun.github.io/post/android-startup-speedup/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-startup-time-analyze/">
-        <h2 class="post-title">如何统计Android App启动时间</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3938&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所
-        <a href="https://shenguojun.github.io/post/android-startup-time-analyze/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/my-first-post/">
-        <h2 class="post-title">第一篇发布到github的博客</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;18&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <h2 id="发一个小柴的照片记录我的第一篇博客">发一个小柴的照片，记录我的第一篇博客</h2>
-<p><img src="https://shenguojun.github.io/image/chiquan.jpg" alt="chaiquan"></p>
-
-        
-    </div>
-
-    
-
-</article>
-          
-        </div>
-
-        
-          <ul class="pager main-pager">
+          <div class="blog-tags">
             
-              <li class="previous">
-                <a href="https://shenguojun.github.io/page/1/">&larr; Newer Posts</a>
-              </li>
+              <a href="https://shenguojun.github.io//tags/flutter/">flutter</a>&nbsp;
             
-            
-          </ul>
+          </div>
         
-      </div>
-    </div>
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;text=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;title=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;title=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;title=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;description=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
   </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+      </article>
 
       
-    <div class="page-meta">
-  
-  
-  
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/flutter-learning-note2/" data-toggle="tooltip" data-placement="top" title="Flutter学习笔记（中）">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
 </div>
 
-
-  
+      
 <footer>
   <div class="container">
     <div class="row">
@@ -500,7 +429,7 @@ if (!doNotTrack) {
               </li>
           
           <li>
-            <a href="/index.xml" title="RSS">
+            <a href="" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
