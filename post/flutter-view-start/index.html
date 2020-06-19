@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Lawrence&#39;s Blog - Lawrence&#39;s Blog</title>
+  <title>Flutter多模块启动方案 - Lawrence&#39;s Blog</title>
+  <meta name="description" content="问题缘起 单一入口容易造成模块之间逻辑 不同模块使用不同路由方案 iOS中设置了Entrypoint之后setInitialRouter设置无效 flutter">
   <meta name="author" content="申国骏"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -28,14 +29,64 @@
   
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/post\/flutter-view-start\/",
+          "name": "Flutter多模块启动方案"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "申国骏"
+  },
+  "headline": "Flutter多模块启动方案",
+  "description" : "问题缘起 单一入口容易造成模块之间逻辑 不同模块使用不同路由方案 iOS中设置了Entrypoint之后setInitialRouter设置无效 flutter",
+  "inLanguage" : "en",
+  "wordCount":  179 ,
+  "datePublished" : "2020-04-07T17:56:55",
+  "dateModified" : "2020-04-07T17:56:55",
+  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/flutter-view-start\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/shenguojun.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
 
-<meta property="og:title" content="Lawrence&#39;s Blog" />
+<meta property="og:title" content="Flutter多模块启动方案" />
+<meta property="og:description" content="问题缘起 单一入口容易造成模块之间逻辑 不同模块使用不同路由方案 iOS中设置了Entrypoint之后setInitialRouter设置无效 flutter">
 <meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/" />
+<meta property="og:url" content="https://shenguojun.github.io/post/flutter-view-start/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lawrence&#39;s Blog" />
 
-  <meta name="twitter:title" content="Lawrence&#39;s Blog" />
+  <meta name="twitter:title" content="Flutter多模块启动方案" />
+  <meta name="twitter:description" content="问题缘起 单一入口容易造成模块之间逻辑 不同模块使用不同路由方案 iOS中设置了Entrypoint之后setInitialRouter设置无效 flutter">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
@@ -183,18 +234,33 @@ if (!doNotTrack) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading text-center">
+            <div class="post-heading text-center">
               
-                <h1>Lawrence&#39;s Blog</h1>
-              
-              
-                <hr class="small">
+                <h1>Flutter多模块启动方案</h1>
               
               
-                
-                  <span class="page-subheading">臨淵羡魚，不如退而結網</span>
-                
               
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;179&nbsp;words
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
+    
+  
+  
+</span>
+
+
               
             </div>
           </div>
@@ -205,316 +271,138 @@ if (!doNotTrack) {
 
 
     
-  <div role="main" class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#setinitialrouter过程">setInitialRouter过程</a></li>
+    <li><a href="#entrypoint设置">entryPoint设置</a></li>
+    <li><a href="#页面启动过程">页面启动过程</a></li>
+    <li><a href="#最终解决办法">最终解决办法</a>
+      <ul>
+        <li><a href="#channel">channel</a></li>
+        <li><a href="#flutter-boost项目">flutter boost项目</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
-        <div class="posts-list">
-          
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/kotlin-good-part/">
-        <h2 class="post-title">Kotlin精髓</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 7, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;14&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;6541&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl
-        <a href="https://shenguojun.github.io/post/kotlin-good-part/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-deeplink/">
-        <h2 class="post-title">记录一次Android Deeplink跳转失败问题修复</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 18, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2028&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
+        <h1 id="问题缘起">问题缘起</h1>
+<ul>
+<li>单一入口容易造成模块之间逻辑</li>
+<li>不同模块使用不同路由方案</li>
+<li>iOS中设置了Entrypoint之后setInitialRouter设置无效</li>
+<li>flutter boost同时使用，iOS打开new engine页面返回flutterboost 页面路由不生效</li>
+</ul>
+<h1 id="代码解读">代码解读</h1>
+<h2 id="setinitialrouter过程">setInitialRouter过程</h2>
+<ul>
+<li>Android</li>
+<li>iOS</li>
+<li>Flutter</li>
+<li>FlutterEngine</li>
+</ul>
+<h2 id="entrypoint设置">entryPoint设置</h2>
+<h2 id="页面启动过程">页面启动过程</h2>
+<h2 id="最终解决办法">最终解决办法</h2>
+<h3 id="channel">channel</h3>
+<h3 id="flutter-boost项目">flutter boost项目</h3>
+<ul>
+<li>跨模块</li>
+</ul>
 
 
-    </p>
-    <div class="post-entry">
         
-        Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕
-        <a href="https://shenguojun.github.io/post/android-deeplink/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/targetsdkversion/">
-        <h2 class="post-title">targetSdkVersion升级到28一些修改的地方</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 18, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2252&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对
-        <a href="https://shenguojun.github.io/post/targetsdkversion/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-startup-speedup/">
-        <h2 class="post-title">如何优化Androd App启动速度</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;11&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;5152&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        在上一篇文章《如何统计Android App启动时间》中我们探讨了如何统计Android App的启动时间，以及简要分析了App启动流程。这一篇
-        <a href="https://shenguojun.github.io/post/android-startup-speedup/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-startup-time-analyze/">
-        <h2 class="post-title">如何统计Android App启动时间</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3938&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所
-        <a href="https://shenguojun.github.io/post/android-startup-time-analyze/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/my-first-post/">
-        <h2 class="post-title">第一篇发布到github的博客</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;18&nbsp;words
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <h2 id="发一个小柴的照片记录我的第一篇博客">发一个小柴的照片，记录我的第一篇博客</h2>
-<p><img src="https://shenguojun.github.io/image/chiquan.jpg" alt="chaiquan"></p>
 
         
-    </div>
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
 
-    
-
-</article>
-          
-        </div>
-
-        
-          <ul class="pager main-pager">
-            
-              <li class="previous">
-                <a href="https://shenguojun.github.io/page/1/">&larr; Newer Posts</a>
-              </li>
-            
-            
-          </ul>
-        
-      </div>
-    </div>
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-view-start%2f&amp;text=Flutter%e5%a4%9a%e6%a8%a1%e5%9d%97%e5%90%af%e5%8a%a8%e6%96%b9%e6%a1%88&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-view-start%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-view-start%2f&amp;title=Flutter%e5%a4%9a%e6%a8%a1%e5%9d%97%e5%90%af%e5%8a%a8%e6%96%b9%e6%a1%88" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-view-start%2f&amp;title=Flutter%e5%a4%9a%e6%a8%a1%e5%9d%97%e5%90%af%e5%8a%a8%e6%96%b9%e6%a1%88" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-view-start%2f&amp;title=Flutter%e5%a4%9a%e6%a8%a1%e5%9d%97%e5%90%af%e5%8a%a8%e6%96%b9%e6%a1%88" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-view-start%2f&amp;description=Flutter%e5%a4%9a%e6%a8%a1%e5%9d%97%e5%90%af%e5%8a%a8%e6%96%b9%e6%a1%88" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
   </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+      </article>
 
       
-    <div class="page-meta">
-  
-  
-  
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/flutter-learning-note2/" data-toggle="tooltip" data-placement="top" title="Flutter学习笔记（中）">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://shenguojun.github.io/post/flutter_arch/" data-toggle="tooltip" data-placement="top" title="Flutter架构综述">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
 </div>
 
-
-  
+      
 <footer>
   <div class="container">
     <div class="row">
@@ -547,7 +435,7 @@ if (!doNotTrack) {
               </li>
           
           <li>
-            <a href="/index.xml" title="RSS">
+            <a href="" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
