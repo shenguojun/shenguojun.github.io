@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Flutter架构综述 - Lawrence&#39;s Blog</title>
-  <meta name="description" content="本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。">
+  <title>OKDownload下载框架详解 - Lawrence&#39;s Blog</title>
+  <meta name="description" content="OKDowload是流利说开源的一个下载工具，是之前同样开源的FileDownloader的升级版，拥有多线程分块下载、断点续传、完备的下载">
   <meta name="author" content="申国骏"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -44,8 +44,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/shenguojun.github.io\/post\/flutter_arch\/",
-          "name": "Flutter架构综述"
+          "@id": "https:\/\/shenguojun.github.io\/post\/okdownload\/",
+          "name": "O k download下载框架详解"
         }
     }]
 }
@@ -56,15 +56,15 @@
   "author": {
     "name" : "申国骏"
   },
-  "headline": "Flutter架构综述",
-  "description" : "本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。",
+  "headline": "OKDownload下载框架详解",
+  "description" : "OKDowload是流利说开源的一个下载工具，是之前同样开源的FileDownloader的升级版，拥有多线程分块下载、断点续传、完备的下载",
   "inLanguage" : "en",
-  "wordCount":  727 ,
-  "datePublished" : "2020-06-17T14:01:07",
-  "dateModified" : "2020-06-17T14:01:07",
+  "wordCount":  632 ,
+  "datePublished" : "2020-06-19T14:58:54",
+  "dateModified" : "2020-06-19T14:58:54",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-  "keywords" : [ "flutter" ],
-  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/flutter_arch\/",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/okdownload\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/shenguojun.github.io\/",
@@ -78,15 +78,15 @@
 }
 </script>
 
-<meta property="og:title" content="Flutter架构综述" />
-<meta property="og:description" content="本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。">
+<meta property="og:title" content="OKDownload下载框架详解" />
+<meta property="og:description" content="OKDowload是流利说开源的一个下载工具，是之前同样开源的FileDownloader的升级版，拥有多线程分块下载、断点续传、完备的下载">
 <meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/post/flutter_arch/" />
+<meta property="og:url" content="https://shenguojun.github.io/post/okdownload/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lawrence&#39;s Blog" />
 
-  <meta name="twitter:title" content="Flutter架构综述" />
-  <meta name="twitter:description" content="本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。">
+  <meta name="twitter:title" content="OKDownload下载框架详解" />
+  <meta name="twitter:description" content="OKDowload是流利说开源的一个下载工具，是之前同样开源的FileDownloader的升级版，拥有多线程分块下载、断点续传、完备的下载">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
@@ -236,7 +236,7 @@ if (!doNotTrack) {
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading text-center">
               
-                <h1>Flutter架构综述</h1>
+                <h1>OKDownload下载框架详解</h1>
               
               
               
@@ -244,13 +244,13 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on June 17, 2020
+  <i class="fas fa-calendar"></i>&nbsp;Posted on June 19, 2020
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;727&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;632&nbsp;words
   
   
     
@@ -276,43 +276,60 @@ if (!doNotTrack) {
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <h1>TOC</h1>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#整体类图">整体类图</a></li>
+    <li><a href="#下载任务创建分配执行流程">下载任务创建&amp;分配执行流程</a>
+      <ul>
+        <li><a href="#通过downloadtaskexecute方法入口进行启动">通过<code>DownloadTask.execute()</code>方法入口进行启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#下载任务执行流程">下载任务执行流程</a></li>
+    <li><a href="#下载断点信息">下载断点信息</a></li>
+    <li><a href="#监听器设计">监听器设计</a></li>
+  </ul>
+</nav>
 
-        <blockquote>
-<p>本文是对<a href="https://github.com/brianegan/flutter_architecture_samples">TodoMVC for Flutter</a>中提到架构的总结</p>
-</blockquote>
-<p>在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。在传统的iOS或者Android开发的命令式（imperative）世界中，我们可以很容易地构建一个Widget，并通过这个构建出来的Widget直接修改它的属性，例如<code>var textView = TextView(); textView.text = &quot;xxx&quot;</code>。然而在Flutter声明式的世界里，这个看似理所当然的做法并不是常用的方法，甚至你会发现Flutter不支持这样做。我们需要用一种全新的思维来思考。在Flutter声明式的世界里，频繁地调用build方法来重绘是可接受的，如果想改变一个Widget的属性，声明式的做法是通过改变数据，并告诉Flutter根据当前的数据对界面进行重绘。</p>
-<p><img src="https://shenguojun.github.io/image/ui-equals-function-of-state.png" alt="ui-equals-function-of-state"></p>
-<p>因此对Flutter架构的研究，很大层度上可以归结为探究如何对状态进行存储，以及如何触发界面重绘的问题。</p>
-<h1 id="状态上浮">状态上浮</h1>
-<p>原理：将数据保存在最外层widget中，并将操作方法一层层传递给子widget，最终由子widget调用操作方法触发最外层widget的setState完成界面刷新。<a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/vanilla">代码例子</a></p>
-<ul>
-<li>缺点：每层传递代码不简洁、每次修改触发整体build</li>
-</ul>
-<h1 id="inheritedwidget">InheritedWidget</h1>
-<p>原理：将数据保存在最外层的widget，在子widget通过dependOnInheritedWidgetOfExactType的方法获取数据和调用数据操作方法，触发最外层widgetsetState完成界面刷新。<a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/inherited_widget">代码例子</a></p>
-<ul>
-<li>缺点：每次修改触发整体build</li>
-<li>优点：不需要每层传递代码、代码较为简洁易懂</li>
-</ul>
-<h1 id="changenotifier--provider">ChangeNotifier + Provider</h1>
-<ul>
-<li>ChangeNotifier添加和删除listener复杂度是O(n)，消息发送复杂度是O(N^2)</li>
-<li>Provider</li>
-</ul>
-<h1 id="参考">参考</h1>
-<ul>
-<li><a href="https://flutter.dev/docs/development/data-and-backend/state-mgmt/intro">Flutter guide - State management</a></li>
-<li><a href="https://github.com/brianegan/flutter_architecture_samples">Flutter architecture samples</a></li>
-</ul>
+        <p><a href="https://github.com/lingochamp/okdownload">OKDowload</a>是流利说开源的一个下载工具，是之前同样开源的<a href="https://github.com/lingochamp/FileDownloader">FileDownloader</a>的升级版，拥有多线程分块下载、断点续传、完备的下载回调、可以获取下载断点状态、高性能、设置下载优先级等特性。</p>
+<h1 id="源码解析">源码解析</h1>
+<h2 id="整体类图">整体类图</h2>
+<p><img src="https://shenguojun.github.io/image/okdownload-uml.png" alt="okdownload类图.png">
+OKDownload类中采用策略模式的组合，提供各个环节的自定义灵活性。可以定义底层的使用OkHttp还是URLConnection，也可以定义是否使用数据库来保存下载断点信息。</p>
+<h2 id="下载任务创建分配执行流程">下载任务创建&amp;分配执行流程</h2>
+<h3 id="通过downloadtaskexecute方法入口进行启动">通过<code>DownloadTask.execute()</code>方法入口进行启动</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * Execute the task with the {@code listener} on the invoke thread.
+</span><span class="cm"> *
+</span><span class="cm"> * @param listener the listener is used for listen the whole lifecycle of the task.
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">DownloadListener</span> <span class="n">listener</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">listener</span> <span class="o">=</span> <span class="n">listener</span><span class="o">;</span>
+    <span class="n">OkDownload</span><span class="o">.</span><span class="na">with</span><span class="o">().</span><span class="na">downloadDispatcher</span><span class="o">().</span><span class="na">execute</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>最终会执行<code>OkDownload.with().downloadDispatcher().execute(this);</code>。其中<code>OkDownload.with().downloadDispatcher()</code>会生成默认的<code>DownloadDispatcher</code>类实例，并执行<code>DownloadDispatcher.execute()</code>方法。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">DownloadTask</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">DownloadCall</span> <span class="n">call</span><span class="o">;</span>
+
+    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 通过下载断点或者检查目标文件是否存在判断任务是否已经完成
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">inspectCompleted</span><span class="o">(</span><span class="n">task</span><span class="o">))</span> <span class="k">return</span><span class="o">;</span>
+        <span class="c1">// 检查是已经有相同的下载任务，或者有相同目的文件的下载任务
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">inspectForConflict</span><span class="o">(</span><span class="n">task</span><span class="o">))</span> <span class="k">return</span><span class="o">;</span>
+
+        <span class="n">call</span> <span class="o">=</span> <span class="n">DownloadCall</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">task</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="n">store</span><span class="o">);</span>
+        <span class="c1">// runningSyncCalls表示正在执行的顺序任务
+</span><span class="c1"></span>        <span class="n">runningSyncCalls</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">call</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">syncRunCall</span><span class="o">(</span><span class="n">call</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="下载任务执行流程">下载任务执行流程</h2>
+<h2 id="下载断点信息">下载断点信息</h2>
+<h2 id="监听器设计">监听器设计</h2>
+<h1 id="功能api说明">功能API说明</h1>
+<p>接入的说明见项目<a href="https://github.com/lingochamp/okdownload/wiki">wiki</a>。一般的调用方法见<a href="https://github.com/lingochamp/okdownload/wiki/Simple-Use-Guideline">Simple Use Guideline</a>和<a href="https://github.com/lingochamp/okdownload/wiki/Advanced-Use-Guideline">Advanced Use Guideline</a></p>
 
 
-        
-          <div class="blog-tags">
-            
-              <a href="https://shenguojun.github.io//tags/flutter/">flutter</a>&nbsp;
-            
-          </div>
         
 
         
@@ -325,42 +342,42 @@ if (!doNotTrack) {
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;text=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fokdownload%2f&amp;text=OKDownload%e4%b8%8b%e8%bd%bd%e6%a1%86%e6%9e%b6%e8%af%a6%e8%a7%a3&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f" target="_blank" title="Share on Facebook">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fokdownload%2f" target="_blank" title="Share on Facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;title=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fokdownload%2f&amp;title=OKDownload%e4%b8%8b%e8%bd%bd%e6%a1%86%e6%9e%b6%e8%af%a6%e8%a7%a3" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;title=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fokdownload%2f&amp;title=OKDownload%e4%b8%8b%e8%bd%bd%e6%a1%86%e6%9e%b6%e8%af%a6%e8%a7%a3" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;title=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fokdownload%2f&amp;title=OKDownload%e4%b8%8b%e8%bd%bd%e6%a1%86%e6%9e%b6%e8%af%a6%e8%a7%a3" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter_arch%2f&amp;description=Flutter%e6%9e%b6%e6%9e%84%e7%bb%bc%e8%bf%b0" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fokdownload%2f&amp;description=OKDownload%e4%b8%8b%e8%bd%bd%e6%a1%86%e6%9e%b6%e8%af%a6%e8%a7%a3" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -379,13 +396,9 @@ if (!doNotTrack) {
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://shenguojun.github.io/post/flutter-view-start/" data-toggle="tooltip" data-placement="top" title="Flutter多模块启动方案">&larr; Previous Post</a>
+              <a href="https://shenguojun.github.io/post/flutter_arch/" data-toggle="tooltip" data-placement="top" title="Flutter架构综述">&larr; Previous Post</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://shenguojun.github.io/post/okdownload/" data-toggle="tooltip" data-placement="top" title="OKDownload下载框架详解">Next Post &rarr;</a>
-            </li>
           
         </ul>
       
