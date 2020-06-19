@@ -59,7 +59,7 @@
   "headline": "Flutter学习笔记（中）",
   "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS",
   "inLanguage" : "en",
-  "wordCount":  742 ,
+  "wordCount":  798 ,
   "datePublished" : "2020-04-07T17:56:55",
   "dateModified" : "2020-04-07T17:56:55",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -250,7 +250,7 @@ if (!doNotTrack) {
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;742&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;798&nbsp;words
   
   
     
@@ -278,22 +278,27 @@ if (!doNotTrack) {
         <h1>TOC</h1>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#状态管理">状态管理</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#动画">动画</a></li>
-    <li><a href="#设计">设计</a></li>
-    <li><a href="#表格">表格</a></li>
-    <li><a href="#手势">手势</a></li>
-    <li><a href="#图片">图片</a></li>
-    <li><a href="#列表">列表</a></li>
-    <li><a href="#维护">维护</a></li>
-    <li><a href="#导航">导航</a></li>
-    <li><a href="#网络">网络</a></li>
-    <li><a href="#持久化">持久化</a></li>
-    <li><a href="#插件">插件</a></li>
-    <li><a href="#测试">测试</a></li>
+    <li><a href="#数据与网络服务">数据与网络服务</a>
+      <ul>
+        <li><a href="#状态管理">状态管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#cookbook">Cookbook</a>
+      <ul>
+        <li><a href="#动画">动画</a></li>
+        <li><a href="#设计">设计</a></li>
+        <li><a href="#表格">表格</a></li>
+        <li><a href="#手势">手势</a></li>
+        <li><a href="#图片">图片</a></li>
+        <li><a href="#列表">列表</a></li>
+        <li><a href="#维护">维护</a></li>
+        <li><a href="#导航">导航</a></li>
+        <li><a href="#网络">网络</a></li>
+        <li><a href="#持久化">持久化</a></li>
+        <li><a href="#插件">插件</a></li>
+        <li><a href="#测试">测试</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -308,6 +313,7 @@ if (!doNotTrack) {
 <li>为了维护全局状态，可以将状态保存在最上层widget，并通过传递操作函数给底层widget从而实现底层widget修改全局状态并更新ui，也可以使用Inherited相关的widget让底层widget通过dependOnInheritedWidgetOfExactType获取并更新状态。或者使用Provider。</li>
 <li>Provider有三个概念，分别是ChangeNotifier（触发事件并支持订阅）、ChangeNotifierProvider（将事件与消费者绑定）和Consumer（事件消费者）。当ChangeNotifier发出事件时，Consumer的build方法都会重新执行，为避免不必要的界面重绘，可以尽可能地将Consumer置于底层，并且使用child参数预先定义好不需要变化的子widget。</li>
 <li>如果仅需要调用数据操作方法而不需要获取当前数据，可以使用Provider.of(context, listen: false)</li>
+<li>Provider的更多知识可以看<a href="https://juejin.im/post/5d00a84fe51d455a2f22023f">Flutter | 状态管理指南篇——Provider</a>，以及<a href="https://medium.com/flutter-community/making-sense-all-of-those-flutter-providers-e842e18f45dd">Making sense of all those Flutter Providers</a></li>
 <li>其他对全局数据操作的方法还有Redux、BLoC、Rx、和MobX</li>
 </ul>
 <h1 id="cookbook">Cookbook</h1>

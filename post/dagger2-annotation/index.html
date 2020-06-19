@@ -278,47 +278,57 @@ if (!doNotTrack) {
         <h1>TOC</h1>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#什么是依赖注入">什么是依赖注入</a></li>
-    <li><a href="#如何实现依赖注入">如何实现依赖注入</a></li>
-    <li><a href="#dagger2基本概念">Dagger2基本概念</a>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#依赖注入">依赖注入</a>
       <ul>
-        <li><a href="#bindings">bindings</a></li>
-        <li><a href="#modules">modules</a></li>
-        <li><a href="#components">components</a></li>
-        <li><a href="#bindingsmodulescomponents的依赖关系图可以表示为下图所示">bindings\modules\components的依赖关系图可以表示为下图所示</a></li>
+        <li><a href="#什么是依赖注入">什么是依赖注入</a></li>
+        <li><a href="#如何实现依赖注入">如何实现依赖注入</a></li>
+        <li><a href="#dagger2基本概念">Dagger2基本概念</a>
+          <ul>
+            <li><a href="#bindings">bindings</a></li>
+            <li><a href="#modules">modules</a></li>
+            <li><a href="#components">components</a></li>
+            <li><a href="#bindingsmodulescomponents的依赖关系图可以表示为下图所示">bindings\modules\components的依赖关系图可以表示为下图所示</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#inject">@Inject</a>
+    <li><a href="#dagger2注解">Dagger2注解</a>
       <ul>
-        <li><a href="#用于类构造器中表示该类在依赖注入时使用被注解的构造器创建对象">用于类构造器中表示该类在依赖注入时使用被注解的构造器创建对象。</a></li>
-        <li><a href="#用于成员变量中表示该成员变量作为依赖需要被注入">用于成员变量中表示该成员变量作为依赖需要被注入</a></li>
-        <li><a href="#用于方法中表示依赖于方法参数的类型会被注入">用于方法中表示依赖于方法参数的类型会被注入</a></li>
+        <li><a href="#inject">@Inject</a>
+          <ul>
+            <li><a href="#用于类构造器中表示该类在依赖注入时使用被注解的构造器创建对象">用于类构造器中表示该类在依赖注入时使用被注解的构造器创建对象。</a></li>
+            <li><a href="#用于成员变量中表示该成员变量作为依赖需要被注入">用于成员变量中表示该成员变量作为依赖需要被注入</a></li>
+            <li><a href="#用于方法中表示依赖于方法参数的类型会被注入">用于方法中表示依赖于方法参数的类型会被注入</a></li>
+          </ul>
+        </li>
+        <li><a href="#provides---module--component">@Provides &amp;  @Module &amp; @Component</a></li>
+        <li><a href="#binds">@Binds</a></li>
+        <li><a href="#component">@Component</a></li>
+        <li><a href="#qualifier">@Qualifier</a></li>
+        <li><a href="#named">@Named</a></li>
+        <li><a href="#scope和singleton">@Scope和@Singleton</a></li>
+        <li><a href="#reusable">@Reusable</a></li>
+        <li><a href="#component的dependencies和subcomponent">@Component的dependencies和@SubComponent</a>
+          <ul>
+            <li><a href="#-指定dependencies">-指定dependencies</a></li>
+            <li><a href="#-subcomponent">-@SubComponent</a></li>
+            <li><a href="#-指定dependencies与subcomponent区别">-指定dependencies与SubComponent区别</a></li>
+          </ul>
+        </li>
+        <li><a href="#lazy--provider">Lazy&lt;&gt; &amp; Provider&lt;&gt;</a></li>
+        <li><a href="#bindsinstance">@BindsInstance</a></li>
+        <li><a href="#bindsoptionalof">@BindsOptionalOf</a></li>
+        <li><a href="#mapkey">@MapKey</a></li>
+        <li><a href="#multibinds">@Multibinds</a></li>
+        <li><a href="#intomap--intoset--elementsintoset">@IntoMap  @IntoSet  @ElementsIntoSet</a></li>
+        <li><a href="#stringkey-intkey-longkey-classkey">@StringKey @IntKey @LongKey @ClassKey</a></li>
       </ul>
     </li>
-    <li><a href="#provides---module--component">@Provides &amp;  @Module &amp; @Component</a></li>
-    <li><a href="#binds">@Binds</a></li>
-    <li><a href="#component">@Component</a></li>
-    <li><a href="#qualifier">@Qualifier</a></li>
-    <li><a href="#named">@Named</a></li>
-    <li><a href="#scope和singleton">@Scope和@Singleton</a></li>
-    <li><a href="#reusable">@Reusable</a></li>
-    <li><a href="#component的dependencies和subcomponent">@Component的dependencies和@SubComponent</a>
-      <ul>
-        <li><a href="#-指定dependencies">-指定dependencies</a></li>
-        <li><a href="#-subcomponent">-@SubComponent</a></li>
-        <li><a href="#-指定dependencies与subcomponent区别">-指定dependencies与SubComponent区别</a></li>
-      </ul>
-    </li>
-    <li><a href="#lazy--provider">Lazy&lt;&gt; &amp; Provider&lt;&gt;</a></li>
-    <li><a href="#bindsinstance">@BindsInstance</a></li>
-    <li><a href="#bindsoptionalof">@BindsOptionalOf</a></li>
-    <li><a href="#mapkey">@MapKey</a></li>
-    <li><a href="#multibinds">@Multibinds</a></li>
-    <li><a href="#intomap--intoset--elementsintoset">@IntoMap  @IntoSet  @ElementsIntoSet</a></li>
-    <li><a href="#stringkey-intkey-longkey-classkey">@StringKey @IntKey @LongKey @ClassKey</a></li>
+    <li><a href="#dagger2的缺点">Dagger2的缺点</a></li>
+    <li><a href="#最后">最后</a></li>
+    <li><a href="#例子代码下载">例子代码下载：</a></li>
   </ul>
 </nav>
 

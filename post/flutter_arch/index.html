@@ -59,7 +59,7 @@
   "headline": "Flutter架构综述",
   "description" : "本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。",
   "inLanguage" : "en",
-  "wordCount":  727 ,
+  "wordCount":  778 ,
   "datePublished" : "2020-06-17T14:01:07",
   "dateModified" : "2020-06-17T14:01:07",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -250,7 +250,7 @@ if (!doNotTrack) {
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;727&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;778&nbsp;words
   
   
     
@@ -276,7 +276,15 @@ if (!doNotTrack) {
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <h1>TOC</h1>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#状态上浮">状态上浮</a></li>
+    <li><a href="#inheritedwidget">InheritedWidget</a></li>
+    <li><a href="#changenotifier--provider">ChangeNotifier + Provider</a></li>
+    <li><a href="#bloc">BLoC</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
 
         <blockquote>
 <p>本文是对<a href="https://github.com/brianegan/flutter_architecture_samples">TodoMVC for Flutter</a>中提到架构的总结</p>
@@ -299,6 +307,10 @@ if (!doNotTrack) {
 <ul>
 <li>ChangeNotifier添加和删除listener复杂度是O(n)，消息发送复杂度是O(N^2)</li>
 <li>Provider</li>
+</ul>
+<h1 id="bloc">BLoC</h1>
+<ul>
+<li>缺点：为了dispose释放资源需要大量的StatefulWidget，可以结合Provider优化</li>
 </ul>
 <h1 id="参考">参考</h1>
 <ul>
