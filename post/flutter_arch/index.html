@@ -59,7 +59,7 @@
   "headline": "Flutter架构综述",
   "description" : "本文是对TodoMVC for Flutter中提到架构的总结 在聊架构之前，我们需要先进入Flutter声明式（declaratively）的世界。",
   "inLanguage" : "en",
-  "wordCount":  778 ,
+  "wordCount":  1003 ,
   "datePublished" : "2020-06-17T14:01:07",
   "dateModified" : "2020-06-17T14:01:07",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -247,10 +247,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;Posted on June 17, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;778&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1003&nbsp;words
   
   
     
@@ -306,7 +306,7 @@ if (!doNotTrack) {
 <h1 id="changenotifier--provider">ChangeNotifier + Provider</h1>
 <ul>
 <li>ChangeNotifier添加和删除listener复杂度是O(n)，消息发送复杂度是O(N^2)</li>
-<li>Provider</li>
+<li>Provider底层也是使用InheritedWidget，原理是ChangeNotifierProvider将widget包裹在InheritedWidget中，并将继承自ChangeNotifier的数据Model对象放到内置的InheritedWidget对象中，当调用Provider.of的时候对数据Model添加listener，并在数据Model调用notifyListeners()方法时，设置markNeedsBuild()刷新界面。</li>
 </ul>
 <h1 id="bloc">BLoC</h1>
 <ul>
