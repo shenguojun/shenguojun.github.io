@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Flutter学习笔记（中） - Lawrence&#39;s Blog</title>
+  <title>Flutter学习笔记——数据保存与获取 - Lawrence&#39;s Blog</title>
   <meta name="description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS">
   <meta name="author" content="申国骏"/><script type="application/ld+json">
 {
@@ -45,7 +45,7 @@
         "position": 3,
         "item": {
           "@id": "https:\/\/shenguojun.github.io\/post\/flutter-learning-note2\/",
-          "name": "Flutter学习笔记（中）"
+          "name": "Flutter学习笔记——数据保存与获取"
         }
     }]
 }
@@ -56,7 +56,7 @@
   "author": {
     "name" : "申国骏"
   },
-  "headline": "Flutter学习笔记（中）",
+  "headline": "Flutter学习笔记——数据保存与获取",
   "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS",
   "inLanguage" : "en",
   "wordCount":  916 ,
@@ -78,14 +78,14 @@
 }
 </script>
 
-<meta property="og:title" content="Flutter学习笔记（中）" />
+<meta property="og:title" content="Flutter学习笔记——数据保存与获取" />
 <meta property="og:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS">
 <meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
 <meta property="og:url" content="https://shenguojun.github.io/post/flutter-learning-note2/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lawrence&#39;s Blog" />
 
-  <meta name="twitter:title" content="Flutter学习笔记（中）" />
+  <meta name="twitter:title" content="Flutter学习笔记——数据保存与获取" />
   <meta name="twitter:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 数据与网络服务 状态管理 与传统iOS">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
@@ -236,7 +236,7 @@ if (!doNotTrack) {
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading text-center">
               
-                <h1>Flutter学习笔记（中）</h1>
+                <h1>Flutter学习笔记——数据保存与获取</h1>
               
               
               
@@ -352,7 +352,7 @@ if (!doNotTrack) {
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;text=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;text=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e6%95%b0%e6%8d%ae%e4%bf%9d%e5%ad%98%e4%b8%8e%e8%8e%b7%e5%8f%96&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -366,28 +366,28 @@ if (!doNotTrack) {
   
       
       <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e6%95%b0%e6%8d%ae%e4%bf%9d%e5%ad%98%e4%b8%8e%e8%8e%b7%e5%8f%96" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e6%95%b0%e6%8d%ae%e4%bf%9d%e5%ad%98%e4%b8%8e%e8%8e%b7%e5%8f%96" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;title=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e6%95%b0%e6%8d%ae%e4%bf%9d%e5%ad%98%e4%b8%8e%e8%8e%b7%e5%8f%96" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;description=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%88%e4%b8%ad%ef%bc%89" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-learning-note2%2f&amp;description=Flutter%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e2%80%94%e2%80%94%e6%95%b0%e6%8d%ae%e4%bf%9d%e5%ad%98%e4%b8%8e%e8%8e%b7%e5%8f%96" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
