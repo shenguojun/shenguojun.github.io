@@ -59,7 +59,7 @@
   "headline": "Flutter学习笔记——用户界面",
   "description" : "以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 用户界面 widgets介绍 Flut",
   "inLanguage" : "en",
-  "wordCount":  8529 ,
+  "wordCount":  8834 ,
   "datePublished" : "2020-04-07T15:19:10",
   "dateModified" : "2020-04-07T15:19:10",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -250,7 +250,7 @@ if (!doNotTrack) {
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;18&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;8529&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;8834&nbsp;words
   
   
     
@@ -306,7 +306,7 @@ if (!doNotTrack) {
             <li><a href="#implicit动画">Implicit动画</a></li>
             <li><a href="#explicit动画">Explicit动画</a></li>
             <li><a href="#hero动画">Hero动画</a></li>
-            <li><a href="#交错动画">交错动画</a></li>
+            <li><a href="#交替动画">交替动画</a></li>
           </ul>
         </li>
         <li><a href="#高级ui">高级UI</a>
@@ -655,8 +655,27 @@ if (!doNotTrack) {
 <ul>
 <li>页面间共享元素：使用Hero包裹页面间的共享widget，并设置一个相同的tag。当路由push和pop的时候都会触发动画。</li>
 <li>共享元素能在两个页面之间过渡，其原理是使用了application overlay widget，并使用RecTween生成过渡动画。</li>
+<li>debug过程中可以使用<code>scheduler.dart</code>中的timeDilation减慢动画效果</li>
+<li>在Hero中声明createRectTween为MaterialRectCenterArcTween可以使得动画产生中心变化的效果，默认的情况是使用Hero的四个角，如果形状变化的动画可以会产生变形。</li>
+<li>如果想要更自然的形状变化效果，可以根据Hero动画过程中的大小变化动态设置目标位置大小，例子见<a href="https://github.com/flutter/website/blob/master/examples/_animation/radial_hero_animation_animate_rectclip/main.dart">radial_hero_animation_animate_rectclip</a></li>
 </ul>
-<h3 id="交错动画">交错动画</h3>
+<h3 id="交替动画">交替动画</h3>
+<ul>
+<li>通过指定Animation的curve为Interval来设置动画在Controller0到1之间出现的时机
+<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="n">borderRadius</span> <span class="o">=</span> <span class="n">BorderRadiusTween</span><span class="p">(</span>
+    <span class="nl">begin:</span> <span class="n">BorderRadius</span><span class="p">.</span><span class="n">circular</span><span class="p">(</span><span class="m">4.0</span><span class="p">),</span>
+    <span class="nl">end:</span> <span class="n">BorderRadius</span><span class="p">.</span><span class="n">circular</span><span class="p">(</span><span class="m">75.0</span><span class="p">),</span>
+  <span class="p">).</span><span class="n">animate</span><span class="p">(</span>
+    <span class="n">CurvedAnimation</span><span class="p">(</span>
+      <span class="nl">parent:</span> <span class="n">controller</span><span class="p">,</span>
+      <span class="nl">curve:</span> <span class="n">Interval</span><span class="p">(</span>
+        <span class="m">0.375</span><span class="p">,</span> <span class="m">0.500</span><span class="p">,</span>
+        <span class="nl">curve:</span> <span class="n">Curves</span><span class="p">.</span><span class="n">ease</span><span class="p">,</span>
+      <span class="p">),</span>
+    <span class="p">),</span>
+  <span class="p">),</span>
+</code></pre></div></li>
+</ul>
 <h2 id="高级ui">高级UI</h2>
 <h3 id="silvers">Silvers</h3>
 <h3 id="gestures">Gestures</h3>
