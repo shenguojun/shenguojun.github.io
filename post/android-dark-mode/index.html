@@ -59,7 +59,7 @@
   "headline": "Android深色模式适配原理分析",
   "description" : "背景 从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图",
   "inLanguage" : "en",
-  "wordCount":  11019 ,
+  "wordCount":  10958 ,
   "datePublished" : "2020-10-12T13:06:52",
   "dateModified" : "2020-10-12T13:06:52",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -250,7 +250,7 @@ if (!doNotTrack) {
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;22&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;11019&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;10958&nbsp;words
   
   
     
@@ -708,13 +708,8 @@ if (!doNotTrack) {
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><p>而这个方法正式在<code>ViewRootImpl.enableHardwareAcceleration()</code>方法中调用的，因此可以得到第一个结论：<strong>强制深色模式只在硬件加速下生效</strong>。由于<code>userAutoDark</code>变量会判断当前主题是否为浅色，因此可以得到第二个结论：<strong>强制深色模式只在浅色主题下生效</strong>。直到这一步的调用链如下：</p>
-<pre><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
-    ActivityThread-&gt;&gt;ActivityThread: handleResumeActivity()
-    ActivityThread-&gt;&gt;WindowManagerGlobal:addView()
-    WindowManagerGlobal-&gt;&gt;ViewRootImpl:setView()
-    ViewRootImpl-&gt;&gt;ViewRootImpl: enableHardwareAcceleration()
-    ViewRootImpl-&gt;&gt;ViewRootImpl: updateForceDarkMode()
-</code></pre><p><code>mAttachInfo.mThreadedRenderer</code>为<code>ThreadRenderer</code>，继承自<code>HardwareRenderer</code>，指定了接下来的渲染操作由RanderThread执行。继续跟踪<code>setForceDark()</code>方法：</p>
+<p><img src="https://github.com/shenguojun/ImageServer/blob/master/uPic/image-20201012103035909.png?raw=true" alt="image-20201012103035909.png"></p>
+<p><code>mAttachInfo.mThreadedRenderer</code>为<code>ThreadRenderer</code>，继承自<code>HardwareRenderer</code>，指定了接下来的渲染操作由RanderThread执行。继续跟踪<code>setForceDark()</code>方法：</p>
 <p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/graphics/java/android/graphics/HardwareRenderer.java;drc=master;l=523">frameworks/base/graphics/java/android/graphics/HardwareRenderer.java</a></strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">setForceDark</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">enable</span><span class="o">)</span> <span class="o">{</span>
   <span class="c1">// 如果强制深色模式变化
@@ -777,22 +772,8 @@ if (!doNotTrack) {
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre></div><p>到了这里，可以看出，当设置了Force Dark之后，最终会设置到<code>TreeInfo</code>类中的<code>disableForceDark</code>变量，如果没有设置主题的Force Dark，那么根据false的默认值，<code>disableForceDark</code>变量会别设置成1，如果设置了使用强制深色模式，那么<code>disableForceDark</code>会变成0。</p>
 <p>这个变量最终会用在RenderNode的<code>RenderNode.handleForceDark()</code>过程中，到达的流程如下图：</p>
-<pre><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
-    ViewRootImpl-&gt;&gt;ViewRootImpl: draw()
-    ViewRootImpl-&gt;&gt;ThreadedRenderer: draw()
-    ThreadedRenderer-&gt;&gt;HardwareRenderer: syncAndDrawFrame()
-    HardwareRenderer-&gt;&gt;RenderProxy: JNI调用-syncAndDrawFrame()
-    RenderProxy-&gt;&gt;DrawFrameTask: drawFrame()
-    DrawFrameTask-&gt;&gt;DrawFrameTask: postAndWait()
-    DrawFrameTask-&gt;&gt;DrawFrameTask: run()
-    DrawFrameTask-&gt;&gt;DrawFrameTask: syncFrameState()
-    DrawFrameTask-&gt;&gt;CanvasContext: prepareTree()
-    CanvasContext-&gt;&gt;RenderNode: prepareTree()
-    RenderNode-&gt;&gt;RenderNode: prepareTreeImpl()
-    RenderNode-&gt;&gt;RenderNode: pushStagingDisplayListChanges()
-    RenderNode-&gt;&gt;RenderNode: syncDisplayList()
-    RenderNode-&gt;&gt;RenderNode: handleForceDark()
-</code></pre><p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/RenderNode.cpp;l=235;drc=master;bpv=0;bpt=1">frameworks/base/libs/hwui/RenderNode.cpp</a></strong></p>
+<p><img src="https://github.com/shenguojun/ImageServer/blob/master/uPic/image-20201012103247032.png?raw=true" alt="image-20201012103247032.png"></p>
+<p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/RenderNode.cpp;l=235;drc=master;bpv=0;bpt=1">frameworks/base/libs/hwui/RenderNode.cpp</a></strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">RenderNode</span><span class="o">::</span><span class="n">prepareTreeImpl</span><span class="p">(</span><span class="n">TreeObserver</span><span class="o">&amp;</span> <span class="n">observer</span><span class="p">,</span> <span class="n">TreeInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">functorsNeedLayer</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// ...
 </span><span class="c1"></span>    <span class="c1">// 同步正在处理的RenderNode Property变化
