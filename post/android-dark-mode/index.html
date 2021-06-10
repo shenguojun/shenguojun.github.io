@@ -13,7 +13,7 @@
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Lawrence\x27s Blog",
+    "name": "Lawrence\u0027s Blog",
     
     "url": "https:\/\/shenguojun.github.io\/"
 }
@@ -90,7 +90,7 @@
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="generator" content="Hugo 0.83.1" />
   <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -244,7 +244,7 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on October 12, 2020
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;22&nbsp;minutes
@@ -346,8 +346,8 @@ if (!doNotTrack) {
 </span><span class="cm"> */</span>
 <span class="k">fun</span> <span class="nf">isNightMode</span><span class="p">():</span> <span class="n">Boolean</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">when</span> <span class="p">(</span><span class="n">resources</span><span class="p">.</span><span class="n">configuration</span><span class="p">.</span><span class="n">uiMode</span> <span class="n">and</span> <span class="n">Configuration</span><span class="p">.</span><span class="n">UI_MODE_NIGHT_MASK</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">Configuration</span><span class="p">.</span><span class="n">UI_MODE_NIGHT_YES</span> <span class="p">-&gt;</span> <span class="k">true</span>
-    <span class="k">else</span> <span class="p">-&gt;</span> <span class="k">false</span>
+    <span class="n">Configuration</span><span class="p">.</span><span class="n">UI_MODE_NIGHT_YES</span> <span class="o">-&gt;</span> <span class="k">true</span>
+    <span class="k">else</span> <span class="o">-&gt;</span> <span class="k">false</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><p><em>Tips: 对于一些从网络接口服务获取的需要对深色模式区分的色值或者图片，可以使用上述的判断来获取对应的资源。</em></p>
@@ -582,8 +582,8 @@ if (!doNotTrack) {
 <p><!-- raw HTML omitted --></p>
 <p><!-- raw HTML omitted --></p>
 <div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addLottieOnCompositionLoadedListener</span> <span class="p">{</span>
-  <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">resolveKeyPath</span><span class="p">(</span><span class="n">KeyPath</span><span class="p">(</span><span class="s">&#34;**&#34;</span><span class="p">)).</span><span class="n">forEach</span> <span class="p">{</span>
-    <span class="n">Log</span><span class="p">.</span><span class="n">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="n">it</span><span class="p">.</span><span class="n">keysToString</span><span class="p">())</span>
+  <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">resolveKeyPath</span><span class="p">(</span><span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;**&#34;</span><span class="p">)).</span><span class="n">forEach</span> <span class="p">{</span>
+    <span class="n">Log</span><span class="p">.</span><span class="n">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="k">it</span><span class="p">.</span><span class="n">keysToString</span><span class="p">())</span>
   <span class="p">}</span>
   <span class="n">setupValueCallbacks</span><span class="p">()</span>
 <span class="p">}</span>
@@ -631,11 +631,11 @@ if (!doNotTrack) {
 </code></pre><p>我们抽取其中的某些形状来动态改变颜色，例如我们抽取左右手臂以及机器小人身上的T恤</p>
 <div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">private</span> <span class="k">fun</span> <span class="nf">setupValueCallbacks</span><span class="p">()</span> <span class="p">{</span>
         <span class="c1">// 机器人右手臂
-</span><span class="c1"></span>        <span class="k">val</span> <span class="py">rightArm</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s">&#34;RightArm&#34;</span><span class="p">,</span> <span class="s">&#34;Group 6&#34;</span><span class="p">,</span> <span class="s">&#34;Fill 1&#34;</span><span class="p">)</span>
+</span><span class="c1"></span>        <span class="k">val</span> <span class="py">rightArm</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;RightArm&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 6&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
         <span class="c1">// 机器人左手臂
-</span><span class="c1"></span>        <span class="k">val</span> <span class="py">leftArm</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s">&#34;LeftArmWave&#34;</span><span class="p">,</span> <span class="s">&#34;LeftArm&#34;</span><span class="p">,</span> <span class="s">&#34;Group 6&#34;</span><span class="p">,</span> <span class="s">&#34;Fill 1&#34;</span><span class="p">)</span>
+</span><span class="c1"></span>        <span class="k">val</span> <span class="py">leftArm</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;LeftArmWave&#34;</span><span class="p">,</span> <span class="s2">&#34;LeftArm&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 6&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
         <span class="c1">// 机器人T恤
-</span><span class="c1"></span>        <span class="k">val</span> <span class="py">shirt</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s">&#34;Shirt&#34;</span><span class="p">,</span> <span class="s">&#34;Group 5&#34;</span><span class="p">,</span> <span class="s">&#34;Fill 1&#34;</span><span class="p">)</span>
+</span><span class="c1"></span>        <span class="k">val</span> <span class="py">shirt</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;Shirt&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 5&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
         <span class="c1">// 设置右手臂颜色
 </span><span class="c1"></span>        <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">rightArm</span><span class="p">,</span> <span class="n">LottieProperty</span><span class="p">.</span><span class="n">COLOR</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">ContextCompat</span><span class="p">.</span><span class="n">getColor</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">R</span><span class="p">.</span><span class="n">color</span><span class="p">.</span><span class="n">color_main_1</span><span class="p">)</span>
@@ -650,7 +650,7 @@ if (!doNotTrack) {
         <span class="p">}</span>
   
         <span class="c1">// 播放动画描边颜色
-</span><span class="c1"></span>        <span class="n">lottie_playing_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">KeyPath</span><span class="p">(</span><span class="s">&#34;**&#34;</span><span class="p">),</span> <span class="n">LottieProperty</span><span class="p">.</span><span class="n">STROKE_COLOR</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="c1"></span>        <span class="n">lottie_playing_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;**&#34;</span><span class="p">),</span> <span class="n">LottieProperty</span><span class="p">.</span><span class="n">STROKE_COLOR</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">ContextCompat</span><span class="p">.</span><span class="n">getColor</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">R</span><span class="p">.</span><span class="n">color</span><span class="p">.</span><span class="n">color_text_0</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -1402,7 +1402,7 @@ if (!doNotTrack) {
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.68.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

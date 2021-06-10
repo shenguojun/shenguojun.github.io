@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
-    <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    
-	<atom:link href="https://shenguojun.github.io/page/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <webMaster>junguoshen@yeah.net (申国骏)</webMaster><atom:link href="https://shenguojun.github.io/page/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About me</title>
       <link>https://shenguojun.github.io/page/about/</link>

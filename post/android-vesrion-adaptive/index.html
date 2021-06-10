@@ -13,7 +13,7 @@
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Lawrence\x27s Blog",
+    "name": "Lawrence\u0027s Blog",
     
     "url": "https:\/\/shenguojun.github.io\/"
 }
@@ -59,7 +59,7 @@
   "headline": "targetSdkVersion升级到28一些修改的地方",
   "description" : "前言 Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响",
   "inLanguage" : "en",
-  "wordCount":  7647 ,
+  "wordCount":  7642 ,
   "datePublished" : "2018-11-16T20:00:40",
   "dateModified" : "2018-11-16T20:00:40",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -90,7 +90,7 @@
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="generator" content="Hugo 0.83.1" />
   <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -244,13 +244,13 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 16, 2018
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;16&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7647&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7642&nbsp;words
   
   
     
@@ -366,12 +366,29 @@ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) -&
        <span class="m">47</span> in light greylist
 To run an analysis that can give more reflection accesses, 
 but could include <span class="nb">false</span> positives, pass the --imprecise flag.
-</code></pre></div><p>其中：<br>
-类型 | 描述
-&mdash;|&mdash;
-blacklist | 不管是否target到28，都会报<code>NoSuchMethodError/NoSuchFieldException</code><br>
-dark greylist | 如果target在28一下没问题，但是target到28及以上会报<code>NoSuchMethodError/NoSuchFieldException</code><br>
-light greylist | 暂时没有问题，可以使用</p>
+</code></pre></div><p>其中： </p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blacklist</td>
+<td>不管是否target到28，都会报<code>NoSuchMethodError/NoSuchFieldException</code></td>
+</tr>
+<tr>
+<td>dark greylist</td>
+<td>如果target在28一下没问题，但是target到28及以上会报<code>NoSuchMethodError/NoSuchFieldException</code></td>
+</tr>
+<tr>
+<td>light greylist</td>
+<td>暂时没有问题，可以使用</td>
+</tr>
+</tbody>
+</table>
 <p>处理办法：<br>
 去除blacklist以及dark greylist的非android sdk调用的反射调用，有些是android support包内部调用的可以考虑升级support包版本</p>
 <h2 id="隐私权限相关">隐私&amp;权限相关</h2>
@@ -627,25 +644,25 @@ light greylist | 暂时没有问题，可以使用</p>
 <table>
 <thead>
 <tr>
-<th align="center">运行在8.0受到影响</th>
+<th style="text-align:center">运行在8.0受到影响</th>
 <th>可能受到影响的功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://developer.android.com/about/versions/oreo/background#services">后台应用</a>通过<code>startService()</code>方法启动服务，<!-- raw HTML omitted -->包括<code>IntentService</code>会受到限制并抛出<code>IllegalStateException</code>异常，<!-- raw HTML omitted -->需要改成使用 <code>JobScheduler </code> 或者<code>JobIntentService</code></td>
+<td style="text-align:center"><a href="https://developer.android.com/about/versions/oreo/background#services">后台应用</a>通过<code>startService()</code>方法启动服务，<!-- raw HTML omitted -->包括<code>IntentService</code>会受到限制并抛出<code>IllegalStateException</code>异常，<!-- raw HTML omitted -->需要改成使用 <code>JobScheduler </code> 或者<code>JobIntentService</code></td>
 <td>所有启动后台服务的行为，包括但不限于后台下载、后台数据更新、后台初始化等等</td>
 </tr>
 <tr>
-<td align="center">前台服务启动不能通过启动后台服务再将其转换为前台，<!-- raw HTML omitted -->需要通过<a href="https://developer.android.com/reference/android/content/Context#startForegroundService(android.content.Intent)">startForegroundService()</a>方法，<!-- raw HTML omitted -->并在5s内调用<a href="https://developer.android.com/reference/android/app/Service#startForeground(int,%20android.app.Notification)">startForeground()</a>方法显示前台通知，否则会ANR</td>
+<td style="text-align:center">前台服务启动不能通过启动后台服务再将其转换为前台，<!-- raw HTML omitted -->需要通过<a href="https://developer.android.com/reference/android/content/Context#startForegroundService(android.content.Intent)">startForegroundService()</a>方法，<!-- raw HTML omitted -->并在5s内调用<a href="https://developer.android.com/reference/android/app/Service#startForeground(int,%20android.app.Notification)">startForeground()</a>方法显示前台通知，否则会ANR</td>
 <td>所有前台服务，包括音乐播放功能、其他有通知的服务</td>
 </tr>
 <tr>
-<td align="center">自定义action广播以及其他<a href="https://developer.android.com/guide/components/broadcast-exceptions">系统非指向性的广播</a>接收受到限制，<!-- raw HTML omitted -->可通过manifests注册指向性广播或者通过<code>Context.registerReceiver()</code>动态注册，<!-- raw HTML omitted -->系统性的广播事件可考虑通过<code>JobScheduler</code>配置实现</td>
+<td style="text-align:center">自定义action广播以及其他<a href="https://developer.android.com/guide/components/broadcast-exceptions">系统非指向性的广播</a>接收受到限制，<!-- raw HTML omitted -->可通过manifests注册指向性广播或者通过<code>Context.registerReceiver()</code>动态注册，<!-- raw HTML omitted -->系统性的广播事件可考虑通过<code>JobScheduler</code>配置实现</td>
 <td>例如软件安装后的广播处理以及网络变化通知处理功能</td>
 </tr>
 <tr>
-<td align="center">后台应用获取位置受到限制，包括<a href="https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderApi">FusedLocationProviderApi</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/location/GnssMeasurement">GnssMeasurement</a>、<a href="https://developer.android.com/reference/android/location/GnssNavigationMessage">GnssNavigationMessage</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/net/wifi/WifiManager#startScan()">WifiManager.startScan()</a>、<a href="https://developer.android.com/reference/android/location/LocationManager">LocationManager</a>，需要使用前台服务保持<a href="https://developer.android.com/about/versions/oreo/background-location-limits">应用前台状态</a></td>
+<td style="text-align:center">后台应用获取位置受到限制，包括<a href="https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderApi">FusedLocationProviderApi</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/location/GnssMeasurement">GnssMeasurement</a>、<a href="https://developer.android.com/reference/android/location/GnssNavigationMessage">GnssNavigationMessage</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/net/wifi/WifiManager#startScan()">WifiManager.startScan()</a>、<a href="https://developer.android.com/reference/android/location/LocationManager">LocationManager</a>，需要使用前台服务保持<a href="https://developer.android.com/about/versions/oreo/background-location-limits">应用前台状态</a></td>
 <td>后台动作检测功能、后台需要用到地理位置的功能例如后台导航之类</td>
 </tr>
 </tbody>
@@ -780,25 +797,25 @@ light greylist | 暂时没有问题，可以使用</p>
 <table>
 <thead>
 <tr>
-<th align="center">运行在8.0受到影响</th>
+<th style="text-align:center">运行在8.0受到影响</th>
 <th>可能受到影响的功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://developer.android.com/reference/java/util/Currency.html#getDisplayName()">Currency.getDisplayName()</a>、<a href="https://developer.android.com/reference/java/util/Currency.html#getSymbol()">Currency.getSymbol()</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/java/util/Locale.html#getDisplayScript()">Locale.getDisplayScript()</a><!-- raw HTML omitted -->默认调用<a href="https://developer.android.com/reference/java/util/Locale.html#getDefault(java.util.Locale.Category)">Locale.getDefault(Category.DISPLAY)</a></td>
+<td style="text-align:center"><a href="https://developer.android.com/reference/java/util/Currency.html#getDisplayName()">Currency.getDisplayName()</a>、<a href="https://developer.android.com/reference/java/util/Currency.html#getSymbol()">Currency.getSymbol()</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/java/util/Locale.html#getDisplayScript()">Locale.getDisplayScript()</a><!-- raw HTML omitted -->默认调用<a href="https://developer.android.com/reference/java/util/Locale.html#getDefault(java.util.Locale.Category)">Locale.getDefault(Category.DISPLAY)</a></td>
 <td>国际化显示</td>
 </tr>
 <tr>
-<td align="center"><a href="https://developer.android.com/reference/java/util/Currency.html#getDisplayName()">Currency.getDisplayName(null)</a>将会抛出异常</td>
+<td style="text-align:center"><a href="https://developer.android.com/reference/java/util/Currency.html#getDisplayName()">Currency.getDisplayName(null)</a>将会抛出异常</td>
 <td>国际化单位显示</td>
 </tr>
 <tr>
-<td align="center">对于<code>SimpleDateFormat</code>的时区获取由原来在设备第一次启动时候获取，改为每次实时获取</td>
+<td style="text-align:center">对于<code>SimpleDateFormat</code>的时区获取由原来在设备第一次启动时候获取，改为每次实时获取</td>
 <td>时区显示</td>
 </tr>
 <tr>
-<td align="center">升级<a href="http://site.icu-project.org/home">ICU</a>到58版本</td>
+<td style="text-align:center">升级<a href="http://site.icu-project.org/home">ICU</a>到58版本</td>
 <td>国际化单位标准</td>
 </tr>
 </tbody>
@@ -854,21 +871,21 @@ light greylist | 暂时没有问题，可以使用</p>
 <table>
 <thead>
 <tr>
-<th align="center">运行在8.0受到影响</th>
+<th style="text-align:center">运行在8.0受到影响</th>
 <th>可能受到影响的功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PHONE">TYPE_PHONE</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PRIORITY_PHONE">TYPE_PRIORITY_PHONE</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ALERT">TYPE_SYSTEM_ALERT</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_OVERLAY">TYPE_SYSTEM_OVERLAY</a>、<!-- raw HTML omitted --> <a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ERROR">TYPE_SYSTEM_ERROR</a>这些类型的窗口都会显示在<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">TYPE_APPLICATION_OVERLAY</a>之下</td>
+<td style="text-align:center"><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PHONE">TYPE_PHONE</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PRIORITY_PHONE">TYPE_PRIORITY_PHONE</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ALERT">TYPE_SYSTEM_ALERT</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_OVERLAY">TYPE_SYSTEM_OVERLAY</a>、<!-- raw HTML omitted --> <a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ERROR">TYPE_SYSTEM_ERROR</a>这些类型的窗口都会显示在<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">TYPE_APPLICATION_OVERLAY</a>之下</td>
 <td>悬浮球、快速查词等需要弹窗弹窗的地方</td>
 </tr>
 <tr>
-<td align="center">使用键盘导航时，获取焦点的view将会加上ripple高亮，<!-- raw HTML omitted -->如果不需要这种默认的高亮，<!-- raw HTML omitted -->需要设置<code>android:defaultFocusHighlightEnabled</code><!-- raw HTML omitted -->或者<code>setDefaultFocusHighlightEnabled(false)</code></td>
+<td style="text-align:center">使用键盘导航时，获取焦点的view将会加上ripple高亮，<!-- raw HTML omitted -->如果不需要这种默认的高亮，<!-- raw HTML omitted -->需要设置<code>android:defaultFocusHighlightEnabled</code><!-- raw HTML omitted -->或者<code>setDefaultFocusHighlightEnabled(false)</code></td>
 <td>键盘导航</td>
 </tr>
 <tr>
-<td align="center">webview中<a href="https://developer.android.com/reference/android/webkit/WebSettings.html#getSaveFormData()">WebSettings.getSaveFormData()</a>返回false，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebSettings.html#setSaveFormData(boolean)">WebSettings.setSaveFormData()</a>没有任何作用，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebViewDatabase.html#clearFormData()">WebViewDatabase.clearFormData()</a>没有任何作用，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebViewDatabase.html#hasFormData()">WebViewDatabase.hasFormData()</a>返回false</td>
+<td style="text-align:center">webview中<a href="https://developer.android.com/reference/android/webkit/WebSettings.html#getSaveFormData()">WebSettings.getSaveFormData()</a>返回false，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebSettings.html#setSaveFormData(boolean)">WebSettings.setSaveFormData()</a>没有任何作用，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebViewDatabase.html#clearFormData()">WebViewDatabase.clearFormData()</a>没有任何作用，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebViewDatabase.html#hasFormData()">WebViewDatabase.hasFormData()</a>返回false</td>
 <td>网页相关</td>
 </tr>
 </tbody>
@@ -876,21 +893,21 @@ light greylist | 暂时没有问题，可以使用</p>
 <table>
 <thead>
 <tr>
-<th align="center">Target在8.0受到影响</th>
+<th style="text-align:center">Target在8.0受到影响</th>
 <th>可能受到影响的功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PHONE">TYPE_PHONE</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PRIORITY_PHONE">TYPE_PRIORITY_PHONE</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ALERT">TYPE_SYSTEM_ALERT</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_OVERLAY">TYPE_SYSTEM_OVERLAY</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ERROR">TYPE_SYSTEM_ERROR</a><!-- raw HTML omitted -->不能用在alert window上，必须使用<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">TYPE_APPLICATION_OVERLAY</a></td>
+<td style="text-align:center"><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PHONE">TYPE_PHONE</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PRIORITY_PHONE">TYPE_PRIORITY_PHONE</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ALERT">TYPE_SYSTEM_ALERT</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_OVERLAY">TYPE_SYSTEM_OVERLAY</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ERROR">TYPE_SYSTEM_ERROR</a><!-- raw HTML omitted -->不能用在alert window上，必须使用<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">TYPE_APPLICATION_OVERLAY</a></td>
 <td>悬浮球、快速查词等需要弹窗弹窗的地方</td>
 </tr>
 <tr>
-<td align="center">可点击的View默认拥有可获取焦点属性</td>
+<td style="text-align:center">可点击的View默认拥有可获取焦点属性</td>
 <td>View焦点显示</td>
 </tr>
 <tr>
-<td align="center">Notificaiton通知必须指定Notificaiton Channels，否则不会显示通知，详见<a href="https://developer.android.com/about/versions/oreo/android-8.0#notifications">notifications</a></td>
+<td style="text-align:center">Notificaiton通知必须指定Notificaiton Channels，否则不会显示通知，详见<a href="https://developer.android.com/about/versions/oreo/android-8.0#notifications">notifications</a></td>
 <td>通知相关</td>
 </tr>
 </tbody>
@@ -940,29 +957,29 @@ light greylist | 暂时没有问题，可以使用</p>
 <table>
 <thead>
 <tr>
-<th align="center">运行在8.0受到影响</th>
+<th style="text-align:center">运行在8.0受到影响</th>
 <th>可能受到影响的功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">应用快捷方式不能通过<code>com.android.launcher.action.INSTALL_SHORTCUT</code>创建，<!-- raw HTML omitted -->需要使用<a href="https://developer.android.com/reference/android/content/pm/ShortcutManager.html">ShortcutManager</a>，具体如何创建可以看<a href="https://www.jianshu.com/p/7b8706fb79e4">这篇文章</a></td>
+<td style="text-align:center">应用快捷方式不能通过<code>com.android.launcher.action.INSTALL_SHORTCUT</code>创建，<!-- raw HTML omitted -->需要使用<a href="https://developer.android.com/reference/android/content/pm/ShortcutManager.html">ShortcutManager</a>，具体如何创建可以看<a href="https://www.jianshu.com/p/7b8706fb79e4">这篇文章</a></td>
 <td>快捷方式创建功能</td>
 </tr>
 <tr>
-<td align="center">无障碍功能中双击动作转换为点击动作、<!-- raw HTML omitted -->能识别TextView中的ClickableSpan</td>
+<td style="text-align:center">无障碍功能中双击动作转换为点击动作、<!-- raw HTML omitted -->能识别TextView中的ClickableSpan</td>
 <td>无障碍功能</td>
 </tr>
 <tr>
-<td align="center"><code>findViewById()</code> 返回类型由View改为<code>&lt;T extends View&gt; T</code></td>
+<td style="text-align:center"><code>findViewById()</code> 返回类型由View改为<code>&lt;T extends View&gt; T</code></td>
 <td>覆盖<code>findViewById()</code> 的地方需要相应修改</td>
 </tr>
 <tr>
-<td align="center">从2019年1月7日起，将无法通过<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/provider/ContactsContract.ContactOptionsColumns#LAST_TIME_CONTACTED">LAST_TIME_CONTACTED</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/android/provider/ContactsContract.ContactOptionsColumns#TIMES_CONTACTED">TIMES_CONTACTED</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/android/provider/ContactsContract.DataUsageStatColumns#LAST_TIME_USED">LAST_TIME_USED</a><!-- raw HTML omitted -->/<a href="ContactsContract.DataUsageStatColumns.TIMES_USED">TIMES_USED</a><!-- raw HTML omitted -->获取联系人使用情况</td>
+<td style="text-align:center">从2019年1月7日起，将无法通过<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/provider/ContactsContract.ContactOptionsColumns#LAST_TIME_CONTACTED">LAST_TIME_CONTACTED</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/android/provider/ContactsContract.ContactOptionsColumns#TIMES_CONTACTED">TIMES_CONTACTED</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/android/provider/ContactsContract.DataUsageStatColumns#LAST_TIME_USED">LAST_TIME_USED</a><!-- raw HTML omitted -->/<a href="ContactsContract.DataUsageStatColumns.TIMES_USED">TIMES_USED</a><!-- raw HTML omitted -->获取联系人使用情况</td>
 <td>联系人联系情况获取功能</td>
 </tr>
 <tr>
-<td align="center"><a href="https://developer.android.com/reference/java/util/AbstractCollection.html#removeAll(java.util.Collection%3C?%3E)">AbstractCollection.removeAll(java.util.Collection)</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/java/util/AbstractCollection.html#retainAll(java.util.Collection%3C?%3E)">AbstractCollection.retainAll(java.util.Collection)</a><!-- raw HTML omitted -->当传入参数为null时会报<code>NullPointerException</code></td>
+<td style="text-align:center"><a href="https://developer.android.com/reference/java/util/AbstractCollection.html#removeAll(java.util.Collection%3C?%3E)">AbstractCollection.removeAll(java.util.Collection)</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/java/util/AbstractCollection.html#retainAll(java.util.Collection%3C?%3E)">AbstractCollection.retainAll(java.util.Collection)</a><!-- raw HTML omitted -->当传入参数为null时会报<code>NullPointerException</code></td>
 <td>集合操作</td>
 </tr>
 </tbody>
@@ -1145,7 +1162,7 @@ light greylist | 暂时没有问题，可以使用</p>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.68.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

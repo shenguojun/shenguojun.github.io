@@ -13,7 +13,7 @@
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Lawrence\x27s Blog",
+    "name": "Lawrence\u0027s Blog",
     
     "url": "https:\/\/shenguojun.github.io\/"
 }
@@ -59,7 +59,7 @@
   "headline": "Kotlin精髓",
   "description" : "前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl",
   "inLanguage" : "en",
-  "wordCount":  6541 ,
+  "wordCount":  6531 ,
   "datePublished" : "2018-11-07T17:42:32",
   "dateModified" : "2018-11-07T17:42:32",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -90,7 +90,7 @@
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="generator" content="Hugo 0.83.1" />
   <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -244,13 +244,13 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 7, 2018
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;14&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;6541&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;6531&nbsp;words
   
   
     
@@ -739,16 +739,53 @@ fun main() {
 </code></pre><p>infix方法执行的优先级低于算数运算符、类型转换type case以及rangTo运算符，但是高于布尔、is、in check等其他运算符。<br>
 使用infix的扩展函数可以实现自定义的二元运算标记。</p>
 <h1 id="整洁kotlin风格">整洁Kotlin风格</h1>
-<p>在《Kotlin in Action》一书中有归纳了一些Kotlin对比Java的整洁语法如下：
-常规语法|	整洁语法|	用到的功能
-&mdash;|&mdash;|&mdash;
-StringUtil.capitalize(s)|	s.capitalize()	|扩展函数
-1.to(&ldquo;one&rdquo;)	|1 to &ldquo;one&rdquo;	|中缀函数 infix
-set.add(2)|	set += 1|	运算符重载
-map.get(&ldquo;key&rdquo;)|	map[&ldquo;key&rdquo;]	|get方法约定
-file.use({f -&gt; f.read})	|file.use { it.read() }	|括号内lambda外移
-sb.append(&ldquo;a&rdquo;) sb.append(&ldquo;b&rdquo;)|	with(sb) { append(“a&rdquo;) append(“b&rdquo;)}|	带接收者的lambda
-整洁语法换句话来说也是Kotlin的一种编程风格，其他约定俗成的整洁Kotlin编程风格可见官方文档 <a href="http://kotlinlang.org/docs/reference/idioms.html">Idioms</a>。非常建议大家看看Idioms这个文档，里面涵盖了非常Kotlin的使用方式，包括：</p>
+<p>在《Kotlin in Action》一书中有归纳了一些Kotlin对比Java的整洁语法如下：</p>
+<table>
+<thead>
+<tr>
+<th>常规语法</th>
+<th>整洁语法</th>
+<th>用到的功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StringUtil.capitalize(s)</td>
+<td>s.capitalize()</td>
+<td>扩展函数</td>
+</tr>
+<tr>
+<td>1.to(&ldquo;one&rdquo;)</td>
+<td>1 to &ldquo;one&rdquo;</td>
+<td>中缀函数 infix</td>
+</tr>
+<tr>
+<td>set.add(2)</td>
+<td>set += 1</td>
+<td>运算符重载</td>
+</tr>
+<tr>
+<td>map.get(&ldquo;key&rdquo;)</td>
+<td>map[&ldquo;key&rdquo;]</td>
+<td>get方法约定</td>
+</tr>
+<tr>
+<td>file.use({f -&gt; f.read})</td>
+<td>file.use { it.read() }</td>
+<td>括号内lambda外移</td>
+</tr>
+<tr>
+<td>sb.append(&ldquo;a&rdquo;) sb.append(&ldquo;b&rdquo;)</td>
+<td>with(sb) { append(“a&quot;) append(“b&quot;)}</td>
+<td>带接收者的lambda</td>
+</tr>
+<tr>
+<td>整洁语法换句话来说也是Kotlin的一种编程风格，其他约定俗成的整洁Kotlin编程风格可见官方文档 <a href="http://kotlinlang.org/docs/reference/idioms.html">Idioms</a>。非常建议大家看看Idioms这个文档，里面涵盖了非常Kotlin的使用方式，包括：</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>使用默认参数代替方法重载</li>
 <li>String模板（在Android中是否推荐仍值得商榷）</li>
@@ -1233,7 +1270,7 @@ Java中使用<code>extends</code>和<code>super</code>来区分泛型中生产�
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.68.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

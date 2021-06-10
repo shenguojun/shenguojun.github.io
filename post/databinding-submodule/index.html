@@ -13,7 +13,7 @@
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Lawrence\x27s Blog",
+    "name": "Lawrence\u0027s Blog",
     
     "url": "https:\/\/shenguojun.github.io\/"
 }
@@ -90,7 +90,7 @@
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="generator" content="Hugo 0.83.1" />
   <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -244,7 +244,7 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 12, 2019
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
@@ -321,7 +321,7 @@ if (!doNotTrack) {
         <span class="k">super</span><span class="p">.</span><span class="n">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
         <span class="n">DataBindingUtil</span><span class="p">.</span><span class="n">setContentView</span><span class="p">&lt;</span><span class="n">ActivityMainBinding</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="n">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">activity_main</span><span class="p">)</span>
         <span class="n">supportFragmentManager</span><span class="p">.</span><span class="n">beginTransaction</span><span class="p">()</span>
-            <span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">container</span><span class="p">,</span> <span class="n">BlankFragment</span><span class="p">(),</span> <span class="s">&#34;BlankFragment&#34;</span><span class="p">).</span><span class="n">commit</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">container</span><span class="p">,</span> <span class="n">BlankFragment</span><span class="p">(),</span> <span class="s2">&#34;BlankFragment&#34;</span><span class="p">).</span><span class="n">commit</span><span class="p">()</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
@@ -352,7 +352,7 @@ if (!doNotTrack) {
             <span class="n">container</span><span class="p">,</span>
             <span class="k">false</span>
         <span class="p">)</span>
-        <span class="n">fragmentBlankBinding</span><span class="p">.</span><span class="n">hello</span> <span class="p">=</span> <span class="s">&#34;hi there&#34;</span>
+        <span class="n">fragmentBlankBinding</span><span class="p">.</span><span class="n">hello</span> <span class="p">=</span> <span class="s2">&#34;hi there&#34;</span>
         <span class="k">return</span> <span class="n">fragmentBlankBinding</span><span class="p">.</span><span class="n">root</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -600,7 +600,7 @@ class Landroidx/databinding/ViewDataBinding; or its super classes
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.68.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
