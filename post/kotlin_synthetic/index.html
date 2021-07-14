@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Kotlin升级1.5版本synthetic引发的血案分析 - Lawrence&#39;s Blog</title>
+  <meta name="description" content="场景重现 因为项目里面Kotlin版本还停留在1.4，看到1.5版本更新记录提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完">
+  <meta name="author" content="申国骏"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Lawrence\u0027s Blog",
+    
+    "url": "https:\/\/shenguojun.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/shenguojun.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/post\/kotlin_synthetic\/",
+          "name": "Kotlin升级1.5版本synthetic引发的血案分析"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "申国骏"
+  },
+  "headline": "Kotlin升级1.5版本synthetic引发的血案分析",
+  "description" : "场景重现 因为项目里面Kotlin版本还停留在1.4，看到1.5版本更新记录提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完",
+  "inLanguage" : "en",
+  "wordCount":  3162 ,
+  "datePublished" : "2021-07-09T16:27:41",
+  "dateModified" : "2021-07-09T16:27:41",
+  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+  "keywords" : [ "android" ],
+  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/kotlin_synthetic\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/shenguojun.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Kotlin升级1.5版本synthetic引发的血案分析" />
+<meta property="og:description" content="场景重现 因为项目里面Kotlin版本还停留在1.4，看到1.5版本更新记录提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完">
+<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
+<meta property="og:url" content="https://shenguojun.github.io/post/kotlin_synthetic/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="twitter:title" content="Kotlin升级1.5版本synthetic引发的血案分析" />
+  <meta name="twitter:description" content="场景重现 因为项目里面Kotlin版本还停留在1.4，看到1.5版本更新记录提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完">
+  <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.83.1" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-162790364-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading text-center">
+              
+                <h1>Kotlin升级1.5版本synthetic引发的血案分析</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on July 9, 2021
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3162&nbsp;words
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
+    
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#场景重现">场景重现</a></li>
+        <li><a href="#findviewbyid">FindViewById？</a></li>
+        <li><a href="#bytecode分析">ByteCode分析</a></li>
+        <li><a href="#kotlin-synthetic原理">Kotlin Synthetic原理</a></li>
+        <li><a href="#注意事项">注意事项</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+        <h2 id="场景重现">场景重现</h2>
+<p>因为项目里面Kotlin版本还停留在1.4，看到1.5版本<a href="https://Kotlinlang.org/docs/releases.html#release-details">更新记录</a>提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完之后，运行起来就傻眼了！</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1625820518128283.gif" alt="1625820518128283"></p>
+<p>视频列表有个浮层没有隐藏，就升级下Kotlin，居然还有这个问题，真是太不可思议了！把Kotlin降级回去，然后就好了，确定是因为Kotlin升级导致的问题。接下来就开始分析了。</p>
+<h2 id="findviewbyid">FindViewById？</h2>
+<p>第一反应是找下代码看看！</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">private</span> <span class="k">fun</span> <span class="nf">tryHideTransitionImage</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// transition_image就是那个浮层
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">transition_image</span><span class="p">.</span><span class="n">visibility</span> <span class="o">!=</span> <span class="n">View</span><span class="p">.</span><span class="n">GONE</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">transition_image</span><span class="p">.</span><span class="n">visibility</span> <span class="p">=</span> <span class="n">View</span><span class="p">.</span><span class="n">GONE</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>debug一下，代码运行的顺序在Kotlin升级前和升级后没有区别！然后想到的就是<code>transition_image</code>使用Kotlin synthetic获取的，是不是和findViewById有什么区别呢？于是改成了</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">private</span> <span class="k">fun</span> <span class="nf">tryHideTransitionImage</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// transition_image就是那个浮层
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">view</span><span class="p">.</span><span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">transition_image</span><span class="p">).</span><span class="n">visibility</span> <span class="o">!=</span> <span class="n">View</span><span class="p">.</span><span class="n">GONE</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">view</span><span class="p">.</span><span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">transition_image</span><span class="p">).</span><span class="n">visibility</span> <span class="p">=</span> <span class="n">View</span><span class="p">.</span><span class="n">GONE</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>然而问题还是一样！果然问题不是那么简单！我们使用[Stetho](<a href="http://facebook.github.io/stetho/">Download (facebook.github.io)</a>)来看看这个页面里面<code>transition_image</code>的状态：</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/WechatIMG1033.jpeg" alt="WechatIMG1033"></p>
+<p>不出所料有两个transition_image，一个是在外层FrameLayout底下的悬浮层，另一个是在Recyclerview的ItemView里面的视频封面。悬浮层的属性显示确实是没有隐藏。这个时候就要看看FindViewById的原理了，我们看下<code>findViewById</code>的源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// View.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">final</span> <span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">View</span><span class="o">&gt;</span> <span class="n">T</span> <span class="nf">findViewById</span><span class="o">(</span><span class="nd">@IdRes</span> <span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">NO_ID</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">findViewTraversal</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>在ViewGroup里面重写了<code>findViewTraversal</code>方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">findViewTraversalprotected</span> <span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">View</span><span class="o">&gt;</span> <span class="n">T</span> <span class="nf">findViewTraversal</span><span class="o">(</span><span class="nd">@IdRes</span> <span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">mID</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">T</span><span class="o">)</span> <span class="k">this</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">final</span> <span class="n">View</span><span class="o">[]</span> <span class="n">where</span> <span class="o">=</span> <span class="n">mChildren</span><span class="o">;</span>
+  <span class="kd">final</span> <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">mChildrenCount</span><span class="o">;</span>
+
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">View</span> <span class="n">v</span> <span class="o">=</span> <span class="n">where</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+
+    <span class="k">if</span> <span class="o">((</span><span class="n">v</span><span class="o">.</span><span class="na">mPrivateFlags</span> <span class="o">&amp;</span> <span class="n">PFLAG_IS_ROOT_NAMESPACE</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+
+      <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">T</span><span class="o">)</span> <span class="n">v</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20210714164915387.png" alt="image-20210714164915387"></p>
+<p>可以看出是一个深度优先搜索算法，因此在我们使用[Stetho](<a href="http://facebook.github.io/stetho/">Download (facebook.github.io)</a>)时看到的View树里面，会先遍历到RecyclerView底下的视频封面，因此如果直接使用<code>findViewById(R.id.transition_image)</code>来隐藏浮层的话，拿到的并不是浮层。</p>
+<p>那么为什么1.4版本的Kotlin里面不会出问题呢？这个时候得分析下编译之后的ByteCode了。</p>
+<h2 id="bytecode分析">ByteCode分析</h2>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">private</span> <span class="k">fun</span> <span class="nf">tryHideTransitionImage</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// transition_image就是那个浮层
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">transition_image</span><span class="p">.</span><span class="n">visibility</span> <span class="o">!=</span> <span class="n">View</span><span class="p">.</span><span class="n">GONE</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">transition_image</span><span class="p">.</span><span class="n">visibility</span> <span class="p">=</span> <span class="n">View</span><span class="p">.</span><span class="n">GONE</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>同样的这段代码，在使用Kotlin1.4版本的android extensions compile编译之后的dex的二进制代码如下：</p>
+<pre><code class="language-assembly" data-lang="assembly">.method private final tryHideTransitionImage()V
+          .registers 4
+00000000  sget                v0, R$id-&gt;transition_image:I
+00000004  invoke-virtual      CommunityVideoListFragment-&gt;_$_findCachedViewById(I)View, p0, v0
+0000000A  move-result-object  v0
+0000000C  check-cast          v0, ImageView
+00000010  const-string        v1, &quot;transition_image&quot;
+00000014  invoke-static       Intrinsics-&gt;checkNotNullExpressionValue(Object, String)V, v0, v1
+0000001A  invoke-virtual      ImageView-&gt;getVisibility()I, v0
+00000020  move-result         v0
+00000022  const/16            v2, 8
+00000026  if-eq               v0, v2, :46
+:2A
+0000002A  sget                v0, R$id-&gt;transition_image:I
+0000002E  invoke-virtual      CommunityVideoListFragment-&gt;_$_findCachedViewById(I)View, p0, v0
+00000034  move-result-object  v0
+00000036  check-cast          v0, ImageView
+0000003A  invoke-static       Intrinsics-&gt;checkNotNullExpressionValue(Object, String)V, v0, v1
+00000040  invoke-virtual      ImageView-&gt;setVisibility(I)V, v0, v2
+:46
+00000046  return-void
+.end method
+
+.method public _$_findCachedViewById(I)View
+          .registers 4
+00000000  iget-object         v0, p0, CommunityVideoListFragment-&gt;_$_findViewCache:HashMap
+00000004  if-nez              v0, :16
+:8
+00000008  new-instance        v0, HashMap
+0000000C  invoke-direct       HashMap-&gt;&lt;init&gt;()V, v0
+00000012  iput-object         v0, p0, CommunityVideoListFragment-&gt;_$_findViewCache:HashMap
+:16
+00000016  iget-object         v0, p0, CommunityVideoListFragment-&gt;_$_findViewCache:HashMap
+0000001A  invoke-static       Integer-&gt;valueOf(I)Integer, p1
+00000020  move-result-object  v1
+00000022  invoke-virtual      HashMap-&gt;get(Object)Object, v0, v1
+00000028  move-result-object  v0
+0000002A  check-cast          v0, View
+0000002E  if-nez              v0, :5C
+:32
+00000032  invoke-virtual      Fragment-&gt;getView()View, p0
+00000038  move-result-object  v0
+0000003A  if-nez              v0, :42
+:3E
+0000003E  const/4             p1, 0
+00000040  return-object       p1
+:42
+00000042  invoke-virtual      View-&gt;findViewById(I)View, v0, p1
+00000048  move-result-object  v0
+0000004A  iget-object         v1, p0, CommunityVideoListFragment-&gt;_$_findViewCache:HashMap
+0000004E  invoke-static       Integer-&gt;valueOf(I)Integer, p1
+00000054  move-result-object  p1
+00000056  invoke-virtual      HashMap-&gt;put(Object, Object)Object, v1, p1, v0
+:5C
+0000005C  return-object       v0
+.end method
+</code></pre><p>我们查看下<a href="https://source.android.com/devices/tech/dalvik/dex-format">dex指令文档</a>，对这段dex二进制翻译一下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">tryHideTransitionImage</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">ImageView</span> <span class="n">v0</span> <span class="o">=</span> <span class="o">(</span><span class="n">ImageView</span><span class="o">)</span><span class="k">this</span><span class="o">.</span><span class="na">_$_findCachedViewById</span><span class="o">(</span><span class="n">id</span><span class="o">.</span><span class="na">transition_image</span><span class="o">);</span>
+  <span class="n">Intrinsics</span><span class="o">.</span><span class="na">checkNotNullExpressionValue</span><span class="o">(</span><span class="n">v0</span><span class="o">,</span> <span class="s">&#34;transition_image&#34;</span><span class="o">);</span>
+  <span class="k">if</span><span class="o">(</span><span class="n">v0</span><span class="o">.</span><span class="na">getVisibility</span><span class="o">()</span> <span class="o">!=</span> <span class="n">View</span><span class="o">.</span><span class="na">Gone</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ImageView</span> <span class="n">v0_1</span> <span class="o">=</span> <span class="o">(</span><span class="n">ImageView</span><span class="o">)</span><span class="k">this</span><span class="o">.</span><span class="na">_$_findCachedViewById</span><span class="o">(</span><span class="n">id</span><span class="o">.</span><span class="na">transition_image</span><span class="o">);</span>
+    <span class="n">Intrinsics</span><span class="o">.</span><span class="na">checkNotNullExpressionValue</span><span class="o">(</span><span class="n">v0_1</span><span class="o">,</span> <span class="s">&#34;transition_image&#34;</span><span class="o">);</span>
+    <span class="n">v0_1</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">Gone</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="n">View</span> <span class="nf">_$_findCachedViewById</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg3</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">_$_findViewCache</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">_$_findViewCache</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="n">View</span> <span class="n">v0</span> <span class="o">=</span> <span class="o">(</span><span class="n">View</span><span class="o">)</span><span class="k">this</span><span class="o">.</span><span class="na">_$_findViewCache</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">arg3</span><span class="o">));</span>
+  <span class="k">if</span><span class="o">(</span><span class="n">v0</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">View</span> <span class="n">v0_1</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getView</span><span class="o">();</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">v0_1</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">v0</span> <span class="o">=</span> <span class="n">v0_1</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">arg3</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">_$_findViewCache</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">arg3</span><span class="o">),</span> <span class="n">v0</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">v0</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>在升级到Kotlin1.5版本后，二进制代码如下：</p>
+<pre><code class="language-assembly" data-lang="assembly">.method private final tryHideTransitionImage()V
+          .registers 4
+00000000  invoke-virtual      CommunityVideoListFragment-&gt;getView()View, p0
+00000006  move-result-object  v0
+00000008  const/4             v1, 0
+0000000A  if-nez              v0, :12
+:E
+0000000E  move-object         v0, v1
+00000010  goto                :1E
+:12
+00000012  sget                v2, R$id-&gt;transition_image:I
+00000016  invoke-virtual      View-&gt;findViewById(I)View, v0, v2
+0000001C  move-result-object  v0
+:1E
+0000001E  check-cast          v0, ImageView
+00000022  invoke-virtual      ImageView-&gt;getVisibility()I, v0
+00000028  move-result         v0
+0000002A  const/16            v2, 8
+0000002E  if-eq               v0, v2, :56
+:32
+00000032  invoke-virtual      CommunityVideoListFragment-&gt;getView()View, p0
+00000038  move-result-object  v0
+0000003A  if-nez              v0, :40
+:3E
+0000003E  goto                :4C
+:40
+00000040  sget                v1, R$id-&gt;transition_image:I
+00000044  invoke-virtual      View-&gt;findViewById(I)View, v0, v1
+0000004A  move-result-object  v1
+:4C
+0000004C  check-cast          v1, ImageView
+00000050  invoke-virtual      ImageView-&gt;setVisibility(I)V, v1, v2
+:56
+00000056  return-void
+.end method
+</code></pre><p>翻译成Java代码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">final</span> <span class="nf">tryHideTransitionImage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">v0</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getView</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">v0</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">v0</span> <span class="o">=</span> <span class="n">v0</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">transition_image</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">v0</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(((</span><span class="n">ImageView</span><span class="o">)</span> <span class="n">v0</span><span class="o">).</span><span class="na">getVisibility</span> <span class="o">!=</span> <span class="n">View</span><span class="o">.</span><span class="na">Gone</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">v0</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getView</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">v0</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Object</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">v0</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">transition_image</span><span class="o">);</span>
+            <span class="o">((</span><span class="n">ImageView</span><span class="o">)</span> <span class="n">v1</span><span class="o">).</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">Gone</span><span class="o">)</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>可以看出在1.5版本之后，Kotln Synthetic由原来的生成一个<code>_findCachedViewById</code>来保存View对象，变成了直接将<code>findViewById</code>inLine到调用的地方，没有使用view cache保存对象。这个改动的</p>
+<p><strong>因此我们上面遇到的问题也能得到比较清晰的答案了。因为在1.4版本里面，代码里面的<code>transition_image</code>指的是第一次调用的对象，而我们发现代码里面第一次调用<code>transition_image</code>是在<code>Fragment</code>的<code>onViewCreated</code>的代码中，这个时候由于列表还没加载，所以获取到的就是外层的浮层，之后对<code>transitoin_image</code>的调用都是指向这个浮层对象，因此没有问题。而在升级到1.5版本之后，由于view cache机制改成了直接<code>findViewById</code>，因此在列表加载之后再获取<code>transition_image</code>获取到的就是列表里面的封面对象，导致了浮层没有正常隐藏。</strong></p>
+<h2 id="kotlin-synthetic原理">Kotlin Synthetic原理</h2>
+<p>在知道问题的答案之后，我们再进一步看看Kotlin Synthetic是怎么生成这些代码的。</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">override</span> <span class="k">fun</span> <span class="nf">generateClassSyntheticParts</span><span class="p">(</span><span class="n">codegen</span><span class="p">:</span> <span class="n">ImplementationBodyCodegen</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">classBuilder</span> <span class="p">=</span> <span class="n">codegen</span><span class="p">.</span><span class="n">v</span>
+    <span class="k">val</span> <span class="py">targetClass</span> <span class="p">=</span> <span class="n">codegen</span><span class="p">.</span><span class="n">myClass</span> <span class="k">as</span><span class="p">?</span> <span class="n">KtClass</span> <span class="o">?:</span> <span class="k">return</span>
+
+		<span class="c1">// 没有enable的话不生成
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!is</span><span class="n">Enabled</span><span class="p">(</span><span class="n">targetClass</span><span class="p">))</span> <span class="k">return</span>
+
+    <span class="k">val</span> <span class="py">container</span> <span class="p">=</span> <span class="n">codegen</span><span class="p">.</span><span class="n">descriptor</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">ClassKind</span><span class="p">.</span><span class="n">CLASS</span> <span class="o">&amp;&amp;</span> <span class="n">container</span><span class="p">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">ClassKind</span><span class="p">.</span><span class="n">OBJECT</span><span class="p">)</span> <span class="k">return</span>
+
+    <span class="k">val</span> <span class="py">containerOptions</span> <span class="p">=</span> <span class="n">ContainerOptionsProxy</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+    <span class="c1">// 判断目标是否Framgent或者Activity等需要生成cache的类
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">containerOptions</span><span class="p">.</span><span class="n">getCacheOrDefault</span><span class="p">(</span><span class="n">targetClass</span><span class="p">)</span> <span class="o">==</span> <span class="n">NO_CACHE</span><span class="p">)</span> <span class="k">return</span>
+
+		<span class="c1">// 如果是LayoutContainer则需要开启experiment特性才会生成cache
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">containerOptions</span><span class="p">.</span><span class="n">containerType</span> <span class="o">==</span> <span class="n">LAYOUT_CONTAINER</span> <span class="o">&amp;&amp;</span> <span class="o">!is</span><span class="n">Experimental</span><span class="p">(</span><span class="n">targetClass</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">context</span> <span class="p">=</span> <span class="n">SyntheticPartsGenerateContext</span><span class="p">(</span><span class="n">classBuilder</span><span class="p">,</span> <span class="n">codegen</span><span class="p">.</span><span class="n">state</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="n">targetClass</span><span class="p">,</span> <span class="n">containerOptions</span><span class="p">)</span>
+    <span class="c1">// 生成_findCachedViewById方法
+</span><span class="c1"></span>    <span class="n">context</span><span class="p">.</span><span class="n">generateCachedFindViewByIdFunction</span><span class="p">()</span>
+    <span class="n">context</span><span class="p">.</span><span class="n">generateClearCacheFunction</span><span class="p">()</span>
+    <span class="n">context</span><span class="p">.</span><span class="n">generateCacheField</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">containerOptions</span><span class="p">.</span><span class="n">containerType</span><span class="p">.</span><span class="n">isFragment</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">val</span> <span class="py">classMembers</span> <span class="p">=</span> <span class="n">container</span><span class="p">.</span><span class="n">unsubstitutedMemberScope</span><span class="p">.</span><span class="n">getContributedDescriptors</span><span class="p">()</span>
+        <span class="k">val</span> <span class="py">onDestroy</span> <span class="p">=</span> <span class="n">classMembers</span><span class="p">.</span><span class="n">firstOrNull</span> <span class="p">{</span> <span class="k">it</span> <span class="k">is</span> <span class="n">FunctionDescriptor</span> <span class="o">&amp;&amp;</span> <span class="k">it</span><span class="p">.</span><span class="n">isOnDestroyFunction</span><span class="p">()</span> <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">onDestroy</span> <span class="o">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">generateOnDestroyFunctionForFragment</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">private</span> <span class="k">fun</span> <span class="nf">SyntheticPartsGenerateContext</span><span class="p">.</span><span class="n">generateCachedFindViewByIdFunction</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">val</span> <span class="py">containerAsmType</span> <span class="p">=</span> <span class="n">state</span><span class="p">.</span><span class="n">typeMapper</span><span class="p">.</span><span class="n">mapClass</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">viewType</span> <span class="p">=</span> <span class="n">Type</span><span class="p">.</span><span class="n">getObjectType</span><span class="p">(</span><span class="s2">&#34;android/view/View&#34;</span><span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">methodVisitor</span> <span class="p">=</span> <span class="n">classBuilder</span><span class="p">.</span><span class="n">newMethod</span><span class="p">(</span>
+    <span class="n">JvmDeclarationOrigin</span><span class="p">.</span><span class="n">NO_ORIGIN</span><span class="p">,</span> <span class="n">ACC_PUBLIC</span><span class="p">,</span> <span class="n">CACHED_FIND_VIEW_BY_ID_METHOD_NAME</span><span class="p">,</span> <span class="s2">&#34;(I)Landroid/view/View;&#34;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">)</span>
+    <span class="n">methodVisitor</span><span class="p">.</span><span class="n">visitCode</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">iv</span> <span class="p">=</span> <span class="n">InstructionAdapter</span><span class="p">(</span><span class="n">methodVisitor</span><span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">cacheImpl</span> <span class="p">=</span> <span class="n">CacheMechanism</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">containerOptions</span><span class="p">.</span><span class="n">getCacheOrDefault</span><span class="p">(</span><span class="n">classOrObject</span><span class="p">),</span> <span class="n">iv</span><span class="p">,</span> <span class="n">containerAsmType</span><span class="p">)</span>
+
+    <span class="k">fun</span> <span class="nf">loadId</span><span class="p">()</span> <span class="p">=</span> <span class="n">iv</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">Type</span><span class="p">.</span><span class="n">INT_TYPE</span><span class="p">)</span>
+
+    <span class="c1">// Get cache property
+</span><span class="c1"></span>    <span class="n">cacheImpl</span><span class="p">.</span><span class="n">loadCache</span><span class="p">()</span>
+
+    <span class="k">val</span> <span class="py">lCacheNonNull</span> <span class="p">=</span> <span class="n">Label</span><span class="p">()</span>
+    <span class="n">iv</span><span class="p">.</span><span class="n">ifnonnull</span><span class="p">(</span><span class="n">lCacheNonNull</span><span class="p">)</span>
+
+    <span class="c1">// Init cache if null
+</span><span class="c1"></span>    <span class="n">cacheImpl</span><span class="p">.</span><span class="n">initCache</span><span class="p">()</span>
+
+    <span class="c1">// Get View from cache
+</span><span class="c1"></span>    <span class="n">iv</span><span class="p">.</span><span class="n">visitLabel</span><span class="p">(</span><span class="n">lCacheNonNull</span><span class="p">)</span>
+    <span class="n">cacheImpl</span><span class="p">.</span><span class="n">loadCache</span><span class="p">()</span>
+    <span class="n">loadId</span><span class="p">()</span>
+    <span class="n">cacheImpl</span><span class="p">.</span><span class="n">getViewFromCache</span><span class="p">()</span>
+    <span class="n">iv</span><span class="p">.</span><span class="n">checkcast</span><span class="p">(</span><span class="n">viewType</span><span class="p">)</span>
+    <span class="n">iv</span><span class="p">.</span><span class="n">store</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">viewType</span><span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">lViewNonNull</span> <span class="p">=</span> <span class="n">Label</span><span class="p">()</span>
+    <span class="n">iv</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">viewType</span><span class="p">)</span>
+    <span class="n">iv</span><span class="p">.</span><span class="n">ifnonnull</span><span class="p">(</span><span class="n">lViewNonNull</span><span class="p">)</span>
+
+    <span class="c1">// Resolve View via findViewById if not in cache
+</span><span class="c1"></span>    <span class="n">iv</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">containerAsmType</span><span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">containerType</span> <span class="p">=</span> <span class="n">containerOptions</span><span class="p">.</span><span class="n">containerType</span>
+  	<span class="c1">// 根据不同的类型获取root View
+</span><span class="c1"></span>    <span class="k">when</span> <span class="p">(</span><span class="n">containerType</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">AndroidContainerType</span><span class="p">.</span><span class="n">ACTIVITY</span><span class="p">,</span> <span class="n">AndroidContainerType</span><span class="p">.</span><span class="n">ANDROIDX_SUPPORT_FRAGMENT_ACTIVITY</span><span class="p">,</span> <span class="n">AndroidContainerType</span><span class="p">.</span><span class="n">SUPPORT_FRAGMENT_ACTIVITY</span><span class="p">,</span> <span class="n">AndroidContainerType</span><span class="p">.</span><span class="n">VIEW</span><span class="p">,</span> <span class="n">AndroidContainerType</span><span class="p">.</span><span class="n">DIALOG</span> <span class="o">-&gt;</span> <span class="p">{</span>
+      <span class="n">loadId</span><span class="p">()</span>
+        <span class="n">iv</span><span class="p">.</span><span class="n">invokevirtual</span><span class="p">(</span><span class="n">containerType</span><span class="p">.</span><span class="n">internalClassName</span><span class="p">,</span> <span class="s2">&#34;findViewById&#34;</span><span class="p">,</span> <span class="s2">&#34;(I)Landroid/view/View;&#34;</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">AndroidContainerType</span><span class="p">.</span><span class="n">FRAGMENT</span><span class="p">,</span> <span class="n">AndroidContainerType</span><span class="p">.</span><span class="n">ANDROIDX_SUPPORT_FRAGMENT</span><span class="p">,</span> <span class="n">AndroidContainerType</span><span class="p">.</span><span class="n">SUPPORT_FRAGMENT</span><span class="p">,</span> <span class="n">LAYOUT_CONTAINER</span> <span class="o">-&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">containerType</span> <span class="o">==</span> <span class="n">LAYOUT_CONTAINER</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">iv</span><span class="p">.</span><span class="n">invokeinterface</span><span class="p">(</span><span class="n">containerType</span><span class="p">.</span><span class="n">internalClassName</span><span class="p">,</span> <span class="s2">&#34;getContainerView&#34;</span><span class="p">,</span> <span class="s2">&#34;()Landroid/view/View;&#34;</span><span class="p">)</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">iv</span><span class="p">.</span><span class="n">invokevirtual</span><span class="p">(</span><span class="n">containerType</span><span class="p">.</span><span class="n">internalClassName</span><span class="p">,</span> <span class="s2">&#34;getView&#34;</span><span class="p">,</span> <span class="s2">&#34;()Landroid/view/View;&#34;</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="n">iv</span><span class="p">.</span><span class="n">dup</span><span class="p">()</span>
+        <span class="k">val</span> <span class="py">lgetViewNotNull</span> <span class="p">=</span> <span class="n">Label</span><span class="p">()</span>
+        <span class="n">iv</span><span class="p">.</span><span class="n">ifnonnull</span><span class="p">(</span><span class="n">lgetViewNotNull</span><span class="p">)</span>
+
+        <span class="c1">// Return if getView() is null
+</span><span class="c1"></span>        <span class="n">iv</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">iv</span><span class="p">.</span><span class="n">aconst</span><span class="p">(</span><span class="k">null</span><span class="p">)</span>
+        <span class="n">iv</span><span class="p">.</span><span class="n">areturn</span><span class="p">(</span><span class="n">viewType</span><span class="p">)</span>
+
+        <span class="c1">// Else return getView().findViewById(id)
+</span><span class="c1"></span>        <span class="n">iv</span><span class="p">.</span><span class="n">visitLabel</span><span class="p">(</span><span class="n">lgetViewNotNull</span><span class="p">)</span>
+        <span class="n">loadId</span><span class="p">()</span>
+        <span class="n">iv</span><span class="p">.</span><span class="n">invokevirtual</span><span class="p">(</span><span class="s2">&#34;android/view/View&#34;</span><span class="p">,</span> <span class="s2">&#34;findViewById&#34;</span><span class="p">,</span> <span class="s2">&#34;(I)Landroid/view/View;&#34;</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="o">-&gt;</span> <span class="k">throw</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="s2">&#34;Can&#39;t generate code for </span><span class="si">$containerType</span><span class="s2">&#34;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">iv</span><span class="p">.</span><span class="n">store</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">viewType</span><span class="p">)</span>
+
+    <span class="c1">// Store resolved View in cache
+</span><span class="c1"></span>    <span class="n">cacheImpl</span><span class="p">.</span><span class="n">loadCache</span><span class="p">()</span>
+    <span class="n">loadId</span><span class="p">()</span>
+    <span class="n">cacheImpl</span><span class="p">.</span><span class="n">putViewToCache</span> <span class="p">{</span> <span class="n">iv</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">viewType</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="n">iv</span><span class="p">.</span><span class="n">visitLabel</span><span class="p">(</span><span class="n">lViewNonNull</span><span class="p">)</span>
+    <span class="n">iv</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">viewType</span><span class="p">)</span>
+    <span class="n">iv</span><span class="p">.</span><span class="n">areturn</span><span class="p">(</span><span class="n">viewType</span><span class="p">)</span>
+
+    <span class="n">FunctionCodegen</span><span class="p">.</span><span class="n">endVisit</span><span class="p">(</span><span class="n">methodVisitor</span><span class="p">,</span> <span class="n">CACHED_FIND_VIEW_BY_ID_METHOD_NAME</span><span class="p">,</span> <span class="n">classOrObject</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>这部分代码在1.4和1.5的版本之间并没有任何区别，那究竟是什么导致Kotlin1.5版本不生成<code>_findCachedViewById</code>方法呢？</p>
+<p>这个时候，我们在使用Kotlin1.5版本的基础上，通过在build.gradle文件中，加入下面这段代码，会发现<code>_findCachedViewById</code>方法会继续生成。而下面这段代码的意思是使用旧的JVM编译器。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">tasks</span><span class="p">.</span><span class="nx">withType</span><span class="p">(</span><span class="nx">org</span><span class="p">.</span><span class="nx">jetbrains</span><span class="p">.</span><span class="nx">kotlin</span><span class="p">.</span><span class="nx">gradle</span><span class="p">.</span><span class="nx">dsl</span><span class="p">.</span><span class="nx">KotlinJvmCompile</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">kotlinOptions</span><span class="p">.</span><span class="nx">useOldBackend</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div><p>因此，可以推断是Kotin1.5版本中使用了新的JVM IR编译器导致的。</p>
+<h2 id="注意事项">注意事项</h2>
+<ol>
+<li>使用synthetic需要注意在1.5之前是使用cache机制的，在一个类里面使用synthetic获取view会按照第一个获取到的view为准，因此如果一个类里面对应的viewid有重复的话，会以第一个为准。在1.5之后，就是每个地方都通过findviewbyid获取。</li>
+<li>尽量避免在同一个页面的不同级别的地方使用同样的id，特别注意列表的item的id不要和外层的id重复。</li>
+<li><code>import kotlinx.android.synthetic.xx</code>导入的只是符号引用，有可能声明的是<code>kotlinx.android.synthetic.a.view1</code>但是实际上代码里面获取的是<code>kotlinx.android.synthetic.b.view1</code>。</li>
+<li>使用Kotlin Synthetics获取view可能会导致null pointer，特别是在某些回调函数里面view已经释放的情况下。</li>
+<li>在2020年11月，<a href="https://android-developers.googleblog.com/2020/11/the-future-of-kotlin-android-extensions.html">Google官方宣布正式弃用Kotlin Android Extensions里面的Synthetics</a>，而推荐使用<a href="https://developer.android.com/topic/libraries/view-binding">Jecpack View Binding</a>，android-kotlin-extensions将会在2021年的9月左右移除，后续代码尽量不要使用Kotlin Synthetics。</li>
+</ol>
+<h2 id="参考">参考</h2>
+<ul>
+<li>
+<p><a href="https://android-developers.googleblog.com/2020/11/the-future-of-kotlin-android-extensions.html">The future of Kotlin Android Extensions</a></p>
+</li>
+<li>
+<p><a href="https://source.android.com/devices/tech/dalvik/dex-format">Dalvik Executable format</a></p>
+</li>
+<li>
+<p><a href="https://kotlinlang.org/docs/whatsnew15.html#stable-jvm-ir-backend">Stable JVM IR backend﻿</a></p>
+</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin_synthetic%2f&amp;text=Kotlin%e5%8d%87%e7%ba%a71.5%e7%89%88%e6%9c%acsynthetic%e5%bc%95%e5%8f%91%e7%9a%84%e8%a1%80%e6%a1%88%e5%88%86%e6%9e%90&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin_synthetic%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin_synthetic%2f&amp;title=Kotlin%e5%8d%87%e7%ba%a71.5%e7%89%88%e6%9c%acsynthetic%e5%bc%95%e5%8f%91%e7%9a%84%e8%a1%80%e6%a1%88%e5%88%86%e6%9e%90" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin_synthetic%2f&amp;title=Kotlin%e5%8d%87%e7%ba%a71.5%e7%89%88%e6%9c%acsynthetic%e5%bc%95%e5%8f%91%e7%9a%84%e8%a1%80%e6%a1%88%e5%88%86%e6%9e%90" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin_synthetic%2f&amp;title=Kotlin%e5%8d%87%e7%ba%a71.5%e7%89%88%e6%9c%acsynthetic%e5%bc%95%e5%8f%91%e7%9a%84%e8%a1%80%e6%a1%88%e5%88%86%e6%9e%90" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin_synthetic%2f&amp;description=Kotlin%e5%8d%87%e7%ba%a71.5%e7%89%88%e6%9c%acsynthetic%e5%bc%95%e5%8f%91%e7%9a%84%e8%a1%80%e6%a1%88%e5%88%86%e6%9e%90" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/android-dark-mode/" data-toggle="tooltip" data-placement="top" title="Android深色模式适配原理分析">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://shenguojun.github.io/js/main.js"></script>
+<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

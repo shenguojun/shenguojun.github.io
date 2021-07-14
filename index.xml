@@ -8,7 +8,16 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Mon, 12 Oct 2020 13:06:52 +0800</lastBuildDate><atom:link href="https://shenguojun.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Jul 2021 16:27:41 +0800</lastBuildDate><atom:link href="https://shenguojun.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kotlin升级1.5版本synthetic引发的血案分析</title>
+      <link>https://shenguojun.github.io/post/kotlin_synthetic/</link>
+      <pubDate>Fri, 09 Jul 2021 16:27:41 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/kotlin_synthetic/</guid>
+      <description>场景重现 因为项目里面Kotlin版本还停留在1.4，看到1.5版本更新记录提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完</description>
+    </item>
+    
     <item>
       <title>Android深色模式适配原理分析</title>
       <link>https://shenguojun.github.io/post/android-dark-mode/</link>
