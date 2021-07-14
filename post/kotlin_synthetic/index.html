@@ -59,7 +59,7 @@
   "headline": "Kotlin升级1.5版本synthetic引发的血案分析",
   "description" : "场景重现 因为项目里面Kotlin版本还停留在1.4，看到1.5版本更新记录提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完",
   "inLanguage" : "en",
-  "wordCount":  3162 ,
+  "wordCount":  3231 ,
   "datePublished" : "2021-07-09T16:27:41",
   "dateModified" : "2021-07-09T16:27:41",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
@@ -250,7 +250,7 @@ if (!doNotTrack) {
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3162&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3231&nbsp;words
   
   
     
@@ -612,6 +612,7 @@ if (!doNotTrack) {
     <span class="nx">kotlinOptions</span><span class="p">.</span><span class="nx">useOldBackend</span> <span class="o">=</span> <span class="kc">true</span>
 <span class="p">}</span>
 </code></pre></div><p>因此，可以推断是Kotin1.5版本中使用了新的JVM IR编译器导致的。</p>
+<p>报了个Bug给Jetbrains，后续保持关注：https://youtrack.jetbrains.com/issue/KT-47733</p>
 <h2 id="注意事项">注意事项</h2>
 <ol>
 <li>使用synthetic需要注意在1.5之前是使用cache机制的，在一个类里面使用synthetic获取view会按照第一个获取到的view为准，因此如果一个类里面对应的viewid有重复的话，会以第一个为准。在1.5之后，就是每个地方都通过findviewbyid获取。</li>
