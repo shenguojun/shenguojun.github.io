@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Lawrence&#39;s Blog - Lawrence&#39;s Blog</title>
+  <meta name="description" content="TargetsdkVersion 升级31（Android12）适配 我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Go">
+  <meta name="author" content="申国骏"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Lawrence\u0027s Blog",
+    
+    "url": "https:\/\/shenguojun.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/shenguojun.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/post\/targetsdk31\/",
+          "name": ""
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "申国骏"
+  },
+  "headline": "",
+  "description" : "TargetsdkVersion 升级31（Android12）适配 我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Go",
+  "inLanguage" : "en",
+  "wordCount":  3894 ,
+  "datePublished" : "0001-01-01T00:00:00",
+  "dateModified" : "0001-01-01T00:00:00",
+  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/targetsdk31\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/shenguojun.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Lawrence&#39;s Blog" />
+<meta property="og:description" content="TargetsdkVersion 升级31（Android12）适配 我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Go">
+<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
+<meta property="og:url" content="https://shenguojun.github.io/post/targetsdk31/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="twitter:title" content="Lawrence&#39;s Blog" />
+  <meta name="twitter:description" content="TargetsdkVersion 升级31（Android12）适配 我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Go">
+  <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.83.1" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-162790364-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  <div class="intro-header"></div>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#targetsdkversion-升级31android12适配">TargetsdkVersion 升级31（Android12）适配</a>
+      <ul>
+        <li><a href="#安全组件输出exported">安全组件输出，exported</a></li>
+        <li><a href="#pendingintent-mutability">PendingIntent mutability</a></li>
+        <li><a href="#传感器刷新频率问题">传感器刷新频率问题</a></li>
+        <li><a href="#ijkplayer">ijkplayer</a></li>
+        <li><a href="#telephonymanagergetnetworktype">TelephonyManager.getNetworkType</a></li>
+        <li><a href="#webview访问文件">webview访问文件</a></li>
+        <li><a href="#package可见性">Package可见性</a></li>
+        <li><a href="#微博sdk">微博SDK</a></li>
+        <li><a href="#后台启动前台服务">后台启动前台服务</a></li>
+        <li><a href="#蓝牙权限">蓝牙权限</a></li>
+        <li><a href="#其他">其他</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+        <h1 id="targetsdkversion-升级31android12适配">TargetsdkVersion 升级31（Android12）适配</h1>
+<p>我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Google Play的要求，需要将Targetsdkversion升级到31，适配到Android12。这个过程遇到不少坑，这里记录一下，希望能对大家有所帮助。</p>
+<p>由于我们在适配Android 29的时候已经适配了Scoped storage，因此这篇文章里面没有这部分的描述。</p>
+<h2 id="安全组件输出exported">安全组件输出，exported</h2>
+<p><strong>编译时报错：</strong></p>
+<p>android:exported needs to be explicitly specified for element &lt;activity#xxxActivity&gt;. Apps targeting Android 12 and higher are required to specify an explicit value for <code>android:exported</code> when the corresponding component has an intent filter defined. See <a href="https://developer.android.com/guide/topics/manifest/activity-element#exported">https://developer.android.com/guide/topics/manifest/activity-element#exported</a> for details.</p>
+<p><strong>问题描述：</strong></p>
+<p>在target到Android12之后，所有设置了intent filters的activity、services、broadcast receivers都需要设置 <code>android:exported</code> ，否则会导致编译异常。</p>
+<p><strong>解决办法：</strong></p>
+<p>如果需要被外部其他app访问的component（例如设置了<a href="https://developer.android.com/reference/android/content/Intent#CATEGORY_LAUNCHER">android.intent.category.LAUNCHER</a> 的页面），那么需要<code>exported=true</code>，其他情况设置为<code>exported=false</code>。</p>
+<ul>
+<li>
+<p>Activity</p>
+<p>true表示当前Activity需要被外部应用调用，例如桌面和应用需要打开当前应用首页，false表示当前Activity只能被当前的应用，或者具有相同userID的应用，或者有调用特权的系统components</p>
+</li>
+<li>
+<p>Service</p>
+<p>true表示可以跟外部应用的component进行交互，false表示只有自己应用内的component以及具有相同userID的应用的component可以启动并绑定这个服务。</p>
+</li>
+<li>
+<p>Receiver</p>
+<p>true表示可以非系统的其他应用的广播，false表示只能收到系统的、自己应用的、具有相同userID应用的广播</p>
+</li>
+</ul>
+<p>对于一些aar或者依赖库有里面component的报错，有两个解决办法：1. 尝试升级对应的依赖库版本，并看看是否已经进行了target android12适配；2. 在主工程中xml拷贝相关component声明，并覆盖exported设置，例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">android:exported=&#34;true&#34;
+tools:replace=&#34;android:exported&#34;
+</code></pre></div><h2 id="pendingintent-mutability">PendingIntent mutability</h2>
+<p><strong>运行时报错：</strong></p>
+<p>java.lang.RuntimeException: Unable to start activity ComponentInfo{xxx}: java.lang.IllegalArgumentException: Targeting S+ (version 31 and above) requires that one of FLAG_IMMUTABLE or FLAG_MUTABLE be specified when creating a PendingIntent.
+Strongly consider using FLAG_IMMUTABLE, only use FLAG_MUTABLE if some functionality depends on the PendingIntent being mutable, e.g. if it needs to be used with inline replies or bubbles.</p>
+<p><strong>问题描述：</strong></p>
+<p>在target到Android12之后，PendingIntent创建需要指定可变性FLAG_IMMUTABLE 或者 FLAG_MUTABLE</p>
+<p><strong>解决办法：</strong></p>
+<p>大部分情况下如果不希望创建的PendingIntent被外部应用修改，那么需要设置成PendingIntent.FLAG_IMMUTABLE既可。一些特殊情况可以设置成FLAG_MUTABLE（参考：https://developer.android.com/guide/components/intents-filters#DeclareMutabilityPendingIntent）</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">PendingIntent</span><span class="p">.</span><span class="n">getActivity</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">requestCode</span><span class="p">,</span> <span class="n">intent</span><span class="p">,</span> <span class="n">PendingIntent</span><span class="p">.</span><span class="n">FLAG_IMMUTABLE</span><span class="p">);</span>
+</code></pre></div><h2 id="传感器刷新频率问题">传感器刷新频率问题</h2>
+<p><strong>运行时报错：</strong></p>
+<p>java.lang.SecurityException: To use the sampling rate of 0 microseconds, app needs to declare the normal permission HIGH_SAMPLING_RATE_SENSORS.
+at android.hardware.SystemSensorManager$BaseEventQueue.enableSensor(SystemSensorManager.java:884)
+at android.hardware.SystemSensorManager$BaseEventQueue.addSensor(SystemSensorManager.java:802)
+at android.hardware.SystemSensorManager.registerListenerImpl(SystemSensorManager.java:272)
+at android.hardware.SensorManager.registerListener(SensorManager.java:835)
+at android.hardware.SensorManager.registerListener(SensorManager.java:742)</p>
+<p><strong>问题描述：</strong></p>
+<p>当使用<code>SensorManager</code>时，如果监听的频率太快，例如<code>sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST);</code>，且没有改定义<code>permission HIGH_SAMPLING_RATE_SENSORS</code>权限的话会有这个崩溃。</p>
+<p><strong>解决办法：</strong></p>
+<p>大部分情况下我们并不需要太快的监听频率，可以设置成<code>SensorManager.SENSOR_DELAY_UI</code>。在某些确实需要快速频率监听的话，需要加上<code>HIGH_SAMPLING_RATE_SENSORS</code>权限</p>
+<h2 id="ijkplayer">ijkplayer</h2>
+<p><strong>运行时崩溃：</strong></p>
+<p>运行时的native崩溃</p>
+<p><strong>问题描述：</strong></p>
+<p>在target到Android11并且在64位的安卓系统版本11及以上的手机，使用ijkplayer会产生崩溃。这里的原因是Android11对于64位的处理器中，每个指针的第一个字节将被用作标记位，用于ARM的内存标记扩展（MTE）支持。在释放内存的时候如果修改这个标记位程序就会崩溃。</p>
+<p>那么ijkplayer在哪里会导致第一个字节被修改了呢，查看这个issues <a href="https://github.com/bilibili/ijkplayer/issues/5206">https://github.com/bilibili/ijkplayer/issues/5206</a> 以及提交记录 <a href="https://github.com/bilibili/ijkplayer/commit/e99d640e5fe94c65132379307f92d7180bcde8e7">https://github.com/bilibili/ijkplayer/commit/e99d640e5fe94c65132379307f92d7180bcde8e7</a> 可以看出，主要的原因是之前将指针转换成了int64_t类型导致了精度丢失，修改的地方是将指针转成String或者无符号整形，避免精度丢失导致的首位字节丢失。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/Memory_5F00_Tagging_5F00_Blog_5F00_1040x1040.png" alt="MTE Example Diagram"></p>
+<p>例如，在上面的图中，访问0x8000的内存是可行的，因为用于进行访问的指针具有与被访问的内存相同的标签(用颜色表示)。但是，对0x9000的访问将会失败，因为指针对内存有不同的标记。</p>
+<p><strong>解决办法：</strong></p>
+<p>解决办法有两个，一个是拉一下ijkplayer最新的代码重新build一个依赖库更新一下，因为ijkplayer已经修改了这个错误。第二个办法是通过设置<code>&lt;application android:allowNativeHeapPointerTagging=&quot;false&quot;&gt;</code>暂时禁用Pointer Tagging功能。</p>
+<h2 id="telephonymanagergetnetworktype">TelephonyManager.getNetworkType</h2>
+<p><strong>运行时崩溃：</strong></p>
+<p>************* Crash INFO AT 04/01/2022 10:16 *************java.lang.SecurityException: getDataNetworkTypeForSubscriber
+android.os.Parcel.createExceptionOrNull(Parcel.java:2389)
+android.os.Parcel.createException(Parcel.java:2373)
+android.os.Parcel.readException(Parcel.java:2356)
+android.os.Parcel.readException(Parcel.java:2298)
+com.android.internal.telephony.ITelephony$Stub$Proxy.getNetworkTypeForSubscriber(ITelephony.java:8762)
+android.telephony.TelephonyManager.getNetworkType(TelephonyManager.java:3024)
+android.telephony.TelephonyManager.getNetworkType(TelephonyManager.java:2988)</p>
+<p><strong>问题描述：</strong></p>
+<p>我们使用到的一个一键登录的库调用的<code>TelephonyManager.getNetworkType</code>被标记为<code>deprecated</code>，需要改成使用 <code>getDataNetworkType</code> ，并且需要加上权限<code>READ_PHONE_STATE</code> 或者 <code>READ_BASIC_PHONE_STAT</code></p>
+<p><strong>解决办法：</strong></p>
+<p>升级一键登录的库，并且加上对应权限</p>
+<h2 id="webview访问文件">webview访问文件</h2>
+<p><strong>运行时问题：</strong></p>
+<p>加载file://data目录底下数据时webview报错： 网页无法加载，net:ERR_ACCESS_DENIED</p>
+<p><strong>问题描述：</strong></p>
+<p>在target到Android11及以上的时候，默认setAllowFileAccess从true改成了false，无法访问到context.getDir()里面的文件，参考：https://developer.android.com/reference/android/webkit/WebSettings#setAllowFileAccess(boolean)</p>
+<p><strong>解决办法：</strong></p>
+<p>手动调用一下<code>webSettings.setAllowFileAccess(true)</code></p>
+<h2 id="package可见性">Package可见性</h2>
+<p><strong>运行时问题：</strong></p>
+<p>当使用[<code>queryIntentActivities()</code>](<a href="https://developer.android.com/reference/android/content/pm/PackageManager#queryIntentActivities(android.content.Intent,">https://developer.android.com/reference/android/content/pm/PackageManager#queryIntentActivities(android.content.Intent,</a> int)), [<code>getPackageInfo()</code>](<a href="https://developer.android.com/reference/android/content/pm/PackageManager#getPackageInfo(java.lang.String,">https://developer.android.com/reference/android/content/pm/PackageManager#getPackageInfo(java.lang.String,</a> int))或者 <a href="https://developer.android.com/reference/android/content/pm/PackageManager#getInstalledApplications(int)"><code>getInstalledApplications()</code></a>查询是其他应用信息的话会查不到</p>
+<p><strong>问题描述：</strong></p>
+<p>当应用target到Android11之后，Package可见性受到了限制，查询其他应用信息需要加上<code>QUERY_ALL_PACKAGES</code>权限或者使用queries方式获取。</p>
+<p><strong>解决办法：</strong></p>
+<ol>
+<li>
+<p>在AndroidManifest.xml中加入权限<code>&lt;uses-permission android:name=&quot;android.permission.QUERY_ALL_PACKAGES&quot; /&gt;</code>，这个需要谨慎使用，因为应用市场上线检查可能会需要提供使用的必要性说明，例如Google Play政策：https://support.google.com/googleplay/android-developer/answer/10158779</p>
+</li>
+<li>
+<p>在AndroidMainifest.xml中定义需要访问的应用信息，例如</p>
+<ul>
+<li>
+<p>需要访问某个应用信息，直接指定应用包名</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;queries&gt;</span>
+  <span class="nt">&lt;package</span> <span class="na">android:name=</span><span class="s">&#34;com.example.store&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/queries&gt;</span>
+</code></pre></div></li>
+<li>
+<p>需要访问具有某些intent的外部组件，指定需要访问的intent</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;queries&gt;</span>
+  <span class="nt">&lt;intent&gt;</span>
+    <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.SEND&#34;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;data</span> <span class="na">android:mimeType=</span><span class="s">&#34;image/jpeg&#34;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/intent&gt;</span>
+<span class="nt">&lt;/queries&gt;</span>
+</code></pre></div></li>
+<li>
+<p>需要访问某些外部content provider，指定authoritites</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;queries&gt;</span>
+  <span class="nt">&lt;provider</span> <span class="na">android:authorities=</span><span class="s">&#34;com.example.settings.files&#34;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/queries&gt;</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ol>
+<h2 id="微博sdk">微博SDK</h2>
+<p><strong>运行时问题：</strong></p>
+<p>微博SDK更新到最新版支持适配安卓11，遇到一个初始化的报错<code>please init sdk before use it. Wb.install()</code></p>
+<p><strong>问题描述：</strong></p>
+<p>在微博进行登录授权的时候，需要获取授权信息，不过获取授权信息的时候，有一个断言判断失败了。需要在初始化之后等待一段时间。</p>
+<p><strong>解决办法：</strong></p>
+<p>通过循环等待的方式等待初始化断言通过再进行其他SDK操作：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">waitForWeiboSDKValid</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// 微博sdk初始化需要等待一下
+</span><span class="c1"></span>    <span class="c1">// https://github.com/sinaweibosdk/weibo_android_sdk/issues/608
+</span><span class="c1"></span>    <span class="c1">// https://xie.infoq.cn/article/974795351e87627681cc353b5
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">retryCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">retryCount</span> <span class="o">&lt;=</span> <span class="n">10</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">a</span><span class="o">.</span><span class="na">b</span><span class="o">();</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ignore</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">ignored</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span>
+            <span class="n">retryCount</span><span class="o">++;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">installWbSdk</span><span class="o">()</span> <span class="o">{</span>
+   <span class="n">WBAPIFactory</span><span class="o">.</span><span class="na">createWBAPI</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">());</span>
+   <span class="n">mWBAPI</span><span class="o">.</span><span class="na">registerApp</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="n">authInfo</span><span class="o">);</span>
+   <span class="n">waitForWeiboSDKValid</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="后台启动前台服务">后台启动前台服务</h2>
+<p><strong>运行时崩溃：</strong></p>
+<p>Caused by: android.app.ForegroundServiceStartNotAllowedException: Service.startForeground() not allowed due to mAllowStartForeground false: service XXXXService 16	at android.app.ForegroundServiceStartNotAllowedException$1.createFromParcel(ForegroundServiceStartNotAllowedException.java:54) 17	at android.app.ForegroundServiceStartNotAllowedException$1.createFromParcel(ForegroundServiceStartNotAllowedException.java:50) 18	at android.os.Parcel.readParcelable(Parcel.java:3345) 19	at android.os.Parcel.createExceptionOrNull(Parcel.java:2432) 20	at android.os.Parcel.createException(Parcel.java:2421) 21	at android.os.Parcel.readException(Parcel.java:2404) 22	at android.os.Parcel.readException(Parcel.java:2346) 23	at android.app.IActivityManager$Stub$Proxy.setServiceForeground(IActivityManager.java:8040) 24	at android.app.Service.startForeground(Service.java:733)</p>
+<p><strong>问题描述：</strong></p>
+<p>应用在target到Android12之后，如果应用在后台启用前台服务，那么就会报<a href="https://developer.android.com/reference/android/app/ForegroundServiceStartNotAllowedException"><code>ForegroundServiceStartNotAllowedException</code></a></p>
+<p><strong>解决办法：</strong></p>
+<ol>
+<li>使用WorkManager来处理后台任务</li>
+<li>避免在后台启动前台服务</li>
+</ol>
+<h2 id="蓝牙权限">蓝牙权限</h2>
+<p><strong>运行崩溃：</strong></p>
+<p>Caused by: java.lang.SecurityException: Need android.permission.BLUETOOTH_CONNECT permission for android.content.AttributionSource@db46d647: enable 37	at android.os.Parcel.createExceptionOrNull(Parcel.java:2425) 38	at android.os.Parcel.createException(Parcel.java:2409) 39	at android.os.Parcel.readException(Parcel.java:2392) 40	at android.os.Parcel.readException(Parcel.java:2334) 41	at android.bluetooth.IBluetoothManager$Stub$Proxy.enable(IBluetoothManager.java:611) 42	at android.bluetooth.BluetoothAdapter.enable(BluetoothAdapter.java:1217)</p>
+<p><strong>问题描述：</strong></p>
+<p>在target到Android12之后，查找蓝牙设备需要添加 <a href="https://developer.android.com/reference/android/Manifest.permission#BLUETOOTH_SCAN"><code>BLUETOOTH_SCAN</code></a> 权限，与匹配的蓝牙设备传输数据需要获取<a href="https://developer.android.com/reference/android/Manifest.permission#BLUETOOTH_CONNECT"><code>BLUETOOTH_CONNECT</code></a> 权限</p>
+<p><strong>解决办法：</strong></p>
+<p>在查找和匹配蓝牙设备之前，先动态申请 <a href="https://developer.android.com/reference/android/Manifest.permission#BLUETOOTH_SCAN"><code>BLUETOOTH_SCAN</code></a> 权限以及<a href="https://developer.android.com/reference/android/Manifest.permission#BLUETOOTH_CONNECT"><code>BLUETOOTH_CONNECT</code></a> 权限。</p>
+<h2 id="其他">其他</h2>
+<p>检查依赖的SDK中是否有新的版本，并进行更新，因为安全组件输出Exported以及包可见性的问题对于大多数SDK都可能会存在，所以最好都检查一下，例如华为小米OV相关的产商推送SDK，以及微信QQ微博等登录和分享的SDK。</p>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://developer.android.com/guide/topics/connectivity/bluetooth/permissions">Bluetooth permissions</a></li>
+<li><a href="https://support.google.com/googleplay/android-developer/answer/9859152?visit_id=637843972853231765-3536328626&amp;rd=1#targetsdk&amp;zippy=%2Ctarget-api-level-requirements-for-play-console">Target API level requirements for Play Console</a></li>
+<li><a href="https://developer.android.com/guide/topics/sensors/sensors_overview#sensors-rate-limiting">Sensor Rate-Limiting</a></li>
+<li><a href="https://developer.android.com/about/versions/12/behavior-changes-12">Behavior changes: Apps targeting Android 12</a></li>
+<li><a href="https://developer.android.com/about/versions/11/behavior-changes-11">Behavior changes: Apps targeting Android 11</a></li>
+<li><a href="https://dev.vivo.com.cn/documentCenter/doc/509">vivo Android 12应用适配指南</a></li>
+<li><a href="https://dev.vivo.com.cn/documentCenter/doc/428">vivo Android 11应用适配指南</a></li>
+<li><a href="https://open.oppomobile.com/wiki/doc#id=10960">oppo Android 12 应用兼容性适配指导</a></li>
+<li><a href="https://open.oppomobile.com/wiki/doc#id=10724">oppo Android 11 应用兼容性适配指导</a></li>
+<li><a href="https://dev.mi.com/console/doc/detail?pId=2439">小米 Android 12应用适配指南</a></li>
+<li><a href="https://source.android.google.cn/devices/tech/debug/tagged-pointers">Tagged Pointers</a></li>
+<li><a href="https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/enhancing-memory-safety">Memory Tagging Extension: Enhancing memory safety through architecture</a></li>
+<li><a href="https://developer.android.com/training/package-visibility">Package visibility filtering on Android</a></li>
+<li><a href="https://developer.android.com/training/package-visibility/declaring">Declaring package visibility needs</a></li>
+</ol>
+
+
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2ftargetsdk31%2f&amp;text=&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2ftargetsdk31%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2ftargetsdk31%2f&amp;title=" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2ftargetsdk31%2f&amp;title=" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2ftargetsdk31%2f&amp;title=" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2ftargetsdk31%2f&amp;description=" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+            <li class="next">
+              <a href="https://shenguojun.github.io/post/my-first-post/" data-toggle="tooltip" data-placement="top" title="第一篇发布到github的博客">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://shenguojun.github.io/js/main.js"></script>
+<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
