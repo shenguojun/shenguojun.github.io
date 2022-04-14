@@ -8,7 +8,16 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Fri, 09 Jul 2021 16:27:41 +0800</lastBuildDate><atom:link href="https://shenguojun.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Apr 2022 11:01:07 +0800</lastBuildDate><atom:link href="https://shenguojun.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TargetsdkVersion 升级31（Android12）适配</title>
+      <link>https://shenguojun.github.io/post/targetsdk31/</link>
+      <pubDate>Thu, 14 Apr 2022 11:01:07 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/targetsdk31/</guid>
+      <description>TargetsdkVersion 升级31（Android12）适配 我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Go</description>
+    </item>
+    
     <item>
       <title>Kotlin升级1.5版本synthetic引发的血案分析</title>
       <link>https://shenguojun.github.io/post/kotlin_synthetic/</link>
