@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>深入理解Android Runtime - Lawrence&#39;s Blog</title>
+  <meta name="description" content="上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。">
+  <meta name="author" content="申国骏"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Lawrence\u0027s Blog",
+    
+    "url": "https:\/\/shenguojun.github.io\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/shenguojun.github.io\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/shenguojun.github.io\/post\/android_runtime\/",
+          "name": "深入理解 android runtime"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "申国骏"
+  },
+  "headline": "深入理解Android Runtime",
+  "description" : "上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。",
+  "inLanguage" : "en",
+  "wordCount":  3346 ,
+  "datePublished" : "2022-08-08T11:07:45",
+  "dateModified" : "2022-08-08T11:07:45",
+  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+  "keywords" : [ "android" ],
+  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/android_runtime\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/shenguojun.github.io\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="深入理解Android Runtime" />
+<meta property="og:description" content="上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。">
+<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
+<meta property="og:url" content="https://shenguojun.github.io/post/android_runtime/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Lawrence&#39;s Blog" />
+
+  <meta name="twitter:title" content="深入理解Android Runtime" />
+  <meta name="twitter:description" content="上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。">
+  <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.83.1" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-162790364-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
+            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading text-center">
+              
+                <h1>深入理解Android Runtime</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 8, 2022
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3346&nbsp;words
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
+    
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1>TOC</h1>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#app运行时演进">App运行时演进</a>
+          <ul>
+            <li><a href="#jvm">JVM</a></li>
+            <li><a href="#dvmandroid-2122">DVM(Android 2.1/2.2)</a></li>
+            <li><a href="#art-aotandroid-4450">ART-AOT(Android 4.4/5.0)</a></li>
+            <li><a href="#art-pgoandroid-70">ART-PGO(Android 7.0)</a></li>
+            <li><a href="#art-cloud-profileandroid-90">ART-Cloud Profile(Android 9.0)</a></li>
+            <li><a href="#baseline-profile">Baseline Profile</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+        <p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/android-stack_2x.png" alt="Android Platform Architecture"></p>
+<p>上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。这篇文章主要针对Android Runtime部分进行展开，探讨Android Runtime的发展以及目前现状，并介绍应用Profile-Guided Optimization(PGO)技术对应用启动速度进行优化的可行性。</p>
+<h2 id="app运行时演进">App运行时演进</h2>
+<h3 id="jvm">JVM</h3>
+<p>Android原生代码使用Java或者Kotlin编写，这些代码会通过javac或者kotlinc编译成.class文件，在Android之前，这些.class文件会被输入到JVM中执行。JVM可以简单分为三个子系统，分别是Class Loader、Runtime Data Area以及Execution Engine。其中Class Loader主要负责加载类、校验字节码、符号引用链接及对静态变量和静态方法分配内存并初始化。Runtime Data负责存储数据，分为方法区、堆区、栈区、程序计数器以及本地方法栈。Execution Engine负责二进制代码的执行以及垃圾回收。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1*90GzG4RaWMMBxzJZfW3TVA.png" alt="img"></p>
+<p>Execution Engine中，会采用Interpreter或者JIT执行。其中Interpreter表示在运行的过程中对二进制代码进行解释，每次执行相同的二进制代码都进行解释比较浪费资源，因此对于热区的二进制代码会进行JIT即时编译，对二进制代码编译成机器码，这样相同的二进制代码执行时，就不用再次进行解释。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1*z-OtDrR1xqUyymP01nmzTQ.png" alt="img"></p>
+<h3 id="dvmandroid-2122">DVM(Android 2.1/2.2)</h3>
+<p>JVM是stack-based的运行环境，在移动设备中对性能和存储空间要求较高，因此Android使用了register-based的Dalvik VM。从JVM转换到DVM我们需要将.class文件转换为.dex文件，从.class转换到.dex的过程需要经过 desugar -&gt; proguard -&gt; dex compiler三个过程，这三个过程后来逐步变成 proguard -&gt; D8(Desugar) 直到演变到今天只需要一步R8(D8(Desugar))。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1*APXAk8JFCdcfOPTpCD7SeQ.png" alt="img"></p>
+<p>我们主要关注Android中Runtime Engine与JVM的区别。在Android早期的版本里面，只存在Interpreter解释器，到了Android2.2版本将JIT引入，这个版本Dalvik与JVM的Runtime Engine区别不大。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20210630153643456.png" alt="image-20210630153643456"></p>
+<h3 id="art-aotandroid-4450">ART-AOT(Android 4.4/5.0)</h3>
+<p>为了加快应用的启动速度和体验，到了Android4.4，Google提供了一个新的运行时环境ART(Android Runtime)，到了Android5.0，ART替换Dalvik成为唯一的运行时环境。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20210630153852139.png" alt="image-20210630153852139"></p>
+<p>ART运行时环境中，采用了AOT(Ahead-of-time)编译方式，即在应用安装的时候就将.dex提前编译成机器码，经过AOT编译之后.dex文件会生成.oat文件。这样在应用启动执行的时候，因为不需要进行解释编译，大大加快了启动速度。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20210630154438374.png" alt="image-20210630154438374"></p>
+<p>然而AOT带来了以下两个问题：</p>
+<ol>
+<li>
+<p>应用安装时间大幅增加，由于在安装的过程中同时需要编译成机器码，应用安装时间会比较长，特别在系统升级的时候，需要对所有应用进行重新编译，出现了经典的升级等待噩梦。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1*aKZJgCOMWCfoCr4btsdAFQ.png" alt="img"></p>
+</li>
+<li>
+<p>应用占用过多的存储空间，由于所有应用都被编译成.oat机器码，应用所占的存储空间大大增加，使得本来并不充裕的存储空间变得雪上加霜。</p>
+</li>
+</ol>
+<p>进一步思考对应用全量进行编译可能是没有必要的，因为用户可能只会用到一个应用的部分常用功能，并且全量编译之后更大的机器码加载会占用IO资源。</p>
+<h3 id="art-pgoandroid-70">ART-PGO(Android 7.0)</h3>
+<p>从Android7.0开始，Google重新引入了JIT的编译方式，不再对应用进行全量编译，结合AOT、JIT、Interpreter三者的优势提出了PGO(Profile-guided optimization)的编译方式。</p>
+<p>在应用执行的过程中，先使用Interpreter直接解释，当某些二进制代码被调用次数较多时，会生成一个Profile文件记录这些方法存储起来，当二进制代码被频繁调用时，则直接进行JIT即时编译并缓存起来。</p>
+<p>当应用处于空闲（屏幕关闭且充电）的状态时，编译守护进程会根据Profile文件进行AOT编译。</p>
+<p>当应用重新打开时，进行过JIT和AOT编译的代码可以直接执行。</p>
+<p>这样就可以在应用安装速度以及应用打开速度之间取得平衡。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20210630184913469.png" alt="image-20210630184913469"></p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1*tCwFSndZOofgYb-TNNWhCw.png" alt="img"></p>
+<p>JIT 工作流程：</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/jit-workflow.png" alt="JIT architecture"></p>
+<h3 id="art-cloud-profileandroid-90">ART-Cloud Profile(Android 9.0)</h3>
+<p>不过这里还是有一个问题，就是当用户第一次安装应用的时候并没有进行任何的AOT优化，通常会经过用户多次的使用才能使得启动速度得到优化。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image1.png" alt="img"></p>
+<p>考虑到一个应用通常会有一些用户经常使用执行的代码（例如启动部分以及用户常用功能）并且大多数时候会有先行版本用于收集Profile数据，因此Google考虑将用户生成的Profile文件上传到Google Play中，并在应用安装时同时带上这个Profile文件，在安装的过程中，会根据这个Profile对应用进行部分的AOT编译。这样当用户安装完第一次打开的时候，就能达到较快的启动速度。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image4.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20210708160128463.png" alt="image-20210708160128463"></p>
+<p>Profile in cloude 需要系统应用市场支持，在国内市场使用Google Play的占比非常低，因此cloud profile的优化在国内几乎是没有作用的，不过Profile的机制提供了一个可以做启动优化的思路。早在2019年，支付宝就在秒开技术的回应的里面提到过profile-based compile的技术，参考：<a href="https://www.zhihu.com/question/322429114">如何看待今日头条自媒体发布谣言称「支付宝几乎秒开是因为采用华为方舟编译器」？</a>，这也是我们一直研究Profile技术的原因。困扰着我们的一直有两个问题，第一个问题是如何生成Profile文件，第二个问题是怎么使用生成的Profile文件。对于第一个问题的解决相对还是有思路的，因为app运行就会生成profile文件，因此我们手动运行几次app就能在文件系统中收集到这个文件，不过如何以一种较为自动化的手段收集仍然是个问题。第二个问题我们知道Profile文件最终生成的位置，因此我们可以把生成的文件放到相应的系统目录，不过大多数手机和应用都没有权限直接放置这个文件。因此Profile优化技术一直都没有落地，直到Baseline Proflie让我们看到了希望。</p>
+<h3 id="baseline-profile">Baseline Profile</h3>
+<p>Baseline Profile是一套生成和使用Profile文件的工具，在2022年一月份开始进入视野，随后在Google I/O 2022随着Jetpack新变化得到广泛关注。其背景是Google Map加快了发版速度，Cloud Profle还没完全收集好就上新版，导致Cloud Proflie失效。还有一个背景是Jetpack Compose 不是系统代码，因此没有完全编译成机器码，而且Jetpack Compose库比较大，因此在Profile生成之前使用了Jetpack Compose的应用启动会产生性能问题。最后Google为了解决这些问题，创造了收集Profile的BaselineProfileRule Macrobenchmark以及使用Profile的ProfileInstaller。</p>
+<p>使用Baseline Profile的机制可以在Android7及以上的手机上得到应用的启动加速，因为从上述知道Android7就已经开始有PGO(Profile-guided optimization)的编译方式。生成的Profile文件会打包到apk里面，并且会结合Google Play的Cloud Profile来引导AOT编译。虽然在国内基本上用不了Cloud Profile，不过Baseline Profile是可以独立于Google Play单独使用的。</p>
+<p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20220629114656005.png" alt="image-20220629114656005"></p>
+<p>在使用了Baseline Proflie之后，有道词典的启动速度从线上统计上看，冷启动时间有15%的提升。</p>
+<p>这篇文章主要介绍了Android Runtime的演进以及对于应用启动的影响，下一篇文章我会详细介绍关于Profile&amp;dex文件优化、Baseline Profile工具库原理，以及在实际操作上如何使用的问题，敬请大家期待一下！</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://proandroiddev.com/android-cpu-compilers-d8-r8-a3aa2bfbc109">Android CPU, Compilers, D8 &amp; R8</a></li>
+<li><a href="https://source.android.com/devices/tech/dalvik/jit-compiler">Implementing ART Just-In-Time (JIT) Compiler</a></li>
+<li><a href="https://source.android.com/devices/tech/dalvik/configure">Configuring ART</a></li>
+<li><a href="https://android-developers.googleblog.com/2019/04/improving-app-performance-with-art.html">Improving app performance with ART optimizing profiles in the cloud</a></li>
+<li><a href="https://www.youtube.com/watch?v=1uLzSXWWfDg">Understanding Android Runtime (ART) for faster apps (Google I/O'19)</a></li>
+<li><a href="https://www.youtube.com/watch?v=Yi9-BqUxsno&amp;list=PLWz5rJ2EKKc9Gq6FEnSXClhYkWAStbwlC&amp;t=985s">What&rsquo;s new in Android Runtime (Google I/O &lsquo;18)</a></li>
+<li><a href="https://www.youtube.com/watch?v=iFE2Utbv1Oo">Performance and memory improvements in Android Run Time (ART) (Google I/O &lsquo;17)</a></li>
+<li><a href="https://www.youtube.com/watch?v=fwMM6g7wpQ8">The Evolution of ART - Google I/O 2016</a></li>
+<li><a href="https://www.youtube.com/watch?v=EBlTzQsUoOw">Google I/O 2014 - The ART runtime</a></li>
+<li><a href="https://www.youtube.com/watch?v=Ls0tM-c4Vfo">Google I/O 2010 - A JIT Compiler for Android&rsquo;s Dalvik VM</a></li>
+<li><a href="https://www.youtube.com/watch?v=0J1bm585UCc">Android Runtime  -  How Dalvik and ART work?</a></li>
+<li><a href="https://developer.android.com/studio/command-line/adb#appprofiles">Android Debug Bridge - Read ART profiles for apps</a></li>
+<li><a href="https://www.youtube.com/watch?v=vU7Rhcl9x5o">Deep dive into the ART runtime (Android Dev Summit &lsquo;18)</a></li>
+<li><a href="https://www.youtube.com/watch?v=mFq0vNvUgj8">Deep dive into ART(Android Runtime) for dynamic binary analysis | SungHyoun Song | Nullcon 2021</a></li>
+<li><a href="https://developer.android.com/topic/performance/baselineprofiles">Baseline Profiles</a></li>
+<li><a href="https://android-developers.googleblog.com/2022/05/whats-new-in-jetpack.html">Google I/O 2022: What’s new in Jetpack</a></li>
+<li><a href="https://android-developers.googleblog.com/2022/01/improving-app-performance-with-baseline.html">Improving App Performance with Baseline Profiles</a></li>
+<li><a href="https://juejin.cn/post/7104230480391864356">Android 强推的 Baseline Profiles 国内能用吗？我找 Google 工程师求证了！</a></li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid_runtime%2f&amp;text=%e6%b7%b1%e5%85%a5%e7%90%86%e8%a7%a3Android%20Runtime&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid_runtime%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid_runtime%2f&amp;title=%e6%b7%b1%e5%85%a5%e7%90%86%e8%a7%a3Android%20Runtime" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid_runtime%2f&amp;title=%e6%b7%b1%e5%85%a5%e7%90%86%e8%a7%a3Android%20Runtime" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid_runtime%2f&amp;title=%e6%b7%b1%e5%85%a5%e7%90%86%e8%a7%a3Android%20Runtime" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid_runtime%2f&amp;description=%e6%b7%b1%e5%85%a5%e7%90%86%e8%a7%a3Android%20Runtime" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://shenguojun.github.io/post/targetsdk31/" data-toggle="tooltip" data-placement="top" title="TargetsdkVersion 升级31（Android12）适配">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:junguoshen@yeah.net" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/shenguojun" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              申国骏
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2022
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://shenguojun.github.io/js/main.js"></script>
+<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
