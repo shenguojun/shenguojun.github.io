@@ -8,7 +8,16 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Mon, 08 Aug 2022 11:07:45 +0800</lastBuildDate><atom:link href="https://shenguojun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Sep 2022 19:43:01 +0800</lastBuildDate><atom:link href="https://shenguojun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flutter入门1——Dart语言基础</title>
+      <link>https://shenguojun.github.io/post/flutter-dart/</link>
+      <pubDate>Thu, 01 Sep 2022 19:43:01 +0800</pubDate>
+      <author>junguoshen@yeah.net (申国骏)</author>
+      <guid>https://shenguojun.github.io/post/flutter-dart/</guid>
+      <description>Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kot</description>
+    </item>
+    
     <item>
       <title>深入理解Android Runtime</title>
       <link>https://shenguojun.github.io/post/android_runtime/</link>

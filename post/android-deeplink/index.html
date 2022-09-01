@@ -88,29 +88,28 @@
   <meta name="twitter:title" content="记录一次Android Deeplink跳转失败问题修复" />
   <meta name="twitter:description" content="Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.83.1" />
-  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <meta name="generator" content="Hugo 0.101.0" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
   <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
-
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-162790364-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -230,6 +229,7 @@ if (!doNotTrack) {
 
   <header class="header-section ">
     
+    
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
@@ -267,6 +267,7 @@ if (!doNotTrack) {
         </div>
       </div>
     </div>
+  
   </header>
 
 
@@ -306,28 +307,28 @@ if (!doNotTrack) {
 从前端通过自定义url的方式调起客户端这个功能原来一直都没有什么问题，直到最近有部分用户反馈在某些浏览器下无法调起。下面我们来看一下分析查找问题的方法以及如何解决。</p>
 <h2 id="检查客户端deeplink配置">检查客户端deeplink配置</h2>
 <p>在AndroidManifest.xml文件中，对路由Activity配置如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;activity</span>
-            <span class="na">android:name=</span><span class="s">&#34;.deeplink.RouterActivity&#34;</span>
-            <span class="na">android:configChanges=</span><span class="s">&#34;keyboardHidden|orientation|screenSize&#34;</span>
-            <span class="na">android:launchMode=</span><span class="s">&#34;singleTask&#34;</span>
-            <span class="na">android:theme=</span><span class="s">&#34;@style/Theme.Translucent&#34;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;intent-filter&gt;</span>
-                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.VIEW&#34;</span> <span class="nt">/&gt;</span>
-
-                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span> <span class="nt">/&gt;</span>
-                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.BROWSABLE&#34;</span> <span class="nt">/&gt;</span>
-
-                <span class="nt">&lt;data</span>
-                    <span class="na">android:host=</span><span class="s">&#34;youdao.com&#34;</span>
-                    <span class="na">android:scheme=</span><span class="s">&#34;recite&#34;</span>
-                    <span class="na">android:pathPattern=</span><span class="s">&#34;.*&#34;</span><span class="nt">/&gt;</span>
-            <span class="nt">&lt;/intent-filter&gt;</span>
-
-            <span class="nt">&lt;meta-data</span>
-                <span class="na">android:name=</span><span class="s">&#34;android.support.PARENT_ACTIVITY&#34;</span>
-                <span class="na">android:value=</span><span class="s">&#34;.home.ui.MainActivity&#34;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;/activity&gt;</span>
-</code></pre></div><p>里面比较重要的部分是intent-filter中的data配置，检查后发现配置正常，可以正常拦截到 recite://youdao.com/.*的所有请求。<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;activity</span>
+</span></span><span class="line"><span class="cl">            <span class="na">android:name=</span><span class="s">&#34;.deeplink.RouterActivity&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">android:configChanges=</span><span class="s">&#34;keyboardHidden|orientation|screenSize&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">android:launchMode=</span><span class="s">&#34;singleTask&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">android:theme=</span><span class="s">&#34;@style/Theme.Translucent&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;intent-filter&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.action.VIEW&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.DEFAULT&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&#34;android.intent.category.BROWSABLE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;data</span>
+</span></span><span class="line"><span class="cl">                    <span class="na">android:host=</span><span class="s">&#34;youdao.com&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="na">android:scheme=</span><span class="s">&#34;recite&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="na">android:pathPattern=</span><span class="s">&#34;.*&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/intent-filter&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;meta-data</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:name=</span><span class="s">&#34;android.support.PARENT_ACTIVITY&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:value=</span><span class="s">&#34;.home.ui.MainActivity&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/activity&gt;</span>
+</span></span></code></pre></div><p>里面比较重要的部分是intent-filter中的data配置，检查后发现配置正常，可以正常拦截到 recite://youdao.com/.*的所有请求。<br>
 转到RouterActivity通过断点调试，发现并没有到达。从而可以确认是浏览器调起的时候发生了异常。</p>
 <p>tips: adb 命令同样可以启动deeplink进行测试
 <img src="https://upload-images.jianshu.io/upload_images/2057980-73c35e7454f39985.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="adb_test.png"></p>
@@ -379,9 +380,9 @@ if (!doNotTrack) {
 <li>一个是前端使用iframe来处理deeplink跳转会有问题</li>
 <li>二个是除了采用</li>
 </ul>
-<pre><code>&quot;scheme://host/path&quot;
+<pre tabindex="0"><code>&#34;scheme://host/path&#34;
 </code></pre><p>这种deeplink方式之外，还可以采用</p>
-<pre><code>&quot;intent://about/#Intent;action=[string];scheme=[string];package=[string];S.browser_fallback_url=[encoded_full_url];end&quot;
+<pre tabindex="0"><code>&#34;intent://about/#Intent;action=[string];scheme=[string];package=[string];S.browser_fallback_url=[encoded_full_url];end&#34;
 </code></pre><p>的方式来触发应用intent的请求访问。</p>
 <p>同时，在处理deeplink的规则里面，体会到了一条原则：</p>
 <ul>
@@ -557,15 +558,15 @@ if (!doNotTrack) {
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.101.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</footer><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="https://shenguojun.github.io/js/main.js"></script>

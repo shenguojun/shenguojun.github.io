@@ -88,29 +88,28 @@
   <meta name="twitter:title" content="Flutter学习笔记——用户界面" />
   <meta name="twitter:description" content="以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 转载请注明出处：Lawrence_">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.83.1" />
-  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <meta name="generator" content="Hugo 0.101.0" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
   <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
-
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-162790364-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -230,6 +229,7 @@ if (!doNotTrack) {
 
   <header class="header-section ">
     
+    
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
@@ -267,6 +267,7 @@ if (!doNotTrack) {
         </div>
       </div>
     </div>
+  
   </header>
 
 
@@ -445,105 +446,105 @@ if (!doNotTrack) {
 <li>route在安卓中相当于Activity，在iOS中相当于ViewController，在Flutter中，route表示的只是一个widget</li>
 <li>页面导航的步骤：创建两个route，使用Navigator.push()导航到第二个route，使用Navigator.pop()返回到上一个route</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
-    <span class="n">context</span><span class="p">,</span>
-    <span class="n">MaterialPageRoute</span><span class="p">(</span><span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">SecondRoute</span><span class="p">()),</span>
-  <span class="p">)</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">context</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MaterialPageRoute</span><span class="p">(</span><span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">SecondRoute</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span></code></pre></div><ul>
 <li>通过创建MaterialPageRoute适配安卓和iOS页面跳转的动效，通过设置maintainState释放上一个页面的内存，通过fullscreenDialog设置是否全屏dialog样式</li>
 </ul>
 <h3 id="使用具名路由跳转">使用具名路由跳转</h3>
 <ul>
 <li>当页面之间跳转较多时，在MaterialApp中声明路由关系，然后使用具名路由导航Navigator.pushNamed()可以减少代码重复</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="n">MaterialApp</span><span class="p">(</span>
-  <span class="c1">// Start the app with the &#34;/&#34; named route. In this case, the app starts
-</span><span class="c1"></span>  <span class="c1">// on the FirstScreen widget.
-</span><span class="c1"></span>  <span class="nl">initialRoute:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
-  <span class="nl">routes:</span> <span class="p">{</span>
-    <span class="c1">// When navigating to the &#34;/&#34; route, build the FirstScreen widget.
-</span><span class="c1"></span>    <span class="s1">&#39;/&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">FirstScreen</span><span class="p">(),</span>
-    <span class="c1">// When navigating to the &#34;/second&#34; route, build the SecondScreen widget.
-</span><span class="c1"></span>    <span class="s1">&#39;/second&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">SecondScreen</span><span class="p">(),</span>
-  <span class="p">},</span>
-<span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/second&#39;</span><span class="p">);</span>
-</code></pre></div><h3 id="非具名路由之间传递数据">非具名路由之间传递数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="n">MaterialApp</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Start the app with the &#34;/&#34; named route. In this case, the app starts
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// on the FirstScreen widget.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nl">initialRoute:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">routes:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// When navigating to the &#34;/&#34; route, build the FirstScreen widget.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;/&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">FirstScreen</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// When navigating to the &#34;/second&#34; route, build the SecondScreen widget.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;/second&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">SecondScreen</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/second&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="非具名路由之间传递数据">非具名路由之间传递数据</h3>
 <ul>
 <li>使用非具名路由跳转有两种页面间传递数据的做法，一种是跳转新页面时在Widget的构造函数中传入数据；第二种是通过设置MaterialPageRoute的RouteSettings中的arguments，并在跳转页面中使用ModalRoute.of(context).settings.arguments获取</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第一种方法
-</span><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
-        <span class="n">context</span><span class="p">,</span>
-        <span class="n">MaterialPageRoute</span><span class="p">(</span>
-            <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">DetailScreen</span><span class="p">(</span><span class="nl">todo:</span> <span class="n">todos</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
-        <span class="p">),</span>
-    <span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第二种方法—设置参数
-</span><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
-        <span class="n">context</span><span class="p">,</span>
-        <span class="n">MaterialPageRoute</span><span class="p">(</span>
-            <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">DetailScreen</span><span class="p">(),</span>
-            <span class="c1">// Pass the arguments as part of the RouteSettings. The
-</span><span class="c1"></span>            <span class="c1">// DetailScreen reads the arguments from these settings.
-</span><span class="c1"></span>            <span class="nl">settings:</span> <span class="n">RouteSettings</span><span class="p">(</span>
-                <span class="nl">arguments:</span> <span class="n">todos</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
-            <span class="p">),</span>
-        <span class="p">),</span>
-    <span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第二种方法—获取参数
-</span><span class="c1"></span>  <span class="kd">final</span> <span class="n">Todo</span> <span class="n">todo</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
-</code></pre></div><h3 id="具名路由之间传递数据">具名路由之间传递数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第一种方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">context</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MaterialPageRoute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">DetailScreen</span><span class="p">(</span><span class="nl">todo:</span> <span class="n">todos</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第二种方法—设置参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">context</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MaterialPageRoute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">DetailScreen</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Pass the arguments as part of the RouteSettings. The
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// DetailScreen reads the arguments from these settings.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nl">settings:</span> <span class="n">RouteSettings</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nl">arguments:</span> <span class="n">todos</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第二种方法—获取参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">Todo</span> <span class="n">todo</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="具名路由之间传递数据">具名路由之间传递数据</h3>
 <ul>
 <li>使用具名路由跳转有两种页面间传输的做法，一种是使用Navigator.pushNamed并设置arguments，然后在跳转页面使用ModalRoute.of(context).settings.arguments获取；第二种是是使用Navigator.pushNamed并设置arguments，然后在MaterialApp的onGenerateRoute方法中获取settings.arguments并在返回的MaterialPageRoute中通过构造函数设置给跳转页面</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第一种方法—设置
-</span><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span>
-      <span class="n">context</span><span class="p">,</span>
-      <span class="n">ExtractArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">,</span>
-      <span class="nl">arguments:</span> <span class="n">ScreenArguments</span><span class="p">(</span>
-        <span class="s1">&#39;Extract Arguments Screen&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;This message is extracted in the build method.&#39;</span><span class="p">,</span>
-      <span class="p">),</span>
-    <span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第一种方法—获取
-</span><span class="c1"></span>  <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart">  <span class="c1">// 第二种方法—通过onGenerateRoute方法构造目标页面并传递参数
-</span><span class="c1"></span>  <span class="n">MaterialApp</span><span class="p">(</span>
-  <span class="c1">// Provide a function to handle named routes. Use this function to
-</span><span class="c1"></span>  <span class="c1">// identify the named route being pushed, and create the correct
-</span><span class="c1"></span>  <span class="c1">// screen.
-</span><span class="c1"></span>  <span class="nl">onGenerateRoute:</span> <span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// If you push the PassArguments route
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">settings</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">PassArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// Cast the arguments to the correct type: ScreenArguments.
-</span><span class="c1"></span>      <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
-
-      <span class="c1">// Then, extract the required data from the arguments and
-</span><span class="c1"></span>      <span class="c1">// pass the data to the correct screen.
-</span><span class="c1"></span>      <span class="k">return</span> <span class="n">MaterialPageRoute</span><span class="p">(</span>
-        <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="n">PassArgumentsScreen</span><span class="p">(</span>
-            <span class="nl">title:</span> <span class="n">args</span><span class="p">.</span><span class="n">title</span><span class="p">,</span>
-            <span class="nl">message:</span> <span class="n">args</span><span class="p">.</span><span class="n">message</span><span class="p">,</span>
-          <span class="p">);</span>
-        <span class="p">},</span>
-      <span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-<span class="p">);</span>
-</code></pre></div><h3 id="从目标页面返回数据">从目标页面返回数据</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第一种方法—设置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">context</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ExtractArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">arguments:</span> <span class="n">ScreenArguments</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;Extract Arguments Screen&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;This message is extracted in the build method.&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第一种方法—获取
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第二种方法—通过onGenerateRoute方法构造目标页面并传递参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">MaterialApp</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Provide a function to handle named routes. Use this function to
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// identify the named route being pushed, and create the correct
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// screen.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nl">onGenerateRoute:</span> <span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// If you push the PassArguments route
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">settings</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">PassArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Cast the arguments to the correct type: ScreenArguments.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Then, extract the required data from the arguments and
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// pass the data to the correct screen.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="n">MaterialPageRoute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="n">PassArgumentsScreen</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nl">title:</span> <span class="n">args</span><span class="p">.</span><span class="n">title</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nl">message:</span> <span class="n">args</span><span class="p">.</span><span class="n">message</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div><h3 id="从目标页面返回数据">从目标页面返回数据</h3>
 <ul>
 <li>使用Navigator.pop设置数据，并使用await获取Navigator.push返回结果</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="c1">// 设置数据
-</span><span class="c1"></span><span class="n">Navigator</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;Yep!&#39;</span><span class="p">);</span>
-<span class="c1">// 获取数据
-</span><span class="c1"></span><span class="kd">final</span> <span class="n">result</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
-    <span class="n">context</span><span class="p">,</span>
-    <span class="n">MaterialPageRoute</span><span class="p">(</span><span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">nextScreen</span><span class="p">()),</span>
-  <span class="p">);</span>
-</code></pre></div><h2 id="动画">动画</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 设置数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Navigator</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;Yep!&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 获取数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">final</span> <span class="n">result</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">context</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MaterialPageRoute</span><span class="p">(</span><span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">nextScreen</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span></code></pre></div><h2 id="动画">动画</h2>
 <h3 id="implicit动画">Implicit动画</h3>
 <ul>
 <li>对于普通的修改大小和形状等的属性动画可以使用Implicit动画，设置动画时间duration、动画效果curve。常用的Implicit动画有以下这些：
@@ -592,62 +593,62 @@ if (!doNotTrack) {
 </li>
 <li>如果想对动画进行播放控制，但是没有现成的Explicit动画，那么可以使用AnimatedBuilder或者AnimatedWidget</li>
 <li>AnimatedWidget需要传入一个listenable，一般是Animation，也可以是 ChangeNotifier 或者 ValueNotifier，AnimatedWidget会在listenable变化的时候调用setState重新build从而产生动画效果。
-<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="c1">// 不使用AnimatedWidget
-</span><span class="c1"></span><span class="n">animation</span> <span class="o">=</span> <span class="n">Tween</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">().</span><span class="n">animate</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
-  <span class="p">..</span><span class="n">addListener</span><span class="p">(()</span> <span class="p">{</span>
-    <span class="n">setState</span><span class="p">((){});</span>
-  <span class="p">};</span>
-<span class="p">...</span>
-<span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">GeneralWidget</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
-
-<span class="c1">// 使用AnimatedWidget
-</span><span class="c1"></span><span class="n">animation</span> <span class="o">=</span> <span class="n">Tween</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">().</span><span class="n">animate</span><span class="p">(</span><span class="n">controller</span><span class="p">);</span>
-<span class="p">...</span>
-<span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">AnimatedWidget</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 不使用AnimatedWidget
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">animation</span> <span class="o">=</span> <span class="n">Tween</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">().</span><span class="n">animate</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">..</span><span class="n">addListener</span><span class="p">(()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">setState</span><span class="p">((){});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">GeneralWidget</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用AnimatedWidget
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">animation</span> <span class="o">=</span> <span class="n">Tween</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">().</span><span class="n">animate</span><span class="p">(</span><span class="n">controller</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">AnimatedWidget</span><span class="p">(</span><span class="n">animation</span><span class="p">);</span>
+</span></span></code></pre></div></li>
 <li>继承自AnimatedWidget一般命名为FooTransition,而继承自ImplicitlyAnimatedWidget一般命名为AnimatedFoo，这里Foo指的是没有加入动画的widget名字。AnimatedWidget与ImplicitlyAnimatedWidget的最大区别在于前者需要使用者自己维护一个Animation，可以对动画进行控制；后者自身会带一个Animation并维护自身的动画状态，不需要使用者参与管理。</li>
 <li>如果构造复杂的动画，可以使用AnimatedBuilder。为了性能考虑，可以在AnimatedBuilder中指定动画元素child，并在builder中将child传入动画中，避免每次动画tick回调都会重新build child。</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">_SpinnerState</span> <span class="kd">extends</span> <span class="n">State</span>  <span class="kd">with</span> <span class="n">SingleTickerProviderStateMixin</span> <span class="p">{</span>
-  <span class="n">AnimationController</span> <span class="n">_controller</span><span class="p">;</span>
-
-  <span class="err">@</span><span class="n">override</span>
-  <span class="kt">void</span> <span class="n">initState</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">super</span><span class="p">.</span><span class="n">initState</span><span class="p">();</span>
-    <span class="n">_controller</span> <span class="o">=</span> <span class="n">AnimationController</span><span class="p">(</span>
-      <span class="nl">duration:</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">10</span><span class="p">),</span>
-      <span class="nl">vsync:</span> <span class="k">this</span><span class="p">,</span>
-    <span class="p">)..</span><span class="n">repeat</span><span class="p">();</span>
-  <span class="p">}</span>
-
-  <span class="err">@</span><span class="n">override</span>
-  <span class="kt">void</span> <span class="n">dispose</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">_controller</span><span class="p">.</span><span class="n">dispose</span><span class="p">();</span>
-    <span class="k">super</span><span class="p">.</span><span class="n">dispose</span><span class="p">();</span>
-  <span class="p">}</span>
-
-  <span class="err">@</span><span class="n">override</span>
-  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">AnimatedBuilder</span><span class="p">(</span>
-      <span class="nl">animation:</span> <span class="n">_controller</span><span class="p">,</span>
-      <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
-        <span class="nl">width:</span> <span class="m">200.0</span><span class="p">,</span>
-        <span class="nl">height:</span> <span class="m">200.0</span><span class="p">,</span>
-        <span class="nl">color:</span> <span class="n">Colors</span><span class="p">.</span><span class="n">green</span><span class="p">,</span>
-        <span class="nl">child:</span> <span class="kd">const</span> <span class="n">Center</span><span class="p">(</span>
-          <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;Wee&#39;</span><span class="p">),</span>
-        <span class="p">),</span>
-      <span class="p">),</span>
-      <span class="nl">builder:</span> <span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">Widget</span> <span class="n">child</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">Transform</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span>
-          <span class="nl">angle:</span> <span class="n">_controller</span><span class="p">.</span><span class="n">value</span> <span class="o">*</span> <span class="m">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span><span class="p">,</span>
-          <span class="nl">child:</span> <span class="n">child</span><span class="p">,</span>
-        <span class="p">);</span>
-      <span class="p">},</span>
-    <span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p><a href="https://flutter.github.io/assets-for-api-docs/assets/widgets/animated_builder.mp4">动画效果</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">_SpinnerState</span> <span class="kd">extends</span> <span class="n">State</span>  <span class="kd">with</span> <span class="n">SingleTickerProviderStateMixin</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">AnimationController</span> <span class="n">_controller</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">initState</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span><span class="p">.</span><span class="n">initState</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_controller</span> <span class="o">=</span> <span class="n">AnimationController</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">duration:</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">10</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">vsync:</span> <span class="k">this</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)..</span><span class="n">repeat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">dispose</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_controller</span><span class="p">.</span><span class="n">dispose</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">super</span><span class="p">.</span><span class="n">dispose</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">AnimatedBuilder</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">animation:</span> <span class="n">_controller</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">width:</span> <span class="m">200.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">height:</span> <span class="m">200.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">color:</span> <span class="n">Colors</span><span class="p">.</span><span class="n">green</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">child:</span> <span class="kd">const</span> <span class="n">Center</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;Wee&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">builder:</span> <span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">Widget</span> <span class="n">child</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Transform</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">angle:</span> <span class="n">_controller</span><span class="p">.</span><span class="n">value</span> <span class="o">*</span> <span class="m">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">child:</span> <span class="n">child</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><a href="https://flutter.github.io/assets-for-api-docs/assets/widgets/animated_builder.mp4">动画效果</a></p>
 <ul>
 <li>可以对Animation使用addStatusListener添加动画状态监听。</li>
 <li>使用SpringSimulation可以产生物理的弹性效果。</li>
@@ -663,19 +664,19 @@ if (!doNotTrack) {
 <h3 id="交替动画">交替动画</h3>
 <ul>
 <li>通过指定Animation的curve为Interval来设置动画在Controller0到1之间出现的时机
-<div class="highlight"><pre class="chroma"><code class="language-dart" data-lang="dart"><span class="n">borderRadius</span> <span class="o">=</span> <span class="n">BorderRadiusTween</span><span class="p">(</span>
-    <span class="nl">begin:</span> <span class="n">BorderRadius</span><span class="p">.</span><span class="n">circular</span><span class="p">(</span><span class="m">4.0</span><span class="p">),</span>
-    <span class="nl">end:</span> <span class="n">BorderRadius</span><span class="p">.</span><span class="n">circular</span><span class="p">(</span><span class="m">75.0</span><span class="p">),</span>
-  <span class="p">).</span><span class="n">animate</span><span class="p">(</span>
-    <span class="n">CurvedAnimation</span><span class="p">(</span>
-      <span class="nl">parent:</span> <span class="n">controller</span><span class="p">,</span>
-      <span class="nl">curve:</span> <span class="n">Interval</span><span class="p">(</span>
-        <span class="m">0.375</span><span class="p">,</span> <span class="m">0.500</span><span class="p">,</span>
-        <span class="nl">curve:</span> <span class="n">Curves</span><span class="p">.</span><span class="n">ease</span><span class="p">,</span>
-      <span class="p">),</span>
-    <span class="p">),</span>
-  <span class="p">),</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">borderRadius</span> <span class="o">=</span> <span class="n">BorderRadiusTween</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">begin:</span> <span class="n">BorderRadius</span><span class="p">.</span><span class="n">circular</span><span class="p">(</span><span class="m">4.0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">end:</span> <span class="n">BorderRadius</span><span class="p">.</span><span class="n">circular</span><span class="p">(</span><span class="m">75.0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">).</span><span class="n">animate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CurvedAnimation</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">parent:</span> <span class="n">controller</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">curve:</span> <span class="n">Interval</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="m">0.375</span><span class="p">,</span> <span class="m">0.500</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">curve:</span> <span class="n">Curves</span><span class="p">.</span><span class="n">ease</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span></code></pre></div></li>
 </ul>
 <h2 id="高级ui">高级UI</h2>
 <h3 id="silvers">Silvers</h3>
@@ -866,15 +867,15 @@ if (!doNotTrack) {
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.101.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</footer><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="https://shenguojun.github.io/js/main.js"></script>

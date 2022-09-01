@@ -88,29 +88,28 @@
   <meta name="twitter:title" content="Kotlin精髓" />
   <meta name="twitter:description" content="前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.83.1" />
-  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <meta name="generator" content="Hugo 0.101.0" />
+  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
   <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
-
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-162790364-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -230,6 +229,7 @@ if (!doNotTrack) {
 
   <header class="header-section ">
     
+    
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
@@ -267,6 +267,7 @@ if (!doNotTrack) {
         </div>
       </div>
     </div>
+  
   </header>
 
 
@@ -333,29 +334,29 @@ Kotlin拥有强大的IDE厂商Intellij和Google的支持，保证了其务实、
 <p>与Java互操作以为这可以与Java相互调用、混合调试以及同步重构，同时支持Java到kotlin代码的自动转换。</p>
 <h1 id="空值安全">空值安全</h1>
 <p>Kotlin类型分为可空和非可空，赋值null到非可空类型会编译出错</p>
-<pre><code>fun main() {
-    var a: String = &quot;abc&quot;
+<pre tabindex="0"><code>fun main() {
+    var a: String = &#34;abc&#34;
     a = null // compilation error
-    var b: String? = &quot;abc&quot; 
+    var b: String? = &#34;abc&#34; 
     b = null // ok
 }
 </code></pre><p>对空的操作有以下这些</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/2057980-bf124e44a0b88136.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="空值运算符"></p>
 <p>使用安全调用运算符 <code>?:</code> 可以避免Java中大量的空值判断。以下是一个对比的例子：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 用Java实现
-</span><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendMessageToClient</span><span class="o">(</span>
-    <span class="nd">@Nullable</span> <span class="n">Client</span> <span class="n">client</span><span class="o">,</span>
-    <span class="nd">@Nullable</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span>
-    <span class="nd">@NotNull</span> <span class="n">Mailer</span> <span class="n">mailer</span>
-<span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">client</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">message</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
-    <span class="n">PersonalInfo</span> <span class="n">personalInfo</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getPersonalInfo</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">personalInfo</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
-    <span class="n">String</span> <span class="n">email</span> <span class="o">=</span> <span class="n">personalInfo</span><span class="o">.</span><span class="na">getEmail</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">email</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
-    <span class="n">mailer</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">email</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><pre><code>// 用Kotlin实现
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 用Java实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendMessageToClient</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Nullable</span> <span class="n">Client</span> <span class="n">client</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Nullable</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@NotNull</span> <span class="n">Mailer</span> <span class="n">mailer</span>
+</span></span><span class="line"><span class="cl"><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">client</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">message</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PersonalInfo</span> <span class="n">personalInfo</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getPersonalInfo</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">personalInfo</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">email</span> <span class="o">=</span> <span class="n">personalInfo</span><span class="o">.</span><span class="na">getEmail</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">email</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mailer</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">email</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>// 用Kotlin实现
 fun sendMessageToClient(
     client: Client?, 
     message: String?, 
@@ -369,13 +370,13 @@ fun sendMessageToClient(
 </code></pre><h1 id="扩展">扩展</h1>
 <h2 id="扩展函数">扩展函数</h2>
 <p>扩展函数是Kotlin精华特点之一，可以给别人的类添加方法或者属性，使得方法调用更加自然和直观。通过扩展函数的特性，Kotlin内置了大量的辅助扩展方法，非常实用。下面我们通过这个例子看一下</p>
-<pre><code>fun main() {
+<pre tabindex="0"><code>fun main() {
     val list = arrayListOf&lt;Int&gt;(1, 5, 3, 7, 9, 0)
     println(list.sortedDescending())
     println(list.joinToString(
-        separator = &quot; | &quot;,
-        prefix = &quot;(&quot;,
-        postfix = &quot;)&quot;
+        separator = &#34; | &#34;,
+        prefix = &#34;(&#34;,
+        postfix = &#34;)&#34;
     ) {
         val result = it + 1
         result.toString()
@@ -385,16 +386,16 @@ fun sendMessageToClient(
 上述的函数会输出</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/2057980-38b2abdc4a64752a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="扩展函数实例输出"></p>
 <p>Kotlin内部的实现如下</p>
-<pre><code>public fun &lt;T : Comparable&lt;T&gt;&gt; Iterable&lt;T&gt;.sortedDescending(): List&lt;T&gt; {
+<pre tabindex="0"><code>public fun &lt;T : Comparable&lt;T&gt;&gt; Iterable&lt;T&gt;.sortedDescending(): List&lt;T&gt; {
     return sortedWith(reverseOrder())
 }
 
-public fun &lt;T&gt; Iterable&lt;T&gt;.joinToString(separator: CharSequence = &quot;, &quot;, prefix: CharSequence = &quot;&quot;, postfix: CharSequence = &quot;&quot;, limit: Int = -1, truncated: CharSequence = &quot;...&quot;, transform: ((T) -&gt; CharSequence)? = null): String {
+public fun &lt;T&gt; Iterable&lt;T&gt;.joinToString(separator: CharSequence = &#34;, &#34;, prefix: CharSequence = &#34;&#34;, postfix: CharSequence = &#34;&#34;, limit: Int = -1, truncated: CharSequence = &#34;...&#34;, transform: ((T) -&gt; CharSequence)? = null): String {
     return joinTo(StringBuilder(), separator, prefix, postfix, limit, truncated, transform).toString()
 }
 </code></pre><p>可见<code>sortedDescending</code>和<code>joinToString</code>都是对<code>Iterable&lt;T&gt;</code>类对象的一个扩展方法。</p>
 <p>我们也可以自己实现一个自定义的扩展函数如下：</p>
-<pre><code>fun Int.largerThen(other: Int): Boolean {
+<pre tabindex="0"><code>fun Int.largerThen(other: Int): Boolean {
     return this &gt; other
 }
 
@@ -406,31 +407,31 @@ fun main() {
 当然扩展函数是一种静态的实现方式，不会对原来类对象的方法进行覆盖，也不会有正常函数的子类方法覆盖父类方法现象。</p>
 <h2 id="扩展属性">扩展属性</h2>
 <p>扩展属性与扩展函数类似，也是可以直接给类对象增加一个属性。例如：</p>
-<pre><code>var StringBuilder.lastChar: Char
+<pre tabindex="0"><code>var StringBuilder.lastChar: Char
         get() = get(length -1)
         set(value: Char) {
             this.setCharAt(length -1, value)
         }
         
 fun main() {
-    val sb = StringBuilder(&quot;kotlin&quot;)
+    val sb = StringBuilder(&#34;kotlin&#34;)
     println(sb.lastChar)
-    sb.lastChar = '!'
+    sb.lastChar = &#39;!&#39;
     println(sb.lastChar)
 }
 </code></pre><p>无论是扩展函数还是扩展属性，都是对Java代码中utils方法很好的改变，可以避免多处相似功能的util定义以及使得调用更为直观。</p>
 <h1 id="集合">集合</h1>
 <p>通过扩展的方式，Kotlin对集合类提供了非常丰富且实用的诸多工具，只有你想不到，没有你做不到。下面我们通过 <a href="https://play.kotlinlang.org/koans/overview">Kotlin Koans</a> 上的一个例子来说明一下：</p>
-<pre><code>data class Shop(val name: String, val customers: List&lt;Customer&gt;)
+<pre tabindex="0"><code>data class Shop(val name: String, val customers: List&lt;Customer&gt;)
 
 data class Customer(val name: String, val city: City, val orders: List&lt;Order&gt;) {
-    override fun toString() = &quot;$name from ${city.name}&quot;
+    override fun toString() = &#34;$name from ${city.name}&#34;
 }
 
 data class Order(val products: List&lt;Product&gt;, val isDelivered: Boolean)
 
 data class Product(val name: String, val price: Double) {
-    override fun toString() = &quot;'$name' for $price&quot;
+    override fun toString() = &#34;&#39;$name&#39; for $price&#34;
 }
 
 data class City(val name: String) {
@@ -455,12 +456,11 @@ data class City(val name: String) {
 </tr>
 </tbody>
 </table>
-<pre><code>// 返回商店中顾客来自的城市列表
+<pre tabindex="0"><code>// 返回商店中顾客来自的城市列表
 fun Shop.getCitiesCustomersAreFrom(): Set&lt;City&gt; = customers.map { it.city }.toSet()
 
 // 返回住在给定城市的所有顾客
 fun Shop.getCustomersFrom(city: City): List&lt;Customer&gt; = customers.filter { it.city == city }
-
 </code></pre><table>
 <thead>
 <tr>
@@ -487,7 +487,7 @@ fun Shop.getCustomersFrom(city: City): List&lt;Customer&gt; = customers.filter {
 </tr>
 </tbody>
 </table>
-<pre><code>// 如果超市中所有顾客都来自于给定城市，则返回true
+<pre tabindex="0"><code>// 如果超市中所有顾客都来自于给定城市，则返回true
 fun Shop.checkAllCustomersAreFrom(city: City): Boolean = customers.all { it.city == city }
 
 // 如果超市中有某个顾客来自于给定城市，则返回true
@@ -498,7 +498,6 @@ fun Shop.countCustomersFrom(city: City): Int = customers.count { it.city == city
 
 // 返回一个住在给定城市的顾客，若无返回null
 fun Shop.findAnyCustomerFrom(city: City): Customer? = customers.find { it.city == city }
-
 </code></pre><table>
 <thead>
 <tr>
@@ -513,7 +512,7 @@ fun Shop.findAnyCustomerFrom(city: City): Customer? = customers.find { it.city =
 </tr>
 </tbody>
 </table>
-<pre><code>// 返回所有该顾客购买过的商品集合
+<pre tabindex="0"><code>// 返回所有该顾客购买过的商品集合
 fun Customer.getOrderedProducts(): Set&lt;Product&gt; = orders.flatMap { it.products }.toSet()
 
 // 返回超市中至少有一名顾客购买过的商品列表
@@ -536,7 +535,7 @@ fun Shop.getAllOrderedProducts(): Set&lt;Product&gt; = customers.flatMap { it.ge
 </tr>
 </tbody>
 </table>
-<pre><code>// 返回商店中购买订单次数最多的用户
+<pre tabindex="0"><code>// 返回商店中购买订单次数最多的用户
 fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? = customers.maxBy { it.orders.size }
 
 // 返回顾所购买过的最贵的商品
@@ -563,7 +562,7 @@ fun Customer.getMostExpensiveOrderedProduct(): Product? = orders.flatMap { it.pr
 </tr>
 </tbody>
 </table>
-<pre><code>// 按照购买订单数量升序返回商店的顾客
+<pre tabindex="0"><code>// 按照购买订单数量升序返回商店的顾客
 fun Shop.getCustomersSortedByNumberOfOrders(): List&lt;Customer&gt; = customers.sortedBy { it.orders.size }
 
 // 返回顾客在商店中购买的所有订单价格总和
@@ -589,7 +588,7 @@ fun Shop.groupCustomersByCity(): Map&lt;City, List&lt;Customer&gt;&gt; = custome
 </tr>
 </tbody>
 </table>
-<pre><code>// 返回商店中未送到订单比送达订单要多的顾客列表
+<pre tabindex="0"><code>// 返回商店中未送到订单比送达订单要多的顾客列表
 fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set&lt;Customer&gt; = customers.filter {
     val (delivered, undelivered) = it.orders.partition { it.isDelivered }
     undelivered.size &gt; delivered.size
@@ -604,7 +603,7 @@ fun Shop.getSetOfProductsOrderedByEveryCustomer(): Set&lt;Product&gt; {
     }
 }
 </code></pre><p>综合使用：</p>
-<pre><code>// 返回顾客所有送达商品中最贵的商品
+<pre tabindex="0"><code>// 返回顾客所有送达商品中最贵的商品
 fun Customer.getMostExpensiveDeliveredProduct(): Product? {
     return orders.filter { it.isDelivered }.flatMap { it.products }.maxBy { it.price }
 }
@@ -614,34 +613,33 @@ fun Shop.getNumberOfTimesProductWasOrdered(product: Product): Int {
     return customers.flatMap { it.orders }.flatMap { it.products }.count{it == product}
 }
 </code></pre><p>Kotlin对集合提供了几乎你能想到的所有操作，通过对这些操作的组合减少集合操作的复杂度，提高可读性。以下是Java和Kotln对集合操作的对比</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 用Java实现
-</span><span class="c1"></span><span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">doSomethingStrangeWithCollection</span><span class="o">(</span>
-        <span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">collection</span>
-<span class="o">)</span> <span class="o">{</span>
-    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">groupsByLength</span> <span class="o">=</span> <span class="n">Maps</span><span class="o">.</span><span class="na">newHashMap</span><span class="o">();</span>
-    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span> <span class="o">:</span> <span class="n">collection</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="o">=</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">strings</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">strings</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
-            <span class="n">groupsByLength</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">strings</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="kt">int</span> <span class="n">maximumSizeOfGroup</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-    <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">group</span> <span class="o">:</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">maximumSizeOfGroup</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">maximumSizeOfGroup</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">group</span> <span class="o">:</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">maximumSizeOfGroup</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">group</span><span class="o">;</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-<span class="o">}</span>
-
-</code></pre></div><pre><code>// 用Kotlin实现
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 用Java实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">doSomethingStrangeWithCollection</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">collection</span>
+</span></span><span class="line"><span class="cl"><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">groupsByLength</span> <span class="o">=</span> <span class="n">Maps</span><span class="o">.</span><span class="na">newHashMap</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span> <span class="o">:</span> <span class="n">collection</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="o">=</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">strings</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">strings</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">groupsByLength</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">strings</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">strings</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">maximumSizeOfGroup</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">group</span> <span class="o">:</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">maximumSizeOfGroup</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">maximumSizeOfGroup</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">group</span> <span class="o">:</span> <span class="n">groupsByLength</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">group</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">maximumSizeOfGroup</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">group</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>// 用Kotlin实现
 fun doSomethingStrangeWithCollection(collection: Collection&lt;String&gt;): Collection&lt;String&gt;? {
 
     val groupsByLength = collection.groupBy { s -&gt; s.length }
@@ -653,7 +651,7 @@ fun doSomethingStrangeWithCollection(collection: Collection&lt;String&gt;): Coll
 </code></pre><h1 id="运算符">运算符</h1>
 <h2 id="运算符重载">运算符重载</h2>
 <p>还是举 <a href="https://play.kotlinlang.org/koans/overview">Kotlin Koans</a> 上的运算符重载例子。假设我们需要实现以下功能：</p>
-<pre><code>enum class TimeInterval { DAY, WEEK, YEAR }
+<pre tabindex="0"><code>enum class TimeInterval { DAY, WEEK, YEAR }
 
 data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) : Comparable&lt;MyDate&gt; {
     override fun compareTo(other: MyDate): Int {
@@ -663,7 +661,7 @@ data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) : Comparab
     }
 
     override fun toString(): String {
-        return &quot;$year/$month/$dayOfMonth&quot;
+        return &#34;$year/$month/$dayOfMonth&#34;
     }
 }
 
@@ -681,7 +679,7 @@ fun main() {
 </code></pre><p>输出为以下：</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/2057980-0a39304797f3b80e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="运算符重载例子输出"></p>
 <p>只要实现以下运算符重载既可：</p>
-<pre><code>operator fun MyDate.rangeTo(other: MyDate): DateRange = DateRange(this, other)
+<pre tabindex="0"><code>operator fun MyDate.rangeTo(other: MyDate): DateRange = DateRange(this, other)
 
 operator fun MyDate.plus(timeInterval: TimeInterval): MyDate = this.addTimeIntervals(timeInterval, 1)
 
@@ -728,7 +726,7 @@ fun MyDate.addTimeIntervals(timeInterval: TimeInterval, number: Int): MyDate {
 </code></pre><p>Kotlin支持使用指定的扩展函数来实现运算符的重载，运算符对应的方法名具体参见官方文档 <a href="http://kotlinlang.org/docs/reference/operator-overloading.html">Operator overloading</a></p>
 <h2 id="infix">infix</h2>
 <p>标记为infix的方法，可以类似于二元运算符使用，举个例子</p>
-<pre><code>infix fun Int.plus(other: Int): Int {
+<pre tabindex="0"><code>infix fun Int.plus(other: Int): Int {
     return this + other
 }
 
@@ -798,7 +796,7 @@ fun main() {
 </ul>
 <h2 id="方法参数">方法参数</h2>
 <p>Kotlin中的function是一等公民，拥有和变量一样的定义以及传参方式，如以下例子：</p>
-<pre><code>fun SQLiteDatabase.inTransaction(func: (SQLiteDatabase) -&gt; Unit) {
+<pre tabindex="0"><code>fun SQLiteDatabase.inTransaction(func: (SQLiteDatabase) -&gt; Unit) {
   beginTransaction()
   try {
     func(this)
@@ -809,11 +807,11 @@ fun main() {
 }
 // 调用的时候就可以如下方法进行调用
 db.inTransaction {
-  it.db.delete(&quot;users&quot;, &quot;first_name = ?&quot;, arrayOf(&quot;Jake&quot;))
+  it.db.delete(&#34;users&#34;, &#34;first_name = ?&#34;, arrayOf(&#34;Jake&#34;))
 }
 </code></pre><h2 id="带接收者的lambda表达式">带接收者的lambda表达式</h2>
 <p>lambda表达式可以声明拥有接收者，例如：</p>
-<pre><code>val isEven: Int.() -&gt; Boolean = {
+<pre tabindex="0"><code>val isEven: Int.() -&gt; Boolean = {
     this % 2 == 0
 }
 
@@ -821,12 +819,12 @@ fun main() {
     print(2.isEven())
 }
 </code></pre><p>这种带接收者的lambda实际上也是一种方法定义，不过其优先级比扩展方法要低，如果同时有扩展函数（如下）拥有相同名字，则会优先调用扩展方法。</p>
-<pre><code>fun Int.isEven(): Boolean {
+<pre tabindex="0"><code>fun Int.isEven(): Boolean {
     return this % 2 != 0
 }
 </code></pre><h2 id="let-run-with-apply-also">let run with apply also</h2>
 <p>这几个关键字其实都是Kotlin的特殊方法，他们可以让lambda里面的代码在相同的接收者中运行，避免冗余代码，他们的声明如下：</p>
-<pre><code>public inline fun &lt;T, R&gt; T.let(block: (T) -&gt; R): R {
+<pre tabindex="0"><code>public inline fun &lt;T, R&gt; T.let(block: (T) -&gt; R): R {
     return block(this)
 }
 public inline fun &lt;R&gt; run(block: () -&gt; R): R {
@@ -844,9 +842,9 @@ public inline fun &lt;T&gt; T.also(block: (T) -&gt; Unit): T {
     return this
 }
 </code></pre><p>从声明中可以看出他们有以下区别，假设在以下代码中运行</p>
-<pre><code>class MyClass {
+<pre tabindex="0"><code>class MyClass {
     fun test() {
-        val str: String = &quot;...&quot;
+        val str: String = &#34;...&#34;
         val result = str.xxx {
             print(this) // 接收者this
             print(it) // lambda参数it
@@ -898,26 +896,26 @@ public inline fun &lt;T&gt; T.also(block: (T) -&gt; Unit): T {
 </table>
 <h2 id="dsl构建">DSL构建</h2>
 <p>以下是DSL和API调用方式的区别</p>
-<pre><code>// DSL
+<pre tabindex="0"><code>// DSL
 dependencies {
-    compile(&quot;junit&quot;)
-    compile(&quot;guice&quot;)
+    compile(&#34;junit&#34;)
+    compile(&#34;guice&#34;)
 }
-</code></pre><pre><code>// API
-project.dependencies.add(&quot;compile&quot;, &quot;junit&quot;)
-project.dependencies.add(&quot;compile&quot;, &quot;guice&quot;)
+</code></pre><pre tabindex="0"><code>// API
+project.dependencies.add(&#34;compile&#34;, &#34;junit&#34;)
+project.dependencies.add(&#34;compile&#34;, &#34;guice&#34;)
 </code></pre><p>对比下DSL方式更为简洁且易读。通过上述对lambda的介绍可以发现Kotlin可以完美地支持DSL方式编程，只要少量的扩展方法以及lambda定义既可实现以下方式来构建一段html表格</p>
-<pre><code>html {
+<pre tabindex="0"><code>html {
     table {
         tr (color = getTitleColor()){
             this.td {
-                text(&quot;Product&quot;)
+                text(&#34;Product&#34;)
             }
             td {
-                text(&quot;Price&quot;)
+                text(&#34;Price&#34;)
             }
             td {
-                text(&quot;Popularity&quot;)
+                text(&#34;Popularity&#34;)
             }
         }
         val products = getProducts()
@@ -936,24 +934,23 @@ project.dependencies.add(&quot;compile&quot;, &quot;guice&quot;)
         }
     }
 }
-
 </code></pre><p>具体定义如下：</p>
-<pre><code>import java.util.ArrayList
+<pre tabindex="0"><code>import java.util.ArrayList
 
 open class Tag(val name: String) {
     val children: MutableList&lt;Tag&gt; = ArrayList()
     val attributes: MutableList&lt;Attribute&gt; = ArrayList()
 
     override fun toString(): String {
-        return &quot;&lt;$name&quot; +
-            (if (attributes.isEmpty()) &quot;&quot; else attributes.joinToString(separator = &quot;&quot;, prefix = &quot; &quot;)) + &quot;&gt;&quot; +
-            (if (children.isEmpty()) &quot;&quot; else children.joinToString(separator = &quot;&quot;)) +
-            &quot;&lt;/$name&gt;&quot;
+        return &#34;&lt;$name&#34; +
+            (if (attributes.isEmpty()) &#34;&#34; else attributes.joinToString(separator = &#34;&#34;, prefix = &#34; &#34;)) + &#34;&gt;&#34; +
+            (if (children.isEmpty()) &#34;&#34; else children.joinToString(separator = &#34;&#34;)) +
+            &#34;&lt;/$name&gt;&#34;
     }
 }
 
 class Attribute(val name : String, val value : String) {
-    override fun toString() = &quot;&quot;&quot;$name=&quot;$value&quot; &quot;&quot;&quot;
+    override fun toString() = &#34;&#34;&#34;$name=&#34;$value&#34; &#34;&#34;&#34;
 }
 
 fun &lt;T: Tag&gt; T.set(name: String, value: String?): T {
@@ -969,12 +966,12 @@ fun &lt;T: Tag&gt; Tag.doInit(tag: T, init: T.() -&gt; Unit): T {
     return tag
 }
 
-class Html: Tag(&quot;html&quot;)
-class Table: Tag(&quot;table&quot;)
-class Center: Tag(&quot;center&quot;)
-class TR: Tag(&quot;tr&quot;)
-class TD: Tag(&quot;td&quot;)
-class Text(val text: String): Tag(&quot;b&quot;) {
+class Html: Tag(&#34;html&#34;)
+class Table: Tag(&#34;table&#34;)
+class Center: Tag(&#34;center&#34;)
+class TR: Tag(&#34;tr&#34;)
+class TD: Tag(&#34;td&#34;)
+class Text(val text: String): Tag(&#34;b&#34;) {
     override fun toString() = text
 }
 
@@ -983,9 +980,9 @@ fun html(init: Html.() -&gt; Unit): Html = Html().apply(init)
 fun Html.table(init : Table.() -&gt; Unit) = doInit(Table(), init)
 fun Html.center(init : Center.() -&gt; Unit) = doInit(Center(), init)
 
-fun Table.tr(color: String? = null, init : TR.() -&gt; Unit) = doInit(TR(), init).set(&quot;bgcolor&quot;, color)
+fun Table.tr(color: String? = null, init : TR.() -&gt; Unit) = doInit(TR(), init).set(&#34;bgcolor&#34;, color)
 
-fun TR.td(color: String? = null, align : String = &quot;left&quot;, init : TD.() -&gt; Unit) = doInit(TD(), init).set(&quot;align&quot;, align).set(&quot;bgcolor&quot;, color)
+fun TR.td(color: String? = null, align : String = &#34;left&#34;, init : TD.() -&gt; Unit) = doInit(TD(), init).set(&#34;align&#34;, align).set(&#34;bgcolor&#34;, color)
 
 fun Tag.text(s : Any?) = doInit(Text(s.toString()), {})
 </code></pre><h1 id="属性代理">属性代理</h1>
@@ -996,9 +993,9 @@ fun Tag.text(s : Any?) = doInit(Text(s.toString()), {})
 <li>方便对属性进行保存等管理</li>
 </ul>
 <p>下面来看比较常用的懒初始化例子：</p>
-<pre><code>val lazyValue: String by lazy {
-    println(&quot;computed!&quot;)
-    &quot;Hello&quot;
+<pre tabindex="0"><code>val lazyValue: String by lazy {
+    println(&#34;computed!&#34;)
+    &#34;Hello&#34;
 }
 
 fun main() {
@@ -1006,46 +1003,46 @@ fun main() {
     println(lazyValue)
 }
 </code></pre><p>以上代码会输出</p>
-<pre><code>computed!
+<pre tabindex="0"><code>computed!
 Hello
 Hello
 </code></pre><p>证明懒加载模块只在第一次调用被执行，然后会将得到的值保存起来，后面访问属性将不会继续计算。这也是在Kotlin中实现单例模式的方式。这种懒初始化的过程也是线程同步的，线程同步方式有以下几种：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="kd">class</span> <span class="nc">LazyThreadSafetyMode</span> <span class="o">{</span>
-    <span class="cm">/**
-</span><span class="cm">     * 加锁单一线程初始化Lazy实例
-</span><span class="cm">     */</span>
-    <span class="n">SYNCHRONIZED</span><span class="o">,</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 初始化代码块会被多次调用，但只有首次初始化的值会赋值给Lazy实例
-</span><span class="cm">     */</span>
-    <span class="n">PUBLICATION</span><span class="o">,</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 没有线程安全，不保证同步，只能在确保单线程环境中使用
-</span><span class="cm">     */</span>
-    <span class="n">NONE</span><span class="o">,</span>
-<span class="o">}</span>
-</code></pre></div><h1 id="解构">解构</h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">enum</span> <span class="kd">class</span> <span class="nc">LazyThreadSafetyMode</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 加锁单一线程初始化Lazy实例
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SYNCHRONIZED</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 初始化代码块会被多次调用，但只有首次初始化的值会赋值给Lazy实例
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PUBLICATION</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 没有线程安全，不保证同步，只能在确保单线程环境中使用
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">NONE</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h1 id="解构">解构</h1>
 <p>解构是非常实用的Kotlin提供的将一个对象属性分离出来的特性。
 内部实现原理是通过声明为<code>componentN()</code>的操作符重载实现。对Kotlin中的<code>data</code>类会自动生成<code>component</code>函数，默认支持解构操作。以下是解构比较实用的一个例子：</p>
-<pre><code>for ((key, value) in map) {
+<pre tabindex="0"><code>for ((key, value) in map) {
    // 使用该 key、value 做些事情
 }
 </code></pre><h1 id="协程coroutine">协程Coroutine</h1>
 <p>先占个位，等我看懂了再来补充 :)
 先po一个协程和Rxjava的对比吸引下大家</p>
-<pre><code>// RxJava
+<pre tabindex="0"><code>// RxJava
 interface RemoteService {
-    @GET(&quot;/trendingshows&quot;)
+    @GET(&#34;/trendingshows&#34;)
     fun trendingShows(): Single&lt;List&lt;Show&gt;&gt;
 }
 service.trendingShows()
     .scheduleOn(schedulers.io)
     .subscribe(::onTrendingLoaded, ::onError)
-</code></pre><pre><code>// Coroutine
+</code></pre><pre tabindex="0"><code>// Coroutine
 interface RemoteService {
-    @GET(&quot;/trendingshows&quot;)
+    @GET(&#34;/trendingshows&#34;)
     suspend fun trendingShows(): List&lt;Show&gt;
 }
 val show = withContext(dispatchers.io) {
@@ -1089,7 +1086,7 @@ Java中使用<code>extends</code>和<code>super</code>来区分泛型中生产�
 由于在Kotlin语言中方法是一等公民，因此可以声明局部生命周期的本地方法，如下例子：</p>
 </li>
 </ul>
-<pre><code>fun dfs(graph: Graph) {
+<pre tabindex="0"><code>fun dfs(graph: Graph) {
     val visited = HashSet&lt;Vertex&gt;()
     fun dfs(current: Vertex) {
         if (!visited.add(current)) return
@@ -1270,15 +1267,15 @@ Java中使用<code>extends</code>和<code>super</code>来区分泛型中生产�
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.83.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.101.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</footer><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="https://shenguojun.github.io/js/main.js"></script>
