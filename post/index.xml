@@ -8,177 +8,140 @@
     <language>en-us</language>
     <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
     <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
-    <lastBuildDate>Mon, 13 Nov 2023 16:37:24 +0800</lastBuildDate><atom:link href="https://shenguojun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Nov 2023 16:37:24 +0800</lastBuildDate>
+    <atom:link href="https://shenguojun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tetris Native揭秘|有道词典动态化运营引擎</title>
       <link>https://shenguojun.github.io/post/tetris-native-overview/</link>
-      <pubDate>Mon, 13 Nov 2023 16:37:24 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Mon, 13 Nov 2023 16:37:24 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/tetris-native-overview/</guid>
       <description>Tetris Native是有道词典端侧动态渲染引擎，目前已作为多个业务的运营投放容器，支持跨端UI动态化发布及多种样式，助力有道词典流量变现。《Tet</description>
     </item>
-    
     <item>
       <title>Flutter入门1——Dart语言基础</title>
       <link>https://shenguojun.github.io/post/flutter-dart/</link>
-      <pubDate>Thu, 01 Sep 2022 19:43:01 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Thu, 01 Sep 2022 19:43:01 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/flutter-dart/</guid>
       <description>Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kot</description>
     </item>
-    
     <item>
       <title>深入理解Android Runtime</title>
       <link>https://shenguojun.github.io/post/android_runtime/</link>
-      <pubDate>Mon, 08 Aug 2022 11:07:45 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Mon, 08 Aug 2022 11:07:45 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/android_runtime/</guid>
       <description>上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。</description>
     </item>
-    
     <item>
       <title>TargetsdkVersion 升级31（Android12）适配</title>
       <link>https://shenguojun.github.io/post/targetsdk31/</link>
-      <pubDate>Thu, 14 Apr 2022 11:01:07 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Thu, 14 Apr 2022 11:01:07 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/targetsdk31/</guid>
       <description>TargetsdkVersion 升级31（Android12）适配 我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Go</description>
     </item>
-    
     <item>
       <title>Kotlin升级1.5版本synthetic引发的血案分析</title>
       <link>https://shenguojun.github.io/post/kotlin_synthetic/</link>
-      <pubDate>Fri, 09 Jul 2021 16:27:41 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Fri, 09 Jul 2021 16:27:41 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/kotlin_synthetic/</guid>
       <description>场景重现 因为项目里面Kotlin版本还停留在1.4，看到1.5版本更新记录提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完</description>
     </item>
-    
     <item>
       <title>Android深色模式适配原理分析</title>
       <link>https://shenguojun.github.io/post/android-dark-mode/</link>
-      <pubDate>Mon, 12 Oct 2020 13:06:52 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Mon, 12 Oct 2020 13:06:52 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/android-dark-mode/</guid>
       <description>背景 从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图</description>
     </item>
-    
     <item>
       <title>Flutter学习笔记——用户界面</title>
       <link>https://shenguojun.github.io/post/flutter-learning-note/</link>
-      <pubDate>Tue, 07 Apr 2020 15:19:10 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Tue, 07 Apr 2020 15:19:10 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/flutter-learning-note/</guid>
       <description>以下为对Flutter官网的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。 转载请注明出处：Lawrence_</description>
     </item>
-    
     <item>
       <title>Android性能分析&amp;启动优化</title>
       <link>https://shenguojun.github.io/post/android-profile/</link>
-      <pubDate>Tue, 19 Nov 2019 12:57:47 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Tue, 19 Nov 2019 12:57:47 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/android-profile/</guid>
       <description>两年前我做过了类似的启动优化分析《如何统计Android App启动时间》和《如何优化Androd App启动速度》。两年过后，今天看来，之前说</description>
     </item>
-    
     <item>
       <title>单元测试之JUnit4</title>
       <link>https://shenguojun.github.io/post/unittest/</link>
-      <pubDate>Thu, 09 May 2019 12:57:47 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Thu, 09 May 2019 12:57:47 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/unittest/</guid>
       <description>JUnit4 JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为</description>
     </item>
-    
     <item>
       <title>Databinding subModule library 爬坑</title>
       <link>https://shenguojun.github.io/post/databinding-submodule/</link>
-      <pubDate>Fri, 12 Apr 2019 12:57:47 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Fri, 12 Apr 2019 12:57:47 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/databinding-submodule/</guid>
       <description>问题描述 最近把gradle的‘com.android.tools.build:gradle’升级到3.2.1，升级之后dataBinding</description>
     </item>
-    
     <item>
       <title>Dagger2注解大全</title>
       <link>https://shenguojun.github.io/post/dagger2-annotation/</link>
-      <pubDate>Mon, 14 Jan 2019 20:00:40 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Mon, 14 Jan 2019 20:00:40 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/dagger2-annotation/</guid>
       <description>前言 Dagger是帮助实现依赖注入的库，虽然很多人都知道依赖注入对于架构设计的重要性，但是Dagger学习曲线十分陡峭，官方文档更是看了几遍</description>
     </item>
-    
     <item>
       <title>Android create pinned shortcut创建桌面快捷方式</title>
       <link>https://shenguojun.github.io/post/android-pinned-shortcut/</link>
-      <pubDate>Fri, 23 Nov 2018 20:00:40 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Fri, 23 Nov 2018 20:00:40 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/android-pinned-shortcut/</guid>
       <description>前言 本文主要针对文章Create shortcuts中动态创建桌面快捷方式的解释和例子。在8.0系统中，创建桌面快捷方式的广播com.andr</description>
     </item>
-    
     <item>
       <title>targetSdkVersion升级到28一些修改的地方</title>
       <link>https://shenguojun.github.io/post/android-vesrion-adaptive/</link>
-      <pubDate>Fri, 16 Nov 2018 20:00:40 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Fri, 16 Nov 2018 20:00:40 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/android-vesrion-adaptive/</guid>
       <description>前言 Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响</description>
     </item>
-    
     <item>
       <title>Kotlin精髓</title>
       <link>https://shenguojun.github.io/post/kotlin-good-part/</link>
-      <pubDate>Wed, 07 Nov 2018 17:42:32 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Wed, 07 Nov 2018 17:42:32 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/kotlin-good-part/</guid>
       <description>前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl</description>
     </item>
-    
     <item>
       <title>记录一次Android Deeplink跳转失败问题修复</title>
       <link>https://shenguojun.github.io/post/android-deeplink/</link>
-      <pubDate>Sat, 18 Aug 2018 12:57:47 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Sat, 18 Aug 2018 12:57:47 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/android-deeplink/</guid>
       <description>Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕</description>
     </item>
-    
     <item>
       <title>targetSdkVersion升级到28一些修改的地方</title>
       <link>https://shenguojun.github.io/post/targetsdkversion/</link>
-      <pubDate>Wed, 18 Jul 2018 20:00:40 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Wed, 18 Jul 2018 20:00:40 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/targetsdkversion/</guid>
       <description>前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对</description>
     </item>
-    
     <item>
       <title>如何优化Androd App启动速度</title>
       <link>https://shenguojun.github.io/post/android-startup-speedup/</link>
-      <pubDate>Tue, 03 Jul 2018 17:42:32 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Tue, 03 Jul 2018 17:42:32 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/android-startup-speedup/</guid>
       <description>在上一篇文章《如何统计Android App启动时间》中我们探讨了如何统计Android App的启动时间，以及简要分析了App启动流程。这一篇</description>
     </item>
-    
     <item>
       <title>如何统计Android App启动时间</title>
       <link>https://shenguojun.github.io/post/android-startup-time-analyze/</link>
-      <pubDate>Tue, 03 Jul 2018 17:36:21 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Tue, 03 Jul 2018 17:36:21 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/android-startup-time-analyze/</guid>
       <description>随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所</description>
     </item>
-    
     <item>
       <title>第一篇发布到github的博客</title>
       <link>https://shenguojun.github.io/post/my-first-post/</link>
-      <pubDate>Tue, 03 Jul 2018 10:47:20 +0800</pubDate>
-      <author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Tue, 03 Jul 2018 10:47:20 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
       <guid>https://shenguojun.github.io/post/my-first-post/</guid>
       <description>发一个小柴的照片，记录我的第一篇博客</description>
     </item>
-    
   </channel>
 </rss>
