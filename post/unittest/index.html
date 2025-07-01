@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
   <head>
@@ -12,8 +14,8 @@
 
       <title>单元测试之JUnit4 - </title>
 
-  <meta name="description" content="JUnit4 JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为">
-  <meta name="author" content="申国骏"/><script type="application/ld+json">
+  <meta name="description" content="JUnit4
+JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为体系列举JUnit4中比较关键的一些知识点。转载请注明来源「Bug总柴」"><script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
@@ -61,11 +63,11 @@
     "name" : "申国骏"
   },
   "headline": "单元测试之JUnit4",
-  "description" : "JUnit4 JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为",
+  "description" : "JUnit4 JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为体系列举JUnit4中比较关键的一些知识点。转载请注明来源「Bug总柴」\n",
   "inLanguage" : "en",
   "wordCount":  4336 ,
-  "datePublished" : "2019-05-09T12:57:47",
-  "dateModified" : "2019-05-09T12:57:47",
+  "datePublished" : "2019-05-09T12:57:47\u002b08:00",
+  "dateModified" : "2019-05-09T12:57:47\u002b08:00",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
   "keywords" : [ "android" ],
   "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/unittest\/",
@@ -82,32 +84,28 @@
 }
 </script>
 
+
 <meta property="og:title" content="单元测试之JUnit4" />
-<meta property="og:description" content="JUnit4 JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为">
+<meta property="og:description" content="JUnit4
+JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为体系列举JUnit4中比较关键的一些知识点。转载请注明来源「Bug总柴」">
 <meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
 <meta property="og:url" content="https://shenguojun.github.io/post/unittest/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lawrence&#39;s Blog" />
 
   <meta name="twitter:title" content="单元测试之JUnit4" />
-  <meta name="twitter:description" content="JUnit4 JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为">
+  <meta name="twitter:description" content="JUnit4
+JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为体系列举JUnit4中比较关键的一些知识点。转载请注明来源「Bug总柴」">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.129.0">
+  <meta name="generator" content="Hugo 0.147.9">
   <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
   <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
-
-  
-    
-      
-    
-  
-
 
   </head>
   <body>
@@ -156,6 +154,7 @@
         <div class="avatar-img-border">
           <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
             <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+           
           </a>
         </div>
       </div>
@@ -280,15 +279,15 @@
         <h1>TOC</h1>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#junit4httpsjunitorgjunit4"><a href="https://junit.org/junit4/">JUnit4</a></a>
+    <li><a href="#junit4"><a href="https://junit.org/junit4/">JUnit4</a></a>
       <ul>
         <li><a href="#assertions断言">Assertions断言</a>
           <ul>
-            <li><a href="#hamcrest-mathershttphamcrestorgjavahamcresttutorial"><a href="http://hamcrest.org/JavaHamcrest/tutorial">Hamcrest Mathers</a></a></li>
+            <li><a href="#hamcrest-mathers"><a href="http://hamcrest.org/JavaHamcrest/tutorial">Hamcrest Mathers</a></a></li>
           </ul>
         </li>
         <li><a href="#runner执行器">Runner执行器</a></li>
-        <li><a href="#rule规则httpsgithubcomjunit-teamjunit4wikirules"><a href="https://github.com/junit-team/junit4/wiki/Rules">Rule规则</a></a></li>
+        <li><a href="#rule规则"><a href="https://github.com/junit-team/junit4/wiki/Rules">Rule规则</a></a></li>
         <li><a href="#测试默认执行流程源码分析">测试默认执行流程源码分析</a></li>
         <li><a href="#junit后记">JUnit后记</a></li>
       </ul>
@@ -296,221 +295,221 @@
   </ul>
 </nav>
 
-        <h1 id="junit4httpsjunitorgjunit4"><a href="https://junit.org/junit4/">JUnit4</a></h1>
+        <h1 id="junit4"><a href="https://junit.org/junit4/">JUnit4</a></h1>
 <p>JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为体系列举JUnit4中比较关键的一些知识点。转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「Bug总柴」</a></p>
 <h2 id="assertions断言">Assertions断言</h2>
 <p>判断结果是否满足预期，Junit有以下几种断言方法：<code>assertArrayEquals</code>、<code>assertEquals</code>、<code>assertFalse</code>、<code>assertNotNull</code>、<code>assertNotSame</code>、<code>assertNull</code>、<code>assertSame</code>、<code>assertTrue</code>、<code>assertThat</code>。</p>
-<h3 id="hamcrest-mathershttphamcrestorgjavahamcresttutorial"><a href="http://hamcrest.org/JavaHamcrest/tutorial">Hamcrest Mathers</a></h3>
+<h3 id="hamcrest-mathers"><a href="http://hamcrest.org/JavaHamcrest/tutorial">Hamcrest Mathers</a></h3>
 <p>Hamcrest扩展JUnit<code>assertThat</code>的Matcher类型，支持以下matchers:</p>
 <table>
-<thead>
-<tr>
-<th>支持类型</th>
-<th>常用matchers</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Core</td>
-<td>anything、describedAs、is</td>
-</tr>
-<tr>
-<td>Logical</td>
-<td>allOf、anyOf、not、both、either</td>
-</tr>
-<tr>
-<td>Object</td>
-<td>equalTo、hasToString、instanceOf、isCompatibleType、notNullValue、nullValue、sameInstance、theInstance</td>
-</tr>
-<tr>
-<td>Beans</td>
-<td>hasProperty</td>
-</tr>
-<tr>
-<td>Collections</td>
-<td>array、hasEntry、hasKey、hasValue、hasItem、hasItems、hasItemInArray、everyItem</td>
-</tr>
-<tr>
-<td>Number</td>
-<td>closeTo、greaterThan、greaterThanOrEqualTo、lessThan、lessThanOrEqualTo</td>
-</tr>
-<tr>
-<td>Text</td>
-<td>equalToIgnoringCase、equalToIgnoringWhiteSpace、containsString、endsWith、startsWith</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>支持类型</th>
+          <th>常用matchers</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Core</td>
+          <td>anything、describedAs、is</td>
+      </tr>
+      <tr>
+          <td>Logical</td>
+          <td>allOf、anyOf、not、both、either</td>
+      </tr>
+      <tr>
+          <td>Object</td>
+          <td>equalTo、hasToString、instanceOf、isCompatibleType、notNullValue、nullValue、sameInstance、theInstance</td>
+      </tr>
+      <tr>
+          <td>Beans</td>
+          <td>hasProperty</td>
+      </tr>
+      <tr>
+          <td>Collections</td>
+          <td>array、hasEntry、hasKey、hasValue、hasItem、hasItems、hasItemInArray、everyItem</td>
+      </tr>
+      <tr>
+          <td>Number</td>
+          <td>closeTo、greaterThan、greaterThanOrEqualTo、lessThan、lessThanOrEqualTo</td>
+      </tr>
+      <tr>
+          <td>Text</td>
+          <td>equalToIgnoringCase、equalToIgnoringWhiteSpace、containsString、endsWith、startsWith</td>
+      </tr>
+  </tbody>
 </table>
 <p>使用<code>assertThat</code>具有更好的可读性和出错信息，建议大多数情况下使用<code>assertTaht</code>来进行断言判断。</p>
 <h2 id="runner执行器">Runner执行器</h2>
 <p>Runner执行器用于组织和执行在一个类中的测试，可以在执行器中做一些必须的前置和后置工作。使用<code>@RunWith</code>注解可以指定测试的执行类。如果没有使用<code>@RunWith</code>指定测试执行器，默认会使用<code>BlockJunit4ClassRunner</code>。每个测试类只能指定一个Runner。除了默认的Runner还有以下的Runner：</p>
 <table>
-<thead>
-<tr>
-<th>Runner名称</th>
-<th>作用</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Suite</td>
-<td>将分布在多个类中的测试组合在一起作为一个测试执行</td>
-<td>JUnit自带 <a href="https://github.com/junit-team/junit4/wiki/Aggregating-tests-in-suites">文档</a></td>
-</tr>
-<tr>
-<td>Categories</td>
-<td>执行多个类具有某些类别标志的一组测试</td>
-<td>JUnit自带 <a href="https://github.com/junit-team/junit4/wiki/Categories">文档</a></td>
-</tr>
-<tr>
-<td>Parameterized</td>
-<td>使用同一种类型的多个数据重复执行同一个测试类的所有测试</td>
-<td>JUnit自带 <a href="https://github.com/junit-team/junit4/wiki/Parameterized-tests">文档</a></td>
-</tr>
-<tr>
-<td>Theories</td>
-<td>使用多种类型的数据的排列组合执行同一个测试类的所有测试</td>
-<td>JUnit自带 <a href="https://github.com/junit-team/junit4/wiki/Theories">文档</a></td>
-</tr>
-<tr>
-<td><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/context/junit4/SpringJUnit4ClassRunner.html">SpringJUnit4ClassRunner</a></td>
-<td>提供Spring上下文支持的测试执行类</td>
-<td>继承自BlockJUnit4ClassRunner</td>
-</tr>
-<tr>
-<td>MockitoJUnitRunner</td>
-<td>最终会构造<code>DefaultInternalRunner</code>，根据mockito的注解在测试之前生成mock对象</td>
-<td>详见<a href="https://dzone.com/refcardz/mockito?chapter=1">mockito介绍</a></td>
-</tr>
-<tr>
-<td>PowerMockRunner</td>
-<td>最终通过<code>PowerMockJUnit44RunnerDelegateImpl.executeTest()</code>方法，将被<code>@PrepareForTest</code>、<code>@PrepareOnlyThisForTest</code>、<code>@SuppressStaticInitializationFor</code>标注的类使用<code>MockClassLoader</code>进行加载，实现对静态以及final对象的mock</td>
-<td>详见<a href="https://github.com/powermock/powermock/wiki/Getting-Started">powermock文档</a></td>
-</tr>
-<tr>
-<td>AndroidJUnit4</td>
-<td>会根据是否在Android设备执行，选择<code>AndroidJUnit4ClassRunner</code>或者<code>RobolectricTestRunner</code>（AndroidX版本）。在Android中执行测试时，可以获得运行的Instrumentation和Bundle参数，以及可以使用<code>@UiThreadTest</code>标记测试方法在UI线程执行</td>
-<td>原理可以参阅<a href="https://www.jianshu.com/p/e28868ab4882">这篇文章</a></td>
-</tr>
-<tr>
-<td>RobolectricTestRunner</td>
-<td>直接在安卓真机或者模拟器运行测试通常会比较慢，RobolectricTestRunner继承自SandboxTestRunner，以提供在JVM中的Android运行时环境</td>
-<td>详见<a href="http://robolectric.org/">Robolectric官网</a></td>
-</tr>
-<tr>
-<td><a href="https://github.com/junit-team/junit4/wiki/Custom-runners">其他</a></td>
-<td>其他的Runner可以看<a href="https://github.com/junit-team/junit4/wiki/Custom-runners">这里</a></td>
-<td></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Runner名称</th>
+          <th>作用</th>
+          <th>备注</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Suite</td>
+          <td>将分布在多个类中的测试组合在一起作为一个测试执行</td>
+          <td>JUnit自带 <a href="https://github.com/junit-team/junit4/wiki/Aggregating-tests-in-suites">文档</a></td>
+      </tr>
+      <tr>
+          <td>Categories</td>
+          <td>执行多个类具有某些类别标志的一组测试</td>
+          <td>JUnit自带 <a href="https://github.com/junit-team/junit4/wiki/Categories">文档</a></td>
+      </tr>
+      <tr>
+          <td>Parameterized</td>
+          <td>使用同一种类型的多个数据重复执行同一个测试类的所有测试</td>
+          <td>JUnit自带 <a href="https://github.com/junit-team/junit4/wiki/Parameterized-tests">文档</a></td>
+      </tr>
+      <tr>
+          <td>Theories</td>
+          <td>使用多种类型的数据的排列组合执行同一个测试类的所有测试</td>
+          <td>JUnit自带 <a href="https://github.com/junit-team/junit4/wiki/Theories">文档</a></td>
+      </tr>
+      <tr>
+          <td><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/context/junit4/SpringJUnit4ClassRunner.html">SpringJUnit4ClassRunner</a></td>
+          <td>提供Spring上下文支持的测试执行类</td>
+          <td>继承自BlockJUnit4ClassRunner</td>
+      </tr>
+      <tr>
+          <td>MockitoJUnitRunner</td>
+          <td>最终会构造<code>DefaultInternalRunner</code>，根据mockito的注解在测试之前生成mock对象</td>
+          <td>详见<a href="https://dzone.com/refcardz/mockito?chapter=1">mockito介绍</a></td>
+      </tr>
+      <tr>
+          <td>PowerMockRunner</td>
+          <td>最终通过<code>PowerMockJUnit44RunnerDelegateImpl.executeTest()</code>方法，将被<code>@PrepareForTest</code>、<code>@PrepareOnlyThisForTest</code>、<code>@SuppressStaticInitializationFor</code>标注的类使用<code>MockClassLoader</code>进行加载，实现对静态以及final对象的mock</td>
+          <td>详见<a href="https://github.com/powermock/powermock/wiki/Getting-Started">powermock文档</a></td>
+      </tr>
+      <tr>
+          <td>AndroidJUnit4</td>
+          <td>会根据是否在Android设备执行，选择<code>AndroidJUnit4ClassRunner</code>或者<code>RobolectricTestRunner</code>（AndroidX版本）。在Android中执行测试时，可以获得运行的Instrumentation和Bundle参数，以及可以使用<code>@UiThreadTest</code>标记测试方法在UI线程执行</td>
+          <td>原理可以参阅<a href="https://www.jianshu.com/p/e28868ab4882">这篇文章</a></td>
+      </tr>
+      <tr>
+          <td>RobolectricTestRunner</td>
+          <td>直接在安卓真机或者模拟器运行测试通常会比较慢，RobolectricTestRunner继承自SandboxTestRunner，以提供在JVM中的Android运行时环境</td>
+          <td>详见<a href="http://robolectric.org/">Robolectric官网</a></td>
+      </tr>
+      <tr>
+          <td><a href="https://github.com/junit-team/junit4/wiki/Custom-runners">其他</a></td>
+          <td>其他的Runner可以看<a href="https://github.com/junit-team/junit4/wiki/Custom-runners">这里</a></td>
+          <td></td>
+      </tr>
+  </tbody>
 </table>
-<h2 id="rule规则httpsgithubcomjunit-teamjunit4wikirules"><a href="https://github.com/junit-team/junit4/wiki/Rules">Rule规则</a></h2>
+<h2 id="rule规则"><a href="https://github.com/junit-team/junit4/wiki/Rules">Rule规则</a></h2>
 <p>使用Rule可以对一个或者一组测试的方法进行修改，可以向测试方法中添加额外逻辑来决定测试是否通过，也可以代替<code>@Before</code>、<code>@After</code>、<code>@BeforeClass</code>、<code>@AfterClass</code>来实现初始化和清理工作。换句话而言，Rule相当于是相对测试方法独立的作用于测试方法中的额外处理逻辑。多个Rule可以顺序叠加。如果一个规则标注为<code>@Rule</code>则对测试类的每个方法生效，如果一个规则标注为<code>@ClassRule</code>则只会在整个测试类的所有方法开始之前和结束只会生效一次。以下常见的Rules如下：</p>
 <table>
-<thead>
-<tr>
-<th>Rules名称</th>
-<th>作用</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ErrorCollector</td>
-<td>使用<code>ErrorCollector.checkThat()</code>方法可以在执行完整个测试方法之后再报错，不会因为测试方法中的某一个错误而提前终止测试</td>
-<td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/ErrorCollector.html">文档</a></td>
-</tr>
-<tr>
-<td>ExpectedException</td>
-<td>使用<code>ExpectedException.expect()</code>方法指定测试方法需要抛出的异常，当测试方法没有抛出异常或者抛弃不符合预期的异常时判定测试失败</td>
-<td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/ExpectedException.html">文档</a></td>
-</tr>
-<tr>
-<td>ExternalResource</td>
-<td>类似于<code>@Before</code>和<code>@After</code>的效果，只是用了Rule来实现，可以声明发生在测试之前和测试之后的行为</td>
-<td>JUnit自带<a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/ExternalResource.html">文档</a></td>
-</tr>
-<tr>
-<td>TemporaryFolder</td>
-<td>在测试方法之前创建一个存放测试临时文件的目录，在测试结束后会自动删除</td>
-<td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/TemporaryFolder.html">文档</a></td>
-</tr>
-<tr>
-<td>TestWatcher</td>
-<td>可以用来监测测试方法执行的生命周期，包括开始、成功、错误、结束等</td>
-<td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/TestWatcher.html">文档</a></td>
-</tr>
-<tr>
-<td>TestName</td>
-<td>继承自<code>TestWatcher</code>，用来获取每个测试方法的名字</td>
-<td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/TestName.html">文档</a></td>
-</tr>
-<tr>
-<td>Timeout</td>
-<td>将测试类中的每个测试方法都是用独立的线程执行，并等待一段时间。若等待时间内没有结果返回则报错。如果设置等待时间为0，则表示没有超时只是在线程中执行。</td>
-<td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/Timeout.html">文档</a></td>
-</tr>
-<tr>
-<td>RuleChain</td>
-<td>将多个Rule按照指定的顺序作用于测试方法中</td>
-<td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/RuleChain.html">文档</a></td>
-</tr>
-<tr>
-<td>Verifier</td>
-<td>ErrorCollector的基类，抽象类，表示可以在运行完测试方法后做一些验证操作</td>
-<td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/Verifier.html">文档</a></td>
-</tr>
-<tr>
-<td>MockitoRule</td>
-<td>是一个扩展MethodRule的接口，通过<code>JUnitRule</code>实现，会在执行测试方法之前，初始化所有mock对象。这个rule的作用与<code>MockitoJUnitRunner</code>类似</td>
-<td><a href="https://static.javadoc.io/org.mockito/mockito-core/2.19.0/org/mockito/junit/MockitoJUnit.html">文档</a></td>
-</tr>
-<tr>
-<td>PowerMockRule</td>
-<td>最终通过<code>PowerMockAgentTestInitializer.initialize()</code>方法将被@PrepareForTest、@PrepareOnlyThisForTest、@SuppressStaticInitializationFor标注的类使用MockClassLoader进行加载，实现对静态以及final对象的mock，作用与<code>PowerMockRunner</code>类似</td>
-<td><a href="https://github.com/powermock/powermock/wiki/powermockrule">文档</a></td>
-</tr>
-<tr>
-<td>ProviderTestRule</td>
-<td>在测试方法之前对ContentProvider进行初始化，可以执行相应的数据库操作。</td>
-<td><a href="https://developer.android.com/reference/android/support/test/rule/provider/ProviderTestRule">文档</a></td>
-</tr>
-<tr>
-<td>ServiceTestRule</td>
-<td>调用<code>ServiceTestRule.startService()</code>或者<code>ServiceTestRule.bindService()</code>在测试方法中建立Service连接，在测试结束后会自动关闭Service。不适用于IntentService，可以对其他Service进行测试。</td>
-<td><a href="https://developer.android.com/reference/android/support/test/rule/ServiceTestRule">文档</a></td>
-</tr>
-<tr>
-<td>ActivityTestRule</td>
-<td>可以自动在测试方法和<code>@Before</code>之前启动Activity，并在测试方法结束和<code>@After</code>之后结束Activity。也可以手动调用<code>ActivityTestRule.launchActivity()</code>和<code>ActivityTestRule.finishActivity()</code></td>
-<td><a href="https://developer.android.com/reference/android/support/test/rule/ActivityTestRule">文档</a></td>
-</tr>
-<tr>
-<td>GrantPermissionRule</td>
-<td>帮助在Android API 23及以上的环境申请运行时权限。申请权限时可以避免用户交互弹窗占用UI测试焦点。最终会调用<code>PermissionRequester.requestPermissions()</code>方法，通过执行<code>UiAutomationShellCommand</code>直接在shell中为当前target申请权限</td>
-<td><a href="https://developer.android.com/reference/android/support/test/rule/GrantPermissionRule">文档</a></td>
-</tr>
-<tr>
-<td>ActivityScenarioRule</td>
-<td>作为<code>ActivityTestRule</code>的替代，在测试方法之前启动一个activity，并在测试方法之后结束activity。同时可以在测试方法中获得<code>ActivityScenario</code></td>
-<td><a href="https://developer.android.com/reference/androidx/test/ext/junit/rules/ActivityScenarioRule">ActivityScenarioRule文档</a> / <a href="https://developer.android.com/reference/androidx/test/core/app/ActivityScenario">ActivityScenario文档</a></td>
-</tr>
-<tr>
-<td>InstantTaskExecutorRule</td>
-<td>用于Architecture Components的测试，可以将默认使用的后台executor转为同步执行，让测试可以马上获得结果</td>
-<td><a href="https://developer.android.com/reference/android/arch/core/executor/testing/InstantTaskExecutorRule">文档</a></td>
-</tr>
-<tr>
-<td>CountingTaskExecutorRule</td>
-<td>可以使用<code>CountingTaskExecutorRule.drainTasks()</code>方法手动等待所有Architecture Components的后台任务执行完毕</td>
-<td><a href="https://developer.android.com/reference/android/arch/core/executor/testing/CountingTaskExecutorRule">文档</a></td>
-</tr>
-<tr>
-<td>IntentsTestRule</td>
-<td>在测试之前会初始化Espresso的Intent，可以使用Espresso <code>Intents.intended()</code>方法校验activity操作触发的intent</td>
-<td><a href="https://developer.android.com/training/testing/espresso/intents#kotlin">espresso intent</a></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Rules名称</th>
+          <th>作用</th>
+          <th>备注</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ErrorCollector</td>
+          <td>使用<code>ErrorCollector.checkThat()</code>方法可以在执行完整个测试方法之后再报错，不会因为测试方法中的某一个错误而提前终止测试</td>
+          <td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/ErrorCollector.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>ExpectedException</td>
+          <td>使用<code>ExpectedException.expect()</code>方法指定测试方法需要抛出的异常，当测试方法没有抛出异常或者抛弃不符合预期的异常时判定测试失败</td>
+          <td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/ExpectedException.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>ExternalResource</td>
+          <td>类似于<code>@Before</code>和<code>@After</code>的效果，只是用了Rule来实现，可以声明发生在测试之前和测试之后的行为</td>
+          <td>JUnit自带<a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/ExternalResource.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>TemporaryFolder</td>
+          <td>在测试方法之前创建一个存放测试临时文件的目录，在测试结束后会自动删除</td>
+          <td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/TemporaryFolder.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>TestWatcher</td>
+          <td>可以用来监测测试方法执行的生命周期，包括开始、成功、错误、结束等</td>
+          <td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/TestWatcher.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>TestName</td>
+          <td>继承自<code>TestWatcher</code>，用来获取每个测试方法的名字</td>
+          <td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/TestName.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>Timeout</td>
+          <td>将测试类中的每个测试方法都是用独立的线程执行，并等待一段时间。若等待时间内没有结果返回则报错。如果设置等待时间为0，则表示没有超时只是在线程中执行。</td>
+          <td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/Timeout.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>RuleChain</td>
+          <td>将多个Rule按照指定的顺序作用于测试方法中</td>
+          <td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/RuleChain.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>Verifier</td>
+          <td>ErrorCollector的基类，抽象类，表示可以在运行完测试方法后做一些验证操作</td>
+          <td>JUnit自带 <a href="https://junit.org/junit4/javadoc/4.12/org/junit/rules/Verifier.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>MockitoRule</td>
+          <td>是一个扩展MethodRule的接口，通过<code>JUnitRule</code>实现，会在执行测试方法之前，初始化所有mock对象。这个rule的作用与<code>MockitoJUnitRunner</code>类似</td>
+          <td><a href="https://static.javadoc.io/org.mockito/mockito-core/2.19.0/org/mockito/junit/MockitoJUnit.html">文档</a></td>
+      </tr>
+      <tr>
+          <td>PowerMockRule</td>
+          <td>最终通过<code>PowerMockAgentTestInitializer.initialize()</code>方法将被@PrepareForTest、@PrepareOnlyThisForTest、@SuppressStaticInitializationFor标注的类使用MockClassLoader进行加载，实现对静态以及final对象的mock，作用与<code>PowerMockRunner</code>类似</td>
+          <td><a href="https://github.com/powermock/powermock/wiki/powermockrule">文档</a></td>
+      </tr>
+      <tr>
+          <td>ProviderTestRule</td>
+          <td>在测试方法之前对ContentProvider进行初始化，可以执行相应的数据库操作。</td>
+          <td><a href="https://developer.android.com/reference/android/support/test/rule/provider/ProviderTestRule">文档</a></td>
+      </tr>
+      <tr>
+          <td>ServiceTestRule</td>
+          <td>调用<code>ServiceTestRule.startService()</code>或者<code>ServiceTestRule.bindService()</code>在测试方法中建立Service连接，在测试结束后会自动关闭Service。不适用于IntentService，可以对其他Service进行测试。</td>
+          <td><a href="https://developer.android.com/reference/android/support/test/rule/ServiceTestRule">文档</a></td>
+      </tr>
+      <tr>
+          <td>ActivityTestRule</td>
+          <td>可以自动在测试方法和<code>@Before</code>之前启动Activity，并在测试方法结束和<code>@After</code>之后结束Activity。也可以手动调用<code>ActivityTestRule.launchActivity()</code>和<code>ActivityTestRule.finishActivity()</code></td>
+          <td><a href="https://developer.android.com/reference/android/support/test/rule/ActivityTestRule">文档</a></td>
+      </tr>
+      <tr>
+          <td>GrantPermissionRule</td>
+          <td>帮助在Android API 23及以上的环境申请运行时权限。申请权限时可以避免用户交互弹窗占用UI测试焦点。最终会调用<code>PermissionRequester.requestPermissions()</code>方法，通过执行<code>UiAutomationShellCommand</code>直接在shell中为当前target申请权限</td>
+          <td><a href="https://developer.android.com/reference/android/support/test/rule/GrantPermissionRule">文档</a></td>
+      </tr>
+      <tr>
+          <td>ActivityScenarioRule</td>
+          <td>作为<code>ActivityTestRule</code>的替代，在测试方法之前启动一个activity，并在测试方法之后结束activity。同时可以在测试方法中获得<code>ActivityScenario</code></td>
+          <td><a href="https://developer.android.com/reference/androidx/test/ext/junit/rules/ActivityScenarioRule">ActivityScenarioRule文档</a> / <a href="https://developer.android.com/reference/androidx/test/core/app/ActivityScenario">ActivityScenario文档</a></td>
+      </tr>
+      <tr>
+          <td>InstantTaskExecutorRule</td>
+          <td>用于Architecture Components的测试，可以将默认使用的后台executor转为同步执行，让测试可以马上获得结果</td>
+          <td><a href="https://developer.android.com/reference/android/arch/core/executor/testing/InstantTaskExecutorRule">文档</a></td>
+      </tr>
+      <tr>
+          <td>CountingTaskExecutorRule</td>
+          <td>可以使用<code>CountingTaskExecutorRule.drainTasks()</code>方法手动等待所有Architecture Components的后台任务执行完毕</td>
+          <td><a href="https://developer.android.com/reference/android/arch/core/executor/testing/CountingTaskExecutorRule">文档</a></td>
+      </tr>
+      <tr>
+          <td>IntentsTestRule</td>
+          <td>在测试之前会初始化Espresso的Intent，可以使用Espresso <code>Intents.intended()</code>方法校验activity操作触发的intent</td>
+          <td><a href="https://developer.android.com/training/testing/espresso/intents#kotlin">espresso intent</a></td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="测试默认执行流程源码分析">测试默认执行流程源码分析</h2>
 <p>整个测试的执行过程是对<code>Statement</code>根据<code>@BeforeClass</code>、<code>@AfterClass</code>、<code>@Before</code>、<code>@After</code>、Rules的按照<a href="https://zh.wikipedia.org/wiki/%E4%BF%AE%E9%A5%B0%E6%A8%A1%E5%BC%8F">装饰者模式</a>进行的层层包装。最后会根据这些包装的规则一步一步执行测试。</p>
@@ -638,7 +637,8 @@
         
           <div class="blog-tags">
             
-              <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
+              
+              <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
             
           </div>
         
@@ -720,7 +720,10 @@
 
 
       
-        
+      
+      
+      
+      
         
       
 
@@ -728,60 +731,18 @@
   </div>
 </div>
 
-      
-<footer>
+      <footer>
   <div class="container">
     
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <ul class="list-inline text-center footer-links">
           
-              <li>
-		
-		  <a href="mailto:junguoshen@yeah.net" title="Email me">
-		
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-		
-		  <a href="https://github.com/shenguojun" title="GitHub">
-		
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-		
-		  <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
-		
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
           
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
+          
           
         </ul>
         <p class="credits copyright text-muted">
-          
-            
-              申国骏
-            
           
 
           &nbsp;&bull;&nbsp;&copy;
@@ -796,7 +757,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.129.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.147.9</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -812,6 +773,7 @@
 <script> hljs.initHighlightingOnLoad(); </script>
 <script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
 
 
 

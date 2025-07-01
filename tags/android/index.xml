@@ -6,114 +6,112 @@
     <description>Recent content in Android on Lawrence&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
-    <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
     <lastBuildDate>Mon, 08 Aug 2022 11:07:45 +0800</lastBuildDate>
     <atom:link href="https://shenguojun.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深入理解Android Runtime</title>
       <link>https://shenguojun.github.io/post/android_runtime/</link>
-      <pubDate>Mon, 08 Aug 2022 11:07:45 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Mon, 08 Aug 2022 11:07:45 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/android_runtime/</guid>
-      <description>上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/android-stack_2x.png&#34; alt=&#34;Android Platform Architecture&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。这篇文章主要针对Android Runtime部分进行展开，探讨Android Runtime的发展以及目前现状，并介绍应用Profile-Guided Optimization(PGO)技术对应用启动速度进行优化的可行性。&lt;/p&gt;</description>
     </item>
     <item>
       <title>TargetsdkVersion 升级31（Android12）适配</title>
       <link>https://shenguojun.github.io/post/targetsdk31/</link>
-      <pubDate>Thu, 14 Apr 2022 11:01:07 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Thu, 14 Apr 2022 11:01:07 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/targetsdk31/</guid>
-      <description>TargetsdkVersion 升级31（Android12）适配 我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Go</description>
+      <description>&lt;h1 id=&#34;targetsdkversion-升级31android12适配&#34;&gt;TargetsdkVersion 升级31（Android12）适配&lt;/h1&gt;&#xA;&lt;p&gt;我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Google Play的要求，需要将Targetsdkversion升级到31，适配到Android12。这个过程遇到不少坑，这里记录一下，希望能对大家有所帮助。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Kotlin升级1.5版本synthetic引发的血案分析</title>
       <link>https://shenguojun.github.io/post/kotlin_synthetic/</link>
-      <pubDate>Fri, 09 Jul 2021 16:27:41 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Fri, 09 Jul 2021 16:27:41 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/kotlin_synthetic/</guid>
-      <description>场景重现 因为项目里面Kotlin版本还停留在1.4，看到1.5版本更新记录提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完</description>
+      <description>&lt;h2 id=&#34;场景重现&#34;&gt;场景重现&lt;/h2&gt;&#xA;&lt;p&gt;因为项目里面Kotlin版本还停留在1.4，看到1.5版本&lt;a href=&#34;https://Kotlinlang.org/docs/releases.html#release-details&#34;&gt;更新记录&lt;/a&gt;提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完之后，运行起来就傻眼了！&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1625820518128283.gif&#34; alt=&#34;1625820518128283&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;视频列表有个浮层没有隐藏，就升级下Kotlin，居然还有这个问题，真是太不可思议了！把Kotlin降级回去，然后就好了，确定是因为Kotlin升级导致的问题。接下来就开始分析了。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Android深色模式适配原理分析</title>
       <link>https://shenguojun.github.io/post/android-dark-mode/</link>
-      <pubDate>Mon, 12 Oct 2020 13:06:52 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Mon, 12 Oct 2020 13:06:52 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/android-dark-mode/</guid>
-      <description>背景 从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/dark-mode-hot-take.png&#34; alt=&#34;Dark Mode&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;&#xA;&lt;p&gt;从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源&lt;a href=&#34;https://www.jianshu.com/u/b692bbf77991&#34;&gt;「申国骏」&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Android性能分析&amp;启动优化</title>
       <link>https://shenguojun.github.io/post/android-profile/</link>
-      <pubDate>Tue, 19 Nov 2019 12:57:47 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Tue, 19 Nov 2019 12:57:47 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/android-profile/</guid>
-      <description>两年前我做过了类似的启动优化分析《如何统计Android App启动时间》和《如何优化Androd App启动速度》。两年过后，今天看来，之前说</description>
+      <description>&lt;p&gt;两年前我做过了类似的启动优化分析&lt;a href=&#34;https://www.jianshu.com/p/59a2ca7df681&#34;&gt;《如何统计Android App启动时间》&lt;/a&gt;和&lt;a href=&#34;https://www.jianshu.com/p/bef74a4b6d5e&#34;&gt;《如何优化Androd App启动速度》&lt;/a&gt;。两年过后，今天看来，之前说的&lt;a href=&#34;https://link.jianshu.com/?t=https://nimbledroid.com/&#34;&gt;nimbledroid&lt;/a&gt;工具已经需要收费，而且Android Studio自带的&lt;a href=&#34;https://developer.android.com/studio/profile&#34;&gt;Android Profiler&lt;/a&gt;已经足够强大，并且&lt;a href=&#34;%5Bhttps://developer.android.com/studio/profile/systrace/command-line?utm_campaign=app_series_systracecommandline_081616%5D(https://developer.android.com/studio/profile/systrace/command-line?utm_campaign=app_series_systracecommandline_081616)&#34;&gt;Systrace&lt;/a&gt;也有了更为强大的&lt;a href=&#34;https://ui.perfetto.dev/&#34;&gt;Perfetto UI&lt;/a&gt;分析工具。我们是时候来重新学习一下目前性能分析的方法以及如何在分析的基础上做启动优化这个事情。转载请注明来源&lt;a href=&#34;https://www.jianshu.com/u/b692bbf77991&#34;&gt;「Bug总柴」&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>单元测试之JUnit4</title>
       <link>https://shenguojun.github.io/post/unittest/</link>
-      <pubDate>Thu, 09 May 2019 12:57:47 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Thu, 09 May 2019 12:57:47 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/unittest/</guid>
-      <description>JUnit4 JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为</description>
+      <description>&lt;h1 id=&#34;junit4&#34;&gt;&lt;a href=&#34;https://junit.org/junit4/&#34;&gt;JUnit4&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为体系列举JUnit4中比较关键的一些知识点。转载请注明来源&lt;a href=&#34;https://www.jianshu.com/u/b692bbf77991&#34;&gt;「Bug总柴」&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Databinding subModule library 爬坑</title>
       <link>https://shenguojun.github.io/post/databinding-submodule/</link>
-      <pubDate>Fri, 12 Apr 2019 12:57:47 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Fri, 12 Apr 2019 12:57:47 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/databinding-submodule/</guid>
-      <description>问题描述 最近把gradle的‘com.android.tools.build:gradle’升级到3.2.1，升级之后dataBinding</description>
+      <description>&lt;h1 id=&#34;问题描述&#34;&gt;问题描述&lt;/h1&gt;&#xA;&lt;p&gt;最近把gradle的‘com.android.tools.build:gradle’升级到3.2.1，升级之后dataBinding出错了，编译通过，但是运行时报了一个错误&lt;code&gt;java.lang.ClassCastException: com.youdao.dict.databinding.FragmentYdliveBindingImpl cannot be cast to com.youdao.ydliveplayer.databinding.FragmentYdliveBinding&lt;/code&gt;。转载请注明来源&lt;a href=&#34;https://www.jianshu.com/u/b692bbf77991&#34;&gt;「Bug总柴」&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Dagger2注解大全</title>
       <link>https://shenguojun.github.io/post/dagger2-annotation/</link>
-      <pubDate>Mon, 14 Jan 2019 20:00:40 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Mon, 14 Jan 2019 20:00:40 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/dagger2-annotation/</guid>
-      <description>前言 Dagger是帮助实现依赖注入的库，虽然很多人都知道依赖注入对于架构设计的重要性，但是Dagger学习曲线十分陡峭，官方文档更是看了几遍</description>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;  Dagger是帮助实现依赖注入的库，虽然很多人都知道依赖注入对于架构设计的重要性，但是Dagger学习曲线十分陡峭，官方文档更是看了几遍也很难消化。本文旨在通过一篇文章来让大家看懂并上手Dagger。&lt;br&gt;&#xA;  Dagger最早由&lt;a href=&#34;https://jakewharton.com/&#34;&gt;JakeWharton&lt;/a&gt;在square公司开发。后来转由Google维护并发展为Dagger2。Dagger2区别于Dagger1的地方主要在于两个，一个是由运行时通过反射构建依赖关系变为编译期通过注解生成依赖关系，另一个是出错时有更好地提醒（当然这也是因为Dagger2在编译期间根据注解生成好了可读性较好的代码带来的优势）。 转载请注明来源&lt;a href=&#34;https://www.jianshu.com/u/b692bbf77991&#34;&gt;「Bug总柴」&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Android create pinned shortcut创建桌面快捷方式</title>
       <link>https://shenguojun.github.io/post/android-pinned-shortcut/</link>
-      <pubDate>Fri, 23 Nov 2018 20:00:40 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Fri, 23 Nov 2018 20:00:40 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/android-pinned-shortcut/</guid>
-      <description>前言 本文主要针对文章Create shortcuts中动态创建桌面快捷方式的解释和例子。在8.0系统中，创建桌面快捷方式的广播com.andr</description>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;本文主要针对文章&lt;a href=&#34;https://developer.android.com/guide/topics/ui/shortcuts/creating-shortcuts&#34;&gt;Create shortcuts&lt;/a&gt;中动态创建桌面快捷方式的解释和例子。在8.0系统中，创建桌面快捷方式的广播&lt;code&gt;com.android.launcher.action.INSTALL_SHORTCUT&lt;/code&gt;不再生效，创建桌面快捷方式需要用另外的方法。由于文章中没有详细的例子而且表达不是很清楚，笔者也一头雾水，经过了多方的尝试，最后才明白其中的意思，希望能给同样遇到困惑的人一点帮助。转载请注明来源&lt;a href=&#34;https://www.jianshu.com/u/b692bbf77991&#34;&gt;「Bug总柴」&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>targetSdkVersion升级到28一些修改的地方</title>
       <link>https://shenguojun.github.io/post/android-vesrion-adaptive/</link>
-      <pubDate>Fri, 16 Nov 2018 20:00:40 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Fri, 16 Nov 2018 20:00:40 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/android-vesrion-adaptive/</guid>
-      <description>前言 Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响</description>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响，并提供可能影响的功能以便测试参考。转载请注明来源&lt;a href=&#34;https://www.jianshu.com/u/b692bbf77991&#34;&gt;「Bug总柴」&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Kotlin精髓</title>
       <link>https://shenguojun.github.io/post/kotlin-good-part/</link>
-      <pubDate>Wed, 07 Nov 2018 17:42:32 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Wed, 07 Nov 2018 17:42:32 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/kotlin-good-part/</guid>
-      <description>前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotl</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/2057980-a3f52c9bfe0e692d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;引言&#34;&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;&#xA;&lt;p&gt;从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。&lt;/p&gt;</description>
     </item>
     <item>
       <title>记录一次Android Deeplink跳转失败问题修复</title>
       <link>https://shenguojun.github.io/post/android-deeplink/</link>
-      <pubDate>Sat, 18 Aug 2018 12:57:47 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Sat, 18 Aug 2018 12:57:47 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/android-deeplink/</guid>
-      <description>Android Deeplink实现 在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕</description>
+      <description>&lt;h2 id=&#34;android-deeplink实现&#34;&gt;Android Deeplink实现&lt;/h2&gt;&#xA;&lt;p&gt;在Android中，Deeplnk通过声明Activity的intent-filter来实现对自定义url访问事件的捕捉。在有道背单词的项目中，我们需要通过前端分享词单的方式，将词单分享给别人，并通过点击前端页面收藏按钮，实现调起客户端收藏词单的功能。&lt;br&gt;&#xA;从前端通过自定义url的方式调起客户端这个功能原来一直都没有什么问题，直到最近有部分用户反馈在某些浏览器下无法调起。下面我们来看一下分析查找问题的方法以及如何解决。&lt;/p&gt;</description>
     </item>
     <item>
       <title>targetSdkVersion升级到28一些修改的地方</title>
       <link>https://shenguojun.github.io/post/targetsdkversion/</link>
-      <pubDate>Wed, 18 Jul 2018 20:00:40 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Wed, 18 Jul 2018 20:00:40 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/targetsdkversion/</guid>
-      <description>前言 Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对</description>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;Google Play应用市场对于应用的targetSdkVersion有了更为严a格的要求。从 2018 年 8 月 1 日起，所有向 Google Play 首次提交的新应用都必须针对 Android 8.0 (API 等级 26) 开发； 2018 年 11 月 1 日起，所有 Google Play 的现有应用更新同样必须针对 Android 8.0。&lt;/p&gt;</description>
     </item>
     <item>
       <title>如何优化Androd App启动速度</title>
       <link>https://shenguojun.github.io/post/android-startup-speedup/</link>
-      <pubDate>Tue, 03 Jul 2018 17:42:32 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Tue, 03 Jul 2018 17:42:32 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/android-startup-speedup/</guid>
-      <description>在上一篇文章《如何统计Android App启动时间》中我们探讨了如何统计Android App的启动时间，以及简要分析了App启动流程。这一篇</description>
+      <description>&lt;p&gt;在上一篇文章&lt;a href=&#34;http://www.jianshu.com/p/59a2ca7df681&#34;&gt;《如何统计Android App启动时间》&lt;/a&gt;中我们探讨了如何统计Android App的启动时间，以及简要分析了App启动流程。这一篇文章主要讲如何在实战中提升Android App的启动速度。下面我们先回顾一下App的启动流程。转载请注明出处：&lt;a href=&#34;http://www.jianshu.com/u/b692bbf77991&#34;&gt;Lawrence_Shen&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>如何统计Android App启动时间</title>
       <link>https://shenguojun.github.io/post/android-startup-time-analyze/</link>
-      <pubDate>Tue, 03 Jul 2018 17:36:21 +0800</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Tue, 03 Jul 2018 17:36:21 +0800</pubDate>
       <guid>https://shenguojun.github.io/post/android-startup-time-analyze/</guid>
-      <description>随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所</description>
+      <description>&lt;p&gt;随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：&lt;a href=&#34;http://www.jianshu.com/u/b692bbf77991&#34;&gt;Lawrence_Shen&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

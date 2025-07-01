@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
   <head>
@@ -12,8 +14,8 @@
 
       <title>targetSdkVersion升级到28一些修改的地方 - </title>
 
-  <meta name="description" content="前言 Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响">
-  <meta name="author" content="申国骏"/><script type="application/ld+json">
+  <meta name="description" content="前言
+Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响，并提供可能影响的功能以便测试参考。转载请注明来源「Bug总柴」"><script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
@@ -61,11 +63,11 @@
     "name" : "申国骏"
   },
   "headline": "targetSdkVersion升级到28一些修改的地方",
-  "description" : "前言 Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响",
+  "description" : "前言 Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响，并提供可能影响的功能以便测试参考。转载请注明来源「Bug总柴」\n",
   "inLanguage" : "en",
   "wordCount":  7613 ,
-  "datePublished" : "2018-11-16T20:00:40",
-  "dateModified" : "2018-11-16T20:00:40",
+  "datePublished" : "2018-11-16T20:00:40\u002b08:00",
+  "dateModified" : "2018-11-16T20:00:40\u002b08:00",
   "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
   "keywords" : [ "android" ],
   "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/android-vesrion-adaptive\/",
@@ -82,32 +84,28 @@
 }
 </script>
 
+
 <meta property="og:title" content="targetSdkVersion升级到28一些修改的地方" />
-<meta property="og:description" content="前言 Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响">
+<meta property="og:description" content="前言
+Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响，并提供可能影响的功能以便测试参考。转载请注明来源「Bug总柴」">
 <meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
 <meta property="og:url" content="https://shenguojun.github.io/post/android-vesrion-adaptive/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Lawrence&#39;s Blog" />
 
   <meta name="twitter:title" content="targetSdkVersion升级到28一些修改的地方" />
-  <meta name="twitter:description" content="前言 Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响">
+  <meta name="twitter:description" content="前言
+Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响，并提供可能影响的功能以便测试参考。转载请注明来源「Bug总柴」">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.129.0">
+  <meta name="generator" content="Hugo 0.147.9">
   <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
   <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
-
-  
-    
-      
-    
-  
-
 
   </head>
   <body>
@@ -156,6 +154,7 @@
         <div class="avatar-img-border">
           <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
             <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+           
           </a>
         </div>
       </div>
@@ -283,7 +282,7 @@
     <li><a href="#前言">前言</a></li>
     <li><a href="#android-q-api-level-29">Android Q (API level 29)</a>
       <ul>
-        <li><a href="#沙箱机制scoped-storagehttpsdeveloperandroidcompreviewprivacyscoped-storage">沙箱机制(<a href="https://developer.android.com/preview/privacy/scoped-storage">scoped-storage</a>)</a>
+        <li><a href="#沙箱机制scoped-storage">沙箱机制(<a href="https://developer.android.com/preview/privacy/scoped-storage">scoped-storage</a>)</a>
           <ul>
             <li><a href="#沙箱机制解读">沙箱机制解读</a></li>
             <li><a href="#沙箱生效时机">沙箱生效时机</a></li>
@@ -324,7 +323,7 @@
         <h1 id="前言">前言</h1>
 <p>Android官方的迁移适配文档有点混乱，这篇文章旨在给开发者在适配中对代码做快速检查。适配变化将分为运行版本影响和Target版本影响，并提供可能影响的功能以便测试参考。转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「Bug总柴」</a></p>
 <h1 id="android-q-api-level-29">Android Q (API level 29)</h1>
-<h2 id="沙箱机制scoped-storagehttpsdeveloperandroidcompreviewprivacyscoped-storage">沙箱机制(<a href="https://developer.android.com/preview/privacy/scoped-storage">scoped-storage</a>)</h2>
+<h2 id="沙箱机制scoped-storage">沙箱机制(<a href="https://developer.android.com/preview/privacy/scoped-storage">scoped-storage</a>)</h2>
 <p>在Android Q中变化比较大的是对外置sdcard的访问权限变化，这个变化将会影响大部分需要访问外置存储的应用。</p>
 <h3 id="沙箱机制解读">沙箱机制解读</h3>
 <ol>
@@ -370,273 +369,273 @@ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) -&
 </span></span><span class="line"><span class="cl">but could include <span class="nb">false</span> positives, pass the --imprecise flag.
 </span></span></code></pre></div><p>其中：</p>
 <table>
-<thead>
-<tr>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>blacklist</td>
-<td>不管是否target到28，都会报<code>NoSuchMethodError/NoSuchFieldException</code></td>
-</tr>
-<tr>
-<td>dark greylist</td>
-<td>如果target在28一下没问题，但是target到28及以上会报<code>NoSuchMethodError/NoSuchFieldException</code></td>
-</tr>
-<tr>
-<td>light greylist</td>
-<td>暂时没有问题，可以使用</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>blacklist</td>
+          <td>不管是否target到28，都会报<code>NoSuchMethodError/NoSuchFieldException</code></td>
+      </tr>
+      <tr>
+          <td>dark greylist</td>
+          <td>如果target在28一下没问题，但是target到28及以上会报<code>NoSuchMethodError/NoSuchFieldException</code></td>
+      </tr>
+      <tr>
+          <td>light greylist</td>
+          <td>暂时没有问题，可以使用</td>
+      </tr>
+  </tbody>
 </table>
 <p>处理办法：<br>
 去除blacklist以及dark greylist的非android sdk调用的反射调用，有些是android support包内部调用的可以考虑升级support包版本</p>
 <h2 id="隐私权限相关">隐私&amp;权限相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>不能在后台访问麦克风和摄像头</td>
-<td>后台录音、后台拍照</td>
-</tr>
-<tr>
-<td>加速器陀螺仪等传感器不能在后台持续获取数据</td>
-<td>步数计算</td>
-</tr>
-<tr>
-<td>通过<a href="https://source.android.com/devices/sensors/report-modes#on-change">变化模式</a>或者<a href="https://source.android.com/devices/sensors/report-modes#one-shot">单次模式</a>的传感器收不到事件</td>
-<td>显著运动检测、计步器、近程传感器和心率传感器</td>
-</tr>
-<tr>
-<td>通话记录权限组别由<code>PHONE</code>组调整到<code>CALL_LOG</code>组</td>
-<td>需要获通过记录权限的功能</td>
-</tr>
-<tr>
-<td>通过<code>android.intent.action.PHONE_STATE</code>或<code>TelephonyManager.listen</code>方法获取手机号码需要申请<code>READ_CALL_LOG</code>   权限</td>
-<td>例如来电归属地显示或者来电拦截等需要获取通话手机号的功能</td>
-</tr>
-<tr>
-<td>wifi扫描频率限制更为严格，<code>getConnectionInfo WifiManager.getScanResults()</code>以及<code> WifiManager.startScan()</code>需要而外权限<a href="https://developer.android.com/guide/topics/connectivity/wifi-scan#wifi-scan-restrictions">详见</a></td>
-<td>需要wifi扫描匹配等功能</td>
-</tr>
-<tr>
-<td><code>WifiManager.getConnectionInfo()</code> 要获得SSID和BSSID，要求定位权限并要求设备打开定位功能，<code>NETWORK_STATE_CHANGED_ACTION </code>不再能获得SSID和BSSID</td>
-<td>需要获取wifi信息的功能</td>
-</tr>
-<tr>
-<td>WifiManager与WifiP2pManager中<code>getScanResults() getConnectionInfo()</code>和<code>discoverServices() addServiceRequest()</code>和<code>NETWORK_STATE_CHANGED_ACTION</code>不再包含用户定位信息</td>
-<td>使用wifi定位功能</td>
-</tr>
-<tr>
-<td><code>TelephonyManager</code>中<a href="https://developer.android.com/reference/android/telephony/TelephonyManager.html#getAllCellInfo()">getAllCellInfo()</a> <a href="TelephonyManager#listen(android.telephony.PhoneStateListener,%20int)">listen()</a> <a href="https://developer.android.com/reference/android/telephony/TelephonyManager.html#getCellLocation()">getCellLocation()</a> <a href="https://developer.android.com/reference/android/telephony/TelephonyManager.html#getNeighboringCellInfo()">getNeighboringCellInfo()</a>不返回结果，除非用户打开了定位功能</td>
-<td>使用移动信号定位</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>不能在后台访问麦克风和摄像头</td>
+          <td>后台录音、后台拍照</td>
+      </tr>
+      <tr>
+          <td>加速器陀螺仪等传感器不能在后台持续获取数据</td>
+          <td>步数计算</td>
+      </tr>
+      <tr>
+          <td>通过<a href="https://source.android.com/devices/sensors/report-modes#on-change">变化模式</a>或者<a href="https://source.android.com/devices/sensors/report-modes#one-shot">单次模式</a>的传感器收不到事件</td>
+          <td>显著运动检测、计步器、近程传感器和心率传感器</td>
+      </tr>
+      <tr>
+          <td>通话记录权限组别由<code>PHONE</code>组调整到<code>CALL_LOG</code>组</td>
+          <td>需要获通过记录权限的功能</td>
+      </tr>
+      <tr>
+          <td>通过<code>android.intent.action.PHONE_STATE</code>或<code>TelephonyManager.listen</code>方法获取手机号码需要申请<code>READ_CALL_LOG</code>   权限</td>
+          <td>例如来电归属地显示或者来电拦截等需要获取通话手机号的功能</td>
+      </tr>
+      <tr>
+          <td>wifi扫描频率限制更为严格，<code>getConnectionInfo WifiManager.getScanResults()</code>以及<code> WifiManager.startScan()</code>需要而外权限<a href="https://developer.android.com/guide/topics/connectivity/wifi-scan#wifi-scan-restrictions">详见</a></td>
+          <td>需要wifi扫描匹配等功能</td>
+      </tr>
+      <tr>
+          <td><code>WifiManager.getConnectionInfo()</code> 要获得SSID和BSSID，要求定位权限并要求设备打开定位功能，<code>NETWORK_STATE_CHANGED_ACTION </code>不再能获得SSID和BSSID</td>
+          <td>需要获取wifi信息的功能</td>
+      </tr>
+      <tr>
+          <td>WifiManager与WifiP2pManager中<code>getScanResults() getConnectionInfo()</code>和<code>discoverServices() addServiceRequest()</code>和<code>NETWORK_STATE_CHANGED_ACTION</code>不再包含用户定位信息</td>
+          <td>使用wifi定位功能</td>
+      </tr>
+      <tr>
+          <td><code>TelephonyManager</code>中<a href="https://developer.android.com/reference/android/telephony/TelephonyManager.html#getAllCellInfo()">getAllCellInfo()</a> <a href="TelephonyManager#listen(android.telephony.PhoneStateListener,%20int)">listen()</a> <a href="https://developer.android.com/reference/android/telephony/TelephonyManager.html#getCellLocation()">getCellLocation()</a> <a href="https://developer.android.com/reference/android/telephony/TelephonyManager.html#getNeighboringCellInfo()">getNeighboringCellInfo()</a>不返回结果，除非用户打开了定位功能</td>
+          <td>使用移动信号定位</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th>Target在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>启动前台服务要去注册<code>android.permission.FOREGROUND_SERVICE</code>权限</td>
-<td>前台服务启动</td>
-</tr>
-<tr>
-<td>获取序列号不能通过Build.SERIAL，需要注册<code>android.permission.READ_PHONE_STATE</code>然后使用<code>Build.getSerial()</code></td>
-<td>获取序列号相关功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Target在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>启动前台服务要去注册<code>android.permission.FOREGROUND_SERVICE</code>权限</td>
+          <td>前台服务启动</td>
+      </tr>
+      <tr>
+          <td>获取序列号不能通过Build.SERIAL，需要注册<code>android.permission.READ_PHONE_STATE</code>然后使用<code>Build.getSerial()</code></td>
+          <td>获取序列号相关功能</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="安全相关">安全相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>SSLSocket</code>出错不返回<code>NullPointerException</code>，改成返回<code>IOException</code></td>
-<td>https网络错误处理</td>
-</tr>
-<tr>
-<td>加密函数<code>Cipher.getInstance(&quot;AES/CBC/PKCS7PADDING&quot;, &quot;BC&quot;)</code> <code>Cipher.getInstance(&quot;AES/CBC/PKCS7PADDING&quot;,Security.getProvider(&quot;BC&quot;))</code> <code>SecureRandom.getInstance(&quot;SHA1PRNG&quot;, &quot;Crypto&quot;);</code>移除</td>
-<td>加密功能</td>
-</tr>
-<tr>
-<td>Android secure encrypted files移除</td>
-<td>移动app到sdcard功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>SSLSocket</code>出错不返回<code>NullPointerException</code>，改成返回<code>IOException</code></td>
+          <td>https网络错误处理</td>
+      </tr>
+      <tr>
+          <td>加密函数<code>Cipher.getInstance(&quot;AES/CBC/PKCS7PADDING&quot;, &quot;BC&quot;)</code> <code>Cipher.getInstance(&quot;AES/CBC/PKCS7PADDING&quot;,Security.getProvider(&quot;BC&quot;))</code> <code>SecureRandom.getInstance(&quot;SHA1PRNG&quot;, &quot;Crypto&quot;);</code>移除</td>
+          <td>加密功能</td>
+      </tr>
+      <tr>
+          <td>Android secure encrypted files移除</td>
+          <td>移动app到sdcard功能</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th>Target在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>DNS客户端需要根据系统使用加密DNS查找与系统相同的主机名，或改由系统解析程序</td>
-<td>DNS自解析功能</td>
-</tr>
-<tr>
-<td>默认要求使用https，如果需要使用http需要设置<code>cleartextTrafficPermitted=&quot;true&quot;</code><a href="https://developer.android.com/training/articles/security-config">详见</a></td>
-<td>所有http网络请求</td>
-</tr>
-<tr>
-<td>webview的数据包括cookies和caches不允许多进程共享</td>
-<td>多进程使用webview</td>
-</tr>
-<tr>
-<td>不用通过设置全局Unix权限共享数据文件，不用应用的文件共享需要使用ContentProvider</td>
-<td>应用间文件共享</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Target在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>DNS客户端需要根据系统使用加密DNS查找与系统相同的主机名，或改由系统解析程序</td>
+          <td>DNS自解析功能</td>
+      </tr>
+      <tr>
+          <td>默认要求使用https，如果需要使用http需要设置<code>cleartextTrafficPermitted=&quot;true&quot;</code><a href="https://developer.android.com/training/articles/security-config">详见</a></td>
+          <td>所有http网络请求</td>
+      </tr>
+      <tr>
+          <td>webview的数据包括cookies和caches不允许多进程共享</td>
+          <td>多进程使用webview</td>
+      </tr>
+      <tr>
+          <td>不用通过设置全局Unix权限共享数据文件，不用应用的文件共享需要使用ContentProvider</td>
+          <td>应用间文件共享</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="国际化相关">国际化相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>java.text.SimpleDateFormat</code> 使用<code>zzzz</code>格式、<code>java.text.DateFormatSymbols.getZoneStrings()</code>格式、<code>NumberFormat.getInstance(ULocale, PLURALCURRENCYSTYLE).parse(String)</code>格式修改</td>
-<td>时区、货币显示相关功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>java.text.SimpleDateFormat</code> 使用<code>zzzz</code>格式、<code>java.text.DateFormatSymbols.getZoneStrings()</code>格式、<code>NumberFormat.getInstance(ULocale, PLURALCURRENCYSTYLE).parse(String)</code>格式修改</td>
+          <td>时区、货币显示相关功能</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="网络相关">网络相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://developer.android.com/reference/android/net/NetworkCapabilities.html">NetworkCapabilities</a>支持返回<a href="https://developer.android.com/reference/android/net/NetworkCapabilities#NET_CAPABILITY_NOT_VPN">NET_CAPABILITY_NOT_VPN</a></td>
-<td>vpn设置功能</td>
-</tr>
-<tr>
-<td>Apache HTTP client不能使用system ClassLoader加载，若要使用需要实现自定义ClassLoader</td>
-<td>使用旧Apache Http client网络功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a href="https://developer.android.com/reference/android/net/NetworkCapabilities.html">NetworkCapabilities</a>支持返回<a href="https://developer.android.com/reference/android/net/NetworkCapabilities#NET_CAPABILITY_NOT_VPN">NET_CAPABILITY_NOT_VPN</a></td>
+          <td>vpn设置功能</td>
+      </tr>
+      <tr>
+          <td>Apache HTTP client不能使用system ClassLoader加载，若要使用需要实现自定义ClassLoader</td>
+          <td>使用旧Apache Http client网络功能</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th>Target在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>NetworkStatsManager </code>能获取非当前正在使用的流量情况</td>
-<td>网络使用统计</td>
-</tr>
-<tr>
-<td><code>ConnectivityManager.getMultipathPreference()</code> 可以获取是否超过了移动流量使用限制</td>
-<td>网络使用情况提醒</td>
-</tr>
-<tr>
-<td>Apache Http背去除，要使用需要加上<code>&lt;uses-library android:name=&quot;org.apache.http.legacy&quot; android:required=&quot;false&quot;/&gt;</code>或者想apache.http相关类包通过jar方式引入</td>
-<td>使用旧Apache Http client网络功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Target在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>NetworkStatsManager </code>能获取非当前正在使用的流量情况</td>
+          <td>网络使用统计</td>
+      </tr>
+      <tr>
+          <td><code>ConnectivityManager.getMultipathPreference()</code> 可以获取是否超过了移动流量使用限制</td>
+          <td>网络使用情况提醒</td>
+      </tr>
+      <tr>
+          <td>Apache Http背去除，要使用需要加上<code>&lt;uses-library android:name=&quot;org.apache.http.legacy&quot; android:required=&quot;false&quot;/&gt;</code>或者想apache.http相关类包通过jar方式引入</td>
+          <td>使用旧Apache Http client网络功能</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="界面相关">界面相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>通过非activity的context启动activity强制要求intent带上<code>FLAG_ACTIVITY_NEW_TASK</code></td>
-<td>后台启动页面</td>
-</tr>
-<tr>
-<td>屏幕旋转方式由原来的“自动旋转”和“纵向”改为“自动旋转”和“固定旋转”</td>
-<td>屏幕旋转功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>通过非activity的context启动activity强制要求intent带上<code>FLAG_ACTIVITY_NEW_TASK</code></td>
+          <td>后台启动页面</td>
+      </tr>
+      <tr>
+          <td>屏幕旋转方式由原来的“自动旋转”和“纵向”改为“自动旋转”和“固定旋转”</td>
+          <td>屏幕旋转功能</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th>Target在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>长或宽为0的view不再可以获取焦点，新开页面不默认获取焦点</td>
-<td>交互过程通过特殊焦点实现的功能</td>
-</tr>
-<tr>
-<td>webview可以支持带透明度的8位颜色css</td>
-<td>webview css 颜色透明度功能</td>
-</tr>
-<tr>
-<td>webview中document的root元素滚动位置得到支持</td>
-<td>webview 相关</td>
-</tr>
-<tr>
-<td>暂停挂起app的通知会在app resumed之后重新通知</td>
-<td>通知相关</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Target在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>长或宽为0的view不再可以获取焦点，新开页面不默认获取焦点</td>
+          <td>交互过程通过特殊焦点实现的功能</td>
+      </tr>
+      <tr>
+          <td>webview可以支持带透明度的8位颜色css</td>
+          <td>webview css 颜色透明度功能</td>
+      </tr>
+      <tr>
+          <td>webview中document的root元素滚动位置得到支持</td>
+          <td>webview 相关</td>
+      </tr>
+      <tr>
+          <td>暂停挂起app的通知会在app resumed之后重新通知</td>
+          <td>通知相关</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="设备相关">设备相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>多摄像头支持<code>getCameraIdList()</code>前后摄像头切换需要选择合适的摄像头</td>
-<td>摄像头相关功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>多摄像头支持<code>getCameraIdList()</code>前后摄像头切换需要选择合适的摄像头</td>
+          <td>摄像头相关功能</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="其他">其他</h2>
 <table>
-<thead>
-<tr>
-<th>运行在9.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>UTF-8解码更加严格按照Unicode标准<a href="https://developer.android.com/about/versions/pie/android-9.0-changes-all?hl=zh-cn#decoder">详见</a></td>
-<td>UTF-8解码相关的功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在9.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>UTF-8解码更加严格按照Unicode标准<a href="https://developer.android.com/about/versions/pie/android-9.0-changes-all?hl=zh-cn#decoder">详见</a></td>
+          <td>UTF-8解码相关的功能</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="实用参考地址">实用参考地址</h2>
 <p><a href="https://developer.android.com/guide/topics/permissions/overview">权限组级别</a></p>
@@ -644,376 +643,377 @@ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) -&
 <p><a href="https://developer.android.com/about/versions/oreo/android-8.0-changes">官方行为变更文档</a></p>
 <h2 id="后台限制">后台限制</h2>
 <table>
-<thead>
-<tr>
-<th style="text-align:center">运行在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://developer.android.com/about/versions/oreo/background#services">后台应用</a>通过<code>startService()</code>方法启动服务，<!-- raw HTML omitted -->包括<code>IntentService</code>会受到限制并抛出<code>IllegalStateException</code>异常，<!-- raw HTML omitted -->需要改成使用 <code>JobScheduler </code> 或者<code>JobIntentService</code></td>
-<td>所有启动后台服务的行为，包括但不限于后台下载、后台数据更新、后台初始化等等</td>
-</tr>
-<tr>
-<td style="text-align:center">前台服务启动不能通过启动后台服务再将其转换为前台，<!-- raw HTML omitted -->需要通过<a href="https://developer.android.com/reference/android/content/Context#startForegroundService(android.content.Intent)">startForegroundService()</a>方法，<!-- raw HTML omitted -->并在5s内调用<a href="https://developer.android.com/reference/android/app/Service#startForeground(int,%20android.app.Notification)">startForeground()</a>方法显示前台通知，否则会ANR</td>
-<td>所有前台服务，包括音乐播放功能、其他有通知的服务</td>
-</tr>
-<tr>
-<td style="text-align:center">自定义action广播以及其他<a href="https://developer.android.com/guide/components/broadcast-exceptions">系统非指向性的广播</a>接收受到限制，<!-- raw HTML omitted -->可通过manifests注册指向性广播或者通过<code>Context.registerReceiver()</code>动态注册，<!-- raw HTML omitted -->系统性的广播事件可考虑通过<code>JobScheduler</code>配置实现</td>
-<td>例如软件安装后的广播处理以及网络变化通知处理功能</td>
-</tr>
-<tr>
-<td style="text-align:center">后台应用获取位置受到限制，包括<a href="https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderApi">FusedLocationProviderApi</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/location/GnssMeasurement">GnssMeasurement</a>、<a href="https://developer.android.com/reference/android/location/GnssNavigationMessage">GnssNavigationMessage</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/net/wifi/WifiManager#startScan()">WifiManager.startScan()</a>、<a href="https://developer.android.com/reference/android/location/LocationManager">LocationManager</a>，需要使用前台服务保持<a href="https://developer.android.com/about/versions/oreo/background-location-limits">应用前台状态</a></td>
-<td>后台动作检测功能、后台需要用到地理位置的功能例如后台导航之类</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">运行在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><a href="https://developer.android.com/about/versions/oreo/background#services">后台应用</a>通过<code>startService()</code>方法启动服务，<!-- raw HTML omitted -->包括<code>IntentService</code>会受到限制并抛出<code>IllegalStateException</code>异常，<!-- raw HTML omitted -->需要改成使用 <code>JobScheduler </code> 或者<code>JobIntentService</code></td>
+          <td>所有启动后台服务的行为，包括但不限于后台下载、后台数据更新、后台初始化等等</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">前台服务启动不能通过启动后台服务再将其转换为前台，<!-- raw HTML omitted -->需要通过<a href="https://developer.android.com/reference/android/content/Context#startForegroundService(android.content.Intent)">startForegroundService()</a>方法，<!-- raw HTML omitted -->并在5s内调用<a href="https://developer.android.com/reference/android/app/Service#startForeground(int,%20android.app.Notification)">startForeground()</a>方法显示前台通知，否则会ANR</td>
+          <td>所有前台服务，包括音乐播放功能、其他有通知的服务</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">自定义action广播以及其他<a href="https://developer.android.com/guide/components/broadcast-exceptions">系统非指向性的广播</a>接收受到限制，<!-- raw HTML omitted -->可通过manifests注册指向性广播或者通过<code>Context.registerReceiver()</code>动态注册，<!-- raw HTML omitted -->系统性的广播事件可考虑通过<code>JobScheduler</code>配置实现</td>
+          <td>例如软件安装后的广播处理以及网络变化通知处理功能</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">后台应用获取位置受到限制，包括<a href="https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderApi">FusedLocationProviderApi</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/location/GnssMeasurement">GnssMeasurement</a>、<a href="https://developer.android.com/reference/android/location/GnssNavigationMessage">GnssNavigationMessage</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/net/wifi/WifiManager#startScan()">WifiManager.startScan()</a>、<a href="https://developer.android.com/reference/android/location/LocationManager">LocationManager</a>，需要使用前台服务保持<a href="https://developer.android.com/about/versions/oreo/background-location-limits">应用前台状态</a></td>
+          <td>后台动作检测功能、后台需要用到地理位置的功能例如后台导航之类</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="隐私权限相关-1">隐私&amp;权限相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://developer.android.com/reference/android/provider/Settings.Secure#ANDROID_ID">ANDROID_ID</a>从之前的仅与设备相关，改为与应用签名、设备、设备登录用户相关。</td>
-<td>使用<code>ANDROID_ID</code>的功能</td>
-</tr>
-<tr>
-<td>获取系统属性<code>net.hostname</code>将返回null</td>
-<td>wifi hostname获取功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a href="https://developer.android.com/reference/android/provider/Settings.Secure#ANDROID_ID">ANDROID_ID</a>从之前的仅与设备相关，改为与应用签名、设备、设备登录用户相关。</td>
+          <td>使用<code>ANDROID_ID</code>的功能</td>
+      </tr>
+      <tr>
+          <td>获取系统属性<code>net.hostname</code>将返回null</td>
+          <td>wifi hostname获取功能</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th>Target在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>系统属性<code>net.dns*</code>不再支持</td>
-<td>通过系统属性获取dns功能</td>
-</tr>
-<tr>
-<td>需要获取DNS信息需要<code>ACCESS_NETWORK_STATE</code>权限，通过<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/net/NetworkRequest.html">NetworkRequest</a>或者<a href="https://developer.android.com/reference/android/net/ConnectivityManager.NetworkCallback.html">NetworkCallback</a>获取</td>
-<td>DNS获取功能</td>
-</tr>
-<tr>
-<td>获取序列号不能通过Build.SERIAL，需要注册<code>android.permission.READ_PHONE_STATE</code>然后使用<code>Build.getSerial()</code></td>
-<td>获取序列号相关功能</td>
-</tr>
-<tr>
-<td><a href="https://developer.android.com/reference/android/content/pm/LauncherApps.html">LauncherApps</a>获取不同用户的应用信息时，会当做没有任何应用安装，而不是抛出异常</td>
-<td>桌面启动器相关功能</td>
-</tr>
-<tr>
-<td>相同权限组的其他权限会在真正需要时才被自动授予，之前是整个权限组同时授予</td>
-<td>权限授予相关</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Target在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>系统属性<code>net.dns*</code>不再支持</td>
+          <td>通过系统属性获取dns功能</td>
+      </tr>
+      <tr>
+          <td>需要获取DNS信息需要<code>ACCESS_NETWORK_STATE</code>权限，通过<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/net/NetworkRequest.html">NetworkRequest</a>或者<a href="https://developer.android.com/reference/android/net/ConnectivityManager.NetworkCallback.html">NetworkCallback</a>获取</td>
+          <td>DNS获取功能</td>
+      </tr>
+      <tr>
+          <td>获取序列号不能通过Build.SERIAL，需要注册<code>android.permission.READ_PHONE_STATE</code>然后使用<code>Build.getSerial()</code></td>
+          <td>获取序列号相关功能</td>
+      </tr>
+      <tr>
+          <td><a href="https://developer.android.com/reference/android/content/pm/LauncherApps.html">LauncherApps</a>获取不同用户的应用信息时，会当做没有任何应用安装，而不是抛出异常</td>
+          <td>桌面启动器相关功能</td>
+      </tr>
+      <tr>
+          <td>相同权限组的其他权限会在真正需要时才被自动授予，之前是整个权限组同时授予</td>
+          <td>权限授予相关</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="安全相关-1">安全相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>不再支持SSLv3</td>
-<td>使用SSLv3的地方</td>
-</tr>
-<tr>
-<td>当HTTPS使用错误的TLS协议与服务交互时，不再使用其他TLS协议重试</td>
-<td>HTTPS相关</td>
-</tr>
-<tr>
-<td>在bionic之外的系统调用将被禁止</td>
-<td>bionic系统调用</td>
-</tr>
-<tr>
-<td>WebView被运行在多进程空间</td>
-<td>WebView间数据共享</td>
-</tr>
-<tr>
-<td>APKs安装路径可能会被修改</td>
-<td>APKs管理</td>
-</tr>
-<tr>
-<td>判断是否能安装应用需使用<a href="https://developer.android.com/reference/android/content/pm/PackageManager#canRequestPackageInstalls()">PackageManager.canRequestPackageInstalls()</a>，<!-- raw HTML omitted --><code>INSTALL_NON_MARKET_APPS</code>失效</td>
-<td>应用安装</td>
-</tr>
-<tr>
-<td>8.0系统默认禁止应用安装未知应用</td>
-<td>应用安装功能</td>
-</tr>
-<tr>
-<td><code>Thread.UncaughtExceptionHandler</code> 会记录在stacktrace中，但不会杀死应用</td>
-<td>线程异常处理</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>不再支持SSLv3</td>
+          <td>使用SSLv3的地方</td>
+      </tr>
+      <tr>
+          <td>当HTTPS使用错误的TLS协议与服务交互时，不再使用其他TLS协议重试</td>
+          <td>HTTPS相关</td>
+      </tr>
+      <tr>
+          <td>在bionic之外的系统调用将被禁止</td>
+          <td>bionic系统调用</td>
+      </tr>
+      <tr>
+          <td>WebView被运行在多进程空间</td>
+          <td>WebView间数据共享</td>
+      </tr>
+      <tr>
+          <td>APKs安装路径可能会被修改</td>
+          <td>APKs管理</td>
+      </tr>
+      <tr>
+          <td>判断是否能安装应用需使用<a href="https://developer.android.com/reference/android/content/pm/PackageManager#canRequestPackageInstalls()">PackageManager.canRequestPackageInstalls()</a>，<!-- raw HTML omitted --><code>INSTALL_NON_MARKET_APPS</code>失效</td>
+          <td>应用安装</td>
+      </tr>
+      <tr>
+          <td>8.0系统默认禁止应用安装未知应用</td>
+          <td>应用安装功能</td>
+      </tr>
+      <tr>
+          <td><code>Thread.UncaughtExceptionHandler</code> 会记录在stacktrace中，但不会杀死应用</td>
+          <td>线程异常处理</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th>Target在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://developer.android.com/reference/android/content/ContentResolver.html#registerContentObserver(android.net.Uri,%20boolean,%20android.database.ContentObserver)">registerContentObserver(Uri, boolean, ContentObserver)</a>中的Uri必须使用<code>ContentProvider</code>注册</td>
-<td>以Uri来通知变化的功能</td>
-</tr>
-<tr>
-<td><code>network_security_config.xml</code> 配置禁止明文传输将同样影响WebView</td>
-<td>Https功能</td>
-</tr>
-<tr>
-<td>AccountManager不能只通过申明<code>GET_ACCOUNTS</code>来获取账号，需要调用<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#newChooseAccountIntent(android.accounts.Account,%20java.util.List%3Candroid.accounts.Account%3E,%20java.lang.String%5B%5D,%20java.lang.String,%20java.lang.String,%20java.lang.String%5B%5D,%20android.os.Bundle)">AccountManager.newChooseAccountIntent()</a>让用户选择，<!-- raw HTML omitted -->再通过<a href="https://developer.android.com/reference/android/accounts/AccountManager.html#getAccounts()">AccountManager.getAccounts()</a>来获取</td>
-<td>Account Services相关</td>
-</tr>
-<tr>
-<td>native库若包含可执行文件则不会加载</td>
-<td>native库相关</td>
-</tr>
-<tr>
-<td>JNI调用会检查反射的类或方法是否存在，否则会抛出异常</td>
-<td>JNI调用</td>
-</tr>
-<tr>
-<td>DexFile API已经过时，建议使用系统默认<code>PathClassLoader</code> 或者 <code>BaseDexClassLoader</code>。<!-- raw HTML omitted -->如果需要用到DexFile，不应该进行压缩，否则会解压消耗内存。<!-- raw HTML omitted -->多线程加载相同类由最先加载的类的加载器决定。</td>
-<td>Dex 加载相关</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Target在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a href="https://developer.android.com/reference/android/content/ContentResolver.html#registerContentObserver(android.net.Uri,%20boolean,%20android.database.ContentObserver)">registerContentObserver(Uri, boolean, ContentObserver)</a>中的Uri必须使用<code>ContentProvider</code>注册</td>
+          <td>以Uri来通知变化的功能</td>
+      </tr>
+      <tr>
+          <td><code>network_security_config.xml</code> 配置禁止明文传输将同样影响WebView</td>
+          <td>Https功能</td>
+      </tr>
+      <tr>
+          <td>AccountManager不能只通过申明<code>GET_ACCOUNTS</code>来获取账号，需要调用<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/accounts/AccountManager.html#newChooseAccountIntent(android.accounts.Account,%20java.util.List%3Candroid.accounts.Account%3E,%20java.lang.String%5B%5D,%20java.lang.String,%20java.lang.String,%20java.lang.String%5B%5D,%20android.os.Bundle)">AccountManager.newChooseAccountIntent()</a>让用户选择，<!-- raw HTML omitted -->再通过<a href="https://developer.android.com/reference/android/accounts/AccountManager.html#getAccounts()">AccountManager.getAccounts()</a>来获取</td>
+          <td>Account Services相关</td>
+      </tr>
+      <tr>
+          <td>native库若包含可执行文件则不会加载</td>
+          <td>native库相关</td>
+      </tr>
+      <tr>
+          <td>JNI调用会检查反射的类或方法是否存在，否则会抛出异常</td>
+          <td>JNI调用</td>
+      </tr>
+      <tr>
+          <td>DexFile API已经过时，建议使用系统默认<code>PathClassLoader</code> 或者 <code>BaseDexClassLoader</code>。<!-- raw HTML omitted -->如果需要用到DexFile，不应该进行压缩，否则会解压消耗内存。<!-- raw HTML omitted -->多线程加载相同类由最先加载的类的加载器决定。</td>
+          <td>Dex 加载相关</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="国际化相关-1">国际化相关</h2>
 <table>
-<thead>
-<tr>
-<th style="text-align:center">运行在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://developer.android.com/reference/java/util/Currency.html#getDisplayName()">Currency.getDisplayName()</a>、<a href="https://developer.android.com/reference/java/util/Currency.html#getSymbol()">Currency.getSymbol()</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/java/util/Locale.html#getDisplayScript()">Locale.getDisplayScript()</a><!-- raw HTML omitted -->默认调用<a href="https://developer.android.com/reference/java/util/Locale.html#getDefault(java.util.Locale.Category)">Locale.getDefault(Category.DISPLAY)</a></td>
-<td>国际化显示</td>
-</tr>
-<tr>
-<td style="text-align:center"><a href="https://developer.android.com/reference/java/util/Currency.html#getDisplayName()">Currency.getDisplayName(null)</a>将会抛出异常</td>
-<td>国际化单位显示</td>
-</tr>
-<tr>
-<td style="text-align:center">对于<code>SimpleDateFormat</code>的时区获取由原来在设备第一次启动时候获取，改为每次实时获取</td>
-<td>时区显示</td>
-</tr>
-<tr>
-<td style="text-align:center">升级<a href="http://site.icu-project.org/home">ICU</a>到58版本</td>
-<td>国际化单位标准</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">运行在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><a href="https://developer.android.com/reference/java/util/Currency.html#getDisplayName()">Currency.getDisplayName()</a>、<a href="https://developer.android.com/reference/java/util/Currency.html#getSymbol()">Currency.getSymbol()</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/java/util/Locale.html#getDisplayScript()">Locale.getDisplayScript()</a><!-- raw HTML omitted -->默认调用<a href="https://developer.android.com/reference/java/util/Locale.html#getDefault(java.util.Locale.Category)">Locale.getDefault(Category.DISPLAY)</a></td>
+          <td>国际化显示</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><a href="https://developer.android.com/reference/java/util/Currency.html#getDisplayName()">Currency.getDisplayName(null)</a>将会抛出异常</td>
+          <td>国际化单位显示</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">对于<code>SimpleDateFormat</code>的时区获取由原来在设备第一次启动时候获取，改为每次实时获取</td>
+          <td>时区显示</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">升级<a href="http://site.icu-project.org/home">ICU</a>到58版本</td>
+          <td>国际化单位标准</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="网络相关-1">网络相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>无正文的 OPTIONS 请求具有 Content-Length: 0 头部</td>
-<td>options请求相关</td>
-</tr>
-<tr>
-<td>HttpURLConnection会保证请求最后带上“/”</td>
-<td>HttpURLConnection</td>
-</tr>
-<tr>
-<td><code>ProxySelector.setDefault() </code>设置的代理仅处理scheme/host/port，不会处理请求参数</td>
-<td>代理设置相关功能</td>
-</tr>
-<tr>
-<td>不再支持空lable的URI</td>
-<td>使用URI相关功能</td>
-</tr>
-<tr>
-<td>HttpsURLConnection不会执行不安全的TLS/SSL协议版本回退</td>
-<td>HttpsURLConnection</td>
-</tr>
-<tr>
-<td>隧道Https协议改变，具体见<a href="https://developer.android.com/about/versions/oreo/android-8.0-changes#networking-all">Networking and HTTP(S) connectivity</a></td>
-<td>隧道Https</td>
-</tr>
-<tr>
-<td>如果<code>DatagramSocket.connect() </code>返回错误，<a href="https://developer.android.com/reference/java/net/DatagramSocket.html#send(java.net.DatagramPacket)">DatagramSocket.send()</a>也会返回错误</td>
-<td>socket相关</td>
-</tr>
-<tr>
-<td><code>InetAddress.isReachable()</code> 会在会退到TCP Echo协议之前尝试ICMP协议，若不可达会消耗更多时间</td>
-<td>IP地址判断是否可达等网络功能</td>
-</tr>
-<tr>
-<td>在支持设备上wifi连接当有强度大且已经保存的网络时可以自动切换</td>
-<td>需保证网络切换不会影响应用功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>无正文的 OPTIONS 请求具有 Content-Length: 0 头部</td>
+          <td>options请求相关</td>
+      </tr>
+      <tr>
+          <td>HttpURLConnection会保证请求最后带上“/”</td>
+          <td>HttpURLConnection</td>
+      </tr>
+      <tr>
+          <td><code>ProxySelector.setDefault() </code>设置的代理仅处理scheme/host/port，不会处理请求参数</td>
+          <td>代理设置相关功能</td>
+      </tr>
+      <tr>
+          <td>不再支持空lable的URI</td>
+          <td>使用URI相关功能</td>
+      </tr>
+      <tr>
+          <td>HttpsURLConnection不会执行不安全的TLS/SSL协议版本回退</td>
+          <td>HttpsURLConnection</td>
+      </tr>
+      <tr>
+          <td>隧道Https协议改变，具体见<a href="https://developer.android.com/about/versions/oreo/android-8.0-changes#networking-all">Networking and HTTP(S) connectivity</a></td>
+          <td>隧道Https</td>
+      </tr>
+      <tr>
+          <td>如果<code>DatagramSocket.connect() </code>返回错误，<a href="https://developer.android.com/reference/java/net/DatagramSocket.html#send(java.net.DatagramPacket)">DatagramSocket.send()</a>也会返回错误</td>
+          <td>socket相关</td>
+      </tr>
+      <tr>
+          <td><code>InetAddress.isReachable()</code> 会在会退到TCP Echo协议之前尝试ICMP协议，若不可达会消耗更多时间</td>
+          <td>IP地址判断是否可达等网络功能</td>
+      </tr>
+      <tr>
+          <td>在支持设备上wifi连接当有强度大且已经保存的网络时可以自动切换</td>
+          <td>需保证网络切换不会影响应用功能</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="界面相关-1">界面相关</h2>
 <table>
-<thead>
-<tr>
-<th style="text-align:center">运行在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PHONE">TYPE_PHONE</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PRIORITY_PHONE">TYPE_PRIORITY_PHONE</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ALERT">TYPE_SYSTEM_ALERT</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_OVERLAY">TYPE_SYSTEM_OVERLAY</a>、<!-- raw HTML omitted --> <a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ERROR">TYPE_SYSTEM_ERROR</a>这些类型的窗口都会显示在<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">TYPE_APPLICATION_OVERLAY</a>之下</td>
-<td>悬浮球、快速查词等需要弹窗弹窗的地方</td>
-</tr>
-<tr>
-<td style="text-align:center">使用键盘导航时，获取焦点的view将会加上ripple高亮，<!-- raw HTML omitted -->如果不需要这种默认的高亮，<!-- raw HTML omitted -->需要设置<code>android:defaultFocusHighlightEnabled</code><!-- raw HTML omitted -->或者<code>setDefaultFocusHighlightEnabled(false)</code></td>
-<td>键盘导航</td>
-</tr>
-<tr>
-<td style="text-align:center">webview中<a href="https://developer.android.com/reference/android/webkit/WebSettings.html#getSaveFormData()">WebSettings.getSaveFormData()</a>返回false，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebSettings.html#setSaveFormData(boolean)">WebSettings.setSaveFormData()</a>没有任何作用，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebViewDatabase.html#clearFormData()">WebViewDatabase.clearFormData()</a>没有任何作用，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebViewDatabase.html#hasFormData()">WebViewDatabase.hasFormData()</a>返回false</td>
-<td>网页相关</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">运行在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PHONE">TYPE_PHONE</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PRIORITY_PHONE">TYPE_PRIORITY_PHONE</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ALERT">TYPE_SYSTEM_ALERT</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_OVERLAY">TYPE_SYSTEM_OVERLAY</a>、<!-- raw HTML omitted --> <a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ERROR">TYPE_SYSTEM_ERROR</a>这些类型的窗口都会显示在<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">TYPE_APPLICATION_OVERLAY</a>之下</td>
+          <td>悬浮球、快速查词等需要弹窗弹窗的地方</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">使用键盘导航时，获取焦点的view将会加上ripple高亮，<!-- raw HTML omitted -->如果不需要这种默认的高亮，<!-- raw HTML omitted -->需要设置<code>android:defaultFocusHighlightEnabled</code><!-- raw HTML omitted -->或者<code>setDefaultFocusHighlightEnabled(false)</code></td>
+          <td>键盘导航</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">webview中<a href="https://developer.android.com/reference/android/webkit/WebSettings.html#getSaveFormData()">WebSettings.getSaveFormData()</a>返回false，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebSettings.html#setSaveFormData(boolean)">WebSettings.setSaveFormData()</a>没有任何作用，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebViewDatabase.html#clearFormData()">WebViewDatabase.clearFormData()</a>没有任何作用，<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/webkit/WebViewDatabase.html#hasFormData()">WebViewDatabase.hasFormData()</a>返回false</td>
+          <td>网页相关</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th style="text-align:center">Target在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PHONE">TYPE_PHONE</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PRIORITY_PHONE">TYPE_PRIORITY_PHONE</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ALERT">TYPE_SYSTEM_ALERT</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_OVERLAY">TYPE_SYSTEM_OVERLAY</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ERROR">TYPE_SYSTEM_ERROR</a><!-- raw HTML omitted -->不能用在alert window上，必须使用<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">TYPE_APPLICATION_OVERLAY</a></td>
-<td>悬浮球、快速查词等需要弹窗弹窗的地方</td>
-</tr>
-<tr>
-<td style="text-align:center">可点击的View默认拥有可获取焦点属性</td>
-<td>View焦点显示</td>
-</tr>
-<tr>
-<td style="text-align:center">Notificaiton通知必须指定Notificaiton Channels，否则不会显示通知，详见<a href="https://developer.android.com/about/versions/oreo/android-8.0#notifications">notifications</a></td>
-<td>通知相关</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">Target在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PHONE">TYPE_PHONE</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_PRIORITY_PHONE">TYPE_PRIORITY_PHONE</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ALERT">TYPE_SYSTEM_ALERT</a>、<a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_OVERLAY">TYPE_SYSTEM_OVERLAY</a>、<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_SYSTEM_ERROR">TYPE_SYSTEM_ERROR</a><!-- raw HTML omitted -->不能用在alert window上，必须使用<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">TYPE_APPLICATION_OVERLAY</a></td>
+          <td>悬浮球、快速查词等需要弹窗弹窗的地方</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">可点击的View默认拥有可获取焦点属性</td>
+          <td>View焦点显示</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">Notificaiton通知必须指定Notificaiton Channels，否则不会显示通知，详见<a href="https://developer.android.com/about/versions/oreo/android-8.0#notifications">notifications</a></td>
+          <td>通知相关</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="设备相关-1">设备相关</h2>
 <table>
-<thead>
-<tr>
-<th>运行在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>蓝牙<a href="https://developer.android.com/reference/android/bluetooth/le/ScanRecord.html#getBytes()">ScanRecord.getBytes()</a>返回长度不受限制</td>
-<td>蓝牙相关功能</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>运行在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>蓝牙<a href="https://developer.android.com/reference/android/bluetooth/le/ScanRecord.html#getBytes()">ScanRecord.getBytes()</a>返回长度不受限制</td>
+          <td>蓝牙相关功能</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th>Target在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>音频获取焦点时会自动降低其他音频音量，现在支持暂停而不是降低音量，详见<a href="https://developer.android.com/guide/topics/media-apps/audio-focus#automatic-ducking">automatic ducking</a></td>
-<td>音频播放相关功能</td>
-</tr>
-<tr>
-<td>当来电时，自动静音音频播放</td>
-<td>音频播放相关功能</td>
-</tr>
-<tr>
-<td>需要使用<a href="https://developer.android.com/reference/android/media/AudioAttributes.html">AudioAttributes</a>实现音频回放功能，<a href="https://developer.android.com/reference/android/media/AudioTrack.html#AudioTrack(int,%20int,%20int,%20int,%20int,%20int)">AudioTrack</a>过期</td>
-<td>音频回放功能</td>
-</tr>
-<tr>
-<td>音量按键事件会优先给前台activity，如果前台activity不处理会给最近一次播放音频的应用</td>
-<td>音量控制</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Target在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>音频获取焦点时会自动降低其他音频音量，现在支持暂停而不是降低音量，详见<a href="https://developer.android.com/guide/topics/media-apps/audio-focus#automatic-ducking">automatic ducking</a></td>
+          <td>音频播放相关功能</td>
+      </tr>
+      <tr>
+          <td>当来电时，自动静音音频播放</td>
+          <td>音频播放相关功能</td>
+      </tr>
+      <tr>
+          <td>需要使用<a href="https://developer.android.com/reference/android/media/AudioAttributes.html">AudioAttributes</a>实现音频回放功能，<a href="https://developer.android.com/reference/android/media/AudioTrack.html#AudioTrack(int,%20int,%20int,%20int,%20int,%20int)">AudioTrack</a>过期</td>
+          <td>音频回放功能</td>
+      </tr>
+      <tr>
+          <td>音量按键事件会优先给前台activity，如果前台activity不处理会给最近一次播放音频的应用</td>
+          <td>音量控制</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="其他-1">其他</h2>
 <table>
-<thead>
-<tr>
-<th style="text-align:center">运行在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">应用快捷方式不能通过<code>com.android.launcher.action.INSTALL_SHORTCUT</code>创建，<!-- raw HTML omitted -->需要使用<a href="https://developer.android.com/reference/android/content/pm/ShortcutManager.html">ShortcutManager</a>，具体如何创建可以看<a href="https://www.jianshu.com/p/7b8706fb79e4">这篇文章</a></td>
-<td>快捷方式创建功能</td>
-</tr>
-<tr>
-<td style="text-align:center">无障碍功能中双击动作转换为点击动作、<!-- raw HTML omitted -->能识别TextView中的ClickableSpan</td>
-<td>无障碍功能</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>findViewById()</code> 返回类型由View改为<code>&lt;T extends View&gt; T</code></td>
-<td>覆盖<code>findViewById()</code> 的地方需要相应修改</td>
-</tr>
-<tr>
-<td style="text-align:center">从2019年1月7日起，将无法通过<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/provider/ContactsContract.ContactOptionsColumns#LAST_TIME_CONTACTED">LAST_TIME_CONTACTED</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/android/provider/ContactsContract.ContactOptionsColumns#TIMES_CONTACTED">TIMES_CONTACTED</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/android/provider/ContactsContract.DataUsageStatColumns#LAST_TIME_USED">LAST_TIME_USED</a><!-- raw HTML omitted -->/<a href="ContactsContract.DataUsageStatColumns.TIMES_USED">TIMES_USED</a><!-- raw HTML omitted -->获取联系人使用情况</td>
-<td>联系人联系情况获取功能</td>
-</tr>
-<tr>
-<td style="text-align:center"><a href="https://developer.android.com/reference/java/util/AbstractCollection.html#removeAll(java.util.Collection%3C?%3E)">AbstractCollection.removeAll(java.util.Collection)</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/java/util/AbstractCollection.html#retainAll(java.util.Collection%3C?%3E)">AbstractCollection.retainAll(java.util.Collection)</a><!-- raw HTML omitted -->当传入参数为null时会报<code>NullPointerException</code></td>
-<td>集合操作</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">运行在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">应用快捷方式不能通过<code>com.android.launcher.action.INSTALL_SHORTCUT</code>创建，<!-- raw HTML omitted -->需要使用<a href="https://developer.android.com/reference/android/content/pm/ShortcutManager.html">ShortcutManager</a>，具体如何创建可以看<a href="https://www.jianshu.com/p/7b8706fb79e4">这篇文章</a></td>
+          <td>快捷方式创建功能</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">无障碍功能中双击动作转换为点击动作、<!-- raw HTML omitted -->能识别TextView中的ClickableSpan</td>
+          <td>无障碍功能</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><code>findViewById()</code> 返回类型由View改为<code>&lt;T extends View&gt; T</code></td>
+          <td>覆盖<code>findViewById()</code> 的地方需要相应修改</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">从2019年1月7日起，将无法通过<!-- raw HTML omitted --><a href="https://developer.android.com/reference/android/provider/ContactsContract.ContactOptionsColumns#LAST_TIME_CONTACTED">LAST_TIME_CONTACTED</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/android/provider/ContactsContract.ContactOptionsColumns#TIMES_CONTACTED">TIMES_CONTACTED</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/android/provider/ContactsContract.DataUsageStatColumns#LAST_TIME_USED">LAST_TIME_USED</a><!-- raw HTML omitted -->/<a href="ContactsContract.DataUsageStatColumns.TIMES_USED">TIMES_USED</a><!-- raw HTML omitted -->获取联系人使用情况</td>
+          <td>联系人联系情况获取功能</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><a href="https://developer.android.com/reference/java/util/AbstractCollection.html#removeAll(java.util.Collection%3C?%3E)">AbstractCollection.removeAll(java.util.Collection)</a><!-- raw HTML omitted -->/<a href="https://developer.android.com/reference/java/util/AbstractCollection.html#retainAll(java.util.Collection%3C?%3E)">AbstractCollection.retainAll(java.util.Collection)</a><!-- raw HTML omitted -->当传入参数为null时会报<code>NullPointerException</code></td>
+          <td>集合操作</td>
+      </tr>
+  </tbody>
 </table>
 <table>
-<thead>
-<tr>
-<th>Target在8.0受到影响</th>
-<th>可能受到影响的功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>浏览器ua会包含<code>OPR</code>有可能导致判断是否Opera浏览器失效</td>
-<td>根据ua判断浏览器</td>
-</tr>
-<tr>
-<td><a href="https://developer.android.com/reference/java/util/Collections.html#sort(java.util.List%3CT%3E)">Collections.sort()</a>改为在<a href="https://developer.android.com/reference/java/util/List.html#sort(java.util.Comparator%3C?%20super%20E%3E)">List.sort()</a>基础上实现，之前是恰好相反。<!-- raw HTML omitted -->如果在<a href="https://developer.android.com/reference/java/util/List.html#sort(java.util.Comparator%3C?%20super%20E%3E)">List.sort()</a>中调用<a href="https://developer.android.com/reference/java/util/Collections.html#sort(java.util.List%3CT%3E)">Collections.sort()</a>会产生死循环</td>
-<td>集合排序</td>
-</tr>
-<tr>
-<td>在遍历的过程中进行排序，现在使用无论使用<code>List.sort()</code>还是<code>Collections.sort()</code>都会报错</td>
-<td>集合排序</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Target在8.0受到影响</th>
+          <th>可能受到影响的功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>浏览器ua会包含<code>OPR</code>有可能导致判断是否Opera浏览器失效</td>
+          <td>根据ua判断浏览器</td>
+      </tr>
+      <tr>
+          <td><a href="https://developer.android.com/reference/java/util/Collections.html#sort(java.util.List%3CT%3E)">Collections.sort()</a>改为在<a href="https://developer.android.com/reference/java/util/List.html#sort(java.util.Comparator%3C?%20super%20E%3E)">List.sort()</a>基础上实现，之前是恰好相反。<!-- raw HTML omitted -->如果在<a href="https://developer.android.com/reference/java/util/List.html#sort(java.util.Comparator%3C?%20super%20E%3E)">List.sort()</a>中调用<a href="https://developer.android.com/reference/java/util/Collections.html#sort(java.util.List%3CT%3E)">Collections.sort()</a>会产生死循环</td>
+          <td>集合排序</td>
+      </tr>
+      <tr>
+          <td>在遍历的过程中进行排序，现在使用无论使用<code>List.sort()</code>还是<code>Collections.sort()</code>都会报错</td>
+          <td>集合排序</td>
+      </tr>
+  </tbody>
 </table>
 
 
         
           <div class="blog-tags">
             
-              <a href="https://shenguojun.github.io//tags/android/">android</a>&nbsp;
+              
+              <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
             
           </div>
         
@@ -1095,7 +1095,10 @@ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) -&
 
 
       
-        
+      
+      
+      
+      
         
       
 
@@ -1103,60 +1106,18 @@ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) -&
   </div>
 </div>
 
-      
-<footer>
+      <footer>
   <div class="container">
     
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <ul class="list-inline text-center footer-links">
           
-              <li>
-		
-		  <a href="mailto:junguoshen@yeah.net" title="Email me">
-		
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-		
-		  <a href="https://github.com/shenguojun" title="GitHub">
-		
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-		
-		  <a href="https://linkedin.com/in/guojunshen" title="LinkedIn">
-		
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
           
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
+          
           
         </ul>
         <p class="credits copyright text-muted">
-          
-            
-              申国骏
-            
           
 
           &nbsp;&bull;&nbsp;&copy;
@@ -1171,7 +1132,7 @@ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) -&
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.129.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.147.9</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -1187,6 +1148,7 @@ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) -&
 <script> hljs.initHighlightingOnLoad(); </script>
 <script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+
 
 
 

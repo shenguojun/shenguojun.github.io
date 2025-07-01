@@ -6,15 +6,13 @@
     <description>Recent content in Pages on Lawrence&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <managingEditor>junguoshen@yeah.net (申国骏)</managingEditor>
-    <webMaster>junguoshen@yeah.net (申国骏)</webMaster>
     <atom:link href="https://shenguojun.github.io/page/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About me</title>
       <link>https://shenguojun.github.io/page/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>junguoshen@yeah.net (申国骏)</author>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://shenguojun.github.io/page/about/</guid>
-      <description>I&amp;rsquo;m Lawrence(申国骏), from south China and now a senior software engineer and tech lead in Netease Youdao. Experienced in Android, J2EE and Web development, have solid knowledge in Java / Kotin and JavaScript. Compatible team player through the whole project cycle as analysis, program design, testing and implementation. Looking forward to building amazing software that can make</description>
+      <description>&lt;p&gt;I&amp;rsquo;m Lawrence(申国骏), from south China and now a senior software engineer and tech lead in Netease Youdao.&lt;/p&gt;&#xA;&lt;p&gt;Experienced in Android, J2EE and Web development, have solid knowledge in Java / Kotin and JavaScript. Compatible team player through the whole project cycle as analysis, program design, testing and implementation.&lt;/p&gt;&#xA;&lt;p&gt;Looking forward to building amazing software that can make our daily life better!&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
