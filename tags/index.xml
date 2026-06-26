@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on Lawrence&#39;s Blog</title>
-    <link>https://shenguojun.github.io/tags/</link>
-    <description>Recent content in Tags on Lawrence&#39;s Blog</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 01 Sep 2022 19:43:01 +0800</lastBuildDate>
-    <atom:link href="https://shenguojun.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Flutter</title>
-      <link>https://shenguojun.github.io/tags/flutter/</link>
-      <pubDate>Thu, 01 Sep 2022 19:43:01 +0800</pubDate>
-      <guid>https://shenguojun.github.io/tags/flutter/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Android</title>
-      <link>https://shenguojun.github.io/tags/android/</link>
-      <pubDate>Mon, 08 Aug 2022 11:07:45 +0800</pubDate>
-      <guid>https://shenguojun.github.io/tags/android/</guid>
-      <description></description>
-    </item>
-  </channel>
+	<channel>
+		<title>Tags on Lawrence&#39;s Blog</title>
+		<link>https://shenguojun.github.io/tags/</link>
+		<description>Recent content in Tags on Lawrence&#39;s Blog</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 01 Sep 2022 19:43:01 +0800</lastBuildDate>
+		
+			<atom:link href="https://shenguojun.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Flutter</title>
+				<link>https://shenguojun.github.io/tags/flutter/</link>
+				<pubDate>Thu, 01 Sep 2022 19:43:01 +0800</pubDate>
+				<guid>https://shenguojun.github.io/tags/flutter/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Android</title>
+				<link>https://shenguojun.github.io/tags/android/</link>
+				<pubDate>Mon, 08 Aug 2022 11:07:45 +0800</pubDate>
+				<guid>https://shenguojun.github.io/tags/android/</guid>
+				<description></description>
+			</item>
+	</channel>
 </rss>

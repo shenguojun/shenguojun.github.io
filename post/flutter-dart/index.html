@@ -2,8 +2,25 @@
 
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
+  <head><script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var dark = false;
+        if (saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        } else if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        }
+        var hljsDark = document.getElementById('hljs-dark');
+        if (hljsDark) {
+          hljsDark.disabled = !dark;
+        }
+      })();
+    </script>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,149 +29,213 @@
  
 
 
-      <title>Flutter入门1——Dart语言基础 - </title>
+  <title>Flutter入门1——Dart语言基础</title>
 
-  <meta name="description" content="Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。"><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Lawrence\u0027s Blog",
-    
-    "url": "https:\/\/shenguojun.github.io\/"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/shenguojun.github.io\/"
-  
-  
-  
-  
-}
-</script>
+  <meta name="description" content="Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。">
+
+
+
+
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/shenguojun.github.io\/",
-          "name": "home"
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://shenguojun.github.io/#website",
+      "@type": "WebSite",
+      "name": "Lawrence's Blog",
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#organization",
+      "@type": "Organization",
+      "name": null,
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/flutter-dart/#breadcrumb",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/",
+          "name": "Home",
+          "position": 1
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/",
+          "name": "Posts",
+          "position": 2
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/flutter-dart/",
+          "name": "Flutter入门1——Dart语言基础",
+          "position": 3
         }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/shenguojun.github.io\/post\/flutter-dart\/",
-          "name": "Flutter入门1—— dart语言基础"
+      ]
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/flutter-dart/#webpage",
+      "@type": "WebPage",
+      "breadcrumb": {
+        "@id": "https://shenguojun.github.io/post/flutter-dart/#breadcrumb"
+      },
+      "isPartOf": {
+        "@id": "https://shenguojun.github.io/#website"
+      },
+      "name": "Flutter入门1——Dart语言基础",
+      "url": "https://shenguojun.github.io/post/flutter-dart/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#author-%E7%94%B3%E5%9B%BD%E9%AA%8F",
+      "@type": "Person",
+      "name": "申国骏",
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/flutter-dart/#article",
+      "@type": "Article",
+      "author": [
+        {
+          "@id": "https://shenguojun.github.io/#author-%E7%94%B3%E5%9B%BD%E9%AA%8F"
         }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "申国骏"
-  },
-  "headline": "Flutter入门1——Dart语言基础",
-  "description" : "Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。\n",
-  "inLanguage" : "en",
-  "wordCount":  7601 ,
-  "datePublished" : "2022-09-01T19:43:01\u002b08:00",
-  "dateModified" : "2022-09-01T19:43:01\u002b08:00",
-  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-  "keywords" : [ "flutter" ],
-  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/flutter-dart\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/shenguojun.github.io\/",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-        "height" :  60 ,
-        "width" :  60
+      ],
+      "dateCreated": "2022-09-01T19:43:01+08:00",
+      "dateModified": "2022-09-01T19:43:01+08:00",
+      "datePublished": "2022-09-01T19:43:01+08:00",
+      "description": "Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。\n",
+      "headline": "Flutter入门1——Dart语言基础",
+      "image": "https://shenguojun.github.io/image/bugzongchai.png",
+      "inLanguage": "en",
+      "keywords": [
+        "flutter"
+      ],
+      "mainEntityOfPage": {
+        "@id": "https://shenguojun.github.io/post/flutter-dart/#webpage"
+      },
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "timeRequired": "PT16M",
+      "wordCount": 7601
     }
-  }
+  ]
 }
 </script>
-
-
-<meta property="og:title" content="Flutter入门1——Dart语言基础" />
-<meta property="og:description" content="Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。">
-<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/post/flutter-dart/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Lawrence&#39;s Blog" />
-
+<meta property="og:url" content="https://shenguojun.github.io/post/flutter-dart/">
+	<meta property="og:site_name" content="Lawrence&#39;s Blog">
+	<meta property="og:title" content="Flutter入门1——Dart语言基础">
+	<meta property="og:description" content="Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="post">
+		<meta property="article:published_time" content="2022-09-01T19:43:01+08:00">
+		<meta property="article:modified_time" content="2022-09-01T19:43:01+08:00">
+		<meta property="article:tag" content="Flutter">
+<link rel="canonical" href="https://shenguojun.github.io/post/flutter-dart/" />
   <meta name="twitter:title" content="Flutter入门1——Dart语言基础" />
   <meta name="twitter:description" content="Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.147.9">
-  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+  <link href='/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+<meta name="generator" content="Hugo 0.163.3">
+<link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" integrity="sha384-UA8juhPf75SzzAMA/4fo3yOU7sBJ0om7SCD2GHq0fZqZco6tr1UCV7nUbk9J90JM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/brands.css" integrity="sha384-+PvcAGLOWIanfjuRoscHUyZB100N7wP779T8D3ao0FniyFFKMw9MIJpgtJO3+pdF" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/fontawesome.css" integrity="sha384-mj4mLShEAyWi4Bui9LmFkAjPYWof6WrG8DfS8ebHhjm4/MClMqMMHpQzehNk5HeM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/regular.css" integrity="sha384-eS8Ja07iO8AOH11Hzegc5aZyN8CpY+oFwClH6MIlOKUOA3J4Oqjt8Xia9VUSU0GB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/solid.css" integrity="sha384-LpGibDKKReBRP3epUOaN9WBgkrQ1pJIvrrTugkYxVQgDvYuMCRaXk6YkrZ/h3aWk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg.css" integrity="sha384-V18zH+yIEosaHAByV0h4dqHHMPzBxZ7CYz9GQ1YsLTE9QIkEme0jAw9Qir7aIFT+" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg-with-js.css" integrity="sha384-K25UPiwKhSAcEPQskU+UjXpz4iScCTNX5tcEpAGp1hQFNkOoIIwZiV69SfEfaRjK" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-font-face.css" integrity="sha384-YFnAdl87B7pW+Vhp7w9pvA8ZdBL8DQni4/++wrZ0f7o/Sc0pyThczmxZk9xLyc0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-shims.css" integrity="sha384-FnTDI00psVcN3KkfAip/6yRCeN17N3R7HZoAj+2+nttp8n1/vHfYUWvlscoUUhGJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v5-font-face.css" integrity="sha384-FUMXkSpZU/e6Ua2owr0Mktp/gtxxiK1OgCS1vDr8Lsz+gbyDFMSiKeHBRa07EjDn" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/print.css" media="print" /><link rel="stylesheet" href="/css/dark.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css" integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L" crossorigin="anonymous"><link id="hljs-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github-dark.min.css" integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH" crossorigin="anonymous"><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="/css/toc.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
 
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <nav class="navbar navbar-expand-md navbar-light navbar-custom fixed-top">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+    <a class="navbar-brand" href="/">Lawrence&#39;s Blog</a>
+    <div class="d-flex align-items-center">
+      
+      
+      
+      <button class="theme-toggle" id="toc-toggle" aria-label="Table of contents" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Table of contents">
+        <span class="fas fa-list"></span>
       </button>
-      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+      
+      
+      
+      <button class="theme-toggle" id="theme-toggle" aria-label="Theme" data-bs-toggle="tooltip" data-bs-placement="bottom" data-tooltip-auto="Auto (follows system)" data-tooltip-light="Light mode" data-tooltip-dark="Dark mode" title="Auto (follows system)">
+        <span class="fas fa-adjust" id="theme-icon-auto"></span>
+        <span class="fas fa-sun" id="theme-icon-light" style="display: none;"></span>
+        <span class="fas fa-moon" id="theme-icon-dark" style="display: none;"></span>
+      </button>
+      
+      
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
 
     <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav ms-auto">
         
           
-            <li>
-              <a title="Blog" href="/">Blog</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Blog" href="/">Blog</a>
             </li>
           
         
           
-            <li>
-              <a title="About" href="/page/about/">About</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="About" href="/page/about/">About</a>
             </li>
           
         
           
-            <li>
-              <a title="Tags" href="/tags">Tags</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Tags" href="/tags">Tags</a>
             </li>
           
         
 
-        
+          
 
         
       </ul>
+      
+
     </div>
 
     
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
-            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
-           
-          </a>
+    
+      
+        <div class="avatar-container">
+          <div class="avatar-img-border">
+            <a title="Lawrence&#39;s Blog" href="/">
+              <img class="avatar-img" src="/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+             
+            </a>
+          </div>
         </div>
-      </div>
+      
     
 
   </div>
@@ -163,59 +244,11 @@
 
 
 
+
+
+
+
     
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
 
 
 
@@ -228,35 +261,52 @@
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="col-md-10 offset-md-1">
             <div class="post-heading text-center">
+              
               
                 <h1>Flutter入门1——Dart语言基础</h1>
               
               
               
               
+
+
+              
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on September 1, 2022
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;16&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7601&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on September 1, 2022
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;16&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;7601&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
               
             </div>
@@ -265,16 +315,23 @@
       </div>
     </div>
   
+    
+
   </header>
 
 
     
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <h1>TOC</h1>
-        <nav id="TableOfContents">
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <article role="main" class="blog-post">
+          
+
+
+          
+
+          <h1>TOC</h1>
+          <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -339,15 +396,14 @@
     </li>
   </ul>
 </nav>
-
-        <p>Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。</p>
+          <p>Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。</p>
 <h2 id="1-变量数据类型">1 变量&amp;数据类型</h2>
 <h3 id="11-初始化">1.1 初始化</h3>
 <p>变量定义可以用 <code>var value = 18;</code>或者直接声明类型<code>int value = 18;</code>，大部分情况下使用<code>var</code>定义变量，仅当不太能通过代码字面意义判断类型时，可以直接声明类型，例如<code>String people = getPeople(true, 100);</code></p>
 <p>对于非空类型，如果不能马上进行初始化，可以使用<code>late</code>关键字，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 这里使用List&lt;String&gt;不是用var是因为保持非空性
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 相当于Kotlin里面的 lateinit var names: List&lt;String&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">late</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="n">names</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">late</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="n">names</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">iWantFriends</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">	<span class="n">names</span> <span class="o">=</span> <span class="n">friends</span><span class="p">.</span><span class="n">getNames</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="k">else</span>
@@ -357,15 +413,15 @@
 <p><code>finale</code>关键字表示不可修改，可以不声明类型<code>final name = &quot;Alberto&quot;; </code></p>
 <h3 id="13-类型转换">1.3 类型转换</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 1. If the string is not a number, val is null 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span><span class="o">?</span> <span class="n">val</span> <span class="o">=</span> <span class="kt">double</span><span class="p">.</span><span class="n">tryParse</span><span class="p">(</span><span class="s2">&#34;12@.3x_&#34;</span><span class="p">);</span> <span class="c1">// null 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span><span class="o">?</span> <span class="n">val</span> <span class="o">=</span> <span class="kt">double</span><span class="p">.</span><span class="n">tryParse</span><span class="p">(</span><span class="s2">&#34;120.343&#34;</span><span class="p">);</span> <span class="c1">// 120.343
+</span></span></span><span class="line"><span class="cl"><span class="kt">double</span><span class="o">?</span> <span class="n">val</span> <span class="o">=</span> <span class="kt">double</span><span class="p">.</span><span class="n">tryParse</span><span class="p">(</span><span class="s2">&#34;12@.3x_&#34;</span><span class="p">);</span> <span class="c1">// null 
+</span></span></span><span class="line"><span class="cl"><span class="kt">double</span><span class="o">?</span> <span class="n">val</span> <span class="o">=</span> <span class="kt">double</span><span class="p">.</span><span class="n">tryParse</span><span class="p">(</span><span class="s2">&#34;120.343&#34;</span><span class="p">);</span> <span class="c1">// 120.343
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 2. The onError callback is called when parsing fails 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">int</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;1_6&#34;</span><span class="p">,</span> <span class="nl">onError:</span> <span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="m">0</span><span class="p">);</span> <span class="c1">// 0 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">int</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;16&#34;</span><span class="p">,</span> <span class="nl">onError:</span> <span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="m">0</span><span class="p">);</span> <span class="c1">// 16
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">int</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;1_6&#34;</span><span class="p">,</span> <span class="nl">onError:</span> <span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="m">0</span><span class="p">);</span> <span class="c1">// 0 
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="n">a</span> <span class="o">=</span> <span class="kt">int</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&#34;16&#34;</span><span class="p">,</span> <span class="nl">onError:</span> <span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="m">0</span><span class="p">);</span> <span class="c1">// 16
 </span></span></span></code></pre></div><h3 id="14-string">1.4 String</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// Very useful for SQL queries, for example
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 这种情况换行以及每行前面的空格不会删除
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="n">query</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="n">query</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
 </span></span></span><span class="line"><span class="cl"><span class="s2">  SELECT name, surname, age
 </span></span></span><span class="line"><span class="cl"><span class="s2">  FROM people
 </span></span></span><span class="line"><span class="cl"><span class="s2">  WHERE age &gt;= 18
@@ -374,23 +430,23 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 这种情况不会有换行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;I am going to the&#39;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;I am going to the&#39;</span>
 </span></span><span class="line"><span class="cl">				<span class="s1">&#39;second line&#39;</span><span class="p">;</span>
 </span></span></code></pre></div><h3 id="15-空安全">1.5 空安全</h3>
 <p>在Dart中可以使用<code>??</code>来进行空安全赋值，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kt">String</span><span class="o">?</span> <span class="n">status</span><span class="p">;</span> <span class="c1">// This is null 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">String</span> <span class="n">isAlive</span> <span class="o">=</span> <span class="n">status</span> <span class="o">??</span> <span class="s2">&#34;RIP&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">String</span> <span class="n">isAlive</span> <span class="o">=</span> <span class="n">status</span> <span class="o">??</span> <span class="s2">&#34;RIP&#34;</span><span class="p">;</span>
 </span></span></code></pre></div><h3 id="16-注释">1.6 注释</h3>
 <p>Dart中可以使用以下三种注释：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// for signle line comments
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cm">/*
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 
 </span></span></span><span class="line"><span class="cl"><span class="cm"> for multi-line comments
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">/// for ducumentation comments [b] xxx
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">a</span> <span class="p">(</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">a</span> <span class="p">(</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h2 id="2-方法函数">2 方法函数</h2>
 <h3 id="21-具名参数named-parameters">2.1 具名参数（Named Parameters）</h3>
@@ -402,29 +458,29 @@
 </span></span></code></pre></div><p>调用的时候需要写明参数名称，<code>required</code>表示这个参数必须填写</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="nl">a:</span> <span class="m">5</span><span class="p">,</span> <span class="nl">b:</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">test</span><span class="p">(</span><span class="nl">b:</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">test</span><span class="p">(</span><span class="nl">a:</span> <span class="m">5</span><span class="p">);</span> <span class="c1">// Compilation error, &#39;b&#39; is required
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">test</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Compilation error, name is required
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="nl">b:</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Ok
+</span></span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="nl">a:</span> <span class="m">5</span><span class="p">);</span> <span class="c1">// Compilation error, &#39;b&#39; is required
+</span></span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Compilation error, name is required
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h3 id="22-位置参数positional-parameters">2.2 位置参数（Positional parameters）</h3>
 <p>表示调用的时候这些参数是可选的。使用可选参数的时候，不能写参数的名称，非空参数必须有默认值，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// void test([int a = 0, int b])  Compilation error The parameter &#39;b&#39; can&#39;t have a value of &#39;null&#39; because of its type, but the implicit default value is &#39;null&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">test</span><span class="p">([</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="kt">int</span><span class="o">?</span> <span class="n">b</span><span class="p">])</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">([</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="kt">int</span><span class="o">?</span> <span class="n">b</span><span class="p">])</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">$</span><span class="n">a</span><span class="s2">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">$</span><span class="n">b</span><span class="s2">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>调用的时候不能写参数名</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="nl">a:</span> <span class="m">5</span><span class="p">,</span> <span class="nl">b:</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Compilation error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">test</span><span class="p">(</span><span class="nl">b:</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Compilation error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">test</span><span class="p">(</span><span class="nl">a:</span> <span class="m">5</span><span class="p">);</span> <span class="c1">// Compilation error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">test</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Ok 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">test</span><span class="p">();</span>     <span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">test</span><span class="p">(</span><span class="m">5</span><span class="p">);</span>    <span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="nl">b:</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Compilation error
+</span></span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="nl">a:</span> <span class="m">5</span><span class="p">);</span> <span class="c1">// Compilation error
+</span></span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span> <span class="c1">// Ok 
+</span></span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">();</span>     <span class="c1">// Ok
+</span></span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="m">5</span><span class="p">);</span>    <span class="c1">// Ok
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>目前暂时不允许方法的参数既有具名参数又有位置参数，例如以下这样会编译出错：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">({</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="m">0</span><span class="p">},</span> <span class="p">[</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="o">?</span><span class="p">])</span> <span class="p">{</span>  <span class="c1">// compile error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h3 id="23-匿名方法">2.3 匿名方法</h3>
 <p>一行写法：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">final</span> <span class="n">isEven</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">value</span> <span class="o">%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">0</span><span class="p">;</span>
@@ -440,7 +496,7 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="n">isFraction</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">...</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">  <span class="c1">// Converts a string into a fraction
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Fraction</span> <span class="n">toFraction</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">Fraction</span><span class="p">.</span><span class="n">fromString</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">Fraction</span> <span class="n">toFraction</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">Fraction</span><span class="p">.</span><span class="n">fromString</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
@@ -454,7 +510,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Example</span> <span class="p">{</span> 
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">test</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Doesn&#39;t compile; you have to use different names
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">test</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">test</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h3 id="31-cascade-操作符">3.1 Cascade 操作符</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Test</span> <span class="p">{</span>
@@ -472,26 +528,26 @@
 </span></span></code></pre></div><h3 id="32-library引入">3.2 Library引入</h3>
 <p>Dart里面通过 <code>import 'package:path/to/file/library.dart';</code>来引入一个文件，当两个文件的类名有冲突时，可以采取两种方式解决，一种是设置别名，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// Contains a class called &#39;MyClass&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">import</span> <span class="s1">&#39;package:libraryOne.dart&#39;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:libraryOne.dart&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// Also contains a class called &#39;MyClass&#39; 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">import</span> <span class="s1">&#39;package:libraryTwo.dart&#39;</span> <span class="k">as</span> <span class="n">second</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:libraryTwo.dart&#39;</span> <span class="k">as</span> <span class="n">second</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Uses MyClass from libraryOne 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">var</span> <span class="n">one</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="n">one</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">//Uses MyClass from libraryTwo. 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">var</span> <span class="n">two</span> <span class="o">=</span> <span class="n">second</span><span class="p">.</span><span class="n">MyClass</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="n">two</span> <span class="o">=</span> <span class="n">second</span><span class="p">.</span><span class="n">MyClass</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>另一种方法是选择展示或隐藏</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">//Imports only MyClass and discards all the rest.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">import</span> <span class="s1">&#39;package:libraryOne.dart&#39;</span> <span class="k">show</span> <span class="n">MyClass</span><span class="p">;</span> 
+</span></span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:libraryOne.dart&#39;</span> <span class="k">show</span> <span class="n">MyClass</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl"><span class="c1">//Import severything except MyClass.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">import</span> <span class="s1">&#39;package:libraryTwo.dart&#39;</span> <span class="k">hide</span> <span class="n">MyClass</span><span class="p">;</span> 
+</span></span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:libraryTwo.dart&#39;</span> <span class="k">hide</span> <span class="n">MyClass</span><span class="p">;</span> 
 </span></span></code></pre></div><p>Dart for web中还支持library的延迟加载，library只会在需要的时候才会加载进来：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:greetings/hello.dart&#39;</span> <span class="n">deferred</span> <span class="k">as</span> <span class="n">hello</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 使用时：
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">greet</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">greet</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">await</span> <span class="n">hello</span><span class="p">.</span><span class="n">loadLibrary</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="n">hello</span><span class="p">.</span><span class="n">printGreeting</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -499,21 +555,21 @@
 <h3 id="33-可见性">3.3 可见性</h3>
 <p>Dart中没有<code>public</code>、<code>private</code>、<code>protected</code>等声明可见性的关键字，只能通过下划线<code>_</code>来表示变量或者方法私有（同一个文件里面加了下划线也能访问，私有仅相对于其他文件而言）。为什么这样设计？跟Dart的dynamic类型有关，感兴趣看看：https://github.com/dart-lang/sdk/issues/33383#issuecomment-396168900</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"> <span class="c1">// === File: test.dart ===
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Test</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Test</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">String</span> <span class="n">nickname</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">String</span> <span class="n">_realName</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// === File: main.dart ===
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">import</span> <span class="s1">&#39;package:test.dart&#39;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:test.dart&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">Test</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="c1">// OK
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">var</span> <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">nickname</span><span class="p">;</span> 
+</span></span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">nickname</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">  <span class="c1">// ERROR, doesn&#39;t compile 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">var</span> <span class="n">real</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">_realName</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="n">real</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">_realName</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h3 id="34-构造函数">3.4 构造函数</h3>
 <p>因为构造函数的执行在变量初始化之后，因此类里面的变量如果希望通过构造函数来初始化并且希望是非空的话，需要使用<code>late</code>来声明：</p>
@@ -551,32 +607,32 @@
 </span></span><span class="line"><span class="cl">  <span class="n">Fraction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_numerator</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">_denominator</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="c1">// denominator cannot be 0 because 0/0 is not defined!
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Fraction</span><span class="p">.</span><span class="n">zero</span><span class="p">()</span> <span class="o">:</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">Fraction</span><span class="p">.</span><span class="n">zero</span><span class="p">()</span> <span class="o">:</span>
 </span></span><span class="line"><span class="cl">  	<span class="n">_numerator</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  	<span class="n">_denominator</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// &#34;Traditional&#34; initialization
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">fraction1</span> <span class="o">=</span> <span class="n">Fraction</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">fraction1</span> <span class="o">=</span> <span class="n">Fraction</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Same thing but with a named constructor
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">fraction2</span> <span class="o">=</span> <span class="n">Fraction</span><span class="p">.</span><span class="n">zero</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">fraction2</span> <span class="o">=</span> <span class="n">Fraction</span><span class="p">.</span><span class="n">zero</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>在具名构造函数声明中重定向到默认构造函数或者其他具名函数：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">Fraction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_numerator</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">_denominator</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl"><span class="c1">// Represents &#39;1/2&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Fraction</span><span class="p">.</span><span class="n">oneHalf</span><span class="p">()</span> <span class="o">:</span> <span class="k">this</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Fraction</span><span class="p">.</span><span class="n">oneHalf</span><span class="p">()</span> <span class="o">:</span> <span class="k">this</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// Represents integers, like &#39;3&#39; which is &#39;3/1&#39; 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Fraction</span><span class="p">.</span><span class="n">whole</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span> <span class="k">this</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Fraction</span><span class="p">.</span><span class="n">whole</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span> <span class="k">this</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Fraction</span><span class="p">.</span><span class="n">three</span><span class="p">()</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="n">whole</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Fraction</span><span class="p">.</span><span class="n">three</span><span class="p">()</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="n">whole</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
 </span></span></code></pre></div><h4 id="342-工厂模式构造函数">3.4.2 工厂模式构造函数</h4>
 <p>当需要用到单例或者根据不同条件构造子类的时候，可以使用<code>factory</code>关键字修饰构造函数。<code>factory</code>构造函数与普通构造函数的区别的是需要有return对象，并且可以根据不同的参数返回不同的对象。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="kd">factory</span> <span class="n">Animal</span><span class="p">(</span><span class="kt">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 根据不同类型生成不同子类，工厂构造函数可以使用return
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;dog&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="n">Dog</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;dog&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="n">Dog</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;cat&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="n">Cat</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="s1">&#39;type error&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
@@ -587,11 +643,11 @@
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">implements</span> <span class="n">Animal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">String</span> <span class="n">_name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// factory不会默认生成单例，需要使用static等手段实现
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="kd">factory</span> <span class="n">Dog</span><span class="p">(</span><span class="kt">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 可以调用普通构造函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">Dog</span><span class="p">.</span><span class="n">_default</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Dog</span><span class="p">.</span><span class="n">_default</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="n">Dog</span><span class="p">.</span><span class="n">_default</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_name</span><span class="p">);</span>
@@ -606,7 +662,7 @@
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">implements</span> <span class="n">Animal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">String</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 不使用factory构造函数，同样可以使用static实现cache功能
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="n">Cat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -619,7 +675,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 调用的时候与普通构造函数没有区别
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Animal</span><span class="p">(</span><span class="s1">&#39;dog&#39;</span><span class="p">).</span><span class="n">talk</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">Animal</span><span class="p">(</span><span class="s1">&#39;dog&#39;</span><span class="p">).</span><span class="n">talk</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="n">Animal</span><span class="p">(</span><span class="s1">&#39;dog&#39;</span><span class="p">).</span><span class="n">talk</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="n">Animal</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">).</span><span class="n">talk</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="n">Animal</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">).</span><span class="n">talk</span><span class="p">();</span>
@@ -639,14 +695,14 @@
 </span></span><span class="line"><span class="cl">  <span class="n">Fraction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_numerator</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">_denominator</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="c1">// getters
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="kd">get</span> <span class="n">numerator</span> <span class="o">=&gt;</span> <span class="n">_numerator</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="kd">get</span> <span class="n">numerator</span> <span class="o">=&gt;</span> <span class="n">_numerator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="kd">get</span> <span class="n">denominator</span> <span class="o">=&gt;</span> <span class="n">_denominator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="c1">// setter
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">set</span> <span class="n">denominator</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">set</span> <span class="n">denominator</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// Or better, throw an exception...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">_denominator</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">      <span class="n">_denominator</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">_denominator</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -655,7 +711,7 @@
 </span></span></code></pre></div><h3 id="36-callable类">3.6 Callable类</h3>
 <p>在类里面，如果方法名字是<code>call()</code>的话，那么这个类被称为Callable类。Callable类对象可以像方法一样调用：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// Create this inside &#39;my_test.dart&#39; for example
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">_Test</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">_Test</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">const</span> <span class="n">_Test</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">call</span><span class="p">(</span><span class="kt">String</span> <span class="n">something</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="n">something</span><span class="p">);</span>
@@ -665,7 +721,7 @@
 </span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="n">test</span> <span class="o">=</span> <span class="n">_Test</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Somewhere else, for example in main.dart
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">import</span> <span class="s1">&#39;package:myapp/my_test.dart&#39;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:myapp/my_test.dart&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">test</span><span class="p">(</span><span class="s2">&#34;Hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -678,29 +734,29 @@
 </span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="kd">operator</span><span class="o">==</span> <span class="p">(</span><span class="kt">Object</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 1. The function identical() is provided by the Dart code API 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//    and checks if two objects have the same reference.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">identical</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">other</span><span class="p">))</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//    and checks if two objects have the same reference.
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">identical</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">other</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 2.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">other</span> <span class="k">is</span> <span class="n">Example</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">other</span> <span class="k">is</span> <span class="n">Example</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="n">other</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// 3.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="n">runtimeType</span> <span class="o">==</span> <span class="n">example</span><span class="p">.</span><span class="n">runtimeType</span> <span class="o">&amp;&amp;</span>
+</span></span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">runtimeType</span> <span class="o">==</span> <span class="n">example</span><span class="p">.</span><span class="n">runtimeType</span> <span class="o">&amp;&amp;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">==</span> <span class="n">example</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> 
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 4.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="err">@</span><span class="n">override</span>
+</span></span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="kd">get</span> <span class="n">hashCode</span> <span class="o">=&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">hashCode</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">final</span> <span class="n">ex1</span> <span class="o">=</span> <span class="n">Example</span><span class="p">(</span><span class="m">2</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">ex2</span> <span class="o">=</span> <span class="n">Example</span><span class="p">(</span><span class="m">2</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="n">ex1</span> <span class="o">==</span> <span class="n">ex2</span><span class="p">);</span> <span class="c1">//true
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>当类里面有很多变量的时候，手动实现<code>operator==</code>以及<code>hashCode</code>比较复杂，我们可以借助于<a href="https://pub.dev/packages/equatable">Equatable</a>这个库来实现，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Test</span> <span class="kd">extends</span> <span class="n">Equatable</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
@@ -736,14 +792,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Human</span> <span class="kd">extends</span> <span class="n">Mammal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">Fruit</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Fruit&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">Fruit</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Fruit&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Monkey</span> <span class="kd">extends</span> <span class="n">Mammal</span> <span class="p">{</span> 
 </span></span><span class="line"><span class="cl">  <span class="c1">// Error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">Banana</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Banana&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">Banana</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Banana&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">covariant</span> <span class="n">Banana</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Banana&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">covariant</span> <span class="n">Banana</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Banana&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>或者直接在父类方法声明：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Mammal</span> <span class="p">{</span>
@@ -752,11 +808,11 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Human</span> <span class="kd">extends</span> <span class="n">Mammal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">Fruit</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Fruit&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">Fruit</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Fruit&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Monkey</span> <span class="kd">extends</span> <span class="n">Mammal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">Banana</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Banana&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">eat</span><span class="p">(</span><span class="n">Banana</span> <span class="n">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Banana&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h3 id="42-接口">4.2 接口</h3>
 <p>在 Dart中没有<code>interface</code>，创建接口使用<code>abstract class</code>，例如：</p>
@@ -781,11 +837,11 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Error Missing concrete implementation of &#39;MyInterface.methodTwo&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Example</span> <span class="kd">implements</span> <span class="n">MyInterface</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Example</span> <span class="kd">implements</span> <span class="n">MyInterface</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">methodOne</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// Error The method &#39;methodTwo&#39; is always abstract in the supertype.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">super</span><span class="p">.</span><span class="n">methodTwo</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">super</span><span class="p">.</span><span class="n">methodTwo</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -806,7 +862,7 @@
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">me</span> <span class="o">=</span> <span class="n">Human</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// prints &#34;Walking&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">me</span><span class="p">.</span><span class="n">walk</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">me</span><span class="p">.</span><span class="n">walk</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>如果父类通过with复用了Mixins类，则子类继承父类后同样拥有Mixins类，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">mixin</span> <span class="n">Walking</span> <span class="p">{</span>
@@ -820,27 +876,27 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Human only has walk()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Human</span> <span class="kd">with</span> <span class="n">Walking</span> <span class="p">{}</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Human</span> <span class="kd">with</span> <span class="n">Walking</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Developer has walk() inherited from Human and also // breath() and code() from the two mixins
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Developer</span> <span class="kd">extends</span> <span class="n">Human</span> <span class="kd">with</span> <span class="n">Breathing</span><span class="p">,</span> <span class="n">Coding</span> <span class="p">{}</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Developer</span> <span class="kd">extends</span> <span class="n">Human</span> <span class="kd">with</span> <span class="n">Breathing</span><span class="p">,</span> <span class="n">Coding</span> <span class="p">{}</span>
 </span></span></code></pre></div><p>使用<code>on</code>关键字来限制使用Mixins的类只能是某种类型的子类，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// Constrain &#39;Coding&#39; so that it can be attached only to
 </span></span></span><span class="line"><span class="cl"><span class="c1">// subtypes of &#39;Human&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mixin</span> <span class="n">Coding</span> <span class="n">on</span> <span class="n">Human</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">mixin</span> <span class="n">Coding</span> <span class="n">on</span> <span class="n">Human</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">code</span><span class="p">()</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// All good
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Human</span> <span class="p">{}</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Human</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Developer</span> <span class="kd">extends</span> <span class="n">Human</span> <span class="kd">with</span> <span class="n">Coding</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// NO, &#39;Coding&#39; can be used only on subclasses
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Human</span> <span class="kd">with</span> <span class="n">Coding</span> <span class="p">{}</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Human</span> <span class="kd">with</span> <span class="n">Coding</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// NO, &#39;Fish&#39; is not a subclass of &#39;Human&#39; so 
 </span></span></span><span class="line"><span class="cl"><span class="c1">// you cannot attach the &#39;Coding&#39; mixin
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Fish</span> <span class="kd">with</span> <span class="n">Coding</span> <span class="p">{}</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Fish</span> <span class="kd">with</span> <span class="n">Coding</span> <span class="p">{}</span>
 </span></span></code></pre></div><p>Mixins不是一种继承关系，没有层级结构，使用Mixins的类不需要通过super调用Mixins里面的变量和方法。Mixins是一种组合的思想，类似于把一部分通用的变量和方法放到一个公共的区域。</p>
 <h2 id="5-异常处理">5. 异常处理</h2>
 <p>异常处理与Kotlin类似。捕捉特定异常使用关键字<code>on</code>，例如：</p>
@@ -853,8 +909,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Invalid format!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="n">on</span> <span class="n">Exception</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// You arrive here if the thrown exception is neither 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// IntegerDivisionByZeroException or FormatException 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">print</span><span class="p">(</span><span class="s2">&#34;General exception: </span><span class="si">$</span><span class="n">e</span><span class="s2">&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// IntegerDivisionByZeroException or FormatException 
+</span></span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s2">&#34;General exception: </span><span class="si">$</span><span class="n">e</span><span class="s2">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s2">&#34;General error: </span><span class="si">$</span><span class="n">e</span><span class="s2">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
@@ -869,7 +925,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="n">on</span> <span class="n">Exception</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">$</span><span class="n">e</span><span class="s2">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// same as `throw e;`
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">rethrow</span><span class="p">;</span> 
+</span></span></span><span class="line"><span class="cl">    <span class="n">rethrow</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">$</span><span class="n">e2</span><span class="s2">&#34;</span><span class="p">);</span>
@@ -881,7 +937,7 @@
 </span></span><span class="line"><span class="cl">  <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;?</span> <span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  <span class="n">list1</span><span class="o">?</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="m">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="m">2</span><span class="p">,</span> <span class="o">-</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">...</span><span class="o">?</span><span class="n">list1</span><span class="p">];</span> <span class="c1">// All good
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">$</span><span class="n">list3</span><span class="s1">&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">$</span><span class="n">list3</span><span class="s1">&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>列表初始化也可以存在<code>if</code>或者<code>for</code>表达式，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">const</span> <span class="n">hasCoffee</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
@@ -899,24 +955,24 @@
 </span></span><span class="line"><span class="cl"><span class="p">];</span>
 </span></span></code></pre></div><p>除了直接定义列表，还有其他列表的构造函数，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// Now example has this content: [1, 1, 1, 1, 1]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">filled</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="nl">growable:</span> <span class="kc">true</span><span class="p">);</span> 
+</span></span></span><span class="line"><span class="cl"><span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">filled</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="nl">growable:</span> <span class="kc">true</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="n">example</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">unmodifiable</span><span class="p">([</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// same as `var example = const &lt;int&gt;[1, 2, 3];`
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">example</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="m">4</span><span class="p">);</span> <span class="c1">// Runtime error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl"><span class="n">example</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="m">4</span><span class="p">);</span> <span class="c1">// Runtime error
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Now example has this content: [0, 1, 4, 9, 16]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="n">example</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="n">example</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
 </span></span></code></pre></div><h3 id="62-set">6.2 Set</h3>
 <p>有几种方式声明<code>set</code>变量：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 1. Direct type annotation
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">example</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">example</span> <span class="o">=</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 2. Type inference with diamonds 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{};</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 3. Initialize with objects
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="p">{</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="p">{</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 4. This is a Map, not a set!!
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="p">{};</span>
 </span></span></code></pre></div><h3 id="63-map">6.3 Map</h3>
 <p>定义一个map</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"> <span class="kd">final</span> <span class="n">example</span> <span class="o">=</span> <span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span>
@@ -925,25 +981,25 @@
 </span></span><span class="line"><span class="cl"> <span class="p">};</span>
 </span></span></code></pre></div><p>添加元素：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// The key &#39;0&#39; is already present, &#34;C&#34; not added
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">example</span><span class="p">.</span><span class="n">putIfAbsent</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="s2">&#34;C&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">example</span><span class="p">.</span><span class="n">putIfAbsent</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="s2">&#34;C&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// The key &#39;6&#39; is not present, &#34;C&#34; successfully added 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">example</span><span class="p">.</span><span class="n">putIfAbsent</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="s2">&#34;C&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">example</span><span class="p">.</span><span class="n">putIfAbsent</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="s2">&#34;C&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// &#34;A&#34; has &#39;0&#39; as key and it&#39;s replaced with &#34;C&#34;. 
 </span></span></span><span class="line"><span class="cl"><span class="c1">// Now the map contains {0: &#34;C&#34;, 1: &#34;B&#34;} 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">example</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;C&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">example</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;C&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// The key &#39;6&#39; is not present, &#34;C&#34; gets added 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">example</span><span class="p">[</span><span class="m">6</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;C&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">example</span><span class="p">[</span><span class="m">6</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;C&#34;</span><span class="p">;</span>
 </span></span></code></pre></div><h3 id="64-transform方法">6.4 Transform方法</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// Generate a list of 20 items using a factory 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">list</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">i</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">list</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">i</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Return a new list of even numbers
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="n">other</span> <span class="o">=</span> <span class="n">list</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="n">other</span> <span class="o">=</span> <span class="n">list</span>
 </span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">where</span><span class="p">((</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">value</span> <span class="o">%</span> <span class="m">2</span> <span class="o">==</span> <span class="m">0</span><span class="p">)</span> <span class="c1">// Intermediate
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">.</span><span class="n">map</span><span class="p">((</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">.</span><span class="n">toString</span><span class="p">())</span> <span class="c1">// Intermediate
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">.</span><span class="n">toList</span><span class="p">();</span> <span class="c1">// Terminal
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">map</span><span class="p">((</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">.</span><span class="n">toString</span><span class="p">())</span> <span class="c1">// Intermediate
+</span></span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">toList</span><span class="p">();</span> <span class="c1">// Terminal
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><strong>Intermediates</strong></p>
 <ul>
 <li><code>where()</code>：相当于Kotlin中的filter，用于过滤</li>
@@ -982,7 +1038,7 @@
 <p>对于耗时I/0等任务，可以使用<code>Future</code>类来避免主线程阻塞，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">processData</span><span class="p">(</span><span class="kt">int</span> <span class="n">param1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">param2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// function that takes 4 or 5 seconds to execute...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">res</span> <span class="o">=</span> <span class="n">httpGetRequest</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">res</span> <span class="o">=</span> <span class="n">httpGetRequest</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1023,9 +1079,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>异步方法也可以使用<code>async</code>返回结果，例如以下两段代码等价：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// Use the named constructor
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">example</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">example</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// Use async and the compiler wraps the value in a Future
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">example</span><span class="p">()</span> <span class="kd">async</span> <span class="o">=&gt;</span> <span class="m">3</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">example</span><span class="p">()</span> <span class="kd">async</span> <span class="o">=&gt;</span> <span class="m">3</span><span class="p">;</span>
 </span></span></code></pre></div><h3 id="72-streams">7.2 Streams</h3>
 <p>Stream类型也是表示未来返回的结果，与Future不同的是Stream表示的不是单一个结果，而是一连串的结果。</p>
 <p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20220824154717676.png" alt="image-20220824154717676"></p>
@@ -1037,11 +1093,11 @@
 </ul>
 <h4 id="721-streams--generator">7.2.1 Streams &amp; Generator</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">Stream</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">randomNumbers</span><span class="p">()</span> <span class="kd">async</span><span class="o">*</span> <span class="p">{</span> 						<span class="c1">// 1. 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">random</span> <span class="o">=</span> <span class="n">Random</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">random</span> <span class="o">=</span> <span class="n">Random</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="n">i</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="m">100</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> 								<span class="c1">// 2. 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">await</span> <span class="n">Future</span><span class="p">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">1</span><span class="p">));</span> <span class="c1">// 3.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">yield</span> <span class="n">random</span><span class="p">.</span><span class="n">nextInt</span><span class="p">(</span><span class="m">50</span><span class="p">)</span> <span class="o">+</span> <span class="m">1</span><span class="p">;</span> 							<span class="c1">// 4.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kd">await</span> <span class="n">Future</span><span class="p">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">1</span><span class="p">));</span> <span class="c1">// 3.
+</span></span></span><span class="line"><span class="cl">    <span class="kd">yield</span> <span class="n">random</span><span class="p">.</span><span class="n">nextInt</span><span class="p">(</span><span class="m">50</span><span class="p">)</span> <span class="o">+</span> <span class="m">1</span><span class="p">;</span> 							<span class="c1">// 4.
+</span></span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>          																			<span class="c1">// 5.
 </span></span></span></code></pre></div><ol>
 <li>返回类型是<code>Stream&lt;int&gt;</code>，<code>async*</code>表示可以使用<code>yield</code>来发送数据</li>
@@ -1075,7 +1131,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// Pass the error object
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">something</span><span class="p">(</span><span class="n">Stream</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&#34;Whoops&#34;</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">something</span><span class="p">(</span><span class="n">Stream</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&#34;Whoops&#34;</span><span class="p">));</span>
 </span></span></code></pre></div></li>
 <li>
 <p><code>Stream&lt;T&gt;.fromIterable()</code>：产生一个从列表发送数据的Stream，例如：</p>
@@ -1109,13 +1165,13 @@
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>									<span class="c1">// 1.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">randomNumbers</span><span class="p">();</span>		<span class="c1">// 2.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">await</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">value</span> <span class="k">in</span> <span class="n">stream</span><span class="p">)</span> <span class="p">{</span>	<span class="c1">// 3.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">print</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">randomNumbers</span><span class="p">();</span>		<span class="c1">// 2.
+</span></span></span><span class="line"><span class="cl">  <span class="kd">await</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">value</span> <span class="k">in</span> <span class="n">stream</span><span class="p">)</span> <span class="p">{</span>	<span class="c1">// 3.
+</span></span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 最后打印
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Async stream!&#34;</span><span class="p">);</span>						<span class="c1">// 4.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Async stream!&#34;</span><span class="p">);</span>						<span class="c1">// 4.
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><ol>
 <li>处理异步Stream需要声明方法为<code>async</code></li>
 <li>通过调用<code>randomNumbers</code>来订阅Stream，在订阅的时候开始执行数据产生，因为Stream是on-demand的</li>
@@ -1130,16 +1186,16 @@
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 最先打印
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Async stream!&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="s2">&#34;Async stream!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>如果需要被多个Subscribers订阅的话，可以使用<code>asBroadcastStream()</code>方法，详见：https://api.flutter.dev/flutter/dart-async/Stream/asBroadcastStream.html</p>
 <p>在Flutter中大部分情况下只需要订阅，不需要写Stream的生产者，因为大部分生产者都是来自于library。</p>
 <h4 id="723-controller">7.2.3 Controller</h4>
 <p>我们可以使用<code>StreamController&lt;T&gt;</code>来更精细地控制和管理Stream，例如下面代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">/// Exposes a stream that continuously generates random numbers
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">RandomStream</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">RandomStream</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">/// The maximum random number to be generated final 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">maxValue</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">maxValue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">static</span> <span class="kd">final</span> <span class="n">_random</span> <span class="o">=</span> <span class="n">Random</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="n">Timer</span><span class="o">?</span> <span class="n">_timer</span><span class="p">;</span>
@@ -1147,8 +1203,8 @@
 </span></span><span class="line"><span class="cl">  <span class="n">late</span> <span class="n">StreamController</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">_controller</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="c1">/// Handles a stream that continuously generates random numbers. Use 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">/// [maxValue] to set the maximum random value to be generated. 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">RandomStream</span><span class="p">({</span><span class="k">this</span><span class="p">.</span><span class="n">maxValue</span> <span class="o">=</span> <span class="m">100</span><span class="p">})</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="c1">/// [maxValue] to set the maximum random value to be generated. 
+</span></span></span><span class="line"><span class="cl">  <span class="n">RandomStream</span><span class="p">({</span><span class="k">this</span><span class="p">.</span><span class="n">maxValue</span> <span class="o">=</span> <span class="m">100</span><span class="p">})</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">_currentCount</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">_controller</span> <span class="o">=</span> <span class="n">StreamController</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">      <span class="nl">onListen:</span> <span class="n">_startStream</span><span class="p">,</span>
@@ -1159,7 +1215,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">	<span class="c1">/// A reference to the random number stream
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Stream</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="kd">get</span> <span class="n">stream</span> <span class="o">=&gt;</span> <span class="n">_controller</span><span class="p">.</span><span class="n">stream</span><span class="p">;</span> 
+</span></span></span><span class="line"><span class="cl">	<span class="n">Stream</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="kd">get</span> <span class="n">stream</span> <span class="o">=&gt;</span> <span class="n">_controller</span><span class="p">.</span><span class="n">stream</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">_startStream</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">_timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">.</span><span class="n">periodic</span><span class="p">(</span><span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">1</span><span class="p">),</span> <span class="n">_runStream</span><span class="p">);</span>
@@ -1185,7 +1241,7 @@
 </span></span><span class="line"><span class="cl">  <span class="kd">await</span> <span class="n">Future</span><span class="p">.</span><span class="n">delayed</span><span class="p">(</span><span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">2</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="c1">// The timer inside our &#39;RandomStream&#39; is started
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">subscription</span> <span class="o">=</span> <span class="n">stream</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="kt">int</span> <span class="n">random</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">subscription</span> <span class="o">=</span> <span class="n">stream</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="kt">int</span> <span class="n">random</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="n">random</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">  
@@ -1231,14 +1287,14 @@
 <p>Isolate有<code>ReceivePort</code>以及<code>SendPort</code>用于接受和发送message，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Read some data.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">jsonData</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">_parseInBackground</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">jsonData</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">_parseInBackground</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// Use that data
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Number of JSON keys: </span><span class="si">${</span><span class="n">jsonData</span><span class="p">.</span><span class="n">length</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Number of JSON keys: </span><span class="si">${</span><span class="n">jsonData</span><span class="p">.</span><span class="n">length</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Spawns an isolate and waits for the first message
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">dynamic</span><span class="o">&gt;&gt;</span> <span class="n">_parseInBackground</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Future</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">dynamic</span><span class="o">&gt;&gt;</span> <span class="n">_parseInBackground</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">p</span> <span class="o">=</span> <span class="n">ReceivePort</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">await</span> <span class="n">Isolate</span><span class="p">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">_readAndParseJson</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">sendPort</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kd">await</span> <span class="n">p</span><span class="p">.</span><span class="n">first</span> <span class="o">as</span> <span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">dynamic</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1252,21 +1308,21 @@
 </span></span></code></pre></div><p><img src="https://dart.dev/guides/language/concurrency/images/isolate-api.png" alt="A figure showing the previous snippets of code running in the main isolate and in the worker isolate"></p>
 <p>通常情况下不会直接调用<code>Isolate.spawn()</code>，而是调用<code>Future&lt;T&gt; compute(...)</code>，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"> <span class="c1">// Model class
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">PrimeParams</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">PrimeParams</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">int</span> <span class="n">limit</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">double</span> <span class="n">another</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">const</span> <span class="n">PrimeParams</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">limit</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">another</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Use the model as parameter
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">sumOfPrimes</span><span class="p">(</span><span class="n">PrimeParams</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">sumOfPrimes</span><span class="p">(</span><span class="n">PrimeParams</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">limit</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">limit</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">another</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">another</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Function to be called in Flutter
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">heavyCalculations</span><span class="p">()</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Future</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">heavyCalculations</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">params</span> <span class="o">=</span> <span class="n">PrimeParams</span><span class="p">(</span><span class="m">50000</span><span class="p">,</span> <span class="m">10.5</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">compute</span><span class="o">&lt;</span><span class="n">PrimeParams</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sumOfPrimes</span><span class="p">,</span> <span class="n">params</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1278,68 +1334,74 @@
 <li><a href="https://dart.dev/tutorials/language/streams">Asynchronous programming: Streams</a></li>
 </ol>
 
+          
+          
+
 
         
+        
           <div class="blog-tags">
-            
-              
-              <a href="https://shenguojun.github.io/tags/flutter/">flutter</a>&nbsp;
-            
+            <span>Tags: </span>
+            <a href="/tags/flutter/">flutter</a>&nbsp;
           </div>
         
 
         
             <hr/>
             <section id="social-share">
-              <div class="list-inline footer-links">
+              <div class="footer-links">
                 
+<div class="share-box" role="region">
+    <ul class="share" aria-label="Social sharing" role="list">
+      
+      <li role="listitem">
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;text=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" target="_blank" rel="noopener noreferrer" title="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Twitter</span>
+        </a>
+      </li>
 
-<div class="share-box" aria-hidden="true">
-    <ul class="share">
       
-      <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;text=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80&amp;via=" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
+      <li role="listitem">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f" target="_blank" rel="noopener noreferrer" title="Share on Facebook">
+          <i class="fab fa-facebook" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Facebook</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
+      <li role="listitem">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;title=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" target="_blank" rel="noopener noreferrer" title="Share on Reddit">
+          <i class="fab fa-reddit" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Reddit</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;title=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
+      <li role="listitem">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;title=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on LinkedIn</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;title=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
+      <li role="listitem">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;description=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" target="_blank" rel="noopener noreferrer" title="Share on Pinterest">
+          <i class="fab fa-pinterest" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Pinterest</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;title=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;description=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
+      <li role="listitem">
+        <a href="mailto:?body=https%3a%2f%2fshenguojun.github.io%2fpost%2fflutter-dart%2f&amp;subject=Flutter%e5%85%a5%e9%97%a81%e2%80%94%e2%80%94Dart%e8%af%ad%e8%a8%80%e5%9f%ba%e7%a1%80" title="Share via email">
+          <i class="fas fa-at" aria-hidden="true"></i>
+          <span class="visually-hidden">Share via email</span>
         </a>
       </li>
     </ul>
   </div>
-  
 
               </div>
             </section>
@@ -1349,15 +1411,29 @@
       </article>
 
       
-        <ul class="pager blog-pager">
+        
+          <a href="/post/android_runtime/" class="nav-side-arrow nav-side-prev" title="深入理解Android Runtime" aria-label="Previous Post: 深入理解Android Runtime">
+            <i class="fas fa-chevron-left"></i>
+          </a>
+        
+        
+          <a href="/post/tetris-native-overview/" class="nav-side-arrow nav-side-next" title="Tetris Native揭秘|有道词典动态化运营引擎" aria-label="Next Post: Tetris Native揭秘|有道词典动态化运营引擎">
+            <i class="fas fa-chevron-right"></i>
+          </a>
+        
+        <ul class="post-pager blog-post-pager">
           
-            <li class="previous">
-              <a href="https://shenguojun.github.io/post/android_runtime/" data-toggle="tooltip" data-placement="top" title="深入理解Android Runtime">&larr; Previous Post</a>
+            <li class="pager-prev">
+              <a href="/post/android_runtime/" data-bs-toggle="tooltip" data-bs-placement="top" title="深入理解Android Runtime"><i class="fas fa-chevron-left"></i> Previous Post</a>
             </li>
           
+          <li class="pager-center">
+            
+
+          </li>
           
-            <li class="next">
-              <a href="https://shenguojun.github.io/post/tetris-native-overview/" data-toggle="tooltip" data-placement="top" title="Tetris Native揭秘|有道词典动态化运营引擎">Next Post &rarr;</a>
+            <li class="pager-next">
+              <a href="/post/tetris-native-overview/" data-bs-toggle="tooltip" data-bs-placement="top" title="Tetris Native揭秘|有道词典动态化运营引擎">Next Post <i class="fas fa-chevron-right"></i></a>
             </li>
           
         </ul>
@@ -1366,58 +1442,194 @@
 
       
       
+
+      
+
       
       
       
         
       
+
+      <div class="toc-wrapper" id="toc-wrapper" data-toc-mode="headings">
+  <div class="toc-panel" id="toc-panel" role="dialog" aria-label="Table of contents">
+    <div class="toc-header">
+      <span class="toc-title">Table of Contents</span>
+      <button class="toc-close" id="toc-close" aria-label="Close table of contents">&times;</button>
+    </div>
+    <nav class="toc-body"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-变量数据类型">1 变量&amp;数据类型</a>
+          <ul>
+            <li><a href="#11-初始化">1.1 初始化</a></li>
+            <li><a href="#12-final">1.2 Final</a></li>
+            <li><a href="#13-类型转换">1.3 类型转换</a></li>
+            <li><a href="#14-string">1.4 String</a></li>
+            <li><a href="#15-空安全">1.5 空安全</a></li>
+            <li><a href="#16-注释">1.6 注释</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-方法函数">2 方法函数</a>
+          <ul>
+            <li><a href="#21-具名参数named-parameters">2.1 具名参数（Named Parameters）</a></li>
+            <li><a href="#22-位置参数positional-parameters">2.2 位置参数（Positional parameters）</a></li>
+            <li><a href="#23-匿名方法">2.3 匿名方法</a></li>
+            <li><a href="#24-扩展方法">2.4 扩展方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-类">3 类</a>
+          <ul>
+            <li><a href="#31-cascade-操作符">3.1 Cascade 操作符</a></li>
+            <li><a href="#32-library引入">3.2 Library引入</a></li>
+            <li><a href="#33-可见性">3.3 可见性</a></li>
+            <li><a href="#34-构造函数">3.4 构造函数</a></li>
+            <li><a href="#35-getters--setters">3.5 Getters &amp; Setters</a></li>
+            <li><a href="#36-callable类">3.6 Callable类</a></li>
+            <li><a href="#37-操作符重载">3.7 操作符重载</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-继承">4. 继承</a>
+          <ul>
+            <li><a href="#41-covariant">4.1 covariant</a></li>
+            <li><a href="#42-接口">4.2 接口</a></li>
+            <li><a href="#43-mixins">4.3 Mixins</a></li>
+          </ul>
+        </li>
+        <li><a href="#5-异常处理">5. 异常处理</a>
+          <ul>
+            <li><a href="#51-rethrow">5.1 rethrow</a></li>
+          </ul>
+        </li>
+        <li><a href="#6-collections操作">6. Collections操作</a>
+          <ul>
+            <li><a href="#61-list">6.1 List</a></li>
+            <li><a href="#62-set">6.2 Set</a></li>
+            <li><a href="#63-map">6.3 Map</a></li>
+            <li><a href="#64-transform方法">6.4 Transform方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#7-异步">7. 异步</a>
+          <ul>
+            <li><a href="#71-futures">7.1 Futures</a></li>
+            <li><a href="#72-streams">7.2 Streams</a></li>
+            <li><a href="#73-isolates">7.3 Isolates</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></nav>
+  </div>
+  <div class="toc-backdrop" id="toc-backdrop"></div>
+</div>
 
     </div>
   </div>
 </div>
 
-      <footer>
+    
+      
+<footer>
   <div class="container">
     
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="col-md-10 offset-md-1">
         <ul class="list-inline text-center footer-links">
           
           
           
           
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
         </ul>
         <p class="credits copyright text-muted">
           
-
-          &nbsp;&bull;&nbsp;&copy;
+          &copy;
           
             2023
           
 
           
-            &nbsp;&bull;&nbsp;
-            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+            <a href="/">Lawrence&#39;s Blog</a>
           
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.147.9</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.163.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</footer>
 
-<script src="https://shenguojun.github.io/js/main.js"></script>
-<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+      
+
+      
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" integrity="sha384-Tt7wBxLKwSzFVRET4O4U9H6v8MNaQ/CjN2FMP4xFm0ErrFu6aNqoonRVW5W40iGI" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js" integrity="sha384-tcspKDb5tWvyRCOWzevlAeQgHeEzYdUHJpcgnIhcP9w4CnfD7DLAcS+k9QzLbRJO" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script><script src="/js/toc.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js" integrity="sha384-RH2xi4eIQ/gjtbs9fUXM68sLSi99C7ZWBRX1vDrVv6GQXRibxXLbwO2NGZB74MbU" crossorigin="anonymous"></script><script> hljs.highlightAll(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe.umd.min.js" integrity="sha384-k8EKyYcONphQ7zH4cQ0888JapXwrLTXQl/Ue1/jYgjVYahln1NWpnt2S4IC56LNh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe-lightbox.umd.min.js" integrity="sha384-IiBVbUz6+U+Tbm/ijO2P0XRwcVzNfrMzloNLkrqHkbi6w5H0v6ie4fI9BIO4SwdK" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
 
 
 
@@ -1431,4 +1643,3 @@
     
   </body>
 </html>
-

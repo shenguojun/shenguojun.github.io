@@ -2,8 +2,25 @@
 
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
+  <head><script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var dark = false;
+        if (saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        } else if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        }
+        var hljsDark = document.getElementById('hljs-dark');
+        if (hljsDark) {
+          hljsDark.disabled = !dark;
+        }
+      })();
+    </script>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,149 +29,213 @@
  
 
 
-      <title>如何统计Android App启动时间 - </title>
+  <title>如何统计Android App启动时间</title>
 
-  <meta name="description" content="随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：Lawrence_Shen"><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Lawrence\u0027s Blog",
-    
-    "url": "https:\/\/shenguojun.github.io\/"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/shenguojun.github.io\/"
-  
-  
-  
-  
-}
-</script>
+  <meta name="description" content="随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：Lawrence_Shen">
+
+
+
+
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/shenguojun.github.io\/",
-          "name": "home"
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://shenguojun.github.io/#website",
+      "@type": "WebSite",
+      "name": "Lawrence's Blog",
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#organization",
+      "@type": "Organization",
+      "name": null,
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/android-startup-time-analyze/#breadcrumb",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/",
+          "name": "Home",
+          "position": 1
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/",
+          "name": "Posts",
+          "position": 2
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/android-startup-time-analyze/",
+          "name": "如何统计Android App启动时间",
+          "position": 3
         }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/shenguojun.github.io\/post\/android-startup-time-analyze\/",
-          "name": "如何统计 android app启动时间"
+      ]
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/android-startup-time-analyze/#webpage",
+      "@type": "WebPage",
+      "breadcrumb": {
+        "@id": "https://shenguojun.github.io/post/android-startup-time-analyze/#breadcrumb"
+      },
+      "isPartOf": {
+        "@id": "https://shenguojun.github.io/#website"
+      },
+      "name": "如何统计Android App启动时间",
+      "url": "https://shenguojun.github.io/post/android-startup-time-analyze/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#author-%E7%94%B3%E5%9B%BD%E9%AA%8F",
+      "@type": "Person",
+      "name": "申国骏",
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/android-startup-time-analyze/#article",
+      "@type": "Article",
+      "author": [
+        {
+          "@id": "https://shenguojun.github.io/#author-%E7%94%B3%E5%9B%BD%E9%AA%8F"
         }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "申国骏"
-  },
-  "headline": "如何统计Android App启动时间",
-  "description" : "随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：Lawrence_Shen\n",
-  "inLanguage" : "en",
-  "wordCount":  3938 ,
-  "datePublished" : "2018-07-03T17:36:21\u002b08:00",
-  "dateModified" : "2018-07-03T17:36:21\u002b08:00",
-  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-  "keywords" : [ "android" ],
-  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/android-startup-time-analyze\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/shenguojun.github.io\/",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-        "height" :  60 ,
-        "width" :  60
+      ],
+      "dateCreated": "2018-07-03T17:36:21+08:00",
+      "dateModified": "2018-07-03T17:36:21+08:00",
+      "datePublished": "2018-07-03T17:36:21+08:00",
+      "description": "随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：Lawrence_Shen\n",
+      "headline": "如何统计Android App启动时间",
+      "image": "https://shenguojun.github.io/image/bugzongchai.png",
+      "inLanguage": "en",
+      "keywords": [
+        "android"
+      ],
+      "mainEntityOfPage": {
+        "@id": "https://shenguojun.github.io/post/android-startup-time-analyze/#webpage"
+      },
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "timeRequired": "PT8M",
+      "wordCount": 3938
     }
-  }
+  ]
 }
 </script>
-
-
-<meta property="og:title" content="如何统计Android App启动时间" />
-<meta property="og:description" content="随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：Lawrence_Shen">
-<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/post/android-startup-time-analyze/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Lawrence&#39;s Blog" />
-
+<meta property="og:url" content="https://shenguojun.github.io/post/android-startup-time-analyze/">
+	<meta property="og:site_name" content="Lawrence&#39;s Blog">
+	<meta property="og:title" content="如何统计Android App启动时间">
+	<meta property="og:description" content="随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：Lawrence_Shen">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="post">
+		<meta property="article:published_time" content="2018-07-03T17:36:21+08:00">
+		<meta property="article:modified_time" content="2018-07-03T17:36:21+08:00">
+		<meta property="article:tag" content="Android">
+<link rel="canonical" href="https://shenguojun.github.io/post/android-startup-time-analyze/" />
   <meta name="twitter:title" content="如何统计Android App启动时间" />
   <meta name="twitter:description" content="随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：Lawrence_Shen">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.147.9">
-  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+  <link href='/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+<meta name="generator" content="Hugo 0.163.3">
+<link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" integrity="sha384-UA8juhPf75SzzAMA/4fo3yOU7sBJ0om7SCD2GHq0fZqZco6tr1UCV7nUbk9J90JM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/brands.css" integrity="sha384-+PvcAGLOWIanfjuRoscHUyZB100N7wP779T8D3ao0FniyFFKMw9MIJpgtJO3+pdF" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/fontawesome.css" integrity="sha384-mj4mLShEAyWi4Bui9LmFkAjPYWof6WrG8DfS8ebHhjm4/MClMqMMHpQzehNk5HeM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/regular.css" integrity="sha384-eS8Ja07iO8AOH11Hzegc5aZyN8CpY+oFwClH6MIlOKUOA3J4Oqjt8Xia9VUSU0GB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/solid.css" integrity="sha384-LpGibDKKReBRP3epUOaN9WBgkrQ1pJIvrrTugkYxVQgDvYuMCRaXk6YkrZ/h3aWk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg.css" integrity="sha384-V18zH+yIEosaHAByV0h4dqHHMPzBxZ7CYz9GQ1YsLTE9QIkEme0jAw9Qir7aIFT+" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg-with-js.css" integrity="sha384-K25UPiwKhSAcEPQskU+UjXpz4iScCTNX5tcEpAGp1hQFNkOoIIwZiV69SfEfaRjK" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-font-face.css" integrity="sha384-YFnAdl87B7pW+Vhp7w9pvA8ZdBL8DQni4/++wrZ0f7o/Sc0pyThczmxZk9xLyc0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-shims.css" integrity="sha384-FnTDI00psVcN3KkfAip/6yRCeN17N3R7HZoAj+2+nttp8n1/vHfYUWvlscoUUhGJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v5-font-face.css" integrity="sha384-FUMXkSpZU/e6Ua2owr0Mktp/gtxxiK1OgCS1vDr8Lsz+gbyDFMSiKeHBRa07EjDn" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/print.css" media="print" /><link rel="stylesheet" href="/css/dark.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css" integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L" crossorigin="anonymous"><link id="hljs-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github-dark.min.css" integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH" crossorigin="anonymous"><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="/css/toc.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
 
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <nav class="navbar navbar-expand-md navbar-light navbar-custom fixed-top">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+    <a class="navbar-brand" href="/">Lawrence&#39;s Blog</a>
+    <div class="d-flex align-items-center">
+      
+      
+      
+      <button class="theme-toggle" id="toc-toggle" aria-label="Table of contents" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Table of contents">
+        <span class="fas fa-list"></span>
       </button>
-      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+      
+      
+      
+      <button class="theme-toggle" id="theme-toggle" aria-label="Theme" data-bs-toggle="tooltip" data-bs-placement="bottom" data-tooltip-auto="Auto (follows system)" data-tooltip-light="Light mode" data-tooltip-dark="Dark mode" title="Auto (follows system)">
+        <span class="fas fa-adjust" id="theme-icon-auto"></span>
+        <span class="fas fa-sun" id="theme-icon-light" style="display: none;"></span>
+        <span class="fas fa-moon" id="theme-icon-dark" style="display: none;"></span>
+      </button>
+      
+      
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
 
     <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav ms-auto">
         
           
-            <li>
-              <a title="Blog" href="/">Blog</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Blog" href="/">Blog</a>
             </li>
           
         
           
-            <li>
-              <a title="About" href="/page/about/">About</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="About" href="/page/about/">About</a>
             </li>
           
         
           
-            <li>
-              <a title="Tags" href="/tags">Tags</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Tags" href="/tags">Tags</a>
             </li>
           
         
 
-        
+          
 
         
       </ul>
+      
+
     </div>
 
     
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
-            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
-           
-          </a>
+    
+      
+        <div class="avatar-container">
+          <div class="avatar-img-border">
+            <a title="Lawrence&#39;s Blog" href="/">
+              <img class="avatar-img" src="/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+             
+            </a>
+          </div>
         </div>
-      </div>
+      
     
 
   </div>
@@ -163,59 +244,11 @@
 
 
 
+
+
+
+
     
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
 
 
 
@@ -228,35 +261,52 @@
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="col-md-10 offset-md-1">
             <div class="post-heading text-center">
+              
               
                 <h1>如何统计Android App启动时间</h1>
               
               
               
               
+
+
+              
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3938&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2018
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;8&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;3938&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
               
             </div>
@@ -265,16 +315,23 @@
       </div>
     </div>
   
+    
+
   </header>
 
 
     
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <h1>TOC</h1>
-        <nav id="TableOfContents">
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <article role="main" class="blog-post">
+          
+
+
+          
+
+          <h1>TOC</h1>
+          <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -298,8 +355,7 @@
     </li>
   </ul>
 </nav>
-
-        <p>随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：<a href="http://www.jianshu.com/u/b692bbf77991">Lawrence_Shen</a></p>
+          <p>随着App的逻辑不断庞大，一不注意就会将耗时的操作放置在应用启动过程之中，导致应用启动速度越来越慢，用户体验也越来越差。优化启动速度是几乎所有大型App应用开发者需要考虑的问题。优化启动速度之前首先需要准确测量App启动时间，这样有利于我们更准确可量化地看出优化效果，也可以指导我们进行持续优化。转载请注明出处：<a href="http://www.jianshu.com/u/b692bbf77991">Lawrence_Shen</a></p>
 <h2 id="--使用命令行方式">- 使用命令行方式</h2>
 <p>使用命令行方式统计多次启动某个Activity的平均用时可以在shell中执行如下指令：</p>
 <pre tabindex="0"><code>adb shell am start -S -R 10 -W com.example.app/.MainActivity
@@ -327,17 +383,19 @@ Complete
 <li>热启动时间：热启动表示用户在首页按了返回，首页Activity已经Destroy，不过Application仍在内存中存在，对应的进程并没有被杀掉，不包含Application创建过程。热启动时间指在Application仍然存在的情况下，从用户点击桌面图标，到首页内容全部展示出来的时间。</li>
 </ul>
 <h3 id="app启动流程">App启动流程</h3>
-<p>  要优化以及分析启动时间，需要先了解App的启动流程。以冷启动为例子，Application以及Activity的启动流程如下，参考文章<!-- raw HTML omitted -->[3][4][5][6]<!-- raw HTML omitted -->：</p>
+<p>  要优化以及分析启动时间，需要先了解App的启动流程。以冷启动为例子，Application以及Activity的启动流程如下，参考文章<sup>[3][4][5][6]</sup>：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2057980-9c537daee4ef6932.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="app启动流程"></p>
 <p>更为直观和简单的流程图参考Colt McAnlis在<a href="https://www.youtube.com/playlist?list=PLWz5rJ2EKKc-9gqRx5anfX0Ozp-qEI2CF">Android Performance Patterns Season 6</a>中的表述。有兴趣的同学可以点击链接看看（<a href="https://www.youtube.com/watch?v=Vw1G1s73DsY&amp;index=2&amp;list=PLWz5rJ2EKKc-9gqRx5anfX0Ozp-qEI2CF">Youtube链接</a>）。
 <img src="http://upload-images.jianshu.io/upload_images/2057980-54287e0984138800.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="app启动流程by Colt McAnlis"></p>
-<p>  从流程图以及参考Colt McAnlis的Android Performance Patterns<!-- raw HTML omitted -->[6]<!-- raw HTML omitted -->得知，在冷启动的过程中，首先会通过AMS在System进程展示一个Starting Window(通常情况下是个白屏，可以通过设置Application的theme修改)，接着AMS会通过Zygote创建应用程序的进程，并通过一系列的步骤后调用Application的<code>attachBaseContext()</code>、<code>onCreate()</code>然后最终调用Activity的<code>onCreate()</code>以及进行View相关的初始化工作。在Activity展示出来后会替换掉之前的Starting Window，这样启动过程结束。</p>
+<p>  从流程图以及参考Colt McAnlis的Android Performance Patterns<sup>[6]</sup>得知，在冷启动的过程中，首先会通过AMS在System进程展示一个Starting Window(通常情况下是个白屏，可以通过设置Application的theme修改)，接着AMS会通过Zygote创建应用程序的进程，并通过一系列的步骤后调用Application的<code>attachBaseContext()</code>、<code>onCreate()</code>然后最终调用Activity的<code>onCreate()</code>以及进行View相关的初始化工作。在Activity展示出来后会替换掉之前的Starting Window，这样启动过程结束。</p>
 <h3 id="如何加log">如何加log</h3>
-<p>  参考<!-- raw HTML omitted -->[1]<!-- raw HTML omitted -->发现在Activity中<code>onWindowFocusChanged()</code>方法是最好的Activity对用户可见的标志，因此综合上一节的分析，我们可以考虑在Application的<code>attachBaseContext()</code>方法中开始计算冷启动计时，然后在真正首页Activity的<code>onWindowFocusChanged()</code>中停止冷启动计时，这样就可以初步得到应用的冷启动时间。</p>
+<p>  参考<sup>[1]</sup>发现在Activity中<code>onWindowFocusChanged()</code>方法是最好的Activity对用户可见的标志，因此综合上一节的分析，我们可以考虑在Application的<code>attachBaseContext()</code>方法中开始计算冷启动计时，然后在真正首页Activity的<code>onWindowFocusChanged()</code>中停止冷启动计时，这样就可以初步得到应用的冷启动时间。</p>
 <blockquote>
-<p>public void <strong>onWindowFocusChanged</strong>(boolean hasFocus)</p></blockquote>
+<p>public void <strong>onWindowFocusChanged</strong>(boolean hasFocus)</p>
+</blockquote>
 <blockquote>
-<p>Called when the current <code>android.view.Window</code> of the activity gains or loses focus. <strong>This is the best indicator of whether this activity is visible to the user.</strong></p></blockquote>
+<p>Called when the current <code>android.view.Window</code> of the activity gains or loses focus. <strong>This is the best indicator of whether this activity is visible to the user.</strong></p>
+</blockquote>
 <p>为了方便统计，设置一个Util类专门做计时，添加的代码如下：</p>
 <pre tabindex="0"><code>/**
  * 计时统计工具类
@@ -454,7 +512,8 @@ public void onWindowFocusChanged(boolean hasFocus) {
 <p><img src="http://upload-images.jianshu.io/upload_images/2057980-872a28759fb0cb6a.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="情景详细耗时统计"></p>
 <p>至于为什么<a href="https://nimbledroid.com/">nimbledroid</a>会知道那个是我们首页的Activity，官网上解析如下：</p>
 <blockquote>
-<p>We use a heuristic to tell when an app finishes startup by detecting when (1) the main Activity has been displayed and (2) things like animated progress bars in the main Activity have stopped. Based on our experiments, this heuristic works in most cases.</p></blockquote>
+<p>We use a heuristic to tell when an app finishes startup by detecting when (1) the main Activity has been displayed and (2) things like animated progress bars in the main Activity have stopped. Based on our experiments, this heuristic works in most cases.</p>
+</blockquote>
 <p>点击进入某个方法，可以看到这个方法具体是由于调用了哪个子方法导致了耗时的问题。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2057980-4ee7efdc7c917454.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="耗时方法详细"></p>
 <p>  通过<a href="https://nimbledroid.com/">nimbledroid</a>这个工具，我们可以比较轻松地发现一些比较明显的问题，并可以指导我们进行启动优化。同时<a href="https://nimbledroid.com/">nimbledroid</a>还支持Memory Leaks、网络监测以及结果分享等一些功能，更多的功能有待读者继续发现。</p>
@@ -468,68 +527,74 @@ public void onWindowFocusChanged(boolean hasFocus) {
 <p>【5】<a href="http://my.csdn.net/Luoshengyang">罗升阳</a>，2012.<a href="http://0xcc0xcd.com/p/books/978-7-121-18108-5/index.php">Android系统源代码情景分析</a></p>
 <p>【6】<a href="https://medium.com/@duhroach">Colt McAnlis</a>，2016.<a href="https://www.youtube.com/playlist?list=PLWz5rJ2EKKc-9gqRx5anfX0Ozp-qEI2CF">Android Performance Patterns Season 6</a></p>
 
+          
+          
+
 
         
+        
           <div class="blog-tags">
-            
-              
-              <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-            
+            <span>Tags: </span>
+            <a href="/tags/android/">android</a>&nbsp;
           </div>
         
 
         
             <hr/>
             <section id="social-share">
-              <div class="list-inline footer-links">
+              <div class="footer-links">
                 
+<div class="share-box" role="region">
+    <ul class="share" aria-label="Social sharing" role="list">
+      
+      <li role="listitem">
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;text=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" target="_blank" rel="noopener noreferrer" title="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Twitter</span>
+        </a>
+      </li>
 
-<div class="share-box" aria-hidden="true">
-    <ul class="share">
       
-      <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;text=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4&amp;via=" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
+      <li role="listitem">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f" target="_blank" rel="noopener noreferrer" title="Share on Facebook">
+          <i class="fab fa-facebook" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Facebook</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
+      <li role="listitem">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;title=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" target="_blank" rel="noopener noreferrer" title="Share on Reddit">
+          <i class="fab fa-reddit" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Reddit</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;title=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
+      <li role="listitem">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;title=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on LinkedIn</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;title=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
+      <li role="listitem">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;description=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" target="_blank" rel="noopener noreferrer" title="Share on Pinterest">
+          <i class="fab fa-pinterest" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Pinterest</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;title=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;description=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
+      <li role="listitem">
+        <a href="mailto:?body=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-startup-time-analyze%2f&amp;subject=%e5%a6%82%e4%bd%95%e7%bb%9f%e8%ae%a1Android%20App%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4" title="Share via email">
+          <i class="fas fa-at" aria-hidden="true"></i>
+          <span class="visually-hidden">Share via email</span>
         </a>
       </li>
     </ul>
   </div>
-  
 
               </div>
             </section>
@@ -539,15 +604,29 @@ public void onWindowFocusChanged(boolean hasFocus) {
       </article>
 
       
-        <ul class="pager blog-pager">
+        
+          <a href="/post/my-first-post/" class="nav-side-arrow nav-side-prev" title="第一篇发布到github的博客" aria-label="Previous Post: 第一篇发布到github的博客">
+            <i class="fas fa-chevron-left"></i>
+          </a>
+        
+        
+          <a href="/post/android-startup-speedup/" class="nav-side-arrow nav-side-next" title="如何优化Androd App启动速度" aria-label="Next Post: 如何优化Androd App启动速度">
+            <i class="fas fa-chevron-right"></i>
+          </a>
+        
+        <ul class="post-pager blog-post-pager">
           
-            <li class="previous">
-              <a href="https://shenguojun.github.io/post/my-first-post/" data-toggle="tooltip" data-placement="top" title="第一篇发布到github的博客">&larr; Previous Post</a>
+            <li class="pager-prev">
+              <a href="/post/my-first-post/" data-bs-toggle="tooltip" data-bs-placement="top" title="第一篇发布到github的博客"><i class="fas fa-chevron-left"></i> Previous Post</a>
             </li>
           
+          <li class="pager-center">
+            
+
+          </li>
           
-            <li class="next">
-              <a href="https://shenguojun.github.io/post/android-startup-speedup/" data-toggle="tooltip" data-placement="top" title="如何优化Androd App启动速度">Next Post &rarr;</a>
+            <li class="pager-next">
+              <a href="/post/android-startup-speedup/" data-bs-toggle="tooltip" data-bs-placement="top" title="如何优化Androd App启动速度">Next Post <i class="fas fa-chevron-right"></i></a>
             </li>
           
         </ul>
@@ -556,58 +635,153 @@ public void onWindowFocusChanged(boolean hasFocus) {
 
       
       
+
+      
+
       
       
       
         
       
+
+      <div class="toc-wrapper" id="toc-wrapper" data-toc-mode="headings">
+  <div class="toc-panel" id="toc-panel" role="dialog" aria-label="Table of contents">
+    <div class="toc-header">
+      <span class="toc-title">Table of Contents</span>
+      <button class="toc-close" id="toc-close" aria-label="Close table of contents">&times;</button>
+    </div>
+    <nav class="toc-body"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#--使用命令行方式">- 使用命令行方式</a>
+          <ul>
+            <li><a href="#缺点">缺点</a></li>
+          </ul>
+        </li>
+        <li><a href="#-思考更准确的方式">-思考更准确的方式</a>
+          <ul>
+            <li><a href="#冷启动热启动注意不是官方的定义是我们从用户角度考虑的定义">冷启动、热启动（注意不是官方的定义，是我们从用户角度考虑的定义）</a></li>
+            <li><a href="#app启动流程">App启动流程</a></li>
+            <li><a href="#如何加log">如何加log</a></li>
+            <li><a href="#避免坑的checklist">避免坑的Checklist</a></li>
+          </ul>
+        </li>
+        <li><a href="#--使用第三方工具">- 使用第三方工具</a></li>
+        <li><a href="#--后记">- 后记</a></li>
+        <li><a href="#--参考">- 参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></nav>
+  </div>
+  <div class="toc-backdrop" id="toc-backdrop"></div>
+</div>
 
     </div>
   </div>
 </div>
 
-      <footer>
+    
+      
+<footer>
   <div class="container">
     
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="col-md-10 offset-md-1">
         <ul class="list-inline text-center footer-links">
           
           
           
           
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
         </ul>
         <p class="credits copyright text-muted">
           
-
-          &nbsp;&bull;&nbsp;&copy;
+          &copy;
           
             2023
           
 
           
-            &nbsp;&bull;&nbsp;
-            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+            <a href="/">Lawrence&#39;s Blog</a>
           
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.147.9</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.163.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</footer>
 
-<script src="https://shenguojun.github.io/js/main.js"></script>
-<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+      
+
+      
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" integrity="sha384-Tt7wBxLKwSzFVRET4O4U9H6v8MNaQ/CjN2FMP4xFm0ErrFu6aNqoonRVW5W40iGI" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js" integrity="sha384-tcspKDb5tWvyRCOWzevlAeQgHeEzYdUHJpcgnIhcP9w4CnfD7DLAcS+k9QzLbRJO" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script><script src="/js/toc.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js" integrity="sha384-RH2xi4eIQ/gjtbs9fUXM68sLSi99C7ZWBRX1vDrVv6GQXRibxXLbwO2NGZB74MbU" crossorigin="anonymous"></script><script> hljs.highlightAll(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe.umd.min.js" integrity="sha384-k8EKyYcONphQ7zH4cQ0888JapXwrLTXQl/Ue1/jYgjVYahln1NWpnt2S4IC56LNh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe-lightbox.umd.min.js" integrity="sha384-IiBVbUz6+U+Tbm/ijO2P0XRwcVzNfrMzloNLkrqHkbi6w5H0v6ie4fI9BIO4SwdK" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
 
 
 
@@ -621,4 +795,3 @@ public void onWindowFocusChanged(boolean hasFocus) {
     
   </body>
 </html>
-

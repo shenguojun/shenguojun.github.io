@@ -2,8 +2,25 @@
 
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
+  <head><script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var dark = false;
+        if (saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        } else if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        }
+        var hljsDark = document.getElementById('hljs-dark');
+        if (hljsDark) {
+          hljsDark.disabled = !dark;
+        }
+      })();
+    </script>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,155 +29,217 @@
  
 
 
-      <title>Android深色模式适配原理分析 - </title>
+  <title>Android深色模式适配原理分析</title>
 
   <meta name="description" content="
 背景
-从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源「申国骏」"><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Lawrence\u0027s Blog",
-    
-    "url": "https:\/\/shenguojun.github.io\/"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/shenguojun.github.io\/"
-  
-  
-  
-  
-}
-</script>
+从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源「申国骏」">
+
+
+
+
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/shenguojun.github.io\/",
-          "name": "home"
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://shenguojun.github.io/#website",
+      "@type": "WebSite",
+      "name": "Lawrence's Blog",
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#organization",
+      "@type": "Organization",
+      "name": null,
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/android-dark-mode/#breadcrumb",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/",
+          "name": "Home",
+          "position": 1
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/",
+          "name": "Posts",
+          "position": 2
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/android-dark-mode/",
+          "name": "Android深色模式适配原理分析",
+          "position": 3
         }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/shenguojun.github.io\/post\/android-dark-mode\/",
-          "name": "Android深色模式适配原理分析"
+      ]
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/android-dark-mode/#webpage",
+      "@type": "WebPage",
+      "breadcrumb": {
+        "@id": "https://shenguojun.github.io/post/android-dark-mode/#breadcrumb"
+      },
+      "isPartOf": {
+        "@id": "https://shenguojun.github.io/#website"
+      },
+      "name": "Android深色模式适配原理分析",
+      "url": "https://shenguojun.github.io/post/android-dark-mode/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#author-%E7%94%B3%E5%9B%BD%E9%AA%8F",
+      "@type": "Person",
+      "name": "申国骏",
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/android-dark-mode/#article",
+      "@type": "Article",
+      "author": [
+        {
+          "@id": "https://shenguojun.github.io/#author-%E7%94%B3%E5%9B%BD%E9%AA%8F"
         }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "申国骏"
-  },
-  "headline": "Android深色模式适配原理分析",
-  "description" : "\n背景 从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源「申国骏」\n",
-  "inLanguage" : "en",
-  "wordCount":  10958 ,
-  "datePublished" : "2020-10-12T13:06:52\u002b08:00",
-  "dateModified" : "2020-10-12T13:06:52\u002b08:00",
-  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-  "keywords" : [ "android" ],
-  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/android-dark-mode\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/shenguojun.github.io\/",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-        "height" :  60 ,
-        "width" :  60
+      ],
+      "dateCreated": "2020-10-12T13:06:52+08:00",
+      "dateModified": "2020-10-12T13:06:52+08:00",
+      "datePublished": "2020-10-12T13:06:52+08:00",
+      "description": "\n背景 从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源「申国骏」\n",
+      "headline": "Android深色模式适配原理分析",
+      "image": "https://shenguojun.github.io/image/bugzongchai.png",
+      "inLanguage": "en",
+      "keywords": [
+        "android"
+      ],
+      "mainEntityOfPage": {
+        "@id": "https://shenguojun.github.io/post/android-dark-mode/#webpage"
+      },
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "timeRequired": "PT22M",
+      "wordCount": 10958
     }
-  }
+  ]
 }
 </script>
-
-
-<meta property="og:title" content="Android深色模式适配原理分析" />
-<meta property="og:description" content="
-背景
-从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源「申国骏」">
-<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/post/android-dark-mode/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Lawrence&#39;s Blog" />
-
+<meta property="og:url" content="https://shenguojun.github.io/post/android-dark-mode/">
+	<meta property="og:site_name" content="Lawrence&#39;s Blog">
+	<meta property="og:title" content="Android深色模式适配原理分析">
+	<meta property="og:description" content="背景 从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源「申国骏」">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="post">
+		<meta property="article:published_time" content="2020-10-12T13:06:52+08:00">
+		<meta property="article:modified_time" content="2020-10-12T13:06:52+08:00">
+		<meta property="article:tag" content="Android">
+<link rel="canonical" href="https://shenguojun.github.io/post/android-dark-mode/" />
   <meta name="twitter:title" content="Android深色模式适配原理分析" />
   <meta name="twitter:description" content="
 背景
 从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的 …">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.147.9">
-  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+  <link href='/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+<meta name="generator" content="Hugo 0.163.3">
+<link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" integrity="sha384-UA8juhPf75SzzAMA/4fo3yOU7sBJ0om7SCD2GHq0fZqZco6tr1UCV7nUbk9J90JM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/brands.css" integrity="sha384-+PvcAGLOWIanfjuRoscHUyZB100N7wP779T8D3ao0FniyFFKMw9MIJpgtJO3+pdF" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/fontawesome.css" integrity="sha384-mj4mLShEAyWi4Bui9LmFkAjPYWof6WrG8DfS8ebHhjm4/MClMqMMHpQzehNk5HeM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/regular.css" integrity="sha384-eS8Ja07iO8AOH11Hzegc5aZyN8CpY+oFwClH6MIlOKUOA3J4Oqjt8Xia9VUSU0GB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/solid.css" integrity="sha384-LpGibDKKReBRP3epUOaN9WBgkrQ1pJIvrrTugkYxVQgDvYuMCRaXk6YkrZ/h3aWk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg.css" integrity="sha384-V18zH+yIEosaHAByV0h4dqHHMPzBxZ7CYz9GQ1YsLTE9QIkEme0jAw9Qir7aIFT+" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg-with-js.css" integrity="sha384-K25UPiwKhSAcEPQskU+UjXpz4iScCTNX5tcEpAGp1hQFNkOoIIwZiV69SfEfaRjK" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-font-face.css" integrity="sha384-YFnAdl87B7pW+Vhp7w9pvA8ZdBL8DQni4/++wrZ0f7o/Sc0pyThczmxZk9xLyc0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-shims.css" integrity="sha384-FnTDI00psVcN3KkfAip/6yRCeN17N3R7HZoAj+2+nttp8n1/vHfYUWvlscoUUhGJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v5-font-face.css" integrity="sha384-FUMXkSpZU/e6Ua2owr0Mktp/gtxxiK1OgCS1vDr8Lsz+gbyDFMSiKeHBRa07EjDn" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/print.css" media="print" /><link rel="stylesheet" href="/css/dark.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css" integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L" crossorigin="anonymous"><link id="hljs-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github-dark.min.css" integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH" crossorigin="anonymous"><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="/css/toc.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
 
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <nav class="navbar navbar-expand-md navbar-light navbar-custom fixed-top">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+    <a class="navbar-brand" href="/">Lawrence&#39;s Blog</a>
+    <div class="d-flex align-items-center">
+      
+      
+      
+      <button class="theme-toggle" id="toc-toggle" aria-label="Table of contents" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Table of contents">
+        <span class="fas fa-list"></span>
       </button>
-      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+      
+      
+      
+      <button class="theme-toggle" id="theme-toggle" aria-label="Theme" data-bs-toggle="tooltip" data-bs-placement="bottom" data-tooltip-auto="Auto (follows system)" data-tooltip-light="Light mode" data-tooltip-dark="Dark mode" title="Auto (follows system)">
+        <span class="fas fa-adjust" id="theme-icon-auto"></span>
+        <span class="fas fa-sun" id="theme-icon-light" style="display: none;"></span>
+        <span class="fas fa-moon" id="theme-icon-dark" style="display: none;"></span>
+      </button>
+      
+      
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
 
     <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav ms-auto">
         
           
-            <li>
-              <a title="Blog" href="/">Blog</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Blog" href="/">Blog</a>
             </li>
           
         
           
-            <li>
-              <a title="About" href="/page/about/">About</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="About" href="/page/about/">About</a>
             </li>
           
         
           
-            <li>
-              <a title="Tags" href="/tags">Tags</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Tags" href="/tags">Tags</a>
             </li>
           
         
 
-        
+          
 
         
       </ul>
+      
+
     </div>
 
     
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
-            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
-           
-          </a>
+    
+      
+        <div class="avatar-container">
+          <div class="avatar-img-border">
+            <a title="Lawrence&#39;s Blog" href="/">
+              <img class="avatar-img" src="/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+             
+            </a>
+          </div>
         </div>
-      </div>
+      
     
 
   </div>
@@ -169,59 +248,11 @@
 
 
 
+
+
+
+
     
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
 
 
 
@@ -234,35 +265,52 @@
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="col-md-10 offset-md-1">
             <div class="post-heading text-center">
+              
               
                 <h1>Android深色模式适配原理分析</h1>
               
               
               
               
+
+
+              
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on October 12, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;22&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;10958&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on October 12, 2020
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;22&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;10958&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
               
             </div>
@@ -271,16 +319,23 @@
       </div>
     </div>
   
+    
+
   </header>
 
 
     
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <h1>TOC</h1>
-        <nav id="TableOfContents">
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <article role="main" class="blog-post">
+          
+
+
+          
+
+          <h1>TOC</h1>
+          <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -306,8 +361,7 @@
     </li>
   </ul>
 </nav>
-
-        <p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/dark-mode-hot-take.png" alt="Dark Mode"></p>
+          <p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/dark-mode-hot-take.png" alt="Dark Mode"></p>
 <h2 id="背景">背景</h2>
 <p>从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「申国骏」</a></p>
 <p>深色模式在安卓上可以分为以下四种场景：</p>
@@ -329,8 +383,8 @@
 <h2 id="资源配置限定符">资源配置限定符</h2>
 <p>我们常见的需要设置的资源有<code>drawable</code>、<code>layout</code>、<code>mipmap</code>和<code>values</code>等，对于这些资源，我们可以用一些限定符来表示提供一些备用资源，例如<code>drawable-xhdpi</code>表示超密度屏幕使用的资源，或者<code>layout-land</code>表示横向状态使用的布局。</p>
 <p>同样的深色模式可以使用资源的限定符<code>-night</code>来表示在深色模式中使用的资源。如下图所示：</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20200908154537790.png" alt="image-20200908154537790" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20200908154603960.png" alt="image-20200908154603960" style="zoom:50%;" />
 <p>使用了<code>-night</code>限定符的文件夹里面的资源我们称为<code>night</code>资源，没有使用<code>-night</code>限定符的资源我们称为<code>notnight</code>资源。</p>
 <p>其中<code>drawable-night-xhdpi</code>可以放置对应超密度屏幕使用的深色模式的图片，<code>values-night</code>可以声明对应深色模式使用的色值和主题。</p>
 <p>所有的资源限定符定义以及添加的顺序（例如<code>-night</code>必须在<code>-xhdpi</code>之前）可查看<a href="https://developer.android.com/guide/topics/resources/providing-resources">应用资源概览</a>中的<a href="https://developer.android.com/guide/topics/resources/providing-resources#QualifierRules">配置限定符名称表</a>。</p>
@@ -366,7 +420,7 @@
 </ul>
 <h3 id="模式设置">模式设置</h3>
 <p>深色模式设置可以从三个层级设置，分别是系统层、Applcation层以及Activity层。底层的设置会覆盖上层的设置，例如系统设置了深色模式，但是Application设置了浅色模式，那么应用会显示浅色主题。</p>
-<!-- raw HTML omitted -->
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1*2W_EKdaBH1NQZmIc58eQDA.png" alt="Image for post" style="zoom: 67%;" />
 <p>系统层是指系统设置中，根据不同产商的手机，可以在设置-&gt;显示中修改系统为深色模式。</p>
 <p>Application层通过<code>AppCompatDelegate.setDefaultNightMode()</code>设置深色模式。</p>
 <p>Activity层通过<a href="https://developer.android.com/reference/androidx/appcompat/app/AppCompatDelegate.html#setLocalNightMode(int)">getDelegate().setLocalNightMode()</a>设置深色模式。</p>
@@ -392,7 +446,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;setDefaultNightMode() called with an unknown mode&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>从源码可以看出设置 <a href="https://developer.android.com/reference/androidx/appcompat/app/AppCompatDelegate#MODE_NIGHT_UNSPECIFIED">MODE_NIGHT_UNSPECIFIED</a> 模式是不会生效的。</p>
 <p><em>Tips：注意，深色模式变化会导致Activity重建。</em></p>
 <h2 id="适配方案">适配方案</h2>
@@ -492,7 +546,7 @@
 <h4 id="2-色值">2. 色值</h4>
 <h5 id="主题切换颜色">主题切换颜色</h5>
 <p>除了定义不同模式使用不同的主题，我们还可以对主题设置自定义的色值。在设置主题色值之前，我们先了解一下Android主题的颜色系统。</p>
-<!-- raw HTML omitted -->
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/k6WO1fd7T40A9JvSVfHqs0CPLFyTEDCecsVGxEDhOaTP0wUTPYOVVkxt60hKxBprgNoMqs8OyKqtlaQ4tDBtQJs-fTcZrpZEjxhUVQ=w1064-v0.png" alt="Diagram of Material color scheme displaying the baseline Material color theme" style="zoom: 67%;" />
 <ul>
 <li>colorPrimary：主要品牌颜色，一般用于ActionBar背景</li>
 <li>colorPrimaryDark：默认用于顶部状态栏和底部导航栏</li>
@@ -552,8 +606,8 @@
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;solid</span> <span class="na">android:color=</span><span class="s">&#34;@color/color_bg_1&#34;</span> <span class="nt">/&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/shape&gt;</span>
 </span></span></code></pre></div><p>这样这个文字就会在深色模式中展示为黑底白字，在非深色模式中展示为白底黑字。</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20200909170254174.png" alt="image-20200909170254174" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20200909170222408.png" alt="image-20200909170222408" style="zoom: 50%;" />
 <h5 id="动态设置颜色">动态设置颜色</h5>
 <p>如果需要代码设置颜色，如果色值已经设置过<code>notnight</code>和<code>night</code>两份，那么直接设置颜色就可以得到深色模式变色效果。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="n">auto_color_text</span><span class="p">.</span><span class="n">setTextColor</span><span class="p">(</span><span class="nc">ContextCompat</span><span class="p">.</span><span class="n">getColor</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nc">R</span><span class="p">.</span><span class="n">color</span><span class="p">.</span><span class="n">color_text_0</span><span class="p">))</span>
@@ -566,7 +620,7 @@
 </span></span></code></pre></div><h4 id="3-图片动画">3. 图片&amp;动画</h4>
 <h5 id="普通图片gif图片">普通图片&amp;Gif图片</h5>
 <p>将图片分为明亮模式和深色模式两份，分别放置在<code>drawable-night-xxx</code>以及<code>drawable-xxx</code>文件夹中，并在view中直接使用即可，当深色模式切换时，会使用对应深色模式的资源。如下图所示：</p>
-<!-- raw HTML omitted -->
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20200910101322619.png" alt="image-20200910101322619" style="zoom:50%;" />
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;ImageView</span> <span class="na">android:src=</span><span class="s">&#34;@drawable/round_fingerprint&#34;</span> <span class="nt">/&gt;</span>
 </span></span></code></pre></div><h5 id="vector图片">Vector图片</h5>
 <p>在Vector资源定义时，通过指定画笔颜色来实现对深色模式的适配，例如：</p>
@@ -583,8 +637,8 @@
 </span></span></code></pre></div><p>其中<code>android:tint</code>为叠加颜色，<code>@color/color_light</code>已经分别定义好了<code>notnight</code>和<code>night</code>的色值。</p>
 <h5 id="lottie">Lottie</h5>
 <p>对于<a href="http://airbnb.io/lottie/#/README">Lottie</a>动画，我们可以使用Lottie的<a href="http://airbnb.io/lottie/#/android?id=dynamic-properties">Dynamic Properties</a>特性来针对深色模式进行颜色变化。例如我们有以下两个动画，左边是由颜色填充的机器人，右边是由描边生成的正在播放动画，我们可以调用<code>LottieAnimationView.resolveKeyPath()</code>方法获取动画的路径。</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20200910152855484.png" alt="image-20200910152855484" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/image-20200910152923192.png" alt="image-20200910152923192" style="zoom:67%;" />
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addLottieOnCompositionLoadedListener</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">resolveKeyPath</span><span class="p">(</span><span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;**&#34;</span><span class="p">)).</span><span class="n">forEach</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nc">Log</span><span class="p">.</span><span class="n">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span> <span class="k">it</span><span class="p">.</span><span class="n">keysToString</span><span class="p">())</span>
@@ -635,26 +689,26 @@
 </code></pre><p>我们抽取其中的某些形状来动态改变颜色，例如我们抽取左右手臂以及机器小人身上的T恤</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">setupValueCallbacks</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 机器人右手臂
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">val</span> <span class="py">rightArm</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;RightArm&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 6&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">rightArm</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;RightArm&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 6&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 机器人左手臂
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">val</span> <span class="py">leftArm</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;LeftArmWave&#34;</span><span class="p">,</span> <span class="s2">&#34;LeftArm&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 6&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">leftArm</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;LeftArmWave&#34;</span><span class="p">,</span> <span class="s2">&#34;LeftArm&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 6&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 机器人T恤
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">val</span> <span class="py">shirt</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;Shirt&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 5&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">shirt</span> <span class="p">=</span> <span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;Shirt&#34;</span><span class="p">,</span> <span class="s2">&#34;Group 5&#34;</span><span class="p">,</span> <span class="s2">&#34;Fill 1&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 设置右手臂颜色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">rightArm</span><span class="p">,</span> <span class="nc">LottieProperty</span><span class="p">.</span><span class="n">COLOR</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">rightArm</span><span class="p">,</span> <span class="nc">LottieProperty</span><span class="p">.</span><span class="n">COLOR</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nc">ContextCompat</span><span class="p">.</span><span class="n">getColor</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nc">R</span><span class="p">.</span><span class="n">color</span><span class="p">.</span><span class="n">color_main_1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 设置左手臂颜色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">shirt</span><span class="p">,</span> <span class="nc">LottieProperty</span><span class="p">.</span><span class="n">COLOR</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">shirt</span><span class="p">,</span> <span class="nc">LottieProperty</span><span class="p">.</span><span class="n">COLOR</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nc">ContextCompat</span><span class="p">.</span><span class="n">getColor</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nc">R</span><span class="p">.</span><span class="n">color</span><span class="p">.</span><span class="n">color_light</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 设置T恤颜色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">leftArm</span><span class="p">,</span> <span class="nc">LottieProperty</span><span class="p">.</span><span class="n">COLOR</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">lottie_android_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">leftArm</span><span class="p">,</span> <span class="nc">LottieProperty</span><span class="p">.</span><span class="n">COLOR</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nc">ContextCompat</span><span class="p">.</span><span class="n">getColor</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nc">R</span><span class="p">.</span><span class="n">color</span><span class="p">.</span><span class="n">color_custom</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">        <span class="c1">// 播放动画描边颜色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">lottie_playing_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;**&#34;</span><span class="p">),</span> <span class="nc">LottieProperty</span><span class="p">.</span><span class="n">STROKE_COLOR</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">lottie_playing_animate</span><span class="p">.</span><span class="n">addValueCallback</span><span class="p">(</span><span class="n">KeyPath</span><span class="p">(</span><span class="s2">&#34;**&#34;</span><span class="p">),</span> <span class="nc">LottieProperty</span><span class="p">.</span><span class="n">STROKE_COLOR</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nc">ContextCompat</span><span class="p">.</span><span class="n">getColor</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nc">R</span><span class="p">.</span><span class="n">color</span><span class="p">.</span><span class="n">color_text_0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -710,7 +764,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// TODO: Don&#39;t require regenerating all display lists to apply this setting</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">invalidateWorld</span><span class="p">(</span><span class="n">mView</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>而这个方法正式在<code>ViewRootImpl.enableHardwareAcceleration()</code>方法中调用的，因此可以得到第一个结论：<strong>强制深色模式只在硬件加速下生效</strong>。由于<code>userAutoDark</code>变量会判断当前主题是否为浅色，因此可以得到第二个结论：<strong>强制深色模式只在浅色主题下生效</strong>。直到这一步的调用链如下：</p>
 <p><img src="https://github.com/shenguojun/ImageServer/blob/master/uPic/image-20201012103035909.png?raw=true" alt="image-20201012103035909.png"></p>
 <p><code>mAttachInfo.mThreadedRenderer</code>为<code>ThreadRenderer</code>，继承自<code>HardwareRenderer</code>，指定了接下来的渲染操作由RanderThread执行。继续跟踪<code>setForceDark()</code>方法：</p>
@@ -724,15 +778,15 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">native</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">nSetForceDark</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">nativeProxy</span><span class="p">,</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">enabled</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">native</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">nSetForceDark</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">nativeProxy</span><span class="p">,</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">enabled</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div><p>查找<code>nSetForceDark()</code>方法</p>
 <p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/jni/android_graphics_HardwareRenderer.cpp?q=nSetForceDark&amp;ss=android%2Fplatform%2Fsuperproject">frameworks/base/libs/hwui/jni/android_graphics_HardwareRenderer.cpp</a></strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="n">JNINativeMethod</span> <span class="n">gMethods</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">// ... 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 在Android Runtime启动时，通过JNI动态注册
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span> <span class="s">&#34;nSetForceDark&#34;</span><span class="p">,</span> <span class="s">&#34;(JZ)V&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">android_view_ThreadedRenderer_setForceDark</span> <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 在Android Runtime启动时，通过JNI动态注册
+</span></span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="s">&#34;nSetForceDark&#34;</span><span class="p">,</span> <span class="s">&#34;(JZ)V&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">android_view_ThreadedRenderer_setForceDark</span> <span class="p">},</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="s">&#34;preload&#34;</span><span class="p">,</span> <span class="s">&#34;()V&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">android_view_ThreadedRenderer_preload</span> <span class="p">},</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>查找<code>android_view_ThreadedRenderer_setForceDark()</code>方法</p>
@@ -741,18 +795,18 @@
 </span></span><span class="line"><span class="cl">        <span class="n">jlong</span> <span class="n">proxyPtr</span><span class="p">,</span> <span class="n">jboolean</span> <span class="n">enable</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">RenderProxy</span><span class="o">*</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">RenderProxy</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">proxyPtr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 调用RenderProxy的setForceDark方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">proxy</span><span class="o">-&gt;</span><span class="n">setForceDark</span><span class="p">(</span><span class="n">enable</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">proxy</span><span class="o">-&gt;</span><span class="n">setForceDark</span><span class="p">(</span><span class="n">enable</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/renderthread/RenderProxy.cpp;drc=master;bpv=1;bpt=1;l=308">frameworks/base/libs/hwui/renderthread/RenderProxy.cpp</a></strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">RenderProxy</span><span class="o">::</span><span class="n">setForceDark</span><span class="p">(</span><span class="kt">bool</span> <span class="n">enable</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">// 调用CanvasContext的setForceDark方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">mRenderThread</span><span class="p">.</span><span class="n">queue</span><span class="p">().</span><span class="n">post</span><span class="p">([</span><span class="k">this</span><span class="p">,</span> <span class="n">enable</span><span class="p">]()</span> <span class="p">{</span> <span class="n">mContext</span><span class="o">-&gt;</span><span class="n">setForceDark</span><span class="p">(</span><span class="n">enable</span><span class="p">);</span> <span class="p">});</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">mRenderThread</span><span class="p">.</span><span class="n">queue</span><span class="p">().</span><span class="n">post</span><span class="p">([</span><span class="k">this</span><span class="p">,</span> <span class="n">enable</span><span class="p">]()</span> <span class="p">{</span> <span class="n">mContext</span><span class="o">-&gt;</span><span class="n">setForceDark</span><span class="p">(</span><span class="n">enable</span><span class="p">);</span> <span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/renderthread/CanvasContext.h;drc=master;bpv=1;bpt=1;l=189">frameworks/base/libs/hwui/renderthread/CanvasContext.h</a></strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Force Dark的默认值是false
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="n">mUseForceDark</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">mUseForceDark</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 设置mUseForceDark标志
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">setForceDark</span><span class="p">(</span><span class="kt">bool</span> <span class="n">enable</span><span class="p">)</span> <span class="p">{</span> <span class="n">mUseForceDark</span> <span class="o">=</span> <span class="n">enable</span><span class="p">;</span> <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">setForceDark</span><span class="p">(</span><span class="kt">bool</span> <span class="n">enable</span><span class="p">)</span> <span class="p">{</span> <span class="n">mUseForceDark</span> <span class="o">=</span> <span class="n">enable</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">useForceDark</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">mUseForceDark</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -763,7 +817,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">,</span> <span class="n">prepareTextures</span><span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_FULL</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">,</span> <span class="n">canvasContext</span><span class="p">(</span><span class="n">canvasContext</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 设置disableForceDark变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">,</span> <span class="n">disableForceDark</span><span class="p">(</span><span class="n">canvasContext</span><span class="p">.</span><span class="n">useForceDark</span><span class="p">()</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">,</span> <span class="n">disableForceDark</span><span class="p">(</span><span class="n">canvasContext</span><span class="p">.</span><span class="n">useForceDark</span><span class="p">()</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">,</span> <span class="n">screenSize</span><span class="p">(</span><span class="n">canvasContext</span><span class="p">.</span><span class="n">getNextFrameSize</span><span class="p">())</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span>  <span class="c1">// namespace android::uirenderer
@@ -771,26 +825,26 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TreeInfo</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">disableForceDark</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">disableForceDark</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>到了这里，可以看出，当设置了Force Dark之后，最终会设置到<code>TreeInfo</code>类中的<code>disableForceDark</code>变量，如果没有设置主题的Force Dark，那么根据false的默认值，<code>disableForceDark</code>变量会别设置成1，如果设置了使用强制深色模式，那么<code>disableForceDark</code>会变成0。</p>
 <p>这个变量最终会用在RenderNode的<code>RenderNode.handleForceDark()</code>过程中，到达的流程如下图：</p>
 <p><img src="https://github.com/shenguojun/ImageServer/blob/master/uPic/image-20201012103247032.png?raw=true" alt="image-20201012103247032.png"></p>
 <p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/RenderNode.cpp;l=235;drc=master;bpv=0;bpt=1">frameworks/base/libs/hwui/RenderNode.cpp</a></strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">RenderNode</span><span class="o">::</span><span class="n">prepareTreeImpl</span><span class="p">(</span><span class="n">TreeObserver</span><span class="o">&amp;</span> <span class="n">observer</span><span class="p">,</span> <span class="n">TreeInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">functorsNeedLayer</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 同步正在处理的RenderNode Property变化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">TreeInfo</span><span class="o">::</span><span class="n">MODE_FULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 同步正在处理的RenderNode Property变化
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">TreeInfo</span><span class="o">::</span><span class="n">MODE_FULL</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">pushStagingPropertiesChanges</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 如果当前View不允许被ForceDark，那么info.disableForceDark值+1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mProperties</span><span class="p">.</span><span class="n">getAllowForceDark</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mProperties</span><span class="p">.</span><span class="n">getAllowForceDark</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">info</span><span class="p">.</span><span class="n">disableForceDark</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 同步正在处理的Render Node的Display List，实现具体深色的逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">TreeInfo</span><span class="o">::</span><span class="n">MODE_FULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 同步正在处理的Render Node的Display List，实现具体深色的逻辑
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">TreeInfo</span><span class="o">::</span><span class="n">MODE_FULL</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">pushStagingDisplayListChanges</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="n">info</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -801,13 +855,13 @@
 </span></span><span class="line"><span class="cl">                <span class="p">[](</span><span class="n">RenderNode</span><span class="o">*</span> <span class="n">child</span><span class="p">,</span> <span class="n">TreeObserver</span><span class="o">&amp;</span> <span class="n">observer</span><span class="p">,</span> <span class="n">TreeInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                   <span class="kt">bool</span> <span class="n">functorsNeedLayer</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                    <span class="c1">// 递归调用子节点的prepareTreeImpl。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">// 递归调用之前，若父节点不允许强制深色模式，disableForceDark已经不为0，
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">//     子节点再设置允许强制深色模式不会使得disableForceDark的值减少，
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">//     因此有第三个规则：父节点设置了不允许深色模式，子节点再设置允许深色模式无效。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">// 同样的，递归调用之前，若父节点允许深色模式，disableForceDark为0，
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">//     子节点再设置不允许强制深色模式，则disableForceDark值还是会++，不为0
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">//     因此有第四个规则：子节点设置不允许强制深色模式不受父节点设置允许强制深色模式影响。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="n">child</span><span class="o">-&gt;</span><span class="n">prepareTreeImpl</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">functorsNeedLayer</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">                    <span class="c1">// 递归调用之前，若父节点不允许强制深色模式，disableForceDark已经不为0，
+</span></span></span><span class="line"><span class="cl">                    <span class="c1">//     子节点再设置允许强制深色模式不会使得disableForceDark的值减少，
+</span></span></span><span class="line"><span class="cl">                    <span class="c1">//     因此有第三个规则：父节点设置了不允许深色模式，子节点再设置允许深色模式无效。
+</span></span></span><span class="line"><span class="cl">                    <span class="c1">// 同样的，递归调用之前，若父节点允许深色模式，disableForceDark为0，
+</span></span></span><span class="line"><span class="cl">                    <span class="c1">//     子节点再设置不允许强制深色模式，则disableForceDark值还是会++，不为0
+</span></span></span><span class="line"><span class="cl">                    <span class="c1">//     因此有第四个规则：子节点设置不允许强制深色模式不受父节点设置允许强制深色模式影响。
+</span></span></span><span class="line"><span class="cl">                    <span class="n">child</span><span class="o">-&gt;</span><span class="n">prepareTreeImpl</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">functorsNeedLayer</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">                <span class="p">});</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">isDirty</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">damageSelf</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
@@ -815,7 +869,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="n">pushLayerUpdate</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 递归结束后将之前设置过+1的值做回退-1恢复操作，避免影响其他兄弟结点的深色模式值判断
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mProperties</span><span class="p">.</span><span class="n">getAllowForceDark</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mProperties</span><span class="p">.</span><span class="n">getAllowForceDark</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">info</span><span class="p">.</span><span class="n">disableForceDark</span><span class="o">--</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="n">info</span><span class="p">.</span><span class="n">damageAccumulator</span><span class="o">-&gt;</span><span class="n">popTransform</span><span class="p">();</span>
@@ -823,38 +877,38 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">RenderNode</span><span class="o">::</span><span class="n">pushStagingDisplayListChanges</span><span class="p">(</span><span class="n">TreeObserver</span><span class="o">&amp;</span> <span class="n">observer</span><span class="p">,</span> <span class="n">TreeInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 同步DisplayList
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">syncDisplayList</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">info</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 同步DisplayList
+</span></span></span><span class="line"><span class="cl">    <span class="n">syncDisplayList</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">info</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">RenderNode</span><span class="o">::</span><span class="n">syncDisplayList</span><span class="p">(</span><span class="n">TreeObserver</span><span class="o">&amp;</span> <span class="n">observer</span><span class="p">,</span> <span class="n">TreeInfo</span><span class="o">*</span> <span class="n">info</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">mDisplayList</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">mDisplayList</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">WebViewSyncData</span> <span class="n">syncData</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// 设置WebViewSyncData的applyForceDark
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">.</span><span class="n">applyForceDark</span> <span class="o">=</span> <span class="n">info</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">disableForceDark</span>
+</span></span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">applyForceDark</span> <span class="o">=</span> <span class="n">info</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">disableForceDark</span>
 </span></span><span class="line"><span class="cl">        <span class="p">};</span>
 </span></span><span class="line"><span class="cl">        <span class="n">mDisplayList</span><span class="o">-&gt;</span><span class="n">syncContents</span><span class="p">(</span><span class="n">syncData</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 强制执行深色模式执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">handleForceDark</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">handleForceDark</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">RenderNode</span><span class="o">::</span><span class="n">handleForceDark</span><span class="p">(</span><span class="n">android</span><span class="o">::</span><span class="n">uirenderer</span><span class="o">::</span><span class="n">TreeInfo</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">CC_LIKELY</span><span class="p">(</span><span class="o">!</span><span class="n">info</span> <span class="o">||</span> <span class="n">info</span><span class="o">-&gt;</span><span class="n">disableForceDark</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 如果disableForceDark不为0，关闭强制深色模式，则直接返回
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">usageHint</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">children</span> <span class="o">=</span> <span class="n">mDisplayList</span><span class="o">-&gt;</span><span class="n">mChildNodes</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 如果有文字表示是前景策略
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">mDisplayList</span><span class="o">-&gt;</span><span class="n">hasText</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">mDisplayList</span><span class="o">-&gt;</span><span class="n">hasText</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">usage</span> <span class="o">=</span> <span class="n">UsageHint</span><span class="o">::</span><span class="n">Foreground</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">usage</span> <span class="o">==</span> <span class="n">UsageHint</span><span class="o">::</span><span class="n">Unknown</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 如果子节点大于1或者第一个子节点不是背景，那么设置为背景策略
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">children</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">children</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">usage</span> <span class="o">=</span> <span class="n">UsageHint</span><span class="o">::</span><span class="n">Background</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">children</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span>
 </span></span><span class="line"><span class="cl">                <span class="n">children</span><span class="p">.</span><span class="n">front</span><span class="p">().</span><span class="n">getRenderNode</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">usageHint</span><span class="p">()</span> <span class="o">!=</span>
@@ -864,41 +918,41 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">children</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// Crude overlap check
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">SkRect</span> <span class="n">drawn</span> <span class="o">=</span> <span class="n">SkRect</span><span class="o">::</span><span class="n">MakeEmpty</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">SkRect</span> <span class="n">drawn</span> <span class="o">=</span> <span class="n">SkRect</span><span class="o">::</span><span class="n">MakeEmpty</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">children</span><span class="p">.</span><span class="n">rbegin</span><span class="p">();</span> <span class="n">iter</span> <span class="o">!=</span> <span class="n">children</span><span class="p">.</span><span class="n">rend</span><span class="p">();</span> <span class="o">++</span><span class="n">iter</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">child</span> <span class="o">=</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">getRenderNode</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// We use stagingProperties here because we haven&#39;t yet sync&#39;d the children
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">SkRect</span> <span class="n">bounds</span> <span class="o">=</span> <span class="n">SkRect</span><span class="o">::</span><span class="n">MakeXYWH</span><span class="p">(</span><span class="n">child</span><span class="o">-&gt;</span><span class="n">stagingProperties</span><span class="p">().</span><span class="n">getX</span><span class="p">(),</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">stagingProperties</span><span class="p">().</span><span class="n">getY</span><span class="p">(),</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">SkRect</span> <span class="n">bounds</span> <span class="o">=</span> <span class="n">SkRect</span><span class="o">::</span><span class="n">MakeXYWH</span><span class="p">(</span><span class="n">child</span><span class="o">-&gt;</span><span class="n">stagingProperties</span><span class="p">().</span><span class="n">getX</span><span class="p">(),</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">stagingProperties</span><span class="p">().</span><span class="n">getY</span><span class="p">(),</span>
 </span></span><span class="line"><span class="cl">                    <span class="n">child</span><span class="o">-&gt;</span><span class="n">stagingProperties</span><span class="p">().</span><span class="n">getWidth</span><span class="p">(),</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">stagingProperties</span><span class="p">().</span><span class="n">getHeight</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">bounds</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">drawn</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="c1">// This contains everything drawn after it, so make it a background
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">child</span><span class="o">-&gt;</span><span class="n">setUsageHint</span><span class="p">(</span><span class="n">UsageHint</span><span class="o">::</span><span class="n">Background</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">                <span class="n">child</span><span class="o">-&gt;</span><span class="n">setUsageHint</span><span class="p">(</span><span class="n">UsageHint</span><span class="o">::</span><span class="n">Background</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">            <span class="n">drawn</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">bounds</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 根据前景还是背景策略对颜色进行提亮或者加深
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">mDisplayList</span><span class="o">-&gt;</span><span class="n">mDisplayList</span><span class="p">.</span><span class="n">applyColorTransform</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">mDisplayList</span><span class="o">-&gt;</span><span class="n">mDisplayList</span><span class="p">.</span><span class="n">applyColorTransform</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="n">usage</span> <span class="o">==</span> <span class="n">UsageHint</span><span class="o">::</span><span class="n">Background</span> <span class="o">?</span> <span class="n">ColorTransform</span><span class="o">::</span><span class="nl">Dark</span> <span class="p">:</span> <span class="n">ColorTransform</span><span class="o">::</span><span class="n">Light</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><em>Tips：View的绘制会根据VSYNC信号，将UI线程的Display List树同步到Render线程的Display List树，并通过生产者消费者模式将layout信息放置到SurfaceFlinger中，并最后交给Haredware Composer进行合成绘制。具体View渲染逻辑见参考章节的15~19文章列表。</em></p>
 <p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/RecordingCanvas.cpp;l=800;drc=master">frameworks/base/libs/hwui/RecordingCanvas.cpp</a></strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">DisplayListData</span><span class="o">::</span><span class="n">applyColorTransform</span><span class="p">(</span><span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 使用transform作为参数执行color_transform_fns函数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">(</span><span class="n">color_transform_fns</span><span class="p">,</span> <span class="n">transform</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">(</span><span class="n">color_transform_fns</span><span class="p">,</span> <span class="n">transform</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Fn</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">void</span> <span class="n">DisplayListData</span><span class="o">::</span><span class="n">map</span><span class="p">(</span><span class="k">const</span> <span class="n">Fn</span> <span class="n">fns</span><span class="p">[],</span> <span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">end</span> <span class="o">=</span> <span class="n">fBytes</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">+</span> <span class="n">fUsed</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 遍历需要绘制的元素op，并调用对应类型的colorTransformForOp函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="n">fBytes</span><span class="p">.</span><span class="n">get</span><span class="p">();</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">;)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="n">fBytes</span><span class="p">.</span><span class="n">get</span><span class="p">();</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">;)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">op</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">Op</span><span class="o">*</span><span class="p">)</span><span class="n">ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">type</span> <span class="o">=</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">skip</span> <span class="o">=</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">skip</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">fns</span><span class="p">[</span><span class="n">type</span><span class="p">])</span> <span class="p">{</span>  <span class="c1">// We replace no-op functions with nullptrs
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">fn</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>        <span class="c1">// to avoid the overhead of a pointless call.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">fn</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>        <span class="c1">// to avoid the overhead of a pointless call.
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="n">ptr</span> <span class="o">+=</span> <span class="n">skip</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -906,9 +960,9 @@
 </span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">color_transform_fn</span><span class="p">)(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="n">ColorTransform</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#define X(T) colorTransformForOp&lt;T&gt;(),
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">static</span> <span class="k">const</span> <span class="n">color_transform_fn</span> <span class="n">color_transform_fns</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="n">color_transform_fn</span> <span class="n">color_transform_fns</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 相当于 colorTransformForOp&lt;Flush&gt;()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">X</span><span class="p">(</span><span class="n">Flush</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">X</span><span class="p">(</span><span class="n">Flush</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="n">X</span><span class="p">(</span><span class="n">Save</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="n">X</span><span class="p">(</span><span class="n">Restore</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="n">X</span><span class="p">(</span><span class="n">SaveLayer</span><span class="p">)</span>
@@ -948,7 +1002,7 @@
 </span></span><span class="line"><span class="cl">  <span class="n">X</span><span class="p">(</span><span class="n">DrawWebView</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#undef X
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">DrawImage</span> <span class="k">final</span> <span class="o">:</span> <span class="n">Op</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="k">const</span> <span class="k">auto</span> <span class="n">kType</span> <span class="o">=</span> <span class="n">Type</span><span class="o">::</span><span class="n">DrawImage</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">DrawImage</span><span class="p">(</span><span class="n">sk_sp</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">SkImage</span><span class="o">&gt;&amp;&amp;</span> <span class="n">image</span><span class="p">,</span> <span class="n">SkScalar</span> <span class="n">x</span><span class="p">,</span> <span class="n">SkScalar</span> <span class="n">y</span><span class="p">,</span> <span class="k">const</span> <span class="n">SkPaint</span><span class="o">*</span> <span class="n">paint</span><span class="p">,</span>
@@ -961,7 +1015,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">sk_sp</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">SkImage</span><span class="o">&gt;</span> <span class="n">image</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">SkScalar</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 这里SK指代skia库对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">SkPaint</span> <span class="n">paint</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">SkPaint</span> <span class="n">paint</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">BitmapPalette</span> <span class="n">palette</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">draw</span><span class="p">(</span><span class="n">SkCanvas</span><span class="o">*</span> <span class="n">c</span><span class="p">,</span> <span class="k">const</span> <span class="n">SkMatrix</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">drawImage</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">paint</span><span class="p">);</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -970,14 +1024,14 @@
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">color_transform_fn</span> <span class="n">colorTransformForOp</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 如果类型T有paint变量，并且有palette变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">constexpr</span><span class="p">(</span><span class="n">has_paint</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span> <span class="n">has_palette</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">constexpr</span><span class="p">(</span><span class="n">has_paint</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span> <span class="n">has_palette</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// It&#39;s a bitmap(绘制Bitmap)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// 例如对于一个DrawImage的OP，最终会调用到这里
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// opRaw对应DrawImage对象，transform为ColorTransform::Dark或者ColorTransform::Light
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="p">[](</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">opRaw</span><span class="p">,</span> <span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">            <span class="c1">// 例如对于一个DrawImage的OP，最终会调用到这里
+</span></span></span><span class="line"><span class="cl">            <span class="c1">// opRaw对应DrawImage对象，transform为ColorTransform::Dark或者ColorTransform::Light
+</span></span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">[](</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">opRaw</span><span class="p">,</span> <span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="c1">// TODO: We should be const. Or not. Or just use a different map
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">// Unclear, but this is the quick fix
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">op</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">opRaw</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">                <span class="c1">// Unclear, but this is the quick fix
+</span></span></span><span class="line"><span class="cl">                <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">op</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">opRaw</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">                <span class="n">transformPaint</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">SkPaint</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">op</span><span class="o">-&gt;</span><span class="n">paint</span><span class="p">)),</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">palette</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="p">};</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
@@ -985,9 +1039,9 @@
 </span></span><span class="line"><span class="cl">        <span class="nf">constexpr</span><span class="p">(</span><span class="n">has_paint</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">[](</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">opRaw</span><span class="p">,</span> <span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="c1">// TODO: We should be const. Or not. Or just use a different map
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">// Unclear, but this is the quick fix
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">// 非Bitmap绘制
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">op</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">opRaw</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">                <span class="c1">// Unclear, but this is the quick fix
+</span></span></span><span class="line"><span class="cl">                <span class="c1">// 非Bitmap绘制
+</span></span></span><span class="line"><span class="cl">                <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">op</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">opRaw</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">                <span class="n">transformPaint</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">SkPaint</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">op</span><span class="o">-&gt;</span><span class="n">paint</span><span class="p">)));</span>
 </span></span><span class="line"><span class="cl">            <span class="p">};</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
@@ -998,21 +1052,21 @@
 </span></span></code></pre></div><p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/CanvasTransform.cpp;drc=master;bpv=1;bpt=1;l=132">frameworks/base/libs/hwui/CanvasTransform.cpp</a></strong></p>
 <p>这里进行具体的颜色转换逻辑，我们首先关注非Bitmap绘制的颜色转换</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 非Bitmap绘制颜色模式转换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">transformPaint</span><span class="p">(</span><span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">,</span> <span class="n">SkPaint</span><span class="o">*</span> <span class="n">paint</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">transformPaint</span><span class="p">(</span><span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">,</span> <span class="n">SkPaint</span><span class="o">*</span> <span class="n">paint</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">applyColorTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="o">*</span><span class="n">paint</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 非Bitmap绘制颜色模式转换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">applyColorTransform</span><span class="p">(</span><span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">,</span> <span class="n">SkPaint</span><span class="o">&amp;</span> <span class="n">paint</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">applyColorTransform</span><span class="p">(</span><span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">,</span> <span class="n">SkPaint</span><span class="o">&amp;</span> <span class="n">paint</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">transform</span> <span class="o">==</span> <span class="n">ColorTransform</span><span class="o">::</span><span class="n">None</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 具体绘制颜色转换逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">SkColor</span> <span class="n">newColor</span> <span class="o">=</span> <span class="n">transformColor</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">paint</span><span class="p">.</span><span class="n">getColor</span><span class="p">());</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">SkColor</span> <span class="n">newColor</span> <span class="o">=</span> <span class="n">transformColor</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">paint</span><span class="p">.</span><span class="n">getColor</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 将画笔颜色修改为转换后的颜色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">paint</span><span class="p">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">newColor</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">paint</span><span class="p">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">newColor</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 有渐变色情况
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">paint</span><span class="p">.</span><span class="n">getShader</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">paint</span><span class="p">.</span><span class="n">getShader</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">SkShader</span><span class="o">::</span><span class="n">GradientInfo</span> <span class="n">info</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">SkColor</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span> <span class="n">_colorStorage</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">SkScalar</span><span class="p">,</span> <span class="n">_colorStorage</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&gt;</span> <span class="n">_offsetStorage</span><span class="p">;</span>
@@ -1024,10 +1078,10 @@
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">fColorCount</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">switch</span> <span class="p">(</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="c1">// 线性渐变并且渐变颜色少于等于10个的情况
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">case</span> <span class="n">SkShader</span><span class="o">::</span><span class="nl">kLinear_GradientType</span><span class="p">:</span>
+</span></span></span><span class="line"><span class="cl">                <span class="k">case</span> <span class="n">SkShader</span><span class="o">::</span><span class="nl">kLinear_GradientType</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">                    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">info</span><span class="p">.</span><span class="n">fColorCount</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                        <span class="c1">// 对渐变色颜色进行转换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                        <span class="n">info</span><span class="p">.</span><span class="n">fColors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">transformColor</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">fColors</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span></span><span class="line"><span class="cl">                        <span class="n">info</span><span class="p">.</span><span class="n">fColors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">transformColor</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">fColors</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">                    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">                    <span class="n">paint</span><span class="p">.</span><span class="n">setShader</span><span class="p">(</span><span class="n">SkGradientShader</span><span class="o">::</span><span class="n">MakeLinear</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">fPoint</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">fColors</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                                                                 <span class="n">info</span><span class="p">.</span><span class="n">fColorOffsets</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">fColorCount</span><span class="p">,</span>
@@ -1040,13 +1094,13 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 处理colorFilter
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">paint</span><span class="p">.</span><span class="n">getColorFilter</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">paint</span><span class="p">.</span><span class="n">getColorFilter</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">SkBlendMode</span> <span class="n">mode</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">SkColor</span> <span class="n">color</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// TODO: LRU this or something to avoid spamming new color mode filters
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">paint</span><span class="p">.</span><span class="n">getColorFilter</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">asAColorMode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">color</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mode</span><span class="p">))</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">paint</span><span class="p">.</span><span class="n">getColorFilter</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">asAColorMode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">color</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mode</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// 对colorFilter颜色进行转换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">color</span> <span class="o">=</span> <span class="n">transformColor</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">color</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">color</span> <span class="o">=</span> <span class="n">transformColor</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">color</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="n">paint</span><span class="p">.</span><span class="n">setColorFilter</span><span class="p">(</span><span class="n">SkColorFilters</span><span class="o">::</span><span class="n">Blend</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">mode</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -1064,32 +1118,32 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 前景色变亮
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="n">SkColor</span> <span class="nf">makeLight</span><span class="p">(</span><span class="n">SkColor</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">SkColor</span> <span class="nf">makeLight</span><span class="p">(</span><span class="n">SkColor</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 将sRGB色彩模式转换成Lab色彩模式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Lab</span> <span class="n">lab</span> <span class="o">=</span> <span class="n">sRGBToLab</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">Lab</span> <span class="n">lab</span> <span class="o">=</span> <span class="n">sRGBToLab</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 对亮度L维度取反
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">invertedL</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="mi">110</span> <span class="o">-</span> <span class="n">lab</span><span class="p">.</span><span class="n">L</span><span class="p">,</span> <span class="mf">100.0f</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">invertedL</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="mi">110</span> <span class="o">-</span> <span class="n">lab</span><span class="p">.</span><span class="n">L</span><span class="p">,</span> <span class="mf">100.0f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">invertedL</span> <span class="o">&gt;</span> <span class="n">lab</span><span class="p">.</span><span class="n">L</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 若取反后亮度变亮，则替换原来亮度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">lab</span><span class="p">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">invertedL</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">lab</span><span class="p">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">invertedL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 重新转换为sRGB模式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">LabToSRGB</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">SkColorGetA</span><span class="p">(</span><span class="n">color</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">LabToSRGB</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">SkColorGetA</span><span class="p">(</span><span class="n">color</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">color</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 后景色变暗
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="n">SkColor</span> <span class="nf">makeDark</span><span class="p">(</span><span class="n">SkColor</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">SkColor</span> <span class="nf">makeDark</span><span class="p">(</span><span class="n">SkColor</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 将sRGB色彩模式转换成Lab色彩模式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Lab</span> <span class="n">lab</span> <span class="o">=</span> <span class="n">sRGBToLab</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">Lab</span> <span class="n">lab</span> <span class="o">=</span> <span class="n">sRGBToLab</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 对亮度L维度取反
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">float</span> <span class="n">invertedL</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="mi">110</span> <span class="o">-</span> <span class="n">lab</span><span class="p">.</span><span class="n">L</span><span class="p">,</span> <span class="mf">100.0f</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">invertedL</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="mi">110</span> <span class="o">-</span> <span class="n">lab</span><span class="p">.</span><span class="n">L</span><span class="p">,</span> <span class="mf">100.0f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">invertedL</span> <span class="o">&lt;</span> <span class="n">lab</span><span class="p">.</span><span class="n">L</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 若取反后亮度变暗，则替换原来亮度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">lab</span><span class="p">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">invertedL</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">lab</span><span class="p">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">invertedL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 重新转换为sRGB模式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">LabToSRGB</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">SkColorGetA</span><span class="p">(</span><span class="n">color</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">LabToSRGB</span><span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">SkColorGetA</span><span class="p">(</span><span class="n">color</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">color</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -1097,39 +1151,39 @@
 </span></span></code></pre></div><p>从代码中可以看出，深色模式应用之后，通过对sRGB色彩空间转换<a href="https://zh.wikipedia.org/wiki/Lab%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4">Lab色彩空间</a>，并对表示亮度的维度L进行取反，并判断取反后前景色是不是更亮，后景色是不是更暗，若是的话就替换为原来的L，并再重新转换为sRGB色彩空间，从而实现反色的效果。</p>
 <p>我们再来看对图片的强制深色模式处理：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Bitmap绘制颜色模式转换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">transformPaint</span><span class="p">(</span><span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">,</span> <span class="n">SkPaint</span><span class="o">*</span> <span class="n">paint</span><span class="p">,</span> <span class="n">BitmapPalette</span> <span class="n">palette</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">transformPaint</span><span class="p">(</span><span class="n">ColorTransform</span> <span class="n">transform</span><span class="p">,</span> <span class="n">SkPaint</span><span class="o">*</span> <span class="n">paint</span><span class="p">,</span> <span class="n">BitmapPalette</span> <span class="n">palette</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 考虑加上filter之后图片的明暗
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">palette</span> <span class="o">=</span> <span class="n">filterPalette</span><span class="p">(</span><span class="n">paint</span><span class="p">,</span> <span class="n">palette</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">palette</span> <span class="o">=</span> <span class="n">filterPalette</span><span class="p">(</span><span class="n">paint</span><span class="p">,</span> <span class="n">palette</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">shouldInvert</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">palette</span> <span class="o">==</span> <span class="n">BitmapPalette</span><span class="o">::</span><span class="n">Light</span> <span class="o">&amp;&amp;</span> <span class="n">transform</span> <span class="o">==</span> <span class="n">ColorTransform</span><span class="o">::</span><span class="n">Dark</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 图片比较亮但是需要变暗
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">shouldInvert</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">shouldInvert</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">palette</span> <span class="o">==</span> <span class="n">BitmapPalette</span><span class="o">::</span><span class="n">Dark</span> <span class="o">&amp;&amp;</span> <span class="n">transform</span> <span class="o">==</span> <span class="n">ColorTransform</span><span class="o">::</span><span class="n">Light</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 图片比较暗但是需要变亮
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">shouldInvert</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">shouldInvert</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">shouldInvert</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">SkHighContrastConfig</span> <span class="n">config</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 设置skia反转亮度的filter
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">config</span><span class="p">.</span><span class="n">fInvertStyle</span> <span class="o">=</span> <span class="n">SkHighContrastConfig</span><span class="o">::</span><span class="n">InvertStyle</span><span class="o">::</span><span class="n">kInvertLightness</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">.</span><span class="n">fInvertStyle</span> <span class="o">=</span> <span class="n">SkHighContrastConfig</span><span class="o">::</span><span class="n">InvertStyle</span><span class="o">::</span><span class="n">kInvertLightness</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">paint</span><span class="o">-&gt;</span><span class="n">setColorFilter</span><span class="p">(</span><span class="n">SkHighContrastFilter</span><span class="o">::</span><span class="n">Make</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">makeComposed</span><span class="p">(</span><span class="n">paint</span><span class="o">-&gt;</span><span class="n">refColorFilter</span><span class="p">()));</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">shouldInvert</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 获取paint filter的palette值，若没有filter直接返回原来的palette
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="n">BitmapPalette</span> <span class="nf">filterPalette</span><span class="p">(</span><span class="k">const</span> <span class="n">SkPaint</span><span class="o">*</span> <span class="n">paint</span><span class="p">,</span> <span class="n">BitmapPalette</span> <span class="n">palette</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">BitmapPalette</span> <span class="nf">filterPalette</span><span class="p">(</span><span class="k">const</span> <span class="n">SkPaint</span><span class="o">*</span> <span class="n">paint</span><span class="p">,</span> <span class="n">BitmapPalette</span> <span class="n">palette</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 如果没有filter color返回原来的palette
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">palette</span> <span class="o">==</span> <span class="n">BitmapPalette</span><span class="o">::</span><span class="n">Unknown</span> <span class="o">||</span> <span class="o">!</span><span class="n">paint</span> <span class="o">||</span> <span class="o">!</span><span class="n">paint</span><span class="o">-&gt;</span><span class="n">getColorFilter</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">palette</span> <span class="o">==</span> <span class="n">BitmapPalette</span><span class="o">::</span><span class="n">Unknown</span> <span class="o">||</span> <span class="o">!</span><span class="n">paint</span> <span class="o">||</span> <span class="o">!</span><span class="n">paint</span><span class="o">-&gt;</span><span class="n">getColorFilter</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">palette</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">SkColor</span> <span class="n">color</span> <span class="o">=</span> <span class="n">palette</span> <span class="o">==</span> <span class="n">BitmapPalette</span><span class="o">::</span><span class="n">Light</span> <span class="o">?</span> <span class="nl">SK_ColorWHITE</span> <span class="p">:</span> <span class="n">SK_ColorBLACK</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 获取filter color，并根据palette的明暗再叠加一层白色或者黑色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">color</span> <span class="o">=</span> <span class="n">paint</span><span class="o">-&gt;</span><span class="n">getColorFilter</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">filterColor</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">color</span> <span class="o">=</span> <span class="n">paint</span><span class="o">-&gt;</span><span class="n">getColorFilter</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">filterColor</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 根据将颜色转换为HSV空间，并返回是图片的亮度是亮还是暗
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">paletteForColorHSV</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">paletteForColorHSV</span><span class="p">(</span><span class="n">color</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>从代码中可以看出，对于Bitmap类型的绘制，先判断原来绘制Bitmap的明暗度，如果原来绘制的图像较为明亮但是需要变暗，或者原来绘制的图像较为暗需要变明亮，则设置一个明亮度转换的filter到画笔paint中。</p>
 <p>至此，对于主题级别的强制深色转换原理已经非常清晰。<strong>总结一下，就是需要对前景色变亮和背景色变暗，然后对于非Bitmap类型明暗变化采用的是将色值转换为Lab颜色空间进行明亮度转换，对于Bitmap类型的明暗变化采取设置亮度转换的filter进行。</strong></p>
@@ -1138,14 +1192,14 @@
 <p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/graphics/java/android/graphics/RenderNode.java;drc=master;l=1414">frameworks/base/graphics/java/android/graphics/RenderNode.java</a></strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">setForceDarkAllowed</span><span class="p">(</span><span class="kt">boolean</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">nSetAllowForceDark</span><span class="p">(</span><span class="n">mNativeRenderNode</span><span class="p">,</span><span class="w"> </span><span class="n">allow</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p><code>nSetAllowForceDark</code>通过JNI调用到<code>android_view_RenderNode_setAllowForceDark</code>Navtive方法中。</p>
 <p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/jni/android_graphics_RenderNode.cpp;l=744?q=nSetAllowForceDark&amp;ss=android%2Fplatform%2Fsuperproject">frameworks/base/libs/hwui/jni/android_graphics_RenderNode.cpp</a></strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="n">JNINativeMethod</span> <span class="n">gMethods</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">{</span> <span class="s">&#34;nSetAllowForceDark&#34;</span><span class="p">,</span>        <span class="s">&#34;(JZ)Z&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="n">android_view_RenderNode_setAllowForceDark</span> <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="s">&#34;nSetAllowForceDark&#34;</span><span class="p">,</span>        <span class="s">&#34;(JZ)Z&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="n">android_view_RenderNode_setAllowForceDark</span> <span class="p">},</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">jboolean</span> <span class="nf">android_view_RenderNode_setAllowForceDark</span><span class="p">(</span><span class="n">CRITICAL_JNI_PARAMS_COMMA</span> <span class="n">jlong</span> <span class="n">renderNodePtr</span><span class="p">,</span> <span class="n">jboolean</span> <span class="n">allow</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">SET_AND_DIRTY</span><span class="p">(</span><span class="n">setAllowForceDark</span><span class="p">,</span> <span class="n">allow</span><span class="p">,</span> <span class="n">RenderNode</span><span class="o">::</span><span class="n">GENERIC</span><span class="p">);</span>
@@ -1163,57 +1217,57 @@
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ANDROID_API</span> <span class="n">RenderProperties</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 设置View是否允许强制深色模式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">bool</span> <span class="n">setAllowForceDark</span><span class="p">(</span><span class="kt">bool</span> <span class="n">allow</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 设置View是否允许强制深色模式
+</span></span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">setAllowForceDark</span><span class="p">(</span><span class="kt">bool</span> <span class="n">allow</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">RP_SET</span><span class="p">(</span><span class="n">mPrimitiveFields</span><span class="p">.</span><span class="n">mAllowForceDark</span><span class="p">,</span> <span class="n">allow</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 获取View是否允许强制深色模式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">bool</span> <span class="nf">getAllowForceDark</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="nf">getAllowForceDark</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">mPrimitiveFields</span><span class="p">.</span><span class="n">mAllowForceDark</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">private</span><span class="o">:</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// Rendering properties
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="nc">PrimitiveFields</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="nc">PrimitiveFields</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 默认值为true
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">bool</span> <span class="n">mAllowForceDark</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// 默认值为true
+</span></span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">mAllowForceDark</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span> <span class="n">mPrimitiveFields</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="n">mPrimitiveFields</span><span class="p">;</span>
 </span></span></code></pre></div><p>我们回头看下上面分析过的<code>RenderNode.cpp</code>的<code>prepareTreeImpl</code>流程</p>
 <p><strong><a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/libs/hwui/RenderNode.cpp;l=235;drc=master;bpv=0;bpt=1">frameworks/base/libs/hwui/RenderNode.cpp</a></strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 经过了简化处理的prepareTreeImpl逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">RenderNode</span><span class="o">::</span><span class="n">prepareTreeImpl</span><span class="p">(</span><span class="n">TreeObserver</span><span class="o">&amp;</span> <span class="n">observer</span><span class="p">,</span> <span class="n">TreeInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">RenderNode</span><span class="o">::</span><span class="n">prepareTreeImpl</span><span class="p">(</span><span class="n">TreeObserver</span><span class="o">&amp;</span> <span class="n">observer</span><span class="p">,</span> <span class="n">TreeInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 如果当前View不允许被ForceDark，那么info.disableForceDark值+1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mProperties</span><span class="p">.</span><span class="n">getAllowForceDark</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mProperties</span><span class="p">.</span><span class="n">getAllowForceDark</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">info</span><span class="p">.</span><span class="n">disableForceDark</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 同步正在处理的Render Node的Display List，实现具体深色的逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">pushStagingDisplayListChanges</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="n">info</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">pushStagingDisplayListChanges</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="n">info</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">mDisplayList</span><span class="o">-&gt;</span><span class="n">prepareListAndChildren</span><span class="p">([](</span><span class="n">RenderNode</span><span class="o">*</span> <span class="n">child</span><span class="p">,</span> <span class="n">TreeObserver</span><span class="o">&amp;</span> <span class="n">observer</span><span class="p">,</span> <span class="n">TreeInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 递归调用子节点的prepareTreeImpl。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 递归调用之前，若父节点不允许强制深色模式，disableForceDark已经不为0，
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     子节点再设置允许强制深色模式不会使得disableForceDark的值减少，
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     因此有第三个规则：父节点设置了不允许深色模式，子节点再设置允许深色模式无效。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 同样的，递归调用之前，若父节点允许深色模式，disableForceDark为0，
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     子节点再设置不允许强制深色模式，则disableForceDark值还是会++，不为0
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     因此有第四个规则：子节点设置不允许强制深色模式不受父节点设置允许强制深色模式影响。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">child</span><span class="o">-&gt;</span><span class="n">prepareTreeImpl</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="n">info</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// 递归调用之前，若父节点不允许强制深色模式，disableForceDark已经不为0，
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//     子节点再设置允许强制深色模式不会使得disableForceDark的值减少，
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//     因此有第三个规则：父节点设置了不允许深色模式，子节点再设置允许深色模式无效。
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// 同样的，递归调用之前，若父节点允许深色模式，disableForceDark为0，
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//     子节点再设置不允许强制深色模式，则disableForceDark值还是会++，不为0
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//     因此有第四个规则：子节点设置不允许强制深色模式不受父节点设置允许强制深色模式影响。
+</span></span></span><span class="line"><span class="cl">        <span class="n">child</span><span class="o">-&gt;</span><span class="n">prepareTreeImpl</span><span class="p">(</span><span class="n">observer</span><span class="p">,</span> <span class="n">info</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="p">});</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">// 递归结束后将之前设置过+1的值做回退-1恢复操作，避免影响其他兄弟结点的深色模式值判断
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mProperties</span><span class="p">.</span><span class="n">getAllowForceDark</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mProperties</span><span class="p">.</span><span class="n">getAllowForceDark</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">info</span><span class="p">.</span><span class="n">disableForceDark</span><span class="o">--</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>可以看出，设置View的<code>forceDarkAllowed</code>最终会设置到当前<code>RenderNode</code>的<code>mProperties.allowForceDark</code>属性中，并在<code>RenderNode</code>遍历的过程中影响深色模式的执行。</p>
 <p>我们可以以下面的伪代码来更直观地了解深色模式执行的流程：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 深色模式渲染伪代码</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">disableDark</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">themeAllowDark</span><span class="p">)</span><span class="w"> </span><span class="n">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="w"> </span><span class="n">disableDark</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">themeAllowDark</span><span class="p">)</span><span class="w"> </span><span class="n">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">RenderNode</span><span class="p">(</span><span class="n">Node</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">RenderNode</span><span class="p">(</span><span class="n">Node</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">node</span><span class="p">.</span><span class="na">allowDark</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">disableDark</span><span class="o">++</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
@@ -1224,7 +1278,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">node</span><span class="p">.</span><span class="na">allowDark</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">disableDark</span><span class="o">--</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>至此，我们分析完所有强制深色模式的原理。<strong>总结一下，主题默认不会强制深色，若主题设置了强制深色，则遍历View树对其节点进行强制深色转换。碰到某个View不希望被强制深色，则包括它和它的所有子节点都不会被强制深色。</strong></p>
 <h2 id="总结">总结</h2>
 <p>到这里，我们了解了可以通过设置<code>-night</code>资源以及判断当前颜色模式来自定义切换主题、色值、图片和动画的颜色，也从源代码角度了解Force Dark的原理和生效规则。</p>
@@ -1255,68 +1309,74 @@
 <li><a href="https://cs.android.com/">Android Code Search</a></li>
 </ol>
 
+          
+          
+
 
         
+        
           <div class="blog-tags">
-            
-              
-              <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-            
+            <span>Tags: </span>
+            <a href="/tags/android/">android</a>&nbsp;
           </div>
         
 
         
             <hr/>
             <section id="social-share">
-              <div class="list-inline footer-links">
+              <div class="footer-links">
                 
+<div class="share-box" role="region">
+    <ul class="share" aria-label="Social sharing" role="list">
+      
+      <li role="listitem">
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;text=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" target="_blank" rel="noopener noreferrer" title="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Twitter</span>
+        </a>
+      </li>
 
-<div class="share-box" aria-hidden="true">
-    <ul class="share">
       
-      <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;text=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90&amp;via=" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
+      <li role="listitem">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f" target="_blank" rel="noopener noreferrer" title="Share on Facebook">
+          <i class="fab fa-facebook" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Facebook</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
+      <li role="listitem">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;title=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" target="_blank" rel="noopener noreferrer" title="Share on Reddit">
+          <i class="fab fa-reddit" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Reddit</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;title=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
+      <li role="listitem">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;title=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on LinkedIn</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;title=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
+      <li role="listitem">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;description=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" target="_blank" rel="noopener noreferrer" title="Share on Pinterest">
+          <i class="fab fa-pinterest" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Pinterest</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;title=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;description=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
+      <li role="listitem">
+        <a href="mailto:?body=https%3a%2f%2fshenguojun.github.io%2fpost%2fandroid-dark-mode%2f&amp;subject=Android%e6%b7%b1%e8%89%b2%e6%a8%a1%e5%bc%8f%e9%80%82%e9%85%8d%e5%8e%9f%e7%90%86%e5%88%86%e6%9e%90" title="Share via email">
+          <i class="fas fa-at" aria-hidden="true"></i>
+          <span class="visually-hidden">Share via email</span>
         </a>
       </li>
     </ul>
   </div>
-  
 
               </div>
             </section>
@@ -1326,15 +1386,29 @@
       </article>
 
       
-        <ul class="pager blog-pager">
+        
+          <a href="/post/flutter-learning-note/" class="nav-side-arrow nav-side-prev" title="Flutter学习笔记——用户界面" aria-label="Previous Post: Flutter学习笔记——用户界面">
+            <i class="fas fa-chevron-left"></i>
+          </a>
+        
+        
+          <a href="/post/kotlin_synthetic/" class="nav-side-arrow nav-side-next" title="Kotlin升级1.5版本synthetic引发的血案分析" aria-label="Next Post: Kotlin升级1.5版本synthetic引发的血案分析">
+            <i class="fas fa-chevron-right"></i>
+          </a>
+        
+        <ul class="post-pager blog-post-pager">
           
-            <li class="previous">
-              <a href="https://shenguojun.github.io/post/flutter-learning-note/" data-toggle="tooltip" data-placement="top" title="Flutter学习笔记——用户界面">&larr; Previous Post</a>
+            <li class="pager-prev">
+              <a href="/post/flutter-learning-note/" data-bs-toggle="tooltip" data-bs-placement="top" title="Flutter学习笔记——用户界面"><i class="fas fa-chevron-left"></i> Previous Post</a>
             </li>
           
+          <li class="pager-center">
+            
+
+          </li>
           
-            <li class="next">
-              <a href="https://shenguojun.github.io/post/kotlin_synthetic/" data-toggle="tooltip" data-placement="top" title="Kotlin升级1.5版本synthetic引发的血案分析">Next Post &rarr;</a>
+            <li class="pager-next">
+              <a href="/post/kotlin_synthetic/" data-bs-toggle="tooltip" data-bs-placement="top" title="Kotlin升级1.5版本synthetic引发的血案分析">Next Post <i class="fas fa-chevron-right"></i></a>
             </li>
           
         </ul>
@@ -1343,58 +1417,155 @@
 
       
       
+
+      
+
       
       
       
         
       
+
+      <div class="toc-wrapper" id="toc-wrapper" data-toc-mode="headings">
+  <div class="toc-panel" id="toc-panel" role="dialog" aria-label="Table of contents">
+    <div class="toc-header">
+      <span class="toc-title">Table of Contents</span>
+      <button class="toc-close" id="toc-close" aria-label="Close table of contents">&times;</button>
+    </div>
+    <nav class="toc-body"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#背景">背景</a></li>
+        <li><a href="#资源配置限定符">资源配置限定符</a></li>
+        <li><a href="#深色模式判断设置">深色模式判断&amp;设置</a>
+          <ul>
+            <li><a href="#判断当前是否深色模式">判断当前是否深色模式</a></li>
+            <li><a href="#判断当前深色模式场景">判断当前深色模式场景</a></li>
+            <li><a href="#模式设置">模式设置</a></li>
+          </ul>
+        </li>
+        <li><a href="#适配方案">适配方案</a>
+          <ul>
+            <li><a href="#自定义适配">自定义适配</a></li>
+            <li><a href="#force-dark">Force Dark</a></li>
+          </ul>
+        </li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></nav>
+  </div>
+  <div class="toc-backdrop" id="toc-backdrop"></div>
+</div>
 
     </div>
   </div>
 </div>
 
-      <footer>
+    
+      
+<footer>
   <div class="container">
     
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="col-md-10 offset-md-1">
         <ul class="list-inline text-center footer-links">
           
           
           
           
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
         </ul>
         <p class="credits copyright text-muted">
           
-
-          &nbsp;&bull;&nbsp;&copy;
+          &copy;
           
             2023
           
 
           
-            &nbsp;&bull;&nbsp;
-            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+            <a href="/">Lawrence&#39;s Blog</a>
           
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.147.9</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.163.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</footer>
 
-<script src="https://shenguojun.github.io/js/main.js"></script>
-<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+      
+
+      
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" integrity="sha384-Tt7wBxLKwSzFVRET4O4U9H6v8MNaQ/CjN2FMP4xFm0ErrFu6aNqoonRVW5W40iGI" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js" integrity="sha384-tcspKDb5tWvyRCOWzevlAeQgHeEzYdUHJpcgnIhcP9w4CnfD7DLAcS+k9QzLbRJO" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script><script src="/js/toc.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js" integrity="sha384-RH2xi4eIQ/gjtbs9fUXM68sLSi99C7ZWBRX1vDrVv6GQXRibxXLbwO2NGZB74MbU" crossorigin="anonymous"></script><script> hljs.highlightAll(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe.umd.min.js" integrity="sha384-k8EKyYcONphQ7zH4cQ0888JapXwrLTXQl/Ue1/jYgjVYahln1NWpnt2S4IC56LNh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe-lightbox.umd.min.js" integrity="sha384-IiBVbUz6+U+Tbm/ijO2P0XRwcVzNfrMzloNLkrqHkbi6w5H0v6ie4fI9BIO4SwdK" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
 
 
 
@@ -1408,4 +1579,3 @@
     
   </body>
 </html>
-

@@ -2,8 +2,25 @@
 
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
+  <head><script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var dark = false;
+        if (saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        } else if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        }
+        var hljsDark = document.getElementById('hljs-dark');
+        if (hljsDark) {
+          hljsDark.disabled = !dark;
+        }
+      })();
+    </script>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,155 +29,217 @@
  
 
 
-      <title>Kotlin精髓 - </title>
+  <title>Kotlin精髓</title>
 
   <meta name="description" content="
 前言
-从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。"><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Lawrence\u0027s Blog",
-    
-    "url": "https:\/\/shenguojun.github.io\/"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/shenguojun.github.io\/"
-  
-  
-  
-  
-}
-</script>
+从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。">
+
+
+
+
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/shenguojun.github.io\/",
-          "name": "home"
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://shenguojun.github.io/#website",
+      "@type": "WebSite",
+      "name": "Lawrence's Blog",
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#organization",
+      "@type": "Organization",
+      "name": null,
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/kotlin-good-part/#breadcrumb",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/",
+          "name": "Home",
+          "position": 1
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/",
+          "name": "Posts",
+          "position": 2
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/kotlin-good-part/",
+          "name": "Kotlin精髓",
+          "position": 3
         }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/shenguojun.github.io\/post\/kotlin-good-part\/",
-          "name": "Kotlin精髓"
+      ]
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/kotlin-good-part/#webpage",
+      "@type": "WebPage",
+      "breadcrumb": {
+        "@id": "https://shenguojun.github.io/post/kotlin-good-part/#breadcrumb"
+      },
+      "isPartOf": {
+        "@id": "https://shenguojun.github.io/#website"
+      },
+      "name": "Kotlin精髓",
+      "url": "https://shenguojun.github.io/post/kotlin-good-part/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#author-%E7%94%B3%E5%9B%BD%E9%AA%8F",
+      "@type": "Person",
+      "name": "申国骏",
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/kotlin-good-part/#article",
+      "@type": "Article",
+      "author": [
+        {
+          "@id": "https://shenguojun.github.io/#author-%E7%94%B3%E5%9B%BD%E9%AA%8F"
         }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "申国骏"
-  },
-  "headline": "Kotlin精髓",
-  "description" : "\n前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。\n",
-  "inLanguage" : "en",
-  "wordCount":  6531 ,
-  "datePublished" : "2018-11-07T17:42:32\u002b08:00",
-  "dateModified" : "2018-11-07T17:42:32\u002b08:00",
-  "image" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-  "keywords" : [ "android" ],
-  "mainEntityOfPage" : "https:\/\/shenguojun.github.io\/post\/kotlin-good-part\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/shenguojun.github.io\/",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/shenguojun.github.io\/image\/bugzongchai.png",
-        "height" :  60 ,
-        "width" :  60
+      ],
+      "dateCreated": "2018-11-07T17:42:32+08:00",
+      "dateModified": "2018-11-07T17:42:32+08:00",
+      "datePublished": "2018-11-07T17:42:32+08:00",
+      "description": "\n前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。\n",
+      "headline": "Kotlin精髓",
+      "image": "https://shenguojun.github.io/image/bugzongchai.png",
+      "inLanguage": "en",
+      "keywords": [
+        "android"
+      ],
+      "mainEntityOfPage": {
+        "@id": "https://shenguojun.github.io/post/kotlin-good-part/#webpage"
+      },
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "timeRequired": "PT14M",
+      "wordCount": 6531
     }
-  }
+  ]
 }
 </script>
-
-
-<meta property="og:title" content="Kotlin精髓" />
-<meta property="og:description" content="
-前言
-从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。">
-<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/post/kotlin-good-part/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Lawrence&#39;s Blog" />
-
+<meta property="og:url" content="https://shenguojun.github.io/post/kotlin-good-part/">
+	<meta property="og:site_name" content="Lawrence&#39;s Blog">
+	<meta property="og:title" content="Kotlin精髓">
+	<meta property="og:description" content="前言 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="post">
+		<meta property="article:published_time" content="2018-11-07T17:42:32+08:00">
+		<meta property="article:modified_time" content="2018-11-07T17:42:32+08:00">
+		<meta property="article:tag" content="Android">
+<link rel="canonical" href="https://shenguojun.github.io/post/kotlin-good-part/" />
   <meta name="twitter:title" content="Kotlin精髓" />
   <meta name="twitter:description" content="
 前言
 从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。">
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.147.9">
-  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+  <link href='/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+<meta name="generator" content="Hugo 0.163.3">
+<link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" integrity="sha384-UA8juhPf75SzzAMA/4fo3yOU7sBJ0om7SCD2GHq0fZqZco6tr1UCV7nUbk9J90JM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/brands.css" integrity="sha384-+PvcAGLOWIanfjuRoscHUyZB100N7wP779T8D3ao0FniyFFKMw9MIJpgtJO3+pdF" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/fontawesome.css" integrity="sha384-mj4mLShEAyWi4Bui9LmFkAjPYWof6WrG8DfS8ebHhjm4/MClMqMMHpQzehNk5HeM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/regular.css" integrity="sha384-eS8Ja07iO8AOH11Hzegc5aZyN8CpY+oFwClH6MIlOKUOA3J4Oqjt8Xia9VUSU0GB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/solid.css" integrity="sha384-LpGibDKKReBRP3epUOaN9WBgkrQ1pJIvrrTugkYxVQgDvYuMCRaXk6YkrZ/h3aWk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg.css" integrity="sha384-V18zH+yIEosaHAByV0h4dqHHMPzBxZ7CYz9GQ1YsLTE9QIkEme0jAw9Qir7aIFT+" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg-with-js.css" integrity="sha384-K25UPiwKhSAcEPQskU+UjXpz4iScCTNX5tcEpAGp1hQFNkOoIIwZiV69SfEfaRjK" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-font-face.css" integrity="sha384-YFnAdl87B7pW+Vhp7w9pvA8ZdBL8DQni4/++wrZ0f7o/Sc0pyThczmxZk9xLyc0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-shims.css" integrity="sha384-FnTDI00psVcN3KkfAip/6yRCeN17N3R7HZoAj+2+nttp8n1/vHfYUWvlscoUUhGJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v5-font-face.css" integrity="sha384-FUMXkSpZU/e6Ua2owr0Mktp/gtxxiK1OgCS1vDr8Lsz+gbyDFMSiKeHBRa07EjDn" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/print.css" media="print" /><link rel="stylesheet" href="/css/dark.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css" integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L" crossorigin="anonymous"><link id="hljs-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github-dark.min.css" integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH" crossorigin="anonymous"><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="/css/toc.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
 
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <nav class="navbar navbar-expand-md navbar-light navbar-custom fixed-top">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+    <a class="navbar-brand" href="/">Lawrence&#39;s Blog</a>
+    <div class="d-flex align-items-center">
+      
+      
+      
+      <button class="theme-toggle" id="toc-toggle" aria-label="Table of contents" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Table of contents">
+        <span class="fas fa-list"></span>
       </button>
-      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+      
+      
+      
+      <button class="theme-toggle" id="theme-toggle" aria-label="Theme" data-bs-toggle="tooltip" data-bs-placement="bottom" data-tooltip-auto="Auto (follows system)" data-tooltip-light="Light mode" data-tooltip-dark="Dark mode" title="Auto (follows system)">
+        <span class="fas fa-adjust" id="theme-icon-auto"></span>
+        <span class="fas fa-sun" id="theme-icon-light" style="display: none;"></span>
+        <span class="fas fa-moon" id="theme-icon-dark" style="display: none;"></span>
+      </button>
+      
+      
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
 
     <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav ms-auto">
         
           
-            <li>
-              <a title="Blog" href="/">Blog</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Blog" href="/">Blog</a>
             </li>
           
         
           
-            <li>
-              <a title="About" href="/page/about/">About</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="About" href="/page/about/">About</a>
             </li>
           
         
           
-            <li>
-              <a title="Tags" href="/tags">Tags</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Tags" href="/tags">Tags</a>
             </li>
           
         
 
-        
+          
 
         
       </ul>
+      
+
     </div>
 
     
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
-            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
-           
-          </a>
+    
+      
+        <div class="avatar-container">
+          <div class="avatar-img-border">
+            <a title="Lawrence&#39;s Blog" href="/">
+              <img class="avatar-img" src="/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+             
+            </a>
+          </div>
         </div>
-      </div>
+      
     
 
   </div>
@@ -169,59 +248,11 @@
 
 
 
+
+
+
+
     
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
 
 
 
@@ -234,35 +265,52 @@
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="col-md-10 offset-md-1">
             <div class="post-heading text-center">
+              
               
                 <h1>Kotlin精髓</h1>
               
               
               
               
+
+
+              
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 7, 2018
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;14&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;6531&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on November 7, 2018
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;14&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;6531&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
               
             </div>
@@ -271,16 +319,23 @@
       </div>
     </div>
   
+    
+
   </header>
 
 
     
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <h1>TOC</h1>
-        <nav id="TableOfContents">
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <article role="main" class="blog-post">
+          
+
+
+          
+
+          <h1>TOC</h1>
+          <nav id="TableOfContents">
   <ul>
     <li><a href="#前言">前言</a></li>
     <li><a href="#kotlin设计哲学">Kotlin设计哲学</a></li>
@@ -322,8 +377,7 @@
     <li><a href="#最后">最后</a></li>
   </ul>
 </nav>
-
-        <p><img src="https://upload-images.jianshu.io/upload_images/2057980-a3f52c9bfe0e692d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="引言"></p>
+          <p><img src="https://upload-images.jianshu.io/upload_images/2057980-a3f52c9bfe0e692d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="引言"></p>
 <h1 id="前言">前言</h1>
 <p>从谨慎地在项目中引入kotlin到全部转为kotlin开发我们用了大概半年的时间。这中间经历了从在一个小功能中尝试使用到完全使用kotlin完成了大版本开发的过程。使用方法也从仅仅地用java风格写kotlin代码，慢慢地变成使用kotlin风格去编写代码。</p>
 <p>到目前为止，kotlin的引入至少没有给我们带来不必要的麻烦，在慢慢品尝kotlin语法糖的过程中，我们领略到了能给开发者真正带来好处的一些特性。本文就是对这些我们认为是精髓的一些特性的进行总结，希望能给还在犹豫是否要开始学习kotlin或者刚开始编写kotlin但是不知道该如何利用kotlin的人们先一睹kotlin的优雅风采。</p>
@@ -347,18 +401,18 @@ Kotlin拥有强大的IDE厂商Intellij和Google的支持，保证了其务实、
 <p><img src="https://upload-images.jianshu.io/upload_images/2057980-bf124e44a0b88136.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="空值运算符"></p>
 <p>使用安全调用运算符 <code>?:</code> 可以避免Java中大量的空值判断。以下是一个对比的例子：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 用Java实现</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sendMessageToClient</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sendMessageToClient</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Nullable</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="n">client</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Nullable</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@NotNull</span><span class="w"> </span><span class="n">Mailer</span><span class="w"> </span><span class="n">mailer</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">client</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">PersonalInfo</span><span class="w"> </span><span class="n">personalInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="na">getPersonalInfo</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">personalInfo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">personalInfo</span><span class="p">.</span><span class="na">getEmail</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">mailer</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><pre tabindex="0"><code>// 用Kotlin实现
 fun sendMessageToClient(
     client: Client?, 
@@ -442,22 +496,22 @@ data class City(val name: String) {
 }
 </code></pre><p>以上是数据结构的定义，我们有一个超市，超市有很多顾客，每个顾客有很多笔订单，订单对应着一定数量的产品。下面我们来通过集合的操作来完成以下任务。</p>
 <table>
-  <thead>
-      <tr>
-          <th>操作符</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>filter</td>
-          <td>将集合里的元素过滤，并返回过滤后的元素</td>
-      </tr>
-      <tr>
-          <td>map</td>
-          <td>将集合里的元素一一对应转换为另一个元素</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>操作符</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>filter</td>
+					<td>将集合里的元素过滤，并返回过滤后的元素</td>
+			</tr>
+			<tr>
+					<td>map</td>
+					<td>将集合里的元素一一对应转换为另一个元素</td>
+			</tr>
+	</tbody>
 </table>
 <pre tabindex="0"><code>// 返回商店中顾客来自的城市列表
 fun Shop.getCitiesCustomersAreFrom(): Set&lt;City&gt; = customers.map { it.city }.toSet()
@@ -465,30 +519,30 @@ fun Shop.getCitiesCustomersAreFrom(): Set&lt;City&gt; = customers.map { it.city 
 // 返回住在给定城市的所有顾客
 fun Shop.getCustomersFrom(city: City): List&lt;Customer&gt; = customers.filter { it.city == city }
 </code></pre><table>
-  <thead>
-      <tr>
-          <th>操作符</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>all</td>
-          <td>判断集合中的所有元素是否满足某个条件，都满足返回true</td>
-      </tr>
-      <tr>
-          <td>any</td>
-          <td>判断集合中是否有元素满足某个条件，有则返回true</td>
-      </tr>
-      <tr>
-          <td>count</td>
-          <td>返回集合中满足某个条件的元素数量</td>
-      </tr>
-      <tr>
-          <td>find</td>
-          <td>查找集合中满足某个条件的一个元素，不存在则返回null</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>操作符</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>all</td>
+					<td>判断集合中的所有元素是否满足某个条件，都满足返回true</td>
+			</tr>
+			<tr>
+					<td>any</td>
+					<td>判断集合中是否有元素满足某个条件，有则返回true</td>
+			</tr>
+			<tr>
+					<td>count</td>
+					<td>返回集合中满足某个条件的元素数量</td>
+			</tr>
+			<tr>
+					<td>find</td>
+					<td>查找集合中满足某个条件的一个元素，不存在则返回null</td>
+			</tr>
+	</tbody>
 </table>
 <pre tabindex="0"><code>// 如果超市中所有顾客都来自于给定城市，则返回true
 fun Shop.checkAllCustomersAreFrom(city: City): Boolean = customers.all { it.city == city }
@@ -502,18 +556,18 @@ fun Shop.countCustomersFrom(city: City): Int = customers.count { it.city == city
 // 返回一个住在给定城市的顾客，若无返回null
 fun Shop.findAnyCustomerFrom(city: City): Customer? = customers.find { it.city == city }
 </code></pre><table>
-  <thead>
-      <tr>
-          <th>操作符</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>flatMap</td>
-          <td>将集合的元素转换为另外的元素（非一一对应）</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>操作符</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>flatMap</td>
+					<td>将集合的元素转换为另外的元素（非一一对应）</td>
+			</tr>
+	</tbody>
 </table>
 <pre tabindex="0"><code>// 返回所有该顾客购买过的商品集合
 fun Customer.getOrderedProducts(): Set&lt;Product&gt; = orders.flatMap { it.products }.toSet()
@@ -521,22 +575,22 @@ fun Customer.getOrderedProducts(): Set&lt;Product&gt; = orders.flatMap { it.prod
 // 返回超市中至少有一名顾客购买过的商品列表
 fun Shop.getAllOrderedProducts(): Set&lt;Product&gt; = customers.flatMap { it.getOrderedProducts() }.toSet()
 </code></pre><table>
-  <thead>
-      <tr>
-          <th>操作符</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>max</td>
-          <td>返回集合中以某个条件排序的最大的元素</td>
-      </tr>
-      <tr>
-          <td>min</td>
-          <td>返回集合中以某个条件排序的最小的元素</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>操作符</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>max</td>
+					<td>返回集合中以某个条件排序的最大的元素</td>
+			</tr>
+			<tr>
+					<td>min</td>
+					<td>返回集合中以某个条件排序的最小的元素</td>
+			</tr>
+	</tbody>
 </table>
 <pre tabindex="0"><code>// 返回商店中购买订单次数最多的用户
 fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? = customers.maxBy { it.orders.size }
@@ -544,26 +598,26 @@ fun Shop.getCustomerWithMaximumNumberOfOrders(): Customer? = customers.maxBy { i
 // 返回顾所购买过的最贵的商品
 fun Customer.getMostExpensiveOrderedProduct(): Product? = orders.flatMap { it.products }.maxBy { it.price }
 </code></pre><table>
-  <thead>
-      <tr>
-          <th>操作符</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>sort</td>
-          <td>根据某个条件对集合元素进行排序</td>
-      </tr>
-      <tr>
-          <td>sum</td>
-          <td>对集合中的元素按照某种规则进行相加</td>
-      </tr>
-      <tr>
-          <td>groupBy</td>
-          <td>对集合中的元素按照某种规则进行组合</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>操作符</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>sort</td>
+					<td>根据某个条件对集合元素进行排序</td>
+			</tr>
+			<tr>
+					<td>sum</td>
+					<td>对集合中的元素按照某种规则进行相加</td>
+			</tr>
+			<tr>
+					<td>groupBy</td>
+					<td>对集合中的元素按照某种规则进行组合</td>
+			</tr>
+	</tbody>
 </table>
 <pre tabindex="0"><code>// 按照购买订单数量升序返回商店的顾客
 fun Shop.getCustomersSortedByNumberOfOrders(): List&lt;Customer&gt; = customers.sortedBy { it.orders.size }
@@ -574,22 +628,22 @@ fun Customer.getTotalOrderPrice(): Double = orders.flatMap { it.products }.sumBy
 // 返回商店中居住城市与顾客的映射
 fun Shop.groupCustomersByCity(): Map&lt;City, List&lt;Customer&gt;&gt; = customers.groupBy { it.city }
 </code></pre><table>
-  <thead>
-      <tr>
-          <th>操作符</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>partition</td>
-          <td>根据某种规则将集合中的元素分为两组</td>
-      </tr>
-      <tr>
-          <td>fold</td>
-          <td>对集合的元素按照某个逻辑进行一一累计</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>操作符</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>partition</td>
+					<td>根据某种规则将集合中的元素分为两组</td>
+			</tr>
+			<tr>
+					<td>fold</td>
+					<td>对集合的元素按照某个逻辑进行一一累计</td>
+			</tr>
+	</tbody>
 </table>
 <pre tabindex="0"><code>// 返回商店中未送到订单比送达订单要多的顾客列表
 fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set&lt;Customer&gt; = customers.filter {
@@ -617,9 +671,9 @@ fun Shop.getNumberOfTimesProductWasOrdered(product: Product): Int {
 }
 </code></pre><p>Kotlin对集合提供了几乎你能想到的所有操作，通过对这些操作的组合减少集合操作的复杂度，提高可读性。以下是Java和Kotln对集合操作的对比</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 用Java实现</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">doSomethingStrangeWithCollection</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">doSomethingStrangeWithCollection</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">collection</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">groupsByLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Maps</span><span class="p">.</span><span class="na">newHashMap</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">collection</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">groupsByLength</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">());</span><span class="w">
@@ -641,7 +695,7 @@ fun Shop.getNumberOfTimesProductWasOrdered(product: Product): Int {
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><pre tabindex="0"><code>// 用Kotlin实现
 fun doSomethingStrangeWithCollection(collection: Collection&lt;String&gt;): Collection&lt;String&gt;? {
 
@@ -742,50 +796,50 @@ fun main() {
 <h1 id="整洁kotlin风格">整洁Kotlin风格</h1>
 <p>在《Kotlin in Action》一书中有归纳了一些Kotlin对比Java的整洁语法如下：</p>
 <table>
-  <thead>
-      <tr>
-          <th>常规语法</th>
-          <th>整洁语法</th>
-          <th>用到的功能</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>StringUtil.capitalize(s)</td>
-          <td>s.capitalize()</td>
-          <td>扩展函数</td>
-      </tr>
-      <tr>
-          <td>1.to(&ldquo;one&rdquo;)</td>
-          <td>1 to &ldquo;one&rdquo;</td>
-          <td>中缀函数 infix</td>
-      </tr>
-      <tr>
-          <td>set.add(2)</td>
-          <td>set += 1</td>
-          <td>运算符重载</td>
-      </tr>
-      <tr>
-          <td>map.get(&ldquo;key&rdquo;)</td>
-          <td>map[&ldquo;key&rdquo;]</td>
-          <td>get方法约定</td>
-      </tr>
-      <tr>
-          <td>file.use({f -&gt; f.read})</td>
-          <td>file.use { it.read() }</td>
-          <td>括号内lambda外移</td>
-      </tr>
-      <tr>
-          <td>sb.append(&ldquo;a&rdquo;) sb.append(&ldquo;b&rdquo;)</td>
-          <td>with(sb) { append(“a&quot;) append(“b&quot;)}</td>
-          <td>带接收者的lambda</td>
-      </tr>
-      <tr>
-          <td>整洁语法换句话来说也是Kotlin的一种编程风格，其他约定俗成的整洁Kotlin编程风格可见官方文档 <a href="http://kotlinlang.org/docs/reference/idioms.html">Idioms</a>。非常建议大家看看Idioms这个文档，里面涵盖了非常Kotlin的使用方式，包括：</td>
-          <td></td>
-          <td></td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>常规语法</th>
+					<th>整洁语法</th>
+					<th>用到的功能</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>StringUtil.capitalize(s)</td>
+					<td>s.capitalize()</td>
+					<td>扩展函数</td>
+			</tr>
+			<tr>
+					<td>1.to(&ldquo;one&rdquo;)</td>
+					<td>1 to &ldquo;one&rdquo;</td>
+					<td>中缀函数 infix</td>
+			</tr>
+			<tr>
+					<td>set.add(2)</td>
+					<td>set += 1</td>
+					<td>运算符重载</td>
+			</tr>
+			<tr>
+					<td>map.get(&ldquo;key&rdquo;)</td>
+					<td>map[&ldquo;key&rdquo;]</td>
+					<td>get方法约定</td>
+			</tr>
+			<tr>
+					<td>file.use({f -&gt; f.read})</td>
+					<td>file.use { it.read() }</td>
+					<td>括号内lambda外移</td>
+			</tr>
+			<tr>
+					<td>sb.append(&ldquo;a&rdquo;) sb.append(&ldquo;b&rdquo;)</td>
+					<td>with(sb) { append(“a&quot;) append(“b&quot;)}</td>
+					<td>带接收者的lambda</td>
+			</tr>
+			<tr>
+					<td>整洁语法换句话来说也是Kotlin的一种编程风格，其他约定俗成的整洁Kotlin编程风格可见官方文档 <a href="http://kotlinlang.org/docs/reference/idioms.html">Idioms</a>。非常建议大家看看Idioms这个文档，里面涵盖了非常Kotlin的使用方式，包括：</td>
+					<td></td>
+					<td></td>
+			</tr>
+	</tbody>
 </table>
 <ul>
 <li>使用默认参数代替方法重载</li>
@@ -856,46 +910,46 @@ public inline fun &lt;T&gt; T.also(block: (T) -&gt; Unit): T {
     }
 }
 </code></pre><table>
-  <thead>
-      <tr>
-          <th>方法</th>
-          <th>接收者this</th>
-          <th>lambda参数it</th>
-          <th>返回结果</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>let</td>
-          <td>this@MyClass</td>
-          <td>String(&quot;&hellip;&quot;)</td>
-          <td>Int(42)</td>
-      </tr>
-      <tr>
-          <td>run</td>
-          <td>String(&quot;&hellip;&quot;)</td>
-          <td>N\A</td>
-          <td>Int(42)</td>
-      </tr>
-      <tr>
-          <td>with(*)</td>
-          <td>String(&quot;&hellip;&quot;)</td>
-          <td>N\A</td>
-          <td>Int(42)</td>
-      </tr>
-      <tr>
-          <td>apply</td>
-          <td>String(&quot;&hellip;&quot;)</td>
-          <td>N\A</td>
-          <td>String(&quot;&hellip;&quot;)</td>
-      </tr>
-      <tr>
-          <td>also</td>
-          <td>this@MyClass</td>
-          <td>String(&quot;&hellip;&quot;)</td>
-          <td>String(&quot;&hellip;&quot;)</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>方法</th>
+					<th>接收者this</th>
+					<th>lambda参数it</th>
+					<th>返回结果</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>let</td>
+					<td>this@MyClass</td>
+					<td>String(&quot;&hellip;&quot;)</td>
+					<td>Int(42)</td>
+			</tr>
+			<tr>
+					<td>run</td>
+					<td>String(&quot;&hellip;&quot;)</td>
+					<td>N\A</td>
+					<td>Int(42)</td>
+			</tr>
+			<tr>
+					<td>with(*)</td>
+					<td>String(&quot;&hellip;&quot;)</td>
+					<td>N\A</td>
+					<td>Int(42)</td>
+			</tr>
+			<tr>
+					<td>apply</td>
+					<td>String(&quot;&hellip;&quot;)</td>
+					<td>N\A</td>
+					<td>String(&quot;&hellip;&quot;)</td>
+			</tr>
+			<tr>
+					<td>also</td>
+					<td>this@MyClass</td>
+					<td>String(&quot;&hellip;&quot;)</td>
+					<td>String(&quot;&hellip;&quot;)</td>
+			</tr>
+	</tbody>
 </table>
 <h2 id="dsl构建">DSL构建</h2>
 <p>以下是DSL和API调用方式的区别</p>
@@ -1025,7 +1079,7 @@ Hello
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * 没有线程安全，不保证同步，只能在确保单线程环境中使用
 </span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">NONE</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><h1 id="解构">解构</h1>
 <p>解构是非常实用的Kotlin提供的将一个对象属性分离出来的特性。
 内部实现原理是通过声明为<code>componentN()</code>的操作符重载实现。对Kotlin中的<code>data</code>类会自动生成<code>component</code>函数，默认支持解构操作。以下是解构比较实用的一个例子：</p>
@@ -1115,68 +1169,74 @@ Java中使用<code>extends</code>和<code>super</code>来区分泛型中生产�
 <h1 id="最后">最后</h1>
 <p>Kotlin是一门优秀的语言，值得大家尝试。</p>
 
+          
+          
+
 
         
+        
           <div class="blog-tags">
-            
-              
-              <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-            
+            <span>Tags: </span>
+            <a href="/tags/android/">android</a>&nbsp;
           </div>
         
 
         
             <hr/>
             <section id="social-share">
-              <div class="list-inline footer-links">
+              <div class="footer-links">
                 
+<div class="share-box" role="region">
+    <ul class="share" aria-label="Social sharing" role="list">
+      
+      <li role="listitem">
+        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;text=Kotlin%e7%b2%be%e9%ab%93" target="_blank" rel="noopener noreferrer" title="Share on Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Twitter</span>
+        </a>
+      </li>
 
-<div class="share-box" aria-hidden="true">
-    <ul class="share">
       
-      <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;text=Kotlin%e7%b2%be%e9%ab%93&amp;via=" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
+      <li role="listitem">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f" target="_blank" rel="noopener noreferrer" title="Share on Facebook">
+          <i class="fab fa-facebook" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Facebook</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
+      <li role="listitem">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;title=Kotlin%e7%b2%be%e9%ab%93" target="_blank" rel="noopener noreferrer" title="Share on Reddit">
+          <i class="fab fa-reddit" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Reddit</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;title=Kotlin%e7%b2%be%e9%ab%93" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
+      <li role="listitem">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;title=Kotlin%e7%b2%be%e9%ab%93" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on LinkedIn</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;title=Kotlin%e7%b2%be%e9%ab%93" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
+      <li role="listitem">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;description=Kotlin%e7%b2%be%e9%ab%93" target="_blank" rel="noopener noreferrer" title="Share on Pinterest">
+          <i class="fab fa-pinterest" aria-hidden="true"></i>
+          <span class="visually-hidden">Share on Pinterest</span>
         </a>
       </li>
-  
+
       
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;title=Kotlin%e7%b2%be%e9%ab%93" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;description=Kotlin%e7%b2%be%e9%ab%93" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
+      <li role="listitem">
+        <a href="mailto:?body=https%3a%2f%2fshenguojun.github.io%2fpost%2fkotlin-good-part%2f&amp;subject=Kotlin%e7%b2%be%e9%ab%93" title="Share via email">
+          <i class="fas fa-at" aria-hidden="true"></i>
+          <span class="visually-hidden">Share via email</span>
         </a>
       </li>
     </ul>
   </div>
-  
 
               </div>
             </section>
@@ -1186,15 +1246,29 @@ Java中使用<code>extends</code>和<code>super</code>来区分泛型中生产�
       </article>
 
       
-        <ul class="pager blog-pager">
+        
+          <a href="/post/android-deeplink/" class="nav-side-arrow nav-side-prev" title="记录一次Android Deeplink跳转失败问题修复" aria-label="Previous Post: 记录一次Android Deeplink跳转失败问题修复">
+            <i class="fas fa-chevron-left"></i>
+          </a>
+        
+        
+          <a href="/post/android-vesrion-adaptive/" class="nav-side-arrow nav-side-next" title="targetSdkVersion升级到28一些修改的地方" aria-label="Next Post: targetSdkVersion升级到28一些修改的地方">
+            <i class="fas fa-chevron-right"></i>
+          </a>
+        
+        <ul class="post-pager blog-post-pager">
           
-            <li class="previous">
-              <a href="https://shenguojun.github.io/post/android-deeplink/" data-toggle="tooltip" data-placement="top" title="记录一次Android Deeplink跳转失败问题修复">&larr; Previous Post</a>
+            <li class="pager-prev">
+              <a href="/post/android-deeplink/" data-bs-toggle="tooltip" data-bs-placement="top" title="记录一次Android Deeplink跳转失败问题修复"><i class="fas fa-chevron-left"></i> Previous Post</a>
             </li>
           
+          <li class="pager-center">
+            
+
+          </li>
           
-            <li class="next">
-              <a href="https://shenguojun.github.io/post/android-vesrion-adaptive/" data-toggle="tooltip" data-placement="top" title="targetSdkVersion升级到28一些修改的地方">Next Post &rarr;</a>
+            <li class="pager-next">
+              <a href="/post/android-vesrion-adaptive/" data-bs-toggle="tooltip" data-bs-placement="top" title="targetSdkVersion升级到28一些修改的地方">Next Post <i class="fas fa-chevron-right"></i></a>
             </li>
           
         </ul>
@@ -1203,58 +1277,171 @@ Java中使用<code>extends</code>和<code>super</code>来区分泛型中生产�
 
       
       
+
+      
+
       
       
       
         
       
+
+      <div class="toc-wrapper" id="toc-wrapper" data-toc-mode="headings">
+  <div class="toc-panel" id="toc-panel" role="dialog" aria-label="Table of contents">
+    <div class="toc-header">
+      <span class="toc-title">Table of Contents</span>
+      <button class="toc-close" id="toc-close" aria-label="Close table of contents">&times;</button>
+    </div>
+    <nav class="toc-body"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#kotlin设计哲学">Kotlin设计哲学</a></li>
+    <li><a href="#空值安全">空值安全</a></li>
+    <li><a href="#扩展">扩展</a>
+      <ul>
+        <li><a href="#扩展函数">扩展函数</a></li>
+        <li><a href="#扩展属性">扩展属性</a></li>
+      </ul>
+    </li>
+    <li><a href="#集合">集合</a></li>
+    <li><a href="#运算符">运算符</a>
+      <ul>
+        <li><a href="#运算符重载">运算符重载</a></li>
+        <li><a href="#infix">infix</a></li>
+      </ul>
+    </li>
+    <li><a href="#整洁kotlin风格">整洁Kotlin风格</a>
+      <ul>
+        <li><a href="#方法参数">方法参数</a></li>
+        <li><a href="#带接收者的lambda表达式">带接收者的lambda表达式</a></li>
+        <li><a href="#let-run-with-apply-also">let run with apply also</a></li>
+        <li><a href="#dsl构建">DSL构建</a></li>
+      </ul>
+    </li>
+    <li><a href="#属性代理">属性代理</a></li>
+    <li><a href="#解构">解构</a></li>
+    <li><a href="#协程coroutine">协程Coroutine</a></li>
+    <li><a href="#在android中使用">在Android中使用</a>
+      <ul>
+        <li><a href="#findviewbyid">findViewById</a></li>
+        <li><a href="#anko">anko</a></li>
+        <li><a href="#ktx">ktx</a></li>
+      </ul>
+    </li>
+    <li><a href="#与java不太一样的地方">与Java不太一样的地方</a></li>
+    <li><a href="#学习资源">学习资源</a></li>
+    <li><a href="#问题">问题</a></li>
+    <li><a href="#最后">最后</a></li>
+  </ul>
+</nav></nav>
+  </div>
+  <div class="toc-backdrop" id="toc-backdrop"></div>
+</div>
 
     </div>
   </div>
 </div>
 
-      <footer>
+    
+      
+<footer>
   <div class="container">
     
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="col-md-10 offset-md-1">
         <ul class="list-inline text-center footer-links">
           
           
           
           
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
         </ul>
         <p class="credits copyright text-muted">
           
-
-          &nbsp;&bull;&nbsp;&copy;
+          &copy;
           
             2023
           
 
           
-            &nbsp;&bull;&nbsp;
-            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+            <a href="/">Lawrence&#39;s Blog</a>
           
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.147.9</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.163.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</footer>
 
-<script src="https://shenguojun.github.io/js/main.js"></script>
-<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+      
+
+      
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" integrity="sha384-Tt7wBxLKwSzFVRET4O4U9H6v8MNaQ/CjN2FMP4xFm0ErrFu6aNqoonRVW5W40iGI" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js" integrity="sha384-tcspKDb5tWvyRCOWzevlAeQgHeEzYdUHJpcgnIhcP9w4CnfD7DLAcS+k9QzLbRJO" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script><script src="/js/toc.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js" integrity="sha384-RH2xi4eIQ/gjtbs9fUXM68sLSi99C7ZWBRX1vDrVv6GQXRibxXLbwO2NGZB74MbU" crossorigin="anonymous"></script><script> hljs.highlightAll(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe.umd.min.js" integrity="sha384-k8EKyYcONphQ7zH4cQ0888JapXwrLTXQl/Ue1/jYgjVYahln1NWpnt2S4IC56LNh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe-lightbox.umd.min.js" integrity="sha384-IiBVbUz6+U+Tbm/ijO2P0XRwcVzNfrMzloNLkrqHkbi6w5H0v6ie4fI9BIO4SwdK" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
 
 
 
@@ -1268,4 +1455,3 @@ Java中使用<code>extends</code>和<code>super</code>来区分泛型中生产�
     
   </body>
 </html>
-

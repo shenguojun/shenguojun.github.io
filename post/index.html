@@ -2,8 +2,25 @@
 
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
+  <head><script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var dark = false;
+        if (saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        } else if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          dark = true;
+        }
+        var hljsDark = document.getElementById('hljs-dark');
+        if (hljsDark) {
+          hljsDark.disabled = !dark;
+        }
+      })();
+    </script>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,97 +29,233 @@
  
 
 
-      <title>Posts - </title>
+  <title>Posts</title>
+
+
+
+
 <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Lawrence\u0027s Blog",
-    
-    "url": "https:\/\/shenguojun.github.io\/"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/shenguojun.github.io\/"
-  
-  
-  
-  
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://shenguojun.github.io/#website",
+      "@type": "WebSite",
+      "name": "Lawrence's Blog",
+      "publisher": {
+        "@id": "https://shenguojun.github.io/#organization"
+      },
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/#organization",
+      "@type": "Organization",
+      "name": null,
+      "url": "https://shenguojun.github.io/"
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/#breadcrumb",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/",
+          "name": "Home",
+          "position": 1
+        },
+        {
+          "@type": "ListItem",
+          "item": "https://shenguojun.github.io/post/",
+          "name": "Posts",
+          "position": 2
+        }
+      ]
+    },
+    {
+      "@id": "https://shenguojun.github.io/post/#collectionpage",
+      "@type": "CollectionPage",
+      "breadcrumb": {
+        "@id": "https://shenguojun.github.io/post/#breadcrumb"
+      },
+      "description": "",
+      "isPartOf": {
+        "@id": "https://shenguojun.github.io/#website"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "name": "Tetris Native揭秘|有道词典动态化运营引擎",
+            "position": 1,
+            "url": "https://shenguojun.github.io/post/tetris-native-overview/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "Flutter入门1——Dart语言基础",
+            "position": 2,
+            "url": "https://shenguojun.github.io/post/flutter-dart/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "深入理解Android Runtime",
+            "position": 3,
+            "url": "https://shenguojun.github.io/post/android_runtime/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "TargetsdkVersion 升级31（Android12）适配",
+            "position": 4,
+            "url": "https://shenguojun.github.io/post/targetsdk31/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "Kotlin升级1.5版本synthetic引发的血案分析",
+            "position": 5,
+            "url": "https://shenguojun.github.io/post/kotlin_synthetic/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "Android深色模式适配原理分析",
+            "position": 6,
+            "url": "https://shenguojun.github.io/post/android-dark-mode/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "Flutter学习笔记——用户界面",
+            "position": 7,
+            "url": "https://shenguojun.github.io/post/flutter-learning-note/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "Android性能分析\u0026启动优化",
+            "position": 8,
+            "url": "https://shenguojun.github.io/post/android-profile/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "单元测试之JUnit4",
+            "position": 9,
+            "url": "https://shenguojun.github.io/post/unittest/"
+          },
+          {
+            "@type": "ListItem",
+            "name": "Databinding subModule library 爬坑",
+            "position": 10,
+            "url": "https://shenguojun.github.io/post/databinding-submodule/"
+          }
+        ],
+        "numberOfItems": 10
+      },
+      "name": "Posts",
+      "url": "https://shenguojun.github.io/post/"
+    }
+  ]
 }
 </script>
-
-<meta property="og:title" content="Posts" />
-<meta property="og:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
-<meta property="og:url" content="https://shenguojun.github.io/post/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Lawrence&#39;s Blog" />
-
+<meta property="og:url" content="https://shenguojun.github.io/post/">
+	<meta property="og:site_name" content="Lawrence&#39;s Blog">
+	<meta property="og:title" content="Posts">
+	<meta property="og:locale" content="en_us">
+	<meta property="og:type" content="website">
+<link rel="canonical" href="https://shenguojun.github.io/post/" />
   <meta name="twitter:title" content="Posts" />
   <meta name="twitter:image" content="https://shenguojun.github.io/image/bugzongchai.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link href='https://shenguojun.github.io/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.147.9">
-  <link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css" integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" integrity="sha384-h/hnnw1Bi4nbpD6kE7nYfCXzovi622sY5WBxww8ARKwpdLj5kUWjRuyiXaD1U2JT" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"><link rel="stylesheet" href="https://shenguojun.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://shenguojun.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://shenguojun.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+  <link href='/image/bugzongchai.png' rel='icon' type='image/x-icon'/>
+<meta name="generator" content="Hugo 0.163.3">
+<link rel="alternate" href="https://shenguojun.github.io/index.xml" type="application/rss+xml" title="Lawrence&#39;s Blog">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" integrity="sha384-UA8juhPf75SzzAMA/4fo3yOU7sBJ0om7SCD2GHq0fZqZco6tr1UCV7nUbk9J90JM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/brands.css" integrity="sha384-+PvcAGLOWIanfjuRoscHUyZB100N7wP779T8D3ao0FniyFFKMw9MIJpgtJO3+pdF" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/fontawesome.css" integrity="sha384-mj4mLShEAyWi4Bui9LmFkAjPYWof6WrG8DfS8ebHhjm4/MClMqMMHpQzehNk5HeM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/regular.css" integrity="sha384-eS8Ja07iO8AOH11Hzegc5aZyN8CpY+oFwClH6MIlOKUOA3J4Oqjt8Xia9VUSU0GB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/solid.css" integrity="sha384-LpGibDKKReBRP3epUOaN9WBgkrQ1pJIvrrTugkYxVQgDvYuMCRaXk6YkrZ/h3aWk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg.css" integrity="sha384-V18zH+yIEosaHAByV0h4dqHHMPzBxZ7CYz9GQ1YsLTE9QIkEme0jAw9Qir7aIFT+" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/svg-with-js.css" integrity="sha384-K25UPiwKhSAcEPQskU+UjXpz4iScCTNX5tcEpAGp1hQFNkOoIIwZiV69SfEfaRjK" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-font-face.css" integrity="sha384-YFnAdl87B7pW+Vhp7w9pvA8ZdBL8DQni4/++wrZ0f7o/Sc0pyThczmxZk9xLyc0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v4-shims.css" integrity="sha384-FnTDI00psVcN3KkfAip/6yRCeN17N3R7HZoAj+2+nttp8n1/vHfYUWvlscoUUhGJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v7.2.0/css/v5-font-face.css" integrity="sha384-FUMXkSpZU/e6Ua2owr0Mktp/gtxxiK1OgCS1vDr8Lsz+gbyDFMSiKeHBRa07EjDn" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/print.css" media="print" /><link rel="stylesheet" href="/css/dark.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css" integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L" crossorigin="anonymous"><link id="hljs-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github-dark.min.css" integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH" crossorigin="anonymous"><link rel="stylesheet" href="/css/codeblock.css" /><link rel="stylesheet" href="/css/toc.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
 
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <nav class="navbar navbar-expand-md navbar-light navbar-custom fixed-top">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+    <a class="navbar-brand" href="/">Lawrence&#39;s Blog</a>
+    <div class="d-flex align-items-center">
+      
+      
+      
+      <button class="theme-toggle" id="toc-toggle" aria-label="Table of contents" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Table of contents">
+        <span class="fas fa-list"></span>
       </button>
-      <a class="navbar-brand" href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+      
+      
+      
+      <button class="theme-toggle" id="theme-toggle" aria-label="Theme" data-bs-toggle="tooltip" data-bs-placement="bottom" data-tooltip-auto="Auto (follows system)" data-tooltip-light="Light mode" data-tooltip-dark="Dark mode" title="Auto (follows system)">
+        <span class="fas fa-adjust" id="theme-icon-auto"></span>
+        <span class="fas fa-sun" id="theme-icon-light" style="display: none;"></span>
+        <span class="fas fa-moon" id="theme-icon-dark" style="display: none;"></span>
+      </button>
+      
+      
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
 
     <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav ms-auto">
         
           
-            <li>
-              <a title="Blog" href="/">Blog</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Blog" href="/">Blog</a>
             </li>
           
         
           
-            <li>
-              <a title="About" href="/page/about/">About</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="About" href="/page/about/">About</a>
             </li>
           
         
           
-            <li>
-              <a title="Tags" href="/tags">Tags</a>
+          
+            <li class="nav-item" >
+              <a class="nav-link" title="Tags" href="/tags">Tags</a>
             </li>
           
         
 
-        
+          
 
         
       </ul>
+      
+
     </div>
 
     
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="Lawrence&#39;s Blog" href="https://shenguojun.github.io/">
-            <img class="avatar-img" src="https://shenguojun.github.io/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
-           
-          </a>
+    
+      
+        <div class="avatar-container">
+          <div class="avatar-img-border">
+            <a title="Lawrence&#39;s Blog" href="/">
+              <img class="avatar-img" src="/image/bugzongchai.png" alt="Lawrence&#39;s Blog" />
+             
+            </a>
+          </div>
         </div>
-      </div>
+      
     
 
   </div>
@@ -111,59 +264,11 @@
 
 
 
+
+
+
+
     
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
 
 
 
@@ -176,33 +281,52 @@
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="col-md-10 offset-md-1">
             <div class="post-heading text-center">
+              
               
                 <h1>Posts</h1>
               
               
               
               
+
+
+              
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 13, 2023
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;0&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;0&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on November 13, 2023
+    
+    
   
   
     
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-clock"></i>&nbsp;0&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;0&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
     
   
   
 </span>
-
 
               
             </div>
@@ -211,18 +335,21 @@
       </div>
     </div>
   
+    
+
   </header>
 
 
     
   <div class="container" role="main">
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="col-md-10 offset-md-1">
         
         <div class="posts-list">
           
+          
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/tetris-native-overview/">
+    <a href="/post/tetris-native-overview/">
         <h2 class="post-title">Tetris Native揭秘|有道词典动态化运营引擎</h2>
         
         
@@ -233,38 +360,54 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 13, 2023
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;17&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;8042&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on November 13, 2023
+    
+    
   
   
     
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-clock"></i>&nbsp;17&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;8208&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
     
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
         
         <blockquote>
 <p>Tetris Native是有道词典端侧动态渲染引擎，目前已作为多个业务的运营投放容器，支持跨端UI动态化发布及多种样式，助力有道词典流量变现。《Tetris Native揭秘》系列文章将详细介绍Tetris Native的设计理念和详细落地方案。</p>
-        <a href="https://shenguojun.github.io/post/tetris-native-overview/" class="post-read-more">[Read More]</a>
+        <a href="/post/tetris-native-overview/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/flutter-dart/">
+    <a href="/post/flutter-dart/">
         <h2 class="post-title">Flutter入门1——Dart语言基础</h2>
         
         
@@ -275,46 +418,61 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on September 1, 2022
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;16&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;7601&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on September 1, 2022
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;16&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;7601&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
         
         <p>Dart语言的某些特性可能会让习惯使用Java或者Kotlin的开发者看不懂或者感到疑惑，本文主要介绍Dart语言的一些和Java以及Kotlin不太一样的地方，旨在让Android开发者可以快速掌握Dart语言。</p>
-        <a href="https://shenguojun.github.io/post/flutter-dart/" class="post-read-more">[Read More]</a>
+        <a href="/post/flutter-dart/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/flutter/">flutter</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/flutter/">flutter</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android_runtime/">
+    <a href="/post/android_runtime/">
         <h2 class="post-title">深入理解Android Runtime</h2>
         
         
@@ -325,47 +483,62 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 8, 2022
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3346&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on August 8, 2022
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;7&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;3346&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
         
         <p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/android-stack_2x.png" alt="Android Platform Architecture"></p>
 <p>上图是Android整体的架构，Android Runtime之于Android而言相当于心脏之于人体，是Android程序加载和运行的环境。这篇文章主要针对Android Runtime部分进行展开，探讨Android Runtime的发展以及目前现状，并介绍应用Profile-Guided Optimization(PGO)技术对应用启动速度进行优化的可行性。</p>
-        <a href="https://shenguojun.github.io/post/android_runtime/" class="post-read-more">[Read More]</a>
+        <a href="/post/android_runtime/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/android/">android</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/targetsdk31/">
+    <a href="/post/targetsdk31/">
         <h2 class="post-title">TargetsdkVersion 升级31（Android12）适配</h2>
         
         
@@ -376,47 +549,62 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 14, 2022
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;8&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3897&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on April 14, 2022
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;8&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;3897&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
         
         <h1 id="targetsdkversion-升级31android12适配">TargetsdkVersion 升级31（Android12）适配</h1>
 <p>我们升级到Targetsdk29有大半年时间了，今年为了满足审查去除蓝牙的精确定位权限，以及满足上架Google Play的要求，需要将Targetsdkversion升级到31，适配到Android12。这个过程遇到不少坑，这里记录一下，希望能对大家有所帮助。</p>
-        <a href="https://shenguojun.github.io/post/targetsdk31/" class="post-read-more">[Read More]</a>
+        <a href="/post/targetsdk31/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/android/">android</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/kotlin_synthetic/">
+    <a href="/post/kotlin_synthetic/">
         <h2 class="post-title">Kotlin升级1.5版本synthetic引发的血案分析</h2>
         
         
@@ -427,22 +615,37 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 9, 2021
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3231&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on July 9, 2021
+    
+    
   
   
     
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-clock"></i>&nbsp;7&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;3231&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
     
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
@@ -451,23 +654,25 @@
 <p>因为项目里面Kotlin版本还停留在1.4，看到1.5版本<a href="https://Kotlinlang.org/docs/releases.html#release-details">更新记录</a>提升了性能并且新加了一些特性，准备怒升级一波。怀着开心的心情升级完之后，运行起来就傻眼了！</p>
 <p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/1625820518128283.gif" alt="1625820518128283"></p>
 <p>视频列表有个浮层没有隐藏，就升级下Kotlin，居然还有这个问题，真是太不可思议了！把Kotlin降级回去，然后就好了，确定是因为Kotlin升级导致的问题。接下来就开始分析了。</p>
-        <a href="https://shenguojun.github.io/post/kotlin_synthetic/" class="post-read-more">[Read More]</a>
+        <a href="/post/kotlin_synthetic/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/android/">android</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-dark-mode/">
+    <a href="/post/android-dark-mode/">
         <h2 class="post-title">Android深色模式适配原理分析</h2>
         
         
@@ -478,24 +683,37 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on October 12, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;22&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;10958&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on October 12, 2020
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;22&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;10958&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
@@ -503,23 +721,25 @@
         <p><img src="https://raw.githubusercontent.com/shenguojun/ImageServer/master/uPic/dark-mode-hot-take.png" alt="Dark Mode"></p>
 <h2 id="背景">背景</h2>
 <p>从Android10（API 29）开始，在原有的主题适配的基础上，Google开始提供了Force Dark机制，在系统底层直接对颜色和图片进行转换处理，原生支持深色模式。到目前为止，我们从用户数据分析**50%**以上的用户已经使用上了Android10系统。深色模式可以节省电量、改善弱势及强光敏感用户的可视性，并能在环境亮度较暗的时候保护视力，更是夜间活跃用户的强烈需求。对深色模式的适配有利于提升用户口碑。 转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「申国骏」</a></p>
-        <a href="https://shenguojun.github.io/post/android-dark-mode/" class="post-read-more">[Read More]</a>
+        <a href="/post/android-dark-mode/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/android/">android</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/flutter-learning-note/">
+    <a href="/post/flutter-learning-note/">
         <h2 class="post-title">Flutter学习笔记——用户界面</h2>
         
         
@@ -530,29 +750,45 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;20&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;9577&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on April 7, 2020
+    
+    
   
   
     
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-clock"></i>&nbsp;20&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;9577&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
     
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
         
         <blockquote>
 <p>以下为对<a href="https://flutter.dev/docs">Flutter官网</a>的学习总结，如果你想快速掌握知识点，或者想复习一下官网学习的内容，那么值得看看。
-转载请注明出处：<a href="https://shenguojun.github.io/post/flutter-learning-note/">Lawrence_Shen</a></p></blockquote>
+转载请注明出处：<a href="https://shenguojun.github.io/post/flutter-learning-note/">Lawrence_Shen</a></p>
+</blockquote>
 <h1 id="用户界面">用户界面</h1>
 <h2 id="widgets介绍">widgets介绍</h2>
 <ul>
@@ -685,13 +921,13 @@
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="n">MaterialApp</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Start the app with the &#34;/&#34; named route. In this case, the app starts
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// on the FirstScreen widget.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nl">initialRoute:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+</span></span></span><span class="line"><span class="cl">  <span class="c1">// on the FirstScreen widget.
+</span></span></span><span class="line"><span class="cl">  <span class="nl">initialRoute:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="nl">routes:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// When navigating to the &#34;/&#34; route, build the FirstScreen widget.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;/&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">FirstScreen</span><span class="p">(),</span>
+</span></span></span><span class="line"><span class="cl">    <span class="s1">&#39;/&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">FirstScreen</span><span class="p">(),</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// When navigating to the &#34;/second&#34; route, build the SecondScreen widget.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;/second&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">SecondScreen</span><span class="p">(),</span>
+</span></span></span><span class="line"><span class="cl">    <span class="s1">&#39;/second&#39;</span><span class="o">:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">SecondScreen</span><span class="p">(),</span>
 </span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span><span class="line"><span class="cl"><span class="p">);</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/second&#39;</span><span class="p">);</span>
@@ -700,32 +936,32 @@
 <li>使用非具名路由跳转有两种页面间传递数据的做法，一种是跳转新页面时在Widget的构造函数中传入数据；第二种是通过设置MaterialPageRoute的RouteSettings中的arguments，并在跳转页面中使用ModalRoute.of(context).settings.arguments获取</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第一种方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="n">context</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="n">MaterialPageRoute</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">DetailScreen</span><span class="p">(</span><span class="nl">todo:</span> <span class="n">todos</span><span class="p">[</span><span class="n">index</span><span class="p">]),</span>
 </span></span><span class="line"><span class="cl">        <span class="p">),</span>
 </span></span><span class="line"><span class="cl">    <span class="p">);</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第二种方法—设置参数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="n">context</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="n">MaterialPageRoute</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">DetailScreen</span><span class="p">(),</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// Pass the arguments as part of the RouteSettings. The
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// DetailScreen reads the arguments from these settings.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nl">settings:</span> <span class="n">RouteSettings</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">            <span class="c1">// DetailScreen reads the arguments from these settings.
+</span></span></span><span class="line"><span class="cl">            <span class="nl">settings:</span> <span class="n">RouteSettings</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">                <span class="nl">arguments:</span> <span class="n">todos</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="p">),</span>
 </span></span><span class="line"><span class="cl">        <span class="p">),</span>
 </span></span><span class="line"><span class="cl">    <span class="p">);</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第二种方法—获取参数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">Todo</span> <span class="n">todo</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">Todo</span> <span class="n">todo</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
 </span></span></code></pre></div><h3 id="具名路由之间传递数据">具名路由之间传递数据</h3>
 <ul>
 <li>使用具名路由跳转有两种页面间传输的做法，一种是使用Navigator.pushNamed并设置arguments，然后在跳转页面使用ModalRoute.of(context).settings.arguments获取；第二种是是使用Navigator.pushNamed并设置arguments，然后在MaterialApp的onGenerateRoute方法中获取settings.arguments并在返回的MaterialPageRoute中通过构造函数设置给跳转页面</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第一种方法—设置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">Navigator</span><span class="p">.</span><span class="n">pushNamed</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">      <span class="n">context</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="n">ExtractArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nl">arguments:</span> <span class="n">ScreenArguments</span><span class="p">(</span>
@@ -734,21 +970,21 @@
 </span></span><span class="line"><span class="cl">      <span class="p">),</span>
 </span></span><span class="line"><span class="cl">    <span class="p">);</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第一种方法—获取
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">ModalRoute</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl">  <span class="c1">// 第二种方法—通过onGenerateRoute方法构造目标页面并传递参数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">MaterialApp</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">MaterialApp</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Provide a function to handle named routes. Use this function to
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// identify the named route being pushed, and create the correct
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// screen.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nl">onGenerateRoute:</span> <span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="c1">// identify the named route being pushed, and create the correct
+</span></span></span><span class="line"><span class="cl">  <span class="c1">// screen.
+</span></span></span><span class="line"><span class="cl">  <span class="nl">onGenerateRoute:</span> <span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// If you push the PassArguments route
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">settings</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">PassArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">settings</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">PassArgumentsScreen</span><span class="p">.</span><span class="n">routeName</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// Cast the arguments to the correct type: ScreenArguments.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">      <span class="kd">final</span> <span class="n">ScreenArguments</span> <span class="n">args</span> <span class="o">=</span> <span class="n">settings</span><span class="p">.</span><span class="n">arguments</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      <span class="c1">// Then, extract the required data from the arguments and
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// pass the data to the correct screen.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="n">MaterialPageRoute</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">      <span class="c1">// pass the data to the correct screen.
+</span></span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">MaterialPageRoute</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="n">PassArgumentsScreen</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="nl">title:</span> <span class="n">args</span><span class="p">.</span><span class="n">title</span><span class="p">,</span>
@@ -764,9 +1000,9 @@
 <li>使用Navigator.pop设置数据，并使用await获取Navigator.push返回结果</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 设置数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Navigator</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;Yep!&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Navigator</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;Yep!&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 获取数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">final</span> <span class="n">result</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">final</span> <span class="n">result</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">Navigator</span><span class="p">.</span><span class="n">push</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="n">context</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">MaterialPageRoute</span><span class="p">(</span><span class="nl">builder:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">nextScreen</span><span class="p">()),</span>
 </span></span><span class="line"><span class="cl">  <span class="p">);</span>
@@ -815,23 +1051,25 @@
 </a>
 <blockquote>
 <p>Mixins is all about how a class does what it does, it&rsquo;s inheriting and sharing concrete implementation. Interfaces is all about what a class is, it is the abstract signature and promises that the class must satisfy.</p>
-        <a href="https://shenguojun.github.io/post/flutter-learning-note/" class="post-read-more">[Read More]</a>
+        <a href="/post/flutter-learning-note/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/flutter/">flutter</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/flutter/">flutter</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/android-profile/">
+    <a href="/post/android-profile/">
         <h2 class="post-title">Android性能分析&amp;启动优化</h2>
         
         
@@ -842,46 +1080,61 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 19, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3228&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on November 19, 2019
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;7&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;3228&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
         
         <p>两年前我做过了类似的启动优化分析<a href="https://www.jianshu.com/p/59a2ca7df681">《如何统计Android App启动时间》</a>和<a href="https://www.jianshu.com/p/bef74a4b6d5e">《如何优化Androd App启动速度》</a>。两年过后，今天看来，之前说的<a href="https://link.jianshu.com/?t=https://nimbledroid.com/">nimbledroid</a>工具已经需要收费，而且Android Studio自带的<a href="https://developer.android.com/studio/profile">Android Profiler</a>已经足够强大，并且<a href="%5Bhttps://developer.android.com/studio/profile/systrace/command-line?utm_campaign=app_series_systracecommandline_081616%5D(https://developer.android.com/studio/profile/systrace/command-line?utm_campaign=app_series_systracecommandline_081616)">Systrace</a>也有了更为强大的<a href="https://ui.perfetto.dev/">Perfetto UI</a>分析工具。我们是时候来重新学习一下目前性能分析的方法以及如何在分析的基础上做启动优化这个事情。转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「Bug总柴」</a></p>
-        <a href="https://shenguojun.github.io/post/android-profile/" class="post-read-more">[Read More]</a>
+        <a href="/post/android-profile/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/android/">android</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/unittest/">
+    <a href="/post/unittest/">
         <h2 class="post-title">单元测试之JUnit4</h2>
         
         
@@ -892,47 +1145,62 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on May 9, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;9&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;4336&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on May 9, 2019
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;9&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;4336&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
         
         <h1 id="junit4"><a href="https://junit.org/junit4/">JUnit4</a></h1>
 <p>JUnit是一个帮助编写和执行单元测试的框架。可能很多人都接触过单元测试，但是只是停留在copy别人的测试代码再改一下的状态，下文尝试较为体系列举JUnit4中比较关键的一些知识点。转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「Bug总柴」</a></p>
-        <a href="https://shenguojun.github.io/post/unittest/" class="post-read-more">[Read More]</a>
+        <a href="/post/unittest/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/android/">android</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
             <article class="post-preview">
-    <a href="https://shenguojun.github.io/post/databinding-submodule/">
+    <a href="/post/databinding-submodule/">
         <h2 class="post-title">Databinding subModule library 爬坑</h2>
         
         
@@ -943,71 +1211,141 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 12, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;7&nbsp;minutes
+     
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;3354&nbsp;words
+  
+    <i class="fas fa-calendar"></i>&nbsp;Posted on April 12, 2019
+    
+    
   
   
     
-      
-        &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;申国骏
-      
+      &nbsp;|&nbsp;
     
+    <i class="fas fa-clock"></i>&nbsp;7&nbsp;min
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    
+    <i class="fas fa-book"></i>&nbsp;3354&nbsp;words
+    
+  
+  
+    
+      &nbsp;|&nbsp;
+    <i class="fas fa-user"></i>&nbsp;申国骏
   
   
 </span>
-
 
     </p>
     <div class="post-entry">
         
         <h1 id="问题描述">问题描述</h1>
 <p>最近把gradle的‘com.android.tools.build:gradle’升级到3.2.1，升级之后dataBinding出错了，编译通过，但是运行时报了一个错误<code>java.lang.ClassCastException: com.youdao.dict.databinding.FragmentYdliveBindingImpl cannot be cast to com.youdao.ydliveplayer.databinding.FragmentYdliveBinding</code>。转载请注明来源<a href="https://www.jianshu.com/u/b692bbf77991">「Bug总柴」</a></p>
-        <a href="https://shenguojun.github.io/post/databinding-submodule/" class="post-read-more">[Read More]</a>
+        <a href="/post/databinding-submodule/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-       
-       <a href="https://shenguojun.github.io/tags/android/">android</a>&nbsp;
-         
+        
+        <span class="blog-tags-label">Tags: </span>
+        <a href="/tags/android/">android</a>&nbsp;
+        
     </div>
     
 
 </article>
+
           
         </div>
         
-          <ul class="pager main-pager">
-            
-            
-              <li class="next">
-                <a href="https://shenguojun.github.io/post/page/2/">Older Posts &rarr;</a>
-              </li>
-            
-          </ul>
-        
+  <ul class="post-pager">
+    
+    
+      <li class="pager-next">
+        <a href="/post/page/2/">Older Posts &rarr;</a>
+      </li>
+    
+  </ul>
+
+
       </div>
     </div>
+    <div class="toc-wrapper" id="toc-wrapper" data-toc-mode="posts">
+  <div class="toc-panel" id="toc-panel" role="dialog" aria-label="Table of contents">
+    <div class="toc-header">
+      <span class="toc-title">Posts</span>
+      <button class="toc-close" id="toc-close" aria-label="Close table of contents">&times;</button>
+    </div>
+    <nav class="toc-body"><ul class="toc-post-list"><li><a href="/post/tetris-native-overview/">Tetris Native揭秘|有道词典动态化运营引擎</a></li><li><a href="/post/flutter-dart/">Flutter入门1——Dart语言基础</a></li><li><a href="/post/android_runtime/">深入理解Android Runtime</a></li><li><a href="/post/targetsdk31/">TargetsdkVersion 升级31（Android12）适配</a></li><li><a href="/post/kotlin_synthetic/">Kotlin升级1.5版本synthetic引发的血案分析</a></li><li><a href="/post/android-dark-mode/">Android深色模式适配原理分析</a></li><li><a href="/post/flutter-learning-note/">Flutter学习笔记——用户界面</a></li><li><a href="/post/android-profile/">Android性能分析&amp;启动优化</a></li><li><a href="/post/unittest/">单元测试之JUnit4</a></li><li><a href="/post/databinding-submodule/">Databinding subModule library 爬坑</a></li></ul></nav>
+  </div>
+  <div class="toc-backdrop" id="toc-backdrop"></div>
+</div>
   </div>
 
-      <footer>
+    
+      
+<footer>
   <div class="container">
     
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="col-md-10 offset-md-1">
         <ul class="list-inline text-center footer-links">
           
           
           
-          <li>
-            <a href="/post/index.xml" title="RSS">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="/index.xml" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
@@ -1019,35 +1357,40 @@
         </ul>
         <p class="credits copyright text-muted">
           
-
-          &nbsp;&bull;&nbsp;&copy;
+          &copy;
           
             2023
           
 
           
-            &nbsp;&bull;&nbsp;
-            <a href="https://shenguojun.github.io/">Lawrence&#39;s Blog</a>
+          
+            <a href="/">Lawrence&#39;s Blog</a>
           
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.147.9</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.163.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</footer>
 
-<script src="https://shenguojun.github.io/js/main.js"></script>
-<script src="https://shenguojun.github.io/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://shenguojun.github.io/js/load-photoswipe.js"></script>
+      
+
+      
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" integrity="sha384-Tt7wBxLKwSzFVRET4O4U9H6v8MNaQ/CjN2FMP4xFm0ErrFu6aNqoonRVW5W40iGI" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js" integrity="sha384-tcspKDb5tWvyRCOWzevlAeQgHeEzYdUHJpcgnIhcP9w4CnfD7DLAcS+k9QzLbRJO" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script src="/js/main.js"></script><script src="/js/toc.js"></script><script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js" integrity="sha384-RH2xi4eIQ/gjtbs9fUXM68sLSi99C7ZWBRX1vDrVv6GQXRibxXLbwO2NGZB74MbU" crossorigin="anonymous"></script><script> hljs.highlightAll(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe.umd.min.js" integrity="sha384-k8EKyYcONphQ7zH4cQ0888JapXwrLTXQl/Ue1/jYgjVYahln1NWpnt2S4IC56LNh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/umd/photoswipe-lightbox.umd.min.js" integrity="sha384-IiBVbUz6+U+Tbm/ijO2P0XRwcVzNfrMzloNLkrqHkbi6w5H0v6ie4fI9BIO4SwdK" crossorigin="anonymous"></script><script src="/js/load-photoswipe.js"></script>
+
+
+
 
 
 
@@ -1061,4 +1404,3 @@
     
   </body>
 </html>
-
